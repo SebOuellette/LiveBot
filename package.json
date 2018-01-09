@@ -1,0 +1,27 @@
+{
+  "name": "discord-livebot",
+  "version": "1.0.0",
+  "description": "Control any token!",
+  "main": "start.js",
+  "scripts": {
+    "test": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PlayBy/Discord-LiveBot.git"
+  },
+  "keywords": [
+    "discord",
+    "livebot",
+    "discord-livebot"
+  ],
+  "author": "SharkFin",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/PlayBy/Discord-LiveBot/issues"
+  },
+  "homepage": "https://github.com/PlayBy/Discord-LiveBot#readme",
+  "devDependencies": {
+    "discord.js": "^11.2.1"
+  }
+}

@@ -1,0 +1,50 @@
+#body {
+  position: fixed;
+}
+
+#guild-icon {
+  border-radius: 50%;
+  margin-left: 10px;
+  transition-duration: 0.3s;
+}
+
+#guild-icon:hover {
+  cursor: pointer;
+  border-radius: 25%;
+}
+
+#guild-list {
+  width: 60px;
+  height: 100vh;
+  margin: -10px -10px -10px -10px;
+  background-color: #202225;
+  overflow-y: auto;
+  position: absolute;
+}
+
+#guild-list::-webkit-scrollbar {
+  display: none;
+}
+
+#main {
+  position: fixed;
+}
+
+
+#channel-list {
+  font-family: arial;
+  height: 100vh;
+  margin-left: 50px;
+  margin-top: -10px;
+  width: 300px;
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-bottom: -10px;
+  background-color: #2F3136;
+  color: #606266;
+  overflow-y: auto;
+}
+
+#channel-list::-webkit-scrollbar {
+  display: none;
+}
