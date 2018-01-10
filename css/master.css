@@ -120,3 +120,24 @@
 .viewableVoice {
   cursor: pointer;
 }
+
+#serverName {
+  height: 70px;
+  width: 240px;
+  background-color: grey;
+  margin: -20px 0 20px 0px;
+  background-color: #202225;
+  border-radius: 5px;
+}
+
+#guildName {
+  padding-left: 10px;
+  padding-top: 14px;
+}
+
+#guildImg {
+  height: 60px;
+  margin-top: -100px;
+  margin-left: 175px;
+  border-radius: 25%;
+}

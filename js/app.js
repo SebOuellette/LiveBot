@@ -39,9 +39,21 @@ function guildSelect(g, img) {
   img.classList.add('selectedGuild');
   oldimg = img;
 
-  let channelList = document.getElementById("channel-list");
+  let channelList = document.getElementById("channel-elements");
   while (channelList.firstChild) {
       channelList.removeChild(channelList.firstChild);
+  }
+
+  if (g.name.length <= 22) {
+    document.getElementById('guildName').innerHTML = g.name;
+  } else {
+    document.getElementById('guildName').innerHTML = g.name.substring(0, 19)+'...';
+  }
+
+  if (g.iconURL != null) {
+    document.getElementById('guildImg').src = g.iconURL;
+  } else {
+    document.getElementById('guildImg').src = 'images/default.png';
   }
 
   let textPlaced = false;
@@ -53,7 +65,7 @@ function guildSelect(g, img) {
       if (c1.type === 'text' && c1.parent === null && textPlaced == false) {
        let div = document.createElement('div');
        div.id = 'channel';
-       document.getElementById('channel-list').appendChild(div);
+       document.getElementById('channel-elements').appendChild(div);
 
        let text = document.createElement('h5');
        let content = document.createTextNode(`# ${c1.name}`);
@@ -69,7 +81,7 @@ function guildSelect(g, img) {
      } else if (c1.type === 'voice' && c1.parent === null && voicePlaced == false) {
        let div = document.createElement('div');
        div.id = 'voice';
-       document.getElementById('channel-list').appendChild(div);
+       document.getElementById('channel-elements').appendChild(div);
 
        let text = document.createElement('h5');
        let content = document.createTextNode(`🔊 ${c1.name}`);
@@ -90,7 +102,7 @@ function guildSelect(g, img) {
 
       let div = document.createElement('div');
       div.id = 'category';
-      document.getElementById('channel-list').appendChild(div);
+      document.getElementById('channel-elements').appendChild(div);
 
       let text = document.createElement('h5');
       let content = document.createTextNode(`⌄ ${c.name.toLowerCase()}`);
