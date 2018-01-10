@@ -1,11 +1,18 @@
 #body {
   position: fixed;
+  overflow-y: hidden;
 }
+
+#main {
+  position: fixed;
+}
+
 
 #guild-icon {
   border-radius: 50%;
   margin-left: 10px;
   transition-duration: 0.3s;
+  user-select: none;
 }
 
 #guild-icon:hover {
@@ -20,31 +27,96 @@
   background-color: #202225;
   overflow-y: auto;
   position: absolute;
+  padding-bottom: 2px;
 }
 
 #guild-list::-webkit-scrollbar {
   display: none;
 }
 
-#main {
-  position: fixed;
-}
-
-
 #channel-list {
   font-family: arial;
   height: 100vh;
   margin-left: 50px;
   margin-top: -10px;
-  width: 300px;
+  width: 250px;
   padding-left: 10px;
   padding-top: 10px;
   padding-bottom: -10px;
   background-color: #2F3136;
   color: #606266;
   overflow-y: auto;
+  overflow-x: hidden;
+  font-weight: 100;
 }
 
 #channel-list::-webkit-scrollbar {
-  display: none;
+  background-color: transparent;
+  width: 6px;
+}
+
+#channel-list::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+#channel-list::-webkit-scrollbar-thumb {
+  background-color: #25272B;
+  border-radius: 3px;
+}
+
+#categoryText {
+  font-variant: small-caps;
+}
+
+#channel {
+  user-select: none;
+  margin-left: -5px;
+}
+
+#voice {
+  user-select: none;
+  margin-left: -5px;
+}
+
+#channelText {
+  width: 240px;
+  height: 15px;
+  padding: 7px 0 7px 20px;
+  margin-top: -20px;
+  margin-bottom: 20px;
+  border-radius: 3px;
+}
+
+.viewableText {
+  cursor: pointer;
+}
+
+.viewableText:hover {
+  background-color: rgba(150,150,150,0.1);
+  color: #B4B8BC;
+}
+
+.blockedText {
+  cursor: default;
+}
+
+#channelVoice {
+  width: 240px;
+  height: 15px;
+  padding: 7px 0 7px 20px;
+  margin-top: -20px;
+  margin-bottom: 20px;
+  border-radius: 3px;
+}
+
+.viewableVoice:hover {
+  color: #B4B8BC;
+}
+
+.blockedVoice {
+  cursor: default;
+}
+
+.viewableVoice {
+  cursor: pointer;
 }

@@ -22,6 +22,6 @@
   },
   "homepage": "https://github.com/PlayBy/Discord-LiveBot#readme",
   "devDependencies": {
-    "discord.js": "^11.2.1"
+    "discord.js": "github:hydrabolt/discord.js#11.3-dev"
   }
 }
