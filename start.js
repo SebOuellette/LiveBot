@@ -7,7 +7,7 @@ const pack = require('./package.json');
 let win;
 
 function createWindow() {
-  win = new BrowserWindow({width: 800, height: 600});
+  win = new BrowserWindow({width: 1200, height: 650});
 
   win.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),

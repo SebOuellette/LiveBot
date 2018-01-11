@@ -17,7 +17,6 @@
 
 #guild-icon:hover {
   cursor: pointer;
-  border-radius: 25%;
 }
 
 #guild-list {
@@ -32,6 +31,18 @@
 
 #guild-list::-webkit-scrollbar {
   display: none;
+}
+
+#guildIndicator {
+  background-color: white;
+  height: 30px;
+  width: 12px;
+  margin-left: -6px;
+  position: absolute;
+  z-index: 100;
+  border-radius: 3px;
+  display: none;
+  transition-duration: 0.2s;
 }
 
 #channel-list {
@@ -66,6 +77,8 @@
 
 #categoryText {
   font-variant: small-caps;
+  user-select: none;
+  cursor: default;
 }
 
 #channel {
@@ -84,6 +97,15 @@
   padding: 7px 0 7px 20px;
   margin-top: -20px;
   margin-bottom: 20px;
+  border-radius: 3px;
+}
+
+#channelTextx {
+  width: 240px;
+  height: 15px;
+  padding: 7px 0 7px 20px;
+  margin-top: 0;
+  margin-bottom: 0;
   border-radius: 3px;
 }
 
@@ -106,6 +128,15 @@
   padding: 7px 0 7px 20px;
   margin-top: -20px;
   margin-bottom: 20px;
+  border-radius: 3px;
+}
+
+#channelVoicex {
+  width: 240px;
+  height: 15px;
+  padding: 7px 0 7px 20px;
+  margin-top: 0;
+  margin-bottom: 0;
   border-radius: 3px;
 }
 
@@ -133,6 +164,7 @@
 #guildName {
   padding-left: 10px;
   padding-top: 14px;
+  color: #bbb;
 }
 
 #guildImg {
@@ -140,4 +172,61 @@
   margin-top: -100px;
   margin-left: 175px;
   border-radius: 25%;
+}
+
+#members-text {
+  font-weight: bold;
+  color: #666;
+}
+
+#members-count {
+  margin-left: 70px;
+  color: #999;
+}
+
+.members {
+  font-size: 12px;
+  margin-top: -25px;
+  margin-left: 10px;
+}
+
+#message-list {
+  background-color: #36393E;
+  height: 100vh;
+  width: calc(100vw - 310px);
+  position: absolute;
+  margin-top: calc(-100vh - 8px);
+  margin-left: 310px;
+  overflow-y: auto;
+  font-family: arial;
+}
+
+#messageCont {
+  width: calc(100% - 30px);
+  margin-left: auto;
+  margin-right: auto;
+  border-top: 1px solid #484B51;
+  margin-top: 3px;
+  min-height: 57px;
+}
+
+#messageText{
+  margin-left: 60px;
+  font-weight: 100;
+  font-size: 13px;
+  margin-top: -10px;
+  color: #fff;
+  margin-bottom: 0px;
+}
+
+#messageUsername {
+  font-size: 13px;
+  margin-left: 60px;
+  margin-top: -40px;
+}
+
+#messageImg {
+  height: 40px;
+  margin-top: 10px;
+  border-radius: 50%;
 }
