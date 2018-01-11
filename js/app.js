@@ -39,27 +39,41 @@ function load() {
       if (m.channel.id == selectedChan.id) {
         document.getElementById('message-list').removeChild(document.getElementById('message-list').firstChild);
 
-        let div = document.createElement('div');
-        div.id = 'messageCont';
-        div.classList.add(m.id);
-        document.getElementById('message-list').appendChild(div);
+        let bunch;
+        m.channel.fetchMessages({limit: 2}).then(msg => {
+          if(msg.map(message => message.author.id)[1] == m.author.id) {
+            bunch = true;
+          }
+        });
 
-        let img = document.createElement('img');
-        img.id = 'messageImg';
-        img.src = m.author.displayAvatarURL;
-        div.appendChild(img);
+        let div;
+        if (bunch) {
+          div = document.createElement('div');
+          div.id = 'messageCont';
+          div.classList.add(m.author.id);
+          document.getElementById('message-list').appendChild(div);
 
-        let name = document.createElement('p');
-        let username;
-        if (m.member.nickname) {
-          username = document.createTextNode(m.member.nickname);
+          let img = document.createElement('img');
+          img.id = 'messageImg';
+          img.src = m.author.displayAvatarURL;
+          div.appendChild(img);
+
+          let name = document.createElement('p');
+          let username;
+          if (m.member.nickname) {
+            username = document.createTextNode(m.member.nickname);
+          } else {
+            username = document.createTextNode(m.author.username);
+          }
+          name.appendChild(username);
+          name.id = 'messageUsername';
+          name.style.color = `#${m.member.roles.sort((r1, r2) => r1.position - r2.position).last().color.toString(16)}`;
+          div.appendChild(name);
         } else {
-          username = document.createTextNode(m.author.username);
+          div = document.getElementsByClassName(m.author.id);
+          div = div[div.length - 1]
+          console.log(div);
         }
-        name.appendChild(username);
-        name.id = 'messageUsername';
-        name.style.color = `#${m.member.roles.sort((r1, r2) => r1.position - r2.position).last().color.toString(16)}`;
-        div.appendChild(name);
 
         let text = document.createElement('p');
         let content = document.createTextNode(m.content);
@@ -260,37 +274,56 @@ function channelSelect(c, name) {
   selectedChan = c;
   messageCreate();
   async function messageCreate() {
+    let count=0;
     await c.fetchMessages({limit: 50})
-      .then(msg => msg.forEach(m => {
-        let div = document.createElement('div');
-        div.id = 'messageCont';
-        div.classList.add(m.id);
-        document.getElementById('message-list').appendChild(div);
-        document.getElementById('message-list').insertBefore(div, document.getElementById('message-list').firstChild);
+      .then(msg => {
+        msg.map(mseg => mseg).reverse().forEach(m => {
+          console.log(m);
+          let bunch;
+          count+=1;
+          if (count < 50) {
+            if(msg.map(mesg => mesg)[count - 1].author.id){
+              bunch = true;
+            }
+          }
 
-        let img = document.createElement('img');
-        img.id = 'messageImg';
-        img.src = m.author.displayAvatarURL;
-        div.appendChild(img);
+          let div;
+          if (bunch) {
 
-        let name = document.createElement('p');
-        let username;
-        if (m.member.nickname) {
-          username = document.createTextNode(m.member.nickname);
-        } else {
-          username = document.createTextNode(m.author.username);
-        }
-        name.appendChild(username);
-        name.id = 'messageUsername';
-        name.style.color = `#${m.member.roles.sort((r1, r2) => r1.position - r2.position).last().color.toString(16)}`;
-        div.appendChild(name);
+            div = document.createElement('div');
+            div.id = 'messageCont';
+            div.classList.add(m.author.id);
+            document.getElementById('message-list').appendChild(div);
 
-        let text = document.createElement('p');
-        let content = document.createTextNode(m.content);
-        text.appendChild(content);
-        text.id = 'messageText';
-        div.appendChild(text);
-      })
+            let img = document.createElement('img');
+            img.id = 'messageImg';
+            img.src = m.author.displayAvatarURL;
+            div.appendChild(img);
+
+            let name = document.createElement('p');
+            let username;
+            if (m.member.nickname) {
+              username = document.createTextNode(m.member.nickname);
+            } else {
+              username = document.createTextNode(m.author.username);
+            }
+            name.appendChild(username);
+            name.id = 'messageUsername';
+            name.style.color = `#${m.member.roles.sort((r1, r2) => r1.position - r2.position).last().color.toString(16)}`;
+            div.appendChild(name);
+          } else {
+            div = document.getElementsByClassName(m.author.id);
+            div = div[div.length - 1];
+            console.log(div);
+          }
+
+          let text = document.createElement('p');
+          let content = document.createTextNode(m.content);
+          text.appendChild(content);
+          text.id = 'messageText';
+          div.appendChild(text);
+        });
+      }
     );
     messages.scrollTop = messages.scrollHeight;
   }
