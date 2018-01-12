@@ -35,53 +35,58 @@ function load() {
 
   bot.on('message', (m) => {
     if (selectedChan) {
-      console.log('selected');
       if (m.channel.id == selectedChan.id) {
-        document.getElementById('message-list').removeChild(document.getElementById('message-list').firstChild);
+        //document.getElementById('message-list').removeChild(document.getElementById('message-list').firstChild);
 
         let bunch;
-        m.channel.fetchMessages({limit: 2}).then(msg => {
-          if(msg.map(message => message.author.id)[1] == m.author.id) {
-            bunch = true;
-          }
-        });
 
-        let div;
-        if (bunch) {
-          div = document.createElement('div');
-          div.id = 'messageCont';
-          div.classList.add(m.author.id);
-          document.getElementById('message-list').appendChild(div);
+        fetchLast();
 
-          let img = document.createElement('img');
-          img.id = 'messageImg';
-          img.src = m.author.displayAvatarURL;
-          div.appendChild(img);
+        async function fetchLast() {
+          await m.channel.fetchMessages({limit: 2}).then(msg => {
+            if(msg.map(mseg => mseg)[1].author.id == m.author.id) {
+              bunch = true;
+            } else {
+              bunch = false;
+            }
+          });
 
-          let name = document.createElement('p');
-          let username;
-          if (m.member.nickname) {
-            username = document.createTextNode(m.member.nickname);
+          let div;
+          if (!bunch) {
+            div = document.createElement('div');
+            div.id = 'messageCont';
+            div.classList.add(m.author.id);
+            document.getElementById('message-list').appendChild(div);
+
+            let img = document.createElement('img');
+            img.id = 'messageImg';
+            img.src = m.author.displayAvatarURL;
+            div.appendChild(img);
+
+            let name = document.createElement('p');
+            let username;
+            if (m.member.nickname) {
+              username = document.createTextNode(m.member.nickname);
+            } else {
+              username = document.createTextNode(m.author.username);
+            }
+            name.appendChild(username);
+            name.id = 'messageUsername';
+            name.style.color = `#${m.member.roles.sort((r1, r2) => r1.position - r2.position).last().color.toString(16)}`;
+            div.appendChild(name);
           } else {
-            username = document.createTextNode(m.author.username);
+            div = document.getElementsByClassName(m.author.id);
+            div = div[div.length - 1]
           }
-          name.appendChild(username);
-          name.id = 'messageUsername';
-          name.style.color = `#${m.member.roles.sort((r1, r2) => r1.position - r2.position).last().color.toString(16)}`;
-          div.appendChild(name);
-        } else {
-          div = document.getElementsByClassName(m.author.id);
-          div = div[div.length - 1]
-          console.log(div);
+
+          let text = document.createElement('p');
+          let content = document.createTextNode(m.content);
+          text.appendChild(content);
+          text.id = 'messageText';
+          div.appendChild(text);
+          document.getElementById('message-list').scrollTop = document.getElementById('message-list').scrollHeight;
         }
 
-        let text = document.createElement('p');
-        let content = document.createTextNode(m.content);
-        text.appendChild(content);
-        text.id = 'messageText';
-        div.appendChild(text);
-
-        document.getElementById('message-list').scrollTop = document.getElementById('message-list').scrollHeight;
       }
     }
   });
@@ -278,17 +283,20 @@ function channelSelect(c, name) {
     await c.fetchMessages({limit: 50})
       .then(msg => {
         msg.map(mseg => mseg).reverse().forEach(m => {
-          console.log(m);
           let bunch;
           count+=1;
-          if (count < 50) {
-            if(msg.map(mesg => mesg)[count - 1].author.id){
+          if (count > 2 && count <= 50) {
+            if(msg.map(mesg => mesg).reverse()[count-2].author.id == m.author.id){
               bunch = true;
+
+            } else {
+              bunch = false;
             }
+
           }
 
           let div;
-          if (bunch) {
+          if (!bunch) {
 
             div = document.createElement('div');
             div.id = 'messageCont';
@@ -314,7 +322,6 @@ function channelSelect(c, name) {
           } else {
             div = document.getElementsByClassName(m.author.id);
             div = div[div.length - 1];
-            console.log(div);
           }
 
           let text = document.createElement('p');
