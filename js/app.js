@@ -38,6 +38,13 @@ function load(token) {
     document.getElementById('userCardName').innerHTML = bot.user.username;
     document.getElementById('userCardDiscrim').innerHTML = `#${bot.user.discriminator}`;
     document.getElementById('userCardIcon').src = `${bot.user.displayAvatarURL}`;
+    if (bot.user.bot) {
+      document.getElementById('userCardBot').innerHTML = `BOT`;
+      document.getElementById('userCardBot').style.marginLeft = `8px`;
+    } else {
+      document.getElementById('userCardBot').innerHTML = `USER`;
+      document.getElementById('userCardBot').style.marginLeft = `5px`;
+    }
 
     bot.guilds.forEach(g => {
       let img = document.createElement('img');
@@ -309,9 +316,24 @@ function channelSelect(c, name) {
   while (messages.firstChild) {
       messages.removeChild(messages.firstChild);
   }
-  try { selectedChanDiv.style.color = '#606266'; } catch (err) {}
+  try {
+    selectedChanDiv.style.color = '#606266';
+    name.addEventListener('mouseover', () => {
+      if (name.style.color != 'rgb(238, 238, 238)') {
+        name.style.color = '#B4B8BC';
+      }
+    });
+
+    name.addEventListener('mouseleave', () => {
+      if (name.style.color != 'rgb(238, 238, 238)') {
+        name.style.color = '#606266';
+      }
+    });
+
+  } catch (err) {console.log(err)}
   selectedChan = c;
   selectedChanDiv = name;
+  console.log(selectedChanDiv.style.color);
   name.style.color = '#eee';
   messageCreate();
   async function messageCreate() {
@@ -415,5 +437,5 @@ async function setToken() {
 
 function savetoken() {
   localStorage.setItem('livebot-token', document.getElementById('tokenbox').value);
-  document.getElementById('tokenbox').value = '';
+  setToken();
 }

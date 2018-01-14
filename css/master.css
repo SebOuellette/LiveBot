@@ -73,13 +73,13 @@
 
 #userCardIcon {
   margin-top: 6px;
-  margin-left: 5px;
+  margin-left: 45px;
   border-radius: 25%;
 }
 
 #userCardName {
   margin-top: -33px;
-  margin-left: 40px;
+  margin-left: 80px;
   font-size: 13px;
   position: absolute;
 }
@@ -87,9 +87,19 @@
 #userCardDiscrim {
   margin-top: -18px;
   font-size: 10px;
-  margin-left: 40px;
+  margin-left: 80px;
   position: absolute;
   color: #999;
+}
+
+#userCardBot {
+  position: absolute;
+  font-size: 10px;
+  margin-top: 13px;
+  margin-left: 8px;
+  background-color: #0066dd;
+  padding: 2px;
+  border-radius: 4px;
 }
 
 #channel-list::-webkit-scrollbar {
