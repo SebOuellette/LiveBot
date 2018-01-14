@@ -4,6 +4,13 @@ let selectedChan;
 let oldimg;
 
 function load() {
+  document.getElementById("msgbox")
+    .addEventListener("keyup", function(event) {
+      if (event.keyCode === 13) {
+          sendmsg();
+      }
+    });
+
   global.bot = new Discord.Client();
   bot.login('');
 
@@ -65,7 +72,8 @@ function load() {
 
             let name = document.createElement('p');
             let username;
-            if (m.member.nickname) {
+
+            if(m.member.nickname != null) {
               username = document.createTextNode(m.member.nickname);
             } else {
               username = document.createTextNode(m.author.username);
@@ -80,7 +88,8 @@ function load() {
           }
 
           let text = document.createElement('p');
-          let content = document.createTextNode(m.content);
+
+          let content = document.createTextNode(m.cleanContent);
           text.appendChild(content);
           text.id = 'messageText';
           div.appendChild(text);
@@ -309,15 +318,14 @@ function channelSelect(c, name) {
             div.appendChild(img);
 
             let name = document.createElement('p');
-            let username;
-            if (m.member.nickname) {
-              username = document.createTextNode(m.member.nickname);
-            } else {
-              username = document.createTextNode(m.author.username);
-            }
+            let username = document.createTextNode(m.author.username);
             name.appendChild(username);
             name.id = 'messageUsername';
-            name.style.color = `#${m.member.roles.sort((r1, r2) => r1.position - r2.position).last().color.toString(16)}`;
+            try {
+              name.style.color = `#${m.member.roles.sort((r1, r2) => r1.position - r2.position).last().color.toString(16)}`;
+            } catch (err) {
+              name.style.color = '#fff';
+            }
             div.appendChild(name);
           } else {
             div = document.getElementsByClassName(m.author.id);
@@ -334,4 +342,13 @@ function channelSelect(c, name) {
     );
     messages.scrollTop = messages.scrollHeight;
   }
+}
+
+function sendmsg() {
+  if (selectedChan) {
+    let text = document.getElementById('msgbox').value;
+    selectedChan.send(text);
+    document.getElementById('msgbox').value = '';
+  }
+  return false;
 }
