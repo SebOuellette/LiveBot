@@ -47,7 +47,7 @@
 
 #channel-list {
   font-family: arial;
-  height: 100vh;
+  height: calc(100vh - 50px);
   margin-left: 50px;
   margin-top: -10px;
   width: 250px;
@@ -59,6 +59,37 @@
   overflow-y: auto;
   overflow-x: hidden;
   font-weight: 100;
+}
+
+#userCard {
+  position: absolute;
+  background-color: #2A2C31;
+  height: 42px;
+  width: 260px;
+  margin-left: 50px;
+  font-family: arial;
+  color: #eee;
+}
+
+#userCardIcon {
+  margin-top: 6px;
+  margin-left: 5px;
+  border-radius: 25%;
+}
+
+#userCardName {
+  margin-top: -33px;
+  margin-left: 40px;
+  font-size: 13px;
+  position: absolute;
+}
+
+#userCardDiscrim {
+  margin-top: -18px;
+  font-size: 10px;
+  margin-left: 40px;
+  position: absolute;
+  color: #999;
 }
 
 #channel-list::-webkit-scrollbar {
@@ -192,11 +223,11 @@
 
 #message-list {
   background-color: #36393E;
-  height: calc(100vh - 128px);
+  height: calc(100vh - 131px);
   border-bottom: 1px solid #484B51;
   width: calc(100vw - 318px);
   position: absolute;
-  margin-top: calc(-100vh + 52px);
+  margin-top: calc(-100vh + 102px);
   margin-left: 310px;
   overflow-y: auto;
   font-family: arial;
@@ -271,7 +302,7 @@
 #sendmsg {
   position: absolute;
   margin-left: 310px;
-  margin-top: -75px;
+  margin-top: -28px;
   width: calc(100vw - 318px);
   height: 40px;
   padding-top: 20px;
@@ -297,7 +328,7 @@
   width: calc(100vw - 318px);
   background-color: #36393E;
   position: absolute;
-  margin-top: calc(-100vh - 8px);
+  margin-top: calc(-100vh + 42px);
   height: 49px;
   border-bottom: 1px solid #484B51;
   padding-top: 10px;

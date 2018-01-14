@@ -35,6 +35,10 @@ function load(token) {
       return;
     }
 
+    document.getElementById('userCardName').innerHTML = bot.user.username;
+    document.getElementById('userCardDiscrim').innerHTML = `#${bot.user.discriminator}`;
+    document.getElementById('userCardIcon').src = `${bot.user.displayAvatarURL}`;
+
     bot.guilds.forEach(g => {
       let img = document.createElement('img');
       let ico;
