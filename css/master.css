@@ -192,11 +192,11 @@
 
 #message-list {
   background-color: #36393E;
-  height: calc(100vh - 68px);
+  height: calc(100vh - 128px);
   border-bottom: 1px solid #484B51;
-  width: calc(100vw - 320px);
+  width: calc(100vw - 318px);
   position: absolute;
-  margin-top: calc(-100vh - 8px);
+  margin-top: calc(-100vh + 52px);
   margin-left: 310px;
   overflow-y: auto;
   font-family: arial;
@@ -224,6 +224,7 @@
   border-top: 1px solid #484B51;
   margin-top: 3px;
   min-height: 57px;
+  overflow-y: hidden;
   overflow-x: auto;
 }
 
@@ -271,7 +272,7 @@
   position: absolute;
   margin-left: 310px;
   margin-top: -75px;
-  width: calc(100vw - 320px);
+  width: calc(100vw - 318px);
   height: 40px;
   padding-top: 20px;
   padding-bottom: 10px;
@@ -289,4 +290,52 @@
   border-radius: 5px;
   outline: none;
   color: white;
+}
+
+#settoken {
+  margin-left: 310px;
+  width: calc(100vw - 318px);
+  background-color: #36393E;
+  position: absolute;
+  margin-top: calc(-100vh - 8px);
+  height: 49px;
+  border-bottom: 1px solid #484B51;
+  padding-top: 10px;
+  margin-bottom: 5px;
+}
+
+#tokenbox {
+  display: block;
+  width: calc(100% - 90px);
+  border: none;
+  background-color: #484B51;
+  color: white;
+  padding: 8px;
+  border-radius: 5px;
+  outline: none;
+  border: 2px solid #484B51;
+}
+
+#tokenspace {
+  display: block;
+  margin-left: 10px;
+}
+
+#savebtn {
+  margin-top: 0px;
+  position: absolute;
+  margin-left: calc(100% - 72px);
+  z-index: 100;
+  padding: 10px;
+  color: #777777;
+  background-color: #484B51;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+  margin-top: -35px;
+}
+
+#savebtn:hover {
+  background-color: #404040;
 }

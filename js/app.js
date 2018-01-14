@@ -1,20 +1,40 @@
 global.Discord = require('discord.js');
 let selectedGuild;
 let selectedChan;
+let selectedChatDiv;
 let oldimg;
 
-function load() {
+function create() {
   document.getElementById("msgbox")
     .addEventListener("keyup", function(event) {
       if (event.keyCode === 13) {
-          sendmsg();
+        sendmsg();
       }
     });
 
+  document.getElementById("tokenbox")
+    .addEventListener("keyup", function(event) {
+      if (event.keyCode === 13) {
+        setToken();
+      }
+    });
+
+    load(localStorage.getItem('livebot-token'));
+}
+
+function load(token) {
+
   global.bot = new Discord.Client();
-  bot.login('');
+  bot.login(token);
 
   bot.on('ready', () => {
+    try {
+      console.log(`Logged in as ${bot.user.tag}`);
+    } catch (err) {
+      console.log('Invalid Token');
+      return;
+    }
+
     bot.guilds.forEach(g => {
       let img = document.createElement('img');
       let ico;
@@ -285,7 +305,10 @@ function channelSelect(c, name) {
   while (messages.firstChild) {
       messages.removeChild(messages.firstChild);
   }
+  try { selectedChanDiv.style.color = '#606266'; } catch (err) {}
   selectedChan = c;
+  selectedChanDiv = name;
+  name.style.color = '#eee';
   messageCreate();
   async function messageCreate() {
     let count=0;
@@ -333,7 +356,7 @@ function channelSelect(c, name) {
           }
 
           let text = document.createElement('p');
-          let content = document.createTextNode(m.content);
+          let content = document.createTextNode(m.cleanContent);
           text.appendChild(content);
           text.id = 'messageText';
           div.appendChild(text);
@@ -351,4 +374,42 @@ function sendmsg() {
     document.getElementById('msgbox').value = '';
   }
   return false;
+}
+
+async function setToken() {
+  let client = new Discord.Client()
+  try{
+    await client.login(document.getElementById('tokenbox').value);
+    client.destroy();
+
+    let channels = document.getElementById('channel-elements');
+    while (channels.firstChild) {
+      channels.removeChild(channels.firstChild);
+    }
+
+    let guilds = document.getElementById('guild-list');
+    while (guilds.firstChild) {
+      guilds.removeChild(guilds.firstChild);
+    }
+
+    let messages = document.getElementById('message-list');
+    while (messages.firstChild) {
+      messages.removeChild(messages.firstChild);
+    }
+
+    div = document.createElement('div');
+    div.id = 'guildIndicator';
+    document.getElementById('guild-list').appendChild(div);
+
+    load(document.getElementById('tokenbox').value);
+    document.getElementById('tokenbox').style.borderColor = '#484B51';
+  }catch(err){
+    document.getElementById('tokenbox').style.borderColor = '#f00';
+  }
+  document.getElementById('tokenbox').value = '';
+}
+
+function savetoken() {
+  localStorage.setItem('livebot-token', document.getElementById('tokenbox').value);
+  document.getElementById('tokenbox').value = '';
 }

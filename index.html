@@ -6,7 +6,7 @@
     <script src="js/app.js" charset="utf-8"></script>
     <link rel="stylesheet" href="css/master.css">
   </head>
-  <body onload='load()'>
+  <body onload='create()'>
     <div id='main'>
       <div id='guild-list'>
         <div id='guildIndicator'></div>
@@ -25,6 +25,13 @@
       </div>
 
       <div id='msgSpace'>
+        <div id='settoken'>
+          <div id='tokenspace'>
+            <input type="text" name="token" value="" placeholder='Token' id='tokenbox'>
+            <button type="button" name="button" onclick='savetoken()' id='savebtn'>Save</button>
+          </div>
+        </div>
+
         <div id='message-list'></div>
 
         <div id='sendmsg'>
