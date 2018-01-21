@@ -457,12 +457,14 @@ function command(text) {
 let helpMsg = [
   'Here is a list of available commands. \n',
   '/help - Lists all commands.',
-  '/shrug - Appends ¯\_(ツ)_/¯ to your message.',
+  '/shrug - Appends ¯\\_(ツ)_/¯ to your message.',
   '/tableflip - Appends (╯°□°）╯︵ ┻━┻ to your message.',
   '/ping - Check the hearbeat to discord.',
   '/server - Get some info about the server.',
   '/eval - Execute a command.'
 ].join('\n')
+
+// Commands
 
 function sendmsg() {
   if (selectedChan) {
@@ -476,7 +478,7 @@ function sendmsg() {
         break;
 
         case 'shrug':
-          selectedChan.send('¯\_(ツ)_/¯ '+msg);
+          selectedChan.send('¯\\_(ツ)_/¯ '+msg);
           document.getElementById('msgbox').value = '';
         break;
 
