@@ -11,7 +11,7 @@ Livebot is a program built with electron and discord.js, that will allow you to 
 Livebot had been built to copy discord, and while it is not exact, it is pretty close. More additions will come soon, so just be patient, but feel free to recommend any addition!
 
 ## Some features.
-### Animated guild guild indicator
+### Animated guild indicator
 Not very useful, but hey! It's here! <br>
 <img src='https://i.imgur.com/o4SWjpX.gif' style='border-radius: 10px;'>
 </br>
