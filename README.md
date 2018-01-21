@@ -1,6 +1,8 @@
 # Discord-LiveBot
 An app that allows you to be inside a bot!
 
+At the moment, livebot is still in extreme beta. To run it, open a terminal window in the main directory, then type `npm test`.
+
 <img src='https://i.imgur.com/rRcAOBj.png' height='300px' style='border-radius: 10px;'/>
 
 ## What is this?
