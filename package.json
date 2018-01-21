@@ -23,5 +23,8 @@
   "homepage": "https://github.com/PlayBy/Discord-LiveBot#readme",
   "devDependencies": {
     "discord.js": "github:hydrabolt/discord.js#11.3-dev"
+  },
+  "dependencies": {
+    "electron-titlebar": "0.0.3"
   }
 }

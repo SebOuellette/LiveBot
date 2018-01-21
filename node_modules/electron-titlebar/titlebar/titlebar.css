@@ -1,0 +1,186 @@
+/*
+ *  This file is part of electron-titlebar.
+ *
+ *  Copyright (c) 2016 Menci <huanghaorui301@gmail.com>
+ *
+ *  electron-titlebar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  electron-titlebar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with electron-titlebar. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#electron-titlebar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 40px;
+    -webkit-user-select: none;
+    cursor: default;
+    pointer-events: none;
+}
+
+#electron-titlebar .drag {
+    -webkit-app-region: drag;
+}
+
+#electron-titlebar > .button img {
+    position: absolute;
+    cursor: default;
+    -webkit-app-region: no-drag;
+}
+
+html.darwin #electron-titlebar > .button {
+    display: none;
+}
+
+#electron-titlebar > .button {
+    position: absolute;
+    cursor: default;
+    pointer-events: all;
+    -webkit-app-region: no-drag;
+}
+
+/* no-maximize or no-minimize */
+
+#electron-titlebar.no-minimize > .button-minimize {
+    display: none !important;
+}
+
+#electron-titlebar.no-maximize > .button-maximize {
+    display: none !important;
+}
+
+html[electron-titlebar-platform=linux] #electron-titlebar > .button {
+    top: 5px;
+    width: 16px;
+    height: 16px;
+}
+
+html[electron-titlebar-platform=linux] #electron-titlebar > .button.hover {
+    background-color: rgba(196, 196, 196, 0.4);
+}
+
+html[electron-titlebar-platform=linux] #electron-titlebar > .button:active {
+    background-color: rgba(168, 168, 168, 0.5);
+}
+
+/* normal */
+
+html[electron-titlebar-platform=linux] #electron-titlebar > .button-close {
+    left: 5px;
+}
+
+html[electron-titlebar-platform=linux] #electron-titlebar > .button-maximize {
+    right: 5px;
+}
+
+html[electron-titlebar-platform=linux] #electron-titlebar > .button-minimize {
+    right: 28px;
+}
+
+html[electron-titlebar-platform=linux] #electron-titlebar.no-maximize > .button-minimize {
+    right: 5px;
+}
+
+/* inset */
+
+html[electron-titlebar-platform=linux] #electron-titlebar.inset > .button {
+    top: 12px;
+}
+
+html[electron-titlebar-platform=linux] #electron-titlebar.inset > .button-close {
+    left: 12px;
+}
+
+html[electron-titlebar-platform=linux] #electron-titlebar.inset > .button-maximize {
+    right: 12px;
+}
+
+html[electron-titlebar-platform=linux] #electron-titlebar.inset.no-maximize > .button-minimize {
+    right: 12px;
+}
+
+html[electron-titlebar-platform=linux] #electron-titlebar.inset > .button-minimize {
+    right: 40px;
+}
+
+html[electron-titlebar-platform=win32] #electron-titlebar > .button {
+    top: 0px;
+    width: 45px;
+    height: 29px;
+}
+
+html[electron-titlebar-platform=win32] #electron-titlebar > .button.hover {
+    background-color: rgba(196, 196, 196, 0.4);
+}
+
+html[electron-titlebar-platform=win32] #electron-titlebar > .button:active {
+    background-color: rgba(168, 168, 168, 0.5);
+}
+
+html[electron-titlebar-platform=win32] #electron-titlebar > .button-close {
+    right: 0px;
+}
+
+html[electron-titlebar-platform=win32] #electron-titlebar > .button-close.hover {
+    background-color: #e81123;
+}
+
+html[electron-titlebar-platform=win32] #electron-titlebar > .button-close:active {
+    background-color: rgba(232, 17, 35, 0.6);
+}
+
+html[electron-titlebar-platform=win32] #electron-titlebar > .button img {
+    margin-top: 8.5px;
+    margin-left: 16.5px;
+}
+
+html[electron-titlebar-platform=win32] #electron-titlebar > .button-close.hover img, html[electron-titlebar-platform=win32] #electron-titlebar > .button-close:active img {
+    -webkit-filter: invert(100%);
+}
+
+html[electron-titlebar-platform=win32] #electron-titlebar > .button-maximize {
+    right: 45px;
+}
+
+html[electron-titlebar-platform=win32] #electron-titlebar > .button-minimize {
+    right: 90px;
+}
+
+html[electron-titlebar-platform=win32] #electron-titlebar.no-maximize > .button-minimize {
+    right: 45px;
+}
+
+/* inset */
+
+html[electron-titlebar-platform=win32] #electron-titlebar.inset > .button img {
+    margin-top: 14px;
+    margin-left: 14px;
+}
+
+html[electron-titlebar-platform=win32] #electron-titlebar.inset > .button {
+    width: 40px;
+    height: 40px;
+}
+
+html[electron-titlebar-platform=win32] #electron-titlebar.inset > .button-maximize {
+    right: 40px;
+}
+
+html[electron-titlebar-platform=win32] #electron-titlebar.inset > .button-minimize {
+    right: 80px;
+}
+
+html[electron-titlebar-platform=win32] #electron-titlebar.inset.no-maximize > .button-minimize {
+    right: 40px;
+}

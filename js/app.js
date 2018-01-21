@@ -3,12 +3,25 @@ let selectedGuild;
 let selectedChan;
 let selectedChatDiv;
 let oldimg;
+let barry = false;
+const remote = require('electron').remote;
+const fs = require('fs');
+require('electron-titlebar');
 
 function create() {
+
   document.getElementById("msgbox")
     .addEventListener("keyup", function(event) {
       if (event.keyCode === 13) {
         sendmsg();
+      }
+    });
+
+  document.getElementById("usernameBox")
+    .addEventListener("keyup", function(event) {
+      if (event.keyCode === 13) {
+        options('username', document.getElementById('usernameBox').value);
+        document.getElementById("usernameBox").value = '';
       }
     });
 
@@ -75,7 +88,6 @@ function load(token) {
     if (selectedChan) {
       if (m.channel.id == selectedChan.id) {
         //document.getElementById('message-list').removeChild(document.getElementById('message-list').firstChild);
-
         let bunch;
 
         fetchLast();
@@ -88,6 +100,11 @@ function load(token) {
               bunch = false;
             }
           });
+
+          if (barry) {
+            bunch = false;
+            barry = false;
+          }
 
           let div;
           if (!bunch) {
@@ -393,11 +410,110 @@ function channelSelect(c, name) {
   }
 }
 
+function command(text) {
+  let div = document.createElement('div');
+  div.id = 'messageCont';
+  div.classList.add('barryCommand');
+  div.style.backgroundColor = 'rgba(50,50,50,0.4)';
+  document.getElementById('message-list').appendChild(div);
+
+  let img = document.createElement('img');
+  img.id = 'messageImg';
+  img.src = './images/Barry.png';
+  div.appendChild(img);
+
+  let name = document.createElement('p');
+  let username;
+
+  username = document.createTextNode('Barry');
+  name.appendChild(username);
+  name.id = 'messageUsername';
+  name.style.color = `#999999`;
+  div.appendChild(name);
+
+  let text2 = document.createElement('p');
+
+  console.log(text);
+  if (text.split('\n').length > 1) {
+    for(i=0;i<text.split('\n').length;i++) {
+      let content = document.createTextNode(text.split('\n')[i]);
+      text2.appendChild(content);
+      text2.id = 'messageText';
+
+      let contentBreak = document.createElement('br');
+      text2.appendChild(contentBreak);
+    }
+  } else {
+    let content = document.createTextNode(text);
+    text2.appendChild(content);
+    text2.id = 'messageText';
+  }
+  div.appendChild(text2);
+  document.getElementById('message-list').scrollTop = document.getElementById('message-list').scrollHeight;
+  document.getElementById('msgbox').value = '';
+  barry = true;
+}
+
+let helpMsg = [
+  'Here is a list of available commands. \n',
+  '/help - Lists all commands.',
+  '/shrug - Appends ¯\_(ツ)_/¯ to your message.',
+  '/tableflip - Appends (╯°□°）╯︵ ┻━┻ to your message.',
+  '/ping - Check the hearbeat to discord.',
+  '/server - Get some info about the server.',
+  '/eval - Execute a command.'
+].join('\n')
+
 function sendmsg() {
   if (selectedChan) {
     let text = document.getElementById('msgbox').value;
-    selectedChan.send(text);
-    document.getElementById('msgbox').value = '';
+    if (text.substring(0,1) == '/') {
+      let cmd = text.split(' ')[0].substring(1);
+      let msg = text.split(' ').splice(1).join(' ')
+      switch (cmd) {
+        case 'help':
+          command(helpMsg);
+        break;
+
+        case 'shrug':
+          selectedChan.send('¯\_(ツ)_/¯ '+msg);
+          document.getElementById('msgbox').value = '';
+        break;
+
+        case 'tableflip':
+          selectedChan.send('(╯°□°）╯︵ ┻━┻ '+msg);
+          document.getElementById('msgbox').value = '';
+        break;
+
+        case 'ping':
+          command('🏓 | Pong! The heartbeat is '+bot.ping+'ms.');
+        break;
+
+        case 'server':
+          let serverinfo = [
+            'Here is some info about '+selectedChan.guild.name+'. \n',
+            'Members - '+selectedChan.guild.memberCount,
+            'Channels - '+selectedChan.guild.channels.size,
+            'Roles - '+selectedChan.guild.roles.size,
+            'Id - '+selectedChan.guild.id,
+            'Owner - '+selectedChan.guild.owner.user.tag
+          ].join('\n');
+          command(serverinfo);
+        break;
+
+        case 'eval':
+          try {
+            command(`📥 Eval \n ${msg} \n\n 📤 Output \n ${eval(msg)}`);
+          } catch (err) {
+            command(`📥 Eval \n ${msg} \n\n 📤 Output \n ${err}`);
+          }
+          document.getElementById('msgbox').value = '';
+        break;
+      }
+    } else {
+      selectedChan.send(text);
+      document.getElementById('msgbox').value = '';
+    }
   }
   return false;
 }
@@ -427,6 +543,7 @@ async function setToken() {
     div.id = 'guildIndicator';
     document.getElementById('guild-list').appendChild(div);
 
+    bot.destroy();
     load(document.getElementById('tokenbox').value);
     document.getElementById('tokenbox').style.borderColor = '#484B51';
   }catch(err){
@@ -438,4 +555,17 @@ async function setToken() {
 function savetoken() {
   localStorage.setItem('livebot-token', document.getElementById('tokenbox').value);
   setToken();
+}
+
+function typing() {
+
+}
+
+function options(type, content) {
+  switch(type) {
+    case 'username':
+      bot.user.setUsername(content);
+      document.getElementById('userCardName').innerHTML = content;
+    break;
+  }
 }

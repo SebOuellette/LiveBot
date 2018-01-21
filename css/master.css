@@ -3,8 +3,52 @@
   overflow-y: hidden;
 }
 
+#electron-titlebar {
+  height: 20px;
+  z-index: 100;
+  position: absolute;
+  font-family: arial;
+}
+
+.button {
+  z-index: 101;
+  margin-top: -10px;
+}
+
+
+
+#max-btn {
+  background-color: grey;
+  height: 18px;
+  width: 30px;
+  margin-left: calc(100vw - 50px);
+  position: absolute;
+  z-index: 101;
+  margin-top: -3px;
+}
+
+.drag {
+  background-color: #202225;
+  height: 30px;
+  width: 100vw;
+  margin-top: -10px;
+  margin-left: -8px;
+  z-index: 100;
+  position: absolute;
+}
+
+#titleBar-name {
+  position: absolute;
+  color: white;
+  font-size: 12px;
+  z-index: 101;
+  margin-top: 0px;
+  margin-left: 2px;
+}
+
 #main {
   position: fixed;
+  margin-top: 20px;
 }
 
 
@@ -21,8 +65,9 @@
 
 #guild-list {
   width: 60px;
-  height: 100vh;
-  margin: -10px -10px -10px -10px;
+  height: calc(100vh - 30px);
+  margin: 0px -10px 10px -10px;
+  padding-top: 2px;
   background-color: #202225;
   overflow-y: auto;
   position: absolute;
@@ -47,7 +92,7 @@
 
 #channel-list {
   font-family: arial;
-  height: calc(100vh - 50px);
+  height: calc(100vh - 70px);
   margin-left: 50px;
   margin-top: -10px;
   width: 250px;
@@ -233,15 +278,16 @@
 
 #message-list {
   background-color: #36393E;
-  height: calc(100vh - 131px);
+  height: calc(100vh - 157px);
   border-bottom: 1px solid #484B51;
-  width: calc(100vw - 318px);
+  width: calc(100vw - 518px);
   position: absolute;
-  margin-top: calc(-100vh + 102px);
+  margin-top: calc(-100vh + 128px);
   margin-left: 310px;
   overflow-y: auto;
   font-family: arial;
   overflow-x: hidden;
+  position: absolute;
 }
 
 #message-list::-webkit-scrollbar {
@@ -313,7 +359,7 @@
   position: absolute;
   margin-left: 310px;
   margin-top: -28px;
-  width: calc(100vw - 318px);
+  width: calc(100vw - 518px);
   height: 40px;
   padding-top: 20px;
   padding-bottom: 10px;
@@ -338,10 +384,10 @@
   width: calc(100vw - 318px);
   background-color: #36393E;
   position: absolute;
-  margin-top: calc(-100vh + 42px);
+  margin-top: calc(-100vh + 48px);
   height: 49px;
   border-bottom: 1px solid #484B51;
-  padding-top: 10px;
+  padding-top: 30px;
   margin-bottom: 5px;
 }
 
@@ -379,4 +425,27 @@
 
 #savebtn:hover {
   background-color: #404040;
+}
+
+#options {
+  height: calc(100vh - 86px);
+  width: 200px;
+  margin-top: calc(-100vh + 128px);
+  margin-left: calc(100vw - 209px);
+  background-color: #2F3136;
+  overflow-y: auto;
+}
+
+.optionBox {
+  width: 150px;
+  padding: 5px;
+  background-color: #484B51;
+  border-radius: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  color: white;
+  margin-top: 5px;
+  border: none;
+  outline: none;
 }
