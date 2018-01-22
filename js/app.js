@@ -60,27 +60,44 @@ function load(token) {
     }
 
     bot.guilds.forEach(g => {
-      let img = document.createElement('img');
-      let ico;
+
 
       if (g.iconURL === null) {
-        ico = 'images/default.png';
+
+        let img = document.createElement('div');
+        img.style.height = '40px';
+        img.style.width = '40px';
+        img.id = `guild-icon`;
+        img.style.backgroundColor = '#2F3136';
+        img.style.marginBottom = '4px';
+        img.classList.add(g.id);
+        img.onclick = function(){guildSelect(g, this); selectedGuild = g};
+        img.onmouseover = function(){img.style.borderRadius = '25%'};
+        img.onmouseleave = function(){if(selectedGuild == g){img.style.borderRadius = '25%'}else{img.style.borderRadius = '50%'}};
+        document.getElementById('guild-list').appendChild(img);
+
+        let abrev = document.createElement('p');
+        abrev.id = 'guildAbrev';
+        abrev.appendChild(document.createTextNode(g.nameAcronym));
+        img.appendChild(abrev);
       } else {
+        let img = document.createElement('img');
+        let ico;
         ico = g.iconURL;
+        img.src = ico;
+        img.alt = g.name;
+        img.title = g.name;
+        img.height = '40';
+        img.width = '40';
+        img.style.height = '40px';
+        img.style.width = '40px';
+        img.id = `guild-icon`;
+        img.classList.add(g.id);
+        img.onclick = function(){guildSelect(g, this); selectedGuild = g};
+        img.onmouseover = function(){img.style.borderRadius = '25%'};
+        img.onmouseleave = function(){if(selectedGuild == g){img.style.borderRadius = '25%'}else{img.style.borderRadius = '50%'}};
+        document.getElementById('guild-list').appendChild(img);
       }
-
-      img.src = ico;
-      img.style.height = '40px';
-      img.style.width = '40px';
-      img.alt = g.name;
-      img.title = g.name;
-      img.id = `guild-icon`;
-      img.classList.add(g.id);
-      img.onclick = function(){guildSelect(g, this); selectedGuild = g};
-      img.onmouseover = function(){img.style.borderRadius = '25%'};
-      img.onmouseleave = function(){if(selectedGuild == g){img.style.borderRadius = '25%'}else{img.style.borderRadius = '50%'}};
-
-      document.getElementById('guild-list').appendChild(img);
     });
   });
 
@@ -89,7 +106,6 @@ function load(token) {
       if (m.channel.id == selectedChan.id) {
         //document.getElementById('message-list').removeChild(document.getElementById('message-list').firstChild);
         let bunch;
-
         fetchLast();
 
         async function fetchLast() {
@@ -100,6 +116,11 @@ function load(token) {
               bunch = false;
             }
           });
+
+          let scroll = false;
+          if(document.getElementById('message-list').scrollHeight - document.getElementById('message-list').scrollTop == document.getElementById('message-list').clientHeight) {
+            scroll = true;
+          }
 
           if (barry) {
             bunch = false;
@@ -128,7 +149,20 @@ function load(token) {
             }
             name.appendChild(username);
             name.id = 'messageUsername';
-            name.style.color = `#${m.member.roles.sort((r1, r2) => r1.position - r2.position).last().color.toString(16)}`;
+            try {
+              let color = m.member.roles.sort((r1, r2) => r1.position - r2.position).map(p => p.color).length;
+              let colors = m.member.roles.sort((r1, r2) => r1.position - r2.position).map(p => p.color);
+              while (colors[color-1] == 0) {
+                color -= 1;
+              }
+              let zeros = '';
+              for(i=0;i<(6-colors[color-1].toString(16).length);i++) {
+                zeros+='0';
+              }
+              name.style.color = `#${zeros+colors[color-1].toString(16)}`;
+            } catch (err) {
+              name.style.color = '#fff';
+            }
             div.appendChild(name);
           } else {
             div = document.getElementsByClassName(m.author.id);
@@ -141,9 +175,11 @@ function load(token) {
           text.appendChild(content);
           text.id = 'messageText';
           div.appendChild(text);
-          document.getElementById('message-list').scrollTop = document.getElementById('message-list').scrollHeight;
+          if (scroll == true) {
+            document.getElementById('message-list').scrollTop = document.getElementById('message-list').scrollHeight;
+            scroll = false;
+          }
         }
-
       }
     }
   });
@@ -381,6 +417,8 @@ function channelSelect(c, name) {
             let img = document.createElement('img');
             img.id = 'messageImg';
             img.src = m.author.displayAvatarURL;
+            img.height = '40';
+            img.width = '40';
             div.appendChild(img);
 
             let name = document.createElement('p');
@@ -388,7 +426,16 @@ function channelSelect(c, name) {
             name.appendChild(username);
             name.id = 'messageUsername';
             try {
-              name.style.color = `#${m.member.roles.sort((r1, r2) => r1.position - r2.position).last().color.toString(16)}`;
+              let color = m.member.roles.sort((r1, r2) => r1.position - r2.position).map(p => p.color).length;
+              let colors = m.member.roles.sort((r1, r2) => r1.position - r2.position).map(p => p.color);
+              while (colors[color-1] == 0) {
+                color -= 1;
+              }
+              let zeros = '';
+              for(i=0;i<(6-colors[color-1].toString(16).length);i++) {
+                zeros+='0';
+              }
+              name.style.color = `#${zeros+colors[color-1].toString(16)}`;
             } catch (err) {
               name.style.color = '#fff';
             }
@@ -457,8 +504,8 @@ function command(text) {
 let helpMsg = [
   'Here is a list of available commands. \n',
   '/help - Lists all commands.',
-  '/shrug - Appends ¯\\_(ツ)_/¯ to your message.',
-  '/tableflip - Appends (╯°□°）╯︵ ┻━┻ to your message.',
+  '/shrug - Prepends ¯\\_(ツ)_/¯ to your message.',
+  '/tableflip - Prepends (╯°□°）╯︵ ┻━┻ to your message.',
   '/ping - Check the hearbeat to discord.',
   '/server - Get some info about the server.',
   '/eval - Execute a command.'
@@ -568,6 +615,10 @@ function options(type, content) {
     case 'username':
       bot.user.setUsername(content);
       document.getElementById('userCardName').innerHTML = content;
+    break;
+
+    case 'invite':
+      selectedChan.createInvite().then(invite => )
     break;
   }
 }
