@@ -618,7 +618,7 @@ function options(type, content) {
     break;
 
     case 'invite':
-      selectedChan.createInvite().then(invite => )
+      selectedChan.createInvite().then(invite => console.log(invite))
     break;
   }
 }
