@@ -618,7 +618,8 @@ function options(type, content) {
     break;
 
     case 'invite':
-      selectedChan.createInvite().then(invite => console.log(invite))
+      selectedChan.createInvite().then(invite => {command('Created invite for '+invite.guild.name+' \nhttps://discord.gg/'+invite.code);})
+
     break;
   }
 }

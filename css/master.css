@@ -464,3 +464,11 @@
   border: none;
   outline: none;
 }
+
+#inviteBtn {
+  cursor: pointer;
+}
+
+#inviteBtn:hover {
+  background-color: #393939;
+}
