@@ -11,7 +11,7 @@ Livebot is a program built with electron and discord.js, that will allow you to 
 Livebot had been built to copy discord, and while it is not exact, it is pretty close. More additions will come soon, so just be patient, but feel free to recommend any addition!
 
 ## How to install
-To install livebot, just download as a zip file, which you can do by pressing the green button above. Once you have downloaded and extracted the zip file, go into the directory with a command prompt or shell window. In the shell window, enter the commands `npm install`. Make sure that the terminal window is running as administrator. If this does not work, then just run `npm install electron`. Then to start it, run `npm start`.
+To install livebot, just download as a zip file, which you can do by pressing the green button above. Once you have downloaded and extracted the zip file, go into the directory with a command prompt or shell window. In the shell window, enter the commands `npm install`. Make sure that the terminal window is running as administrator. If this does not work, then just run `npm install electron`. Then to start it, run `npm test`.
 
 ## Some features.
 ### Animated guild indicator
