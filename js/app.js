@@ -365,6 +365,12 @@ function guildSelect(g, img) {
 }
 
 function channelSelect(c, name) {
+  let memberlist = document.getElementById("member-list");
+  while (memberlist.firstChild) {
+      memberlist.removeChild(memberlist.firstChild);
+  }
+
+
   let messages = document.getElementById("message-list");
   while (messages.firstChild) {
       messages.removeChild(messages.firstChild);
@@ -386,6 +392,44 @@ function channelSelect(c, name) {
   } catch (err) {console.log(err)}
   selectedChan = c;
   selectedChanDiv = name;
+
+  var onlinelist = document.createElement('div');
+  var onlinelabel = document.createElement('p');
+  onlinelabel.style.fontWeight = 'bold';
+  var onlinetxt = document.createTextNode('ONLINE');
+  onlinelabel.appendChild(onlinetxt)
+  onlinelist.appendChild(onlinelabel)
+
+  var offlinelist = document.createElement('div');
+  var offlinelabel = document.createElement('p');
+  offlinelabel.style.fontWeight = 'bold';
+  var offlinetxt = document.createTextNode('OFFLINE');
+  offlinelabel.appendChild(offlinetxt)
+  offlinelist.appendChild(offlinelabel)
+
+  memberlist.appendChild(onlinelist)
+  memberlist.appendChild(offlinelist)
+
+  c.members.forEach(function(member){
+    var memberele = document.createElement("p");
+    memberele.style.color = member.displayHexColor;
+    memberele.title = member.tag + ' (' + member.id + ')';
+    var membername = document.createTextNode(member.displayName);
+    var membericon = document.createElement("img");
+    membericon.src = member.user.displayAvatarURL;
+    membericon.width = 16;
+    membericon.height = 16;
+    membericon.style.paddingRight = '4px';
+    membericon.style.borderRadius = '50%';
+    memberele.appendChild(membericon);
+    memberele.appendChild(membername);
+    if (member.user.presence.status != 'offline') {
+      onlinelist.appendChild(memberele);
+    } else {
+      offlinelist.appendChild(memberele);
+    }
+  })
+
   console.log(selectedChanDiv.style.color);
   name.style.color = '#eee';
   messageCreate();

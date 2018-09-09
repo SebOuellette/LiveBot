@@ -472,3 +472,10 @@
 #inviteBtn:hover {
   background-color: #393939;
 }
+
+#member-list {
+  color: white;
+  margin-top: 5px;
+  margin-left: 5px;
+  font-family: arial;
+}
