@@ -140,13 +140,8 @@ function load(token) {
             div.appendChild(img);
 
             let name = document.createElement('p');
-            let username;
+            let username = document.createTextNode(m.member.displayName);
 
-            if(m.member.nickname != null) {
-              username = document.createTextNode(m.member.nickname);
-            } else {
-              username = document.createTextNode(m.author.username);
-            }
             name.appendChild(username);
             name.id = 'messageUsername';
             try {
