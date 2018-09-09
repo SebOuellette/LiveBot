@@ -39,6 +39,7 @@ function load(token) {
 
   global.bot = new Discord.Client();
   bot.login(token);
+  document.getElementById('userCardName').innerHTML = 'Logging in';
 
   bot.on('ready', () => {
     try {
