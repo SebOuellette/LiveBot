@@ -409,6 +409,9 @@ function channelSelect(c, name) {
   c.members.forEach(function(member){
     var memberele = document.createElement("p");
     memberele.style.color = member.displayHexColor;
+    if (member.displayHexColor == '#000000') {
+      memberele.style.color = 'white';
+    }
     memberele.title = member.user.tag + ' (' + member.id + ')';
     var membername = document.createTextNode(member.displayName);
     var membericon = document.createElement("img");
