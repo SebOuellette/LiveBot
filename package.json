@@ -1,32 +1,30 @@
 {
-  "name": "discord-livebot",
-  "version": "1.0.0",
-  "description": "Control any token!",
-  "main": "start.js",
-  "scripts": {
-    "test": "electron ."
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/PlayBy/Discord-LiveBot.git"
-  },
-  "keywords": [
-    "discord",
-    "livebot",
-    "discord-livebot"
-  ],
-  "author": "SharkFin",
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/PlayBy/Discord-LiveBot/issues"
-  },
-  "homepage": "https://github.com/PlayBy/Discord-LiveBot#readme",
-  "devDependencies": {
-    "discord.js": "github:hydrabolt/discord.js#11.3-dev"
-  },
-  "dependencies": {
-    "electron": "^7.1.9",
-    "electron-titlebar": "0.0.3",
-    "underscore": "^1.9.2"
-  }
+	"name": "discord-livebot",
+	"version": "1.0.0",
+	"description": "Control any token!", 
+	"main": "start.js",
+	"scripts": {
+		"test": "electron ."
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/SebOuellette/Discord-LiveBot.git"
+	},
+	"keywords": [
+		"discord",
+		"livebot",
+		"discord-livebot"
+	],
+	"author": "SharkFin",
+	"license": "Apache-2.0",
+	"bugs": {
+		"url": "https://github.com/SebOuellette/Discord-LiveBot/issues"
+	},
+	"homepage": "https://github.com/SebOuellette/Discord-LiveBot#readme",
+	"devDependencies": {
+		"discord.js": "github:hydrabolt/discord.js#11.3-dev"
+	},
+	"dependencies": {
+		"electron-titlebar": "0.0.3"
+	}
 }
