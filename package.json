@@ -1,7 +1,7 @@
 {
 	"name": "discord-livebot",
 	"version": "1.0.0",
-	"description": "Control any token!", 
+	"description": "Control any token!",
 	"main": "start.js",
 	"scripts": {
 		"test": "electron ."
@@ -21,10 +21,10 @@
 		"url": "https://github.com/SebOuellette/Discord-LiveBot/issues"
 	},
 	"homepage": "https://github.com/SebOuellette/Discord-LiveBot#readme",
-	"devDependencies": {
-		"discord.js": "github:hydrabolt/discord.js#11.3-dev"
-	},
+	"devDependencies": {},
 	"dependencies": {
+		"discord.js": "^11.5.1",
+		"electron": "^7.1.9",
 		"electron-titlebar": "0.0.3"
 	}
 }
