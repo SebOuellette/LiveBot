@@ -15,8 +15,6 @@
   margin-top: -10px;
 }
 
-
-
 #max-btn {
   background-color: grey;
   height: 18px;
@@ -171,18 +169,18 @@
   border-radius: 3px;
 }
 
-#categoryText {
+.categoryText {
   font-variant: small-caps;
   user-select: none;
   cursor: default;
 }
 
-#channel {
+.channel {
   user-select: none;
   margin-left: -5px;
 }
 
-#voice {
+.voice {
   user-select: none;
   margin-left: -5px;
 }
