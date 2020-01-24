@@ -1,3 +1,9 @@
+@font-face {
+  font-family: Whitney;
+  src: url("../fonts/whitney-medium.otf");
+  font-weight: 100;
+}
+
 #body {
   position: fixed;
   overflow-y: hidden;
@@ -7,7 +13,7 @@
   height: 20px;
   z-index: 100;
   position: absolute;
-  font-family: arial;
+  font-family: Whitney;
 }
 
 .button {
@@ -61,7 +67,7 @@
   position: absolute;
   overflow-x: hidden;
   color: White;
-  font-family: arial;
+  font-family: Whitney;
   text-align: center;
   font-size: 13px;
   width: 40px;
@@ -99,7 +105,7 @@
 }
 
 #channel-list {
-  font-family: arial;
+  font-family: Whitney;
   height: calc(100vh - 120px);
   margin-left: 50px;
   margin-top: 40px;
@@ -120,7 +126,7 @@
   height: 42px;
   width: 260px;
   margin-left: 50px;
-  font-family: arial;
+  font-family: Whitney;
   color: #eee;
 }
 
@@ -252,7 +258,7 @@
   background-color: grey;
   margin: 0px 0 10px 50px;
   background-color: #202225;
-  font-family: arial;
+  font-family: Whitney;
   position: absolute;
 }
 
@@ -298,7 +304,7 @@
   margin-top: calc(-100vh + 128px);
   margin-left: 310px;
   overflow-y: auto;
-  font-family: arial;
+  font-family: Whitney;
   overflow-x: hidden;
   position: absolute;
 }
@@ -349,7 +355,8 @@
   font-size: 13px;
   margin-top: -5px;
   margin-bottom: 7px;
-  color: #fff;
+  color: rgb(220,221,222);
+  transform: translateX(-0.5px);
 }
 
 #messageUsername {

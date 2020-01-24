@@ -88,7 +88,7 @@ function load(token) {
       if (selectedChan) {
         // If the message was sent to the selected channel
         if (m.channel.id == selectedChan.id) {
-          //document.getElementById('message-list').removeChild(document.getElementById('message-list').firstChild);
+          document.getElementById('message-list').removeChild(document.getElementById('message-list').firstChild);
           let bunch;
           fetchLast();
           
@@ -155,10 +155,37 @@ function load(token) {
             }
   
             let text = document.createElement('p');
+            let styleElements = [];
   
-            let content = document.createTextNode(m.cleanContent);
-            text.appendChild(content);
+            // Should be bolded
+            let bold = m.cleanContent.match(/\*\*(.*?)\*\*/gm);
+            let underline = m.cleanContent.match(/__(.*?)__/gm);
+            let italic = m.cleanContent.match(/\*[^\*]*\*/gm); 
+            if (bold) {
+                styleElements.push(document.createElement('strong'));
+            }
+            if (underline) {
+                styleElements.push(document.createElement('u'));
+            }
+            if (italic) {
+                styleElements.push(document.createElement('i'));
+            }
+            
+            // Append to the deepest element
+            for(let i=0;i<styleElements.length;i++) {
+                if (i == 0) {
+                    text.appendChild(styleElements[0]);
+                } else {
+                    styleElements[styleElements.length-2].appendChild(styleElements[styleElements.length-1]);
+                }
+            }
+            
+            // Need to split the text so that it doesn't add the whole text to the styling
+            let content = document.createTextNode(m.cleanContent.replace(/(\*\*?|__)(.+?)(\1)/gm, '$2'));
+            styleElements[styleElements.length-1].appendChild(content);
             text.id = 'messageText';
+
+            // Append the text to the message
             div.appendChild(text);
             if (scroll == true) {
               document.getElementById('message-list').scrollTop = document.getElementById('message-list').scrollHeight;

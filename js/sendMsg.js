@@ -32,7 +32,7 @@ let helpMsg = [
           break;
   
           case 'ping':
-            command('🏓 | Pong! The heartbeat is '+bot.ping+'ms.');
+            command('🏓 | Pong! The heartbeat is '+Math.round(bot.ping)+'ms.');
           break;
   
           case 'server':
@@ -57,6 +57,9 @@ let helpMsg = [
           break;
         }
       } else {
+        
+        
+        // Make a new message with the sent text
         selectedChan.send(text);
         document.getElementById('msgbox').value = '';
       }

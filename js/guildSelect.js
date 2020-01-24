@@ -106,13 +106,13 @@ function guildSelect(g, img) {
             div.id = 'category';
             document.getElementById('channel-elements').appendChild(div);
 
-            // 
+            // Category text
             let text = document.createElement('h5');
             let content;
             if (c.name.length < 25) {
-                content = document.createTextNode(`⌄ ${c.name.toLowerCase()}`);
+                content = document.createTextNode(`${c.name.toLowerCase()}`);
             } else {
-                content = document.createTextNode(`⌄ ${c.name.substring(0,25).toLowerCase()}...`);
+                content = document.createTextNode(`${c.name.substring(0,25).toLowerCase()}...`);
             }
             text.appendChild(content);
             text.classList.add('categoryText');
