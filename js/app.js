@@ -1,16 +1,17 @@
 global.Discord = require('discord.js');
-//let loadFile = require('./js/load.js');
+const remote = require('electron').remote;
+const fs = require('fs');
+
 let selectedGuild;
 let selectedChan;
 let selectedChatDiv;
 let oldimg;
 let barry = false;
-const remote = require('electron').remote;
-const fs = require('fs');
-require('electron-titlebar');
 
 // Create the app and attach event listeners
 function create() {
+    console.log(document.body);
+
     document.getElementById("msgbox")
         .addEventListener("keyup", function(event) {
             if (event.keyCode === 13) {

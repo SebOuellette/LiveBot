@@ -7,13 +7,23 @@
 #body {
   position: fixed;
   overflow-y: hidden;
+  margin: 0;
 }
 
-#electron-titlebar {
-  height: 20px;
-  z-index: 100;
-  position: absolute;
+.titlebar.windows {
   font-family: Whitney;
+  height: 20px !important;
+}
+
+.window-icon-bg {
+    height: 20px !important;
+    margin-top: 5px;
+}
+
+.container-after-titlebar {
+    left: 8px !important;
+    top: 20px !important;
+    height: calc(100vh - 20px);
 }
 
 .button {
@@ -52,7 +62,7 @@
 
 #main {
   position: fixed;
-  margin-top: 20px;
+  height: calc(100vh - 20px);
 }
 
 
@@ -79,7 +89,7 @@
 
 #guild-list {
   width: 60px;
-  height: calc(100vh - 30px);
+  height: 100%;
   margin: 0px -10px 10px -10px;
   padding-top: 2px;
   background-color: #202225;
@@ -106,7 +116,7 @@
 
 #channel-list {
   font-family: Whitney;
-  height: calc(100vh - 120px);
+  height: calc(100% - 90px);
   margin-left: 50px;
   margin-top: 40px;
   width: 250px;
