@@ -23,18 +23,18 @@ function command(text) {
   
     console.log(text);
     if (text.split('\n').length > 1) {
-      for(i=0;i<text.split('\n').length;i++) {
-        let content = document.createTextNode(text.split('\n')[i]);
+        for(i=0;i<text.split('\n').length;i++) {
+            let content = document.createTextNode(text.split('\n')[i]);
+            text2.appendChild(content);
+            text2.id = 'messageText';
+    
+            let contentBreak = document.createElement('br');
+            text2.appendChild(contentBreak);
+        }
+    } else {
+        let content = document.createTextNode(text);
         text2.appendChild(content);
         text2.id = 'messageText';
-  
-        let contentBreak = document.createElement('br');
-        text2.appendChild(contentBreak);
-      }
-    } else {
-      let content = document.createTextNode(text);
-      text2.appendChild(content);
-      text2.id = 'messageText';
     }
     div.appendChild(text2);
     document.getElementById('message-list').scrollTop = document.getElementById('message-list').scrollHeight;
