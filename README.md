@@ -1,5 +1,6 @@
 # Discord-LiveBot
-## LIVEBOT CAN BE USED FOR USER ACCOUNT, HOWEVER IT IS AGAINST TOS TO DO SO. USE AT YOUR OWN RISK
+## LIVEBOT CAN BE USED FOR USER ACCOUNTS, HOWEVER IT IS AGAINST TOS TO DO SO. USE AT YOUR OWN RISK
+## USE FOR BOT ACCOUNTS IS NOT AGAINST TOS TO MY KNOWLEDGE
 An app that allows you to be inside a bot!
 
 At the moment, livebot is still in extreme beta. To run it, open a terminal window in the main directory, then type `npm test`.
