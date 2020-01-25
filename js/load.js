@@ -182,7 +182,11 @@ function load(token) {
             
             // Need to split the text so that it doesn't add the whole text to the styling
             let content = document.createTextNode(m.cleanContent.replace(/(\*\*?|__)(.+?)(\1)/gm, '$2'));
-            styleElements[styleElements.length-1].appendChild(content);
+            if (styleElements.length > 0) {
+		styleElements[styleElements.length-1].appendChild(content);
+	    } else {
+		text.appendChild(content);
+	    }
             text.id = 'messageText';
 
             // Append the text to the message
