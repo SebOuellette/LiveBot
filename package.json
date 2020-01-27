@@ -1,7 +1,7 @@
 {
 	"name": "discord-livebot",
 	"version": "1.0.0",
-	"description": "Control any token!",
+	"description": "Discord for bots!",
 	"main": "start.js",
 	"scripts": {
 		"test": "electron ."
@@ -15,7 +15,7 @@
 		"livebot",
 		"discord-livebot"
 	],
-	"author": "SharkFin",
+	"author": "SebOuellette",
 	"license": "Apache-2.0",
 	"bugs": {
 		"url": "https://github.com/SebOuellette/Discord-LiveBot/issues"

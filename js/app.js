@@ -10,8 +10,6 @@ let barry = false;
 
 // Create the app and attach event listeners
 function create() {
-    console.log(document.body);
-
     document.getElementById("msgbox")
         .addEventListener("keyup", function(event) {
             if (event.keyCode === 13) {

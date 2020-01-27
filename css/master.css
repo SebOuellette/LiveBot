@@ -4,10 +4,8 @@
   font-weight: 100;
 }
 
-#body {
-  position: fixed;
-  overflow-y: hidden;
-  margin: 0;
+p {
+    font-size: 16px;
 }
 
 .titlebar.windows {
@@ -149,7 +147,6 @@
 #userCardName {
   margin-top: -33px;
   margin-left: 80px;
-  font-size: 13px;
   position: absolute;
 }
 
@@ -163,7 +160,7 @@
 
 #userCardBot {
   position: absolute;
-  font-size: 10px;
+  font-size: 13px;
   margin-top: 13px;
   margin-left: 8px;
   background-color: #0066dd;
@@ -186,24 +183,29 @@
 }
 
 .categoryText {
-  font-variant: small-caps;
-  user-select: none;
-  cursor: default;
+    font-variant: small-caps;
+    user-select: none;
+    cursor: default;
+    margin: 20px 0;
 }
 
 .channel {
-  user-select: none;
-  margin-left: -5px;
+    user-select: none;
+    margin-left: -5px;
 }
 
 .voice {
-  user-select: none;
-  margin-left: -5px;
+    user-select: none;
+    margin-left: -5px;
+}
+
+h5 {
+    font-weight: 100;
+    font-size: 16px;
 }
 
 #channelText {
   width: 240px;
-  height: 15px;
   padding: 7px 0 7px 20px;
   margin-top: -20px;
   margin-bottom: 20px;
@@ -212,7 +214,6 @@
 
 #channelTextx {
   width: 240px;
-  height: 15px;
   padding: 7px 0 7px 20px;
   margin-top: 0;
   margin-bottom: 0;
@@ -234,7 +235,6 @@
 
 #channelVoice {
   width: 240px;
-  height: 15px;
   padding: 7px 0 7px 20px;
   margin-top: -20px;
   margin-bottom: 20px;
@@ -243,7 +243,6 @@
 
 #channelVoicex {
   width: 240px;
-  height: 15px;
   padding: 7px 0 7px 20px;
   margin-top: 0;
   margin-bottom: 0;
@@ -282,14 +281,14 @@
 
 #guildImg {
   height: 35px;
-  margin-top: -25px;
+  margin-top: -30px;
   margin-left: 220px;
   border-radius: 25%;
   position: absolute;
 }
 
 #members-text {
-  margin-top: -5px;
+  margin-top: -10px;
   font-weight: bold;
   color: #666;
 }
@@ -358,11 +357,9 @@
   border-radius: 3px;
 }
 
-
 #messageText{
   margin-left: 60px;
   font-weight: 100;
-  font-size: 13px;
   margin-top: -5px;
   margin-bottom: 7px;
   color: rgb(220,221,222);
@@ -370,7 +367,6 @@
 }
 
 #messageUsername {
-  font-size: 13px;
   margin-left: 60px;
   margin-top: -40px;
   margin-bottom: 10px;

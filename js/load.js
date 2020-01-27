@@ -89,7 +89,7 @@ function load(token) {
         if (selectedChan) {
             // If the message was sent to the selected channel
             if (m.channel.id == selectedChan.id) {
-                document.getElementById('message-list').removeChild(document.getElementById('message-list').firstChild);
+                //document.getElementById('message-list').removeChild(document.getElementById('message-list').firstChild);
                 let bunch;
                 fetchLast();
 
@@ -104,7 +104,7 @@ function load(token) {
                     });
 
                     let scroll = false;
-                    if (document.getElementById('message-list').scrollHeight - document.getElementById('message-list').scrollTop == document.getElementById('message-list').clientHeight) {
+                    if (document.getElementById('message-list').scrollHeight - Math.floor(document.getElementById('message-list').scrollTop) == document.getElementById('message-list').clientHeight) {
                         scroll = true;
                     }
 
@@ -155,26 +155,20 @@ function load(token) {
                         div = div[div.length - 1]
                     }
 
-                    
-                    // Remove html in the message
-                    let textContent = m.cleanContent.replace(/(<)([^>]+)(>)/gm, '&lt;$2&gt;');
-
                     // Create text elements
                     let text = document.createElement('p');
-
-                    // Add html tags for markup
-                    textContent = m.cleanContent.replace(/\*\*(.*?)\*\*/gm, '<strong>$1</strong>');
-                    textContent = textContent.replace(/__(.*?)__/gm, '<u>$1</u>');
-                    textContent = textContent.replace(/\*(.*?)\*/gm, '<i>$1</i>');
-
-                    // Need to split the text so that it doesn't add the whole text to the styling
-                    let content = document.createTextNode(textContent); 
                     text.id = 'messageText';
-
-                    text.innerHTML = textContent;
+                    text.innerHTML = parseMessage(m.cleanContent);
 
                     // Append the text to the message
                     div.appendChild(text);
+
+                    // Auto scroll with the message
+                    // Some debug stuff \/
+                    // console.log("Client height: " + document.getElementById('message-list').clientHeight);
+                    // console.log("Message list top: " + document.getElementById('message-list').scrollTop);
+                    // console.log("Message list scrolled: " + document.getElementById('message-list').scrollHeight);
+                    // console.log("Total Height: " + (document.getElementById('message-list').scrollHeight - Math.floor(document.getElementById('message-list').scrollTop)));
                     if (scroll == true) {
                         document.getElementById('message-list').scrollTop = document.getElementById('message-list').scrollHeight;
                         scroll = false;

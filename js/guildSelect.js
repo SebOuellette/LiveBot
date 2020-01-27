@@ -46,23 +46,19 @@ function guildSelect(g, img) {
     if (g.iconURL != null) {
         document.getElementById('guildImg').src = g.iconURL;
     } else {
-        document.getElementById('guildImg').src = 'images/default.png';
+        document.getElementById('guildImg').src = 'resources/images/default.png';
     }
 
     let textPlaced = false;
     let voicePlaced = false;
 
-    // List all categorised channels
-    console.log("Got here");
-
     // Sort the channels and add them to the screen
     g.channels.sort((c1, c2) => c1.position - c2.position).forEach(c => {
         // Totally unsure of what this commented code does.... I'll keep it here till I find an issue this fixes lmao
 
-        /*
         g.channels.forEach(c1 => {
             // If channel type is text
-            if ((c1.type === 'text'  && textPlaced == false) || (c1.type === 'voice' && voicePlaced == true)) {
+            if (((c1.type === 'text'  && textPlaced == false) || (c1.type === 'voice' && voicePlaced == true)) && c1.parent == null) {
                 console.log("Got inside");
                 // Create new channel list element
                 let div = document.createElement('div');
@@ -95,7 +91,7 @@ function guildSelect(g, img) {
                 text.id = `channel${c1.type == 'text' ? 'Text' : 'Voice'}x`;
                 div.appendChild(text);
             }
-        });*/
+        });
 
         textPlaced = true;
         voicePlaced = true;

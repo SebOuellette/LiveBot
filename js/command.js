@@ -7,7 +7,7 @@ function command(text) {
   
     let img = document.createElement('img');
     img.id = 'messageImg';
-    img.src = './images/Barry.png';
+    img.src = './resources/images/Barry.png';
     div.appendChild(img);
   
     let name = document.createElement('p');

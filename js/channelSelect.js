@@ -81,9 +81,8 @@ function channelSelect(c, name) {
                     }
         
                     let text = document.createElement('p');
-                    let content = document.createTextNode(m.cleanContent);
-                    text.appendChild(content);
                     text.id = 'messageText';
+                    text.innerHTML = parseMessage(m.cleanContent);
                     div.appendChild(text);
                 });
             }
