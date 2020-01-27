@@ -79,11 +79,24 @@ function channelSelect(c, name) {
                         div = document.getElementsByClassName(m.author.id);
                         div = div[div.length - 1];
                     }
-        
-                    let text = document.createElement('p');
-                    text.id = 'messageText';
-                    text.innerHTML = parseMessage(m.cleanContent);
-                    div.appendChild(text);
+                    
+                    if (m.cleanContent.length) {
+                        // Render message text
+                        let text = document.createElement('p');
+                        text.classList.add('messageText');
+                        text.innerHTML = parseMessage(m.cleanContent);
+
+                        div.appendChild(text);
+                    }
+
+                    m.embeds.forEach((embed) => {
+                        showEmbed(embed, div);
+                    })
+                    
+                    // Render embeds
+                    m.embeds.forEach((embed) => {
+
+                    });
                 });
             }
         );

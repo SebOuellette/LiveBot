@@ -155,13 +155,15 @@ function load(token) {
                         div = div[div.length - 1]
                     }
 
-                    // Create text elements
-                    let text = document.createElement('p');
-                    text.id = 'messageText';
-                    text.innerHTML = parseMessage(m.cleanContent);
+                    if (m.cleanContent.length) {
+                        // Create text elements
+                        let text = document.createElement('p');
+                        text.classList.add('messageText');
+                        text.innerHTML = parseMessage(m.cleanContent);
 
-                    // Append the text to the message
-                    div.appendChild(text);
+                        // Append the text to the message
+                        div.appendChild(text);
+                    }
 
                     // Auto scroll with the message
                     // Some debug stuff \/

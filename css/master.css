@@ -6,6 +6,7 @@
 
 p {
     font-size: 16px;
+    white-space: pre-line;
 }
 
 .titlebar.windows {
@@ -357,13 +358,12 @@ h5 {
   border-radius: 3px;
 }
 
-#messageText{
+.messageText {
   margin-left: 60px;
   font-weight: 100;
   margin-top: -5px;
   margin-bottom: 7px;
-  color: rgb(220,221,222);
-  transform: translateX(-0.5px);
+  color: #dcddde;
 }
 
 #messageUsername {
