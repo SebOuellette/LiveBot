@@ -12,7 +12,8 @@ function guildSelect(g, img) {
         return id == g.id;
     }
 
-    document.getElementById('guildIndicator').style.marginTop = `${bot.guilds.map(gu => `${gu.id}`).findIndex(guildPos)*44+4}px`;
+    document.getElementById('guildIndicator').style.marginTop = `${img.offsetTop - 2}px`;
+    document.getElementById('guildIndicator').style.display = "block";
     img.style.borderRadius = '25%';
 
     oldimg = img;

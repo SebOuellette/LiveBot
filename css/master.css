@@ -6,6 +6,7 @@
 
 p {
     font-size: 16px;
+    overflow-wrap: break-word;
     white-space: pre-line;
 }
 
@@ -65,7 +66,7 @@ p {
 }
 
 
-#guild-icon {
+.guild-icon {
   border-radius: 50%;
   margin-left: 10px;
   transition-duration: 0.3s;
@@ -82,14 +83,14 @@ p {
   width: 40px;
 }
 
-#guild-icon:hover {
+.guild-icon:hover {
   cursor: pointer;
 }
 
 #guild-list {
   width: 60px;
   height: 100%;
-  margin: 0px -10px 10px -10px;
+  margin: 0 -10px 10px -10px;
   padding-top: 2px;
   background-color: #202225;
   overflow-y: auto;
@@ -103,9 +104,9 @@ p {
 
 #guildIndicator {
   background-color: white;
-  height: 30px;
-  width: 12px;
-  margin-left: -6px;
+  height: 40px;
+  width: 6px;
+  margin-left: 0px;
   position: absolute;
   z-index: 100;
   border-radius: 3px;

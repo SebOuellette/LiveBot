@@ -57,8 +57,8 @@ function load(token) {
             // Styling for both image and letter icons
             img.style.height = '40px';
             img.style.width = '40px';
-            img.id = `guild-icon`;
-            img.classList.add(g.id);
+            img.classList.add("guild-icon");
+            img.id = g.id;
 
             // Add the events for the guild icons
             img.onclick = () => {

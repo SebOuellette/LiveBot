@@ -3,6 +3,10 @@ let showEmbed = (embed, element) => {
     let embedCont = document.createElement("div");
     embedCont.classList.add("embed");
     element.appendChild(embedCont);
+    
+    if (embed.color) {
+        embedCont.style.borderColor = `#${embed.color.toString(16)}`;
+    }
 
     // Large Icon
     if (embed.thumbnail) {
@@ -20,7 +24,7 @@ let showEmbed = (embed, element) => {
 
         let authorImage = document.createElement("img");
         authorImage.classList.add("embedAuthorImg");
-        authorImage.src = embed.author.url; // This may be depricated
+        authorImage.src = embed.author.iconURL; // This may be depricated
         authorContainer.appendChild(authorImage);
 
         let authorName = document.createElement("p");
