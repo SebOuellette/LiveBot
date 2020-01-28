@@ -5,7 +5,7 @@ An app that allows you to be inside a bot!
 
 At the moment, livebot is still in extreme beta. Installation instructions can be found below.
 
-<img src='https://images.soue.tk/wqAQt6TbU9.png' height='300px' style='border-radius: 10px;'/>
+<img src='https://i.imgur.com/0AmJRKT.png' height='300px' style='border-radius: 10px;'/>
 
 ## What is this?
 Livebot is a program built with electron and discord.js, that will allow you to have discord controlling a bot. You are able to view messages in channels, send messages, interact with people, and see what is going on in the servers your bot is in. Livebot will also work with a user account as well, so you are not just limited to bots.
@@ -37,4 +37,4 @@ The profile card is able to tell you the username, the avatar image, the discrim
 
 ### Guild card.
 The guild card gives a little more information than the basic discord 'name of the guild'. The guild card shows you the name of the guild, the guild icon, and how many users are in the guild. <br>
-<img src='https://images.soue.tk/pVHK39eDbn.png' style='border-radius: 10px;'>
+<img src='https://i.imgur.com/vFAdjEr.png' style='border-radius: 10px;'>

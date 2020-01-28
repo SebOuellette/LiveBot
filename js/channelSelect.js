@@ -92,11 +92,6 @@ function channelSelect(c, name) {
                     m.embeds.forEach((embed) => {
                         showEmbed(embed, div);
                     })
-                    
-                    // Render embeds
-                    m.embeds.forEach((embed) => {
-
-                    });
                 });
             }
         );
