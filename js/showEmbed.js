@@ -22,10 +22,12 @@ let showEmbed = (embed, element) => {
         authorContainer.classList.add("embedAuthor");
         embedCont.appendChild(authorContainer);
 
-        let authorImage = document.createElement("img");
-        authorImage.classList.add("embedAuthorImg");
-        authorImage.src = embed.author.iconURL; // This may be depricated
-        authorContainer.appendChild(authorImage);
+        if (embed.author.iconURL) {
+            let authorImage = document.createElement("img");
+            authorImage.classList.add("embedAuthorImg");
+            authorImage.src = embed.author.iconURL;
+            authorContainer.appendChild(authorImage);
+        }
 
         let authorName = document.createElement("p");
         authorName.classList.add("embedAuthorName");

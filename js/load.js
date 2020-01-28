@@ -165,6 +165,10 @@ function load(token) {
                         div.appendChild(text);
                     }
 
+                    m.embeds.forEach((embed) => {
+                        showEmbed(embed, div);
+                    })
+
                     // Auto scroll with the message
                     // Some debug stuff \/
                     // console.log("Client height: " + document.getElementById('message-list').clientHeight);
