@@ -3,7 +3,7 @@
 ## USE FOR BOT ACCOUNTS IS NOT AGAINST TOS TO MY KNOWLEDGE
 An app that allows you to be inside a bot!
 
-At the moment, livebot is still in extreme beta. Installation instructions can be found below.
+At the moment, livebot is still in beta. Expect some bugs, but don't hesitate to report them!
 
 <img src='https://i.imgur.com/0AmJRKT.png' height='300px' style='border-radius: 10px;'/>
 
@@ -13,7 +13,10 @@ Livebot is a program built with electron and discord.js, that will allow you to 
 Livebot had been built to copy discord, and while it is not exact, it is pretty close. More additions will come soon, so just be patient, but feel free to recommend any addition!
 
 ## How to install
-To install livebot, just download as a zip file, which you can do by pressing the green button above. Once you have downloaded and extracted the zip file, go into the directory with a command prompt or shell window. In the shell window, enter the command `npm install`. Make sure that the terminal window is running as administrator. Once this process is finished - it may take some time - type `npm test`. The livebot window will open and you're ready to go! Just paste your token in the bar at the top, press save, and that bot will be loaded into each time you open the app automatically!
+### Windows
+To install livebot, just download as a zip file, which you can do by pressing the green button above. Once you have downloaded and extracted the zip file, open Livebot.exe and you're good to go! Just paste your token in the bar at the top, press save, and that bot will be loaded into each time you open the app automatically!
+### Mac or Linux
+If you're not running windows you'll have to download from the `master` branch. Once you extract that zip file, open the directory with a command prompt or shell window. In the shell window, enter the command `npm install`. Make sure that the terminal window is running as administrator. Once this process is finished - it may take some time - type `npm test`. The livebot window will open and you're ready to go! Just paste your token in the bar at the top, press save, and that bot will be loaded into each time you open the app automatically!
 
 ## Some features.
 ### Animated guild indicator
