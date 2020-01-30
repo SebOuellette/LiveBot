@@ -17,13 +17,13 @@ function create() {
             }
         });
 
-    document.getElementById("usernameBox")
+    /*document.getElementById("usernameBox")
         .addEventListener("keyup", function(event) {
             if (event.keyCode === 13) {
                 options('username', document.getElementById('usernameBox').value);
                 document.getElementById("usernameBox").value = '';
             }
-        });
+        });*/
 
     document.getElementById("tokenbox")
         .addEventListener("keyup", function(event) {

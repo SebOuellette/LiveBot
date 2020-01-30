@@ -8,4 +8,4 @@ let parseMessage = (text) => {
     textContent = textContent.replace(/\*(.*?)\*/gm, '<i>$1</i>');
 
     return textContent;
-}
+};

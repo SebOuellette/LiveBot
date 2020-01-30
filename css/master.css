@@ -454,15 +454,6 @@ h5 {
   background-color: #404040;
 }
 
-#options {
-  height: calc(100vh - 86px);
-  width: 201px;
-  margin-top: calc(-100vh + 128px);
-  margin-left: calc(100vw - 209px);
-  background-color: #2F3136;
-  overflow-y: auto;
-}
-
 .optionBox {
   width: 150px;
   padding: 5px;

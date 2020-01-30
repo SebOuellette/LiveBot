@@ -50,6 +50,9 @@ function guildSelect(g, img) {
         document.getElementById('guildImg').src = 'resources/images/default.png';
     }
 
+    // Create the member list
+    addMemberList(g);
+
     let textPlaced = false;
     let voicePlaced = false;
 
@@ -111,58 +114,33 @@ function guildSelect(g, img) {
             } else {
                 content = document.createTextNode(`${c.name.substring(0,25).toLowerCase()}...`);
             }
+            
             text.appendChild(content);
             text.classList.add('categoryText');
             div.appendChild(text);
 
             // Categorized text channels
-            g.channels.filter(c1 => c1.parent == c && c1.type === 'text').sort((c1, c2) => c1.position - c2.position).forEach(c1 => {
+            g.channels.filter(c1 => c1.parent == c && (c1.type === 'text' || c1.type === 'voice')) .sort((c1, c2) => c1.position - c2.position).forEach(c1 => {
                 let div1 = document.createElement('div');
-                div1.class = 'channel';
+                div1.class = c1.type == "text" ? 'channel' : 'voice';
                 div.appendChild(div1);
 
                 let text1 = document.createElement('h5');
                 let content1;
                 if (c1.name.length < 25) {
-                    content1 = document.createTextNode(`# ${c1.name}`);
+                    content1 = document.createTextNode(`${c1.type == 'text' ? '#' : '🔊'} ${c1.name}`);
                 } else {
-                    content1 = document.createTextNode(`# ${c1.name.substring(0,25)}...`);
+                    content1 = document.createTextNode(`${c1.type == 'text' ? '#' : '🔊'} ${c1.name.substring(0,25)}...`);
                 }
                 text1.appendChild(content1);
                 if (!c1.permissionsFor(g.me).has("VIEW_CHANNEL")) {
                     text1.style.textDecoration = 'line-through';
-                    text1.classList.add('blockedText');
+                    text1.classList.add(`blocked${c1.type == 'text' ? 'Text' : 'Voice'}`);
                 } else {
-                    text1.classList.add('viewableText');
+                    text1.classList.add(`viewable${c1.type == 'text' ? 'Text' : 'Voice'}`);
                     text1.onclick = function(){channelSelect(c1, text1)};
                 }
-                text1.id = 'channelText';
-                div1.appendChild(text1);
-            });
-
-            // Categorized voice channels
-            g.channels.filter(c1 => c1.parent == c && c1.type === 'voice').sort((c1, c2) => c1.position - c2.position).forEach(c1 => {
-                let div1 = document.createElement('div');
-                div1.class = 'voice';
-                div.appendChild(div1);
-
-                let text1 = document.createElement('h5');
-                let content1;
-                if (c1.name.length < 25) {
-                    content1 = document.createTextNode(`🔊 ${c1.name}`);
-                } else {
-                    content1 = document.createTextNode(`🔊 ${c1.name.substring(0,25)}...`);
-                }
-                text1.appendChild(content1);
-                if (!c1.permissionsFor(g.me).has("VIEW_CHANNEL")) {
-                    text1.style.textDecoration = 'line-through';
-                    text1.classList.add('blockedVoice');
-                } else {
-                    text1.classList.add('viewableVoice');
-                    text1.onclick = function(){channelSelect(c1, text1)};
-                }
-                text1.id = 'channelVoice';
-
+                text1.id = `channel${c1.type == 'text' ? 'Text' : 'Voice'}`;
                 div1.appendChild(text1);
             });
         }

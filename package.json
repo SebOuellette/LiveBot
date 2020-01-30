@@ -25,6 +25,6 @@
 	"dependencies": {
 		"custom-electron-titlebar": "^3.2.1",
 		"discord.js": "^11.5.1",
-		"electron": "^7.1.9"
+		"electron": "^7.1.10"
 	}
 }
