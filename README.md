@@ -5,7 +5,7 @@ An app that allows you to be inside a bot!
 
 At the moment, livebot is still in extreme beta. Installation instructions can be found below.
 
-<img src='https://i.imgur.com/0AmJRKT.png' height='300px' style='border-radius: 10px;'/>
+<img src='https://i.imgur.com/EcdCjI6.png' height='300px' style='border-radius: 10px;'/>
 
 ## What is this?
 Livebot is a program built with electron and discord.js, that will allow you to have discord controlling a bot. You are able to view messages in channels, send messages, interact with people, and see what is going on in the servers your bot is in. Livebot will also work with a user account as well, so you are not just limited to bots.
