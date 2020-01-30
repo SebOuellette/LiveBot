@@ -44,7 +44,9 @@ let addMemberList = guild => {
                     let username = document.createElement("p");
                     username.classList.add("mLUsername");
                     username.innerText = m.nickname || m.user.username;
-                    username.style.color = `#${r.color.toString(16)}`;
+                    if (m.hoistRole) {
+                        username.style.color = `#${r.color.toString(16)}`;
+                    }
                     userDiv.appendChild(username);
                 });
         });
@@ -84,7 +86,9 @@ let addMemberList = guild => {
             let username = document.createElement("p");
             username.classList.add("mLUsername");
             username.innerText = m.nickname || m.user.username;
-            username.style.color = `#${m.hoistRole.color.toString(16)}`;
+            if (m.hoistRole) {
+                username.style.color = `#${m.hoistRole.color.toString(16)}`;
+            }
             userDiv.appendChild(username);
         });
 };
