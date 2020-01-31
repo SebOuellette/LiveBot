@@ -4,11 +4,31 @@
   font-weight: 100;
 }
 
+/* Some text styling */
 p {
     font-size: 16px;
     overflow-wrap: break-word;
     white-space: pre-line;
 }
+
+.codeBlock {
+    width: 100%;
+    background-color: #2f3136;
+    border: 1px solid #202225;
+    border-radius: 3px;
+    padding: 5px;
+    font-family: monospace;
+    font-size: 14px;
+    color: #b9bbbe;
+}
+
+.inlineCodeBlock {
+    background-color: #2f3136;
+    padding: 2px;
+    font-family: monospace;
+    font-size: 14px;
+}
+
 
 .titlebar.windows {
   font-family: Whitney;
@@ -365,6 +385,7 @@ h5 {
   margin-top: -5px;
   margin-bottom: 7px;
   color: #dcddde;
+  width: calc(100% - 100px);
 }
 
 #messageUsername {
