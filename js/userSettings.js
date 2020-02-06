@@ -1,5 +1,5 @@
 let toggleSettings = () => {
-    let userCard = document.getElementById('userCard');
+    let userCard = document.getElementById('userSettings');
     if (userCard.classList.length) {
         userCard.classList.toggle('userSettingsToggleOff');
     }

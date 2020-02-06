@@ -96,7 +96,7 @@ function load(token) {
                 // Get last message in channel
                 async function fetchLast() {
                     await m.channel.fetchMessages({ limit: 2 }).then(msg => {
-                        if (msg.map(mseg => mseg)[1].author.id == m.author.id) {
+                        if (msg.map(mseg => mseg)[1] && msg.map(mseg => mseg)[1].author.id == m.author.id) {
                             bunch = true;
                         } else {
                             bunch = false;

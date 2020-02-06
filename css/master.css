@@ -151,13 +151,17 @@ p {
 }
 
 #userCard {
-  position: absolute;
-  background-color: #2A2C31;
   height: 42px;
-  width: 260px;
-  margin-left: 50px;
-  font-family: Whitney;
-  color: #eee;
+}
+
+#userSettings {
+    position: absolute;
+    background-color: #2A2C31;
+    height: 42px;
+    width: 260px;
+    margin-left: 50px;
+    font-family: Whitney;
+    color: #eee;
 }
 
 #userCardIcon {
