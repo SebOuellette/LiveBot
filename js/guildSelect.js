@@ -63,7 +63,6 @@ function guildSelect(g, img) {
         g.channels.forEach(c1 => {
             // If channel type is text
             if (((c1.type === 'text'  && textPlaced == false) || (c1.type === 'voice' && voicePlaced == true)) && c1.parent == null) {
-                console.log("Got inside");
                 // Create new channel list element
                 let div = document.createElement('div');
                 div.classList.add(c1.type == 'text' ? 'channel' : 'voice');

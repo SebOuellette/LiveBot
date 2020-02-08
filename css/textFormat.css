@@ -1,0 +1,82 @@
+/* Message Container */
+.inlineMsgCont {
+    margin-left: 60px;
+    margin-top: -60px;
+}
+
+/* Message Text */
+.messageText {
+    font-family: Whitney-light;
+    font-weight: 100;
+    margin-top: -5px;
+    margin-bottom: 7px;
+    color: #dcddde;
+    width: calc(100% - 100px);
+}
+
+#messageUsername {
+    user-select: none;
+    cursor: default;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.messageTimestamp {
+    color: #72767d;
+    font-size: 12px;
+    display: inline-block;
+    margin-left: 10px;
+}
+
+#messageImg {
+    height: 40px;
+    margin-top: 10px;
+    border-radius: 50%;
+    user-select: none;
+}
+
+/* Code Block */
+.codeBlock {
+    width: 100%;
+    background-color: #2f3136;
+    border: 1px solid #202225;
+    border-radius: 3px;
+    padding: 5px;
+    font-family: monospace;
+    font-size: 14px;
+    color: #b9bbbe;
+}
+
+.codeBlockEmbed {
+    background-color: #202225;
+}
+
+/* Inline Code Block */
+.inlineCodeBlock {
+    background-color: #2f3136;
+    padding: 2px;
+    font-family: monospace;
+    font-size: 14px;
+}
+
+/* Spoiler Tag */
+.spoilerBlock {
+    background-color: #202225;
+    color: transparent;
+    cursor: pointer;
+    border-radius: 3px;
+    user-select: none;
+}
+
+.spoilerBlock:hover {
+    background-color: #24262a;
+}
+
+.spoilerBlock.discovered {
+    color: #dcddde;
+    background-color: #474a4f;
+}
+
+.spoilerBlock.discovered:hover {
+    background-color: #474a4f;
+}

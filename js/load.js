@@ -1,6 +1,5 @@
 // Load a new token
 function load(token) {
-
     // Login to the bot profile
     global.bot = new Discord.Client();
     bot.login(token);

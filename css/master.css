@@ -4,31 +4,18 @@
   font-weight: 100;
 }
 
+@font-face {
+    font-family: Whitney-light;
+    src: url("../fonts/whitney-light.otf");
+    font-weight: 100;
+}
+
 /* Some text styling */
 p {
     font-size: 16px;
     overflow-wrap: break-word;
     white-space: pre-line;
 }
-
-.codeBlock {
-    width: 100%;
-    background-color: #2f3136;
-    border: 1px solid #202225;
-    border-radius: 3px;
-    padding: 5px;
-    font-family: monospace;
-    font-size: 14px;
-    color: #b9bbbe;
-}
-
-.inlineCodeBlock {
-    background-color: #2f3136;
-    padding: 2px;
-    font-family: monospace;
-    font-size: 14px;
-}
-
 
 .titlebar.windows {
   font-family: Whitney;
@@ -367,6 +354,8 @@ h5 {
   min-height: 57px;
   overflow-y: hidden;
   overflow-x: auto;
+  padding-bottom: -30px;
+  transform
 }
 
 #messageCont::-webkit-scrollbar {
@@ -381,30 +370,6 @@ h5 {
 #messageCont::-webkit-scrollbar-thumb {
   background-color: #25272B;
   border-radius: 3px;
-}
-
-.messageText {
-  margin-left: 60px;
-  font-weight: 100;
-  margin-top: -5px;
-  margin-bottom: 7px;
-  color: #dcddde;
-  width: calc(100% - 100px);
-}
-
-#messageUsername {
-  margin-left: 60px;
-  margin-top: -40px;
-  margin-bottom: 10px;
-  user-select: none;
-  cursor: default;
-}
-
-#messageImg {
-  height: 40px;
-  margin-top: 10px;
-  border-radius: 50%;
-  user-select: none;
 }
 
 #sendmsg {

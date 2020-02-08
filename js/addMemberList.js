@@ -4,8 +4,6 @@ let addMemberList = guild => {
     // Clear members list
     listDiv.innerHTML = '';
 
-    console.log(guild.roles.map(r=>r).sort((r1, r2) => r2.position - r1.position));
-
     // Loop through roles
     let roles = guild.roles
         .map(r => r) // Convert to array
