@@ -1,8 +1,17 @@
 function channelSelect(c, name) {
     let messages = document.getElementById("message-list");
+    let fetchSize = 50;
+    selectedChan = c;
+    selectedChanDiv = name;
+    name.style.color = '#eee';
+    messageCreate();
+
+    // Clear the messages
     while (messages.firstChild) {
         messages.removeChild(messages.firstChild);
     }
+
+    // Set colour of message
     try {
         selectedChanDiv.style.color = '#606266';
         name.addEventListener('mouseover', () => {
@@ -16,18 +25,12 @@ function channelSelect(c, name) {
                 name.style.color = '#606266';
             }
         });
-  
     } catch (err) {console.log(err)}
 
-    selectedChan = c;
-    selectedChanDiv = name;
-    console.log(selectedChanDiv.style.color);
-    name.style.color = '#eee';
-    messageCreate();
-
+    // Create message
     async function messageCreate() {
         let count=0;
-        await c.fetchMessages({limit: 50})
+        await c.fetchMessages()
             .then(msg => {
                 msg.map(mseg => mseg).reverse().forEach(m => {
                     let bunch;
@@ -41,25 +44,31 @@ function channelSelect(c, name) {
                         }
                     }
         
-                    let div;
+                    let messageContainer;
                     if (!bunch) {
-        
+                        // Create message div
                         div = document.createElement('div');
                         div.id = 'messageCont';
-                        div.classList.add(m.author.id);
                         document.getElementById('message-list').appendChild(div);
-            
+
+                        // Create user image
                         let img = document.createElement('img');
                         img.id = 'messageImg';
                         img.src = m.author.displayAvatarURL;
                         img.height = '40';
                         img.width = '40';
                         div.appendChild(img);
-            
+
+                        messageContainer = document.createElement("div");
+                        messageContainer.classList.add(m.author.id);
+                        messageContainer.classList.add('inlineMsgCont');
+                        div.appendChild(messageContainer);
+                        
+                        // Create user's name
                         let name = document.createElement('p');
-                        let username = document.createTextNode(m.author.username);
-                        name.appendChild(username);
+                        name.innerText = m.member.nickname || m.author.username;
                         name.id = 'messageUsername';
+
                         try {
                             let color = m.member.roles.sort((r1, r2) => r1.position - r2.position).map(p => p.color).length;
                             let colors = m.member.roles.sort((r1, r2) => r1.position - r2.position).map(p => p.color);
@@ -74,23 +83,32 @@ function channelSelect(c, name) {
                         } catch (err) {
                             name.style.color = '#fff';
                         }
-                        div.appendChild(name);
+                        messageContainer.appendChild(name);
+
+                        // Create timestamp
+                        let timestamp = document.createElement('p');
+                        timestamp.innerText = m.createdAt.toLocaleString('en-US', {day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit'});
+                        timestamp.classList.add("messageTimestamp");
+                        messageContainer.appendChild(timestamp);
                     } else {
-                        div = document.getElementsByClassName(m.author.id);
-                        div = div[div.length - 1];
+                        messageContainer = document.getElementsByClassName(m.author.id);
+                        messageContainer = messageContainer[messageContainer.length - 1];
                     }
                     
+                    // Prepend message text
                     if (m.cleanContent.length) {
                         // Render message text
                         let text = document.createElement('p');
                         text.classList.add('messageText');
+                        text.id = m.id;
                         text.innerHTML = parseMessage(m.cleanContent);
 
-                        div.appendChild(text);
+                        messageContainer.appendChild(text);
                     }
-
+                    
+                    // Append embeds
                     m.embeds.forEach((embed) => {
-                        showEmbed(embed, div);
+                        showEmbed(embed, messageContainer);
                     })
                 });
             }

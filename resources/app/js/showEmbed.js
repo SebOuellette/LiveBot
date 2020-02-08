@@ -40,7 +40,7 @@ let showEmbed = (embed, element) => {
     if (embed.title) {
         let title = document.createElement("p");
         title.classList.add("embedTitle");
-        title.innerHTML = parseMessage(embed.title);
+        title.innerHTML = parseMessage(embed.title, true);
         embedCont.appendChild(title);
     }
 
@@ -48,7 +48,7 @@ let showEmbed = (embed, element) => {
         let description = document.createElement("p");
         description.classList.add("embedDescription");
         description.classList.add("embedContent");
-        description.innerHTML = parseMessage(embed.description);
+        description.innerHTML = parseMessage(embed.description, true);
         embedCont.appendChild(description);
     }
 
@@ -61,13 +61,13 @@ let showEmbed = (embed, element) => {
         let fieldTitle = document.createElement("p");
         fieldTitle.classList.add("fieldName");
         fieldTitle.classList.add("embedContent");
-        fieldTitle.innerHTML = parseMessage(field.name);
+        fieldTitle.innerHTML = parseMessage(field.name, true);
         fieldCont.appendChild(fieldTitle);
 
         let fieldValue = document.createElement("p");
         fieldValue.classList.add("fieldText");
         fieldValue.classList.add("embedContent");
-        fieldValue.innerHTML = parseMessage(field.value);
+        fieldValue.innerHTML = parseMessage(field.value, true);
         fieldCont.appendChild(fieldValue);
 
         if (field.inline) {
@@ -83,7 +83,7 @@ let showEmbed = (embed, element) => {
 
         let footText = document.createElement("p");
         footText.classList.add("footerText");
-        footText.innerHTML = parseMessage(embed.footer.text);
+        footText.innerHTML = parseMessage(embed.footer.text, true);
         footCont.appendChild(footText);
     }
 }

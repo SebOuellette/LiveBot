@@ -4,6 +4,13 @@
   font-weight: 100;
 }
 
+@font-face {
+    font-family: Whitney-light;
+    src: url("../fonts/whitney-light.otf");
+    font-weight: 100;
+}
+
+/* Some text styling */
 p {
     font-size: 16px;
     overflow-wrap: break-word;
@@ -131,13 +138,17 @@ p {
 }
 
 #userCard {
-  position: absolute;
-  background-color: #2A2C31;
   height: 42px;
-  width: 260px;
-  margin-left: 50px;
-  font-family: Whitney;
-  color: #eee;
+}
+
+#userSettings {
+    position: absolute;
+    background-color: #2A2C31;
+    height: 42px;
+    width: 260px;
+    margin-left: 50px;
+    font-family: Whitney;
+    color: #eee;
 }
 
 #userCardIcon {
@@ -343,6 +354,7 @@ h5 {
   min-height: 57px;
   overflow-y: hidden;
   overflow-x: auto;
+  padding-bottom: -30px;
 }
 
 #messageCont::-webkit-scrollbar {
@@ -357,29 +369,6 @@ h5 {
 #messageCont::-webkit-scrollbar-thumb {
   background-color: #25272B;
   border-radius: 3px;
-}
-
-.messageText {
-  margin-left: 60px;
-  font-weight: 100;
-  margin-top: -5px;
-  margin-bottom: 7px;
-  color: #dcddde;
-}
-
-#messageUsername {
-  margin-left: 60px;
-  margin-top: -40px;
-  margin-bottom: 10px;
-  user-select: none;
-  cursor: default;
-}
-
-#messageImg {
-  height: 40px;
-  margin-top: 10px;
-  border-radius: 50%;
-  user-select: none;
 }
 
 #sendmsg {

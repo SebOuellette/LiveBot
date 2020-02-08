@@ -10,6 +10,7 @@
     <script src="js/command.js" charset="utf-8"></script>
     <script src="js/setToken.js" charset="utf-8"></script>
     <script src="js/sendMsg.js" charset="utf-8"></script>
+    <script src="js/userSettings.js" charset="utf-8"></script>
 
     <script src="js/parseMessage.js" charset="utf-8"></script>
     <script src="js/showEmbed.js" charset="utf-8"></script>
@@ -18,6 +19,8 @@
     <link rel="stylesheet" href="css/master.css">
     <link rel="stylesheet" href="css/embeds.css">
     <link rel="stylesheet" href="css/memberList.css">
+    <link rel="stylesheet" href="css/userSettings.css">
+    <link rel="stylesheet" href="css/textFormat.css">
   </head>
   <body onload='create()'>
     <div id='main'>
@@ -38,11 +41,14 @@
         </div>
       </div>
 
-      <div id="userCard">
-        <p id='userCardBot'>BOT</p>
-        <img src="resources/images/default.png" alt="UserIcon" id='userCardIcon' height='30px'>
-        <p id='userCardName'>User</p>
-        <p id='userCardDiscrim'>#1234</p>
+      <div id="userSettings">
+        <div id=userCard>
+            <p id='userCardBot'>BOT</p>
+            <img src="resources/images/default.png" alt="UserIcon" id='userCardIcon' height='30px'>
+            <p id='userCardName'>User</p>
+            <p id='userCardDiscrim'>#1234</p>
+            <img id="userPullOutIcon" src="resources/icons/pullOut.svg" onclick="toggleSettings()"></div>
+        <div id="optionGroups"></div>
       </div>
 
       <div id='msgSpace'>
