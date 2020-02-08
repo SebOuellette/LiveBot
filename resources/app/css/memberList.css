@@ -24,7 +24,7 @@
 }
   
 .roleTitle {
-    font-family: Whitney;
+    font-family: Whitney, arial;
     color: #8E9297;
     font-size: 12px;
     text-transform: uppercase;
@@ -43,7 +43,7 @@
 }
 
 .mLUsername {
-    font-family: Whitney;
+    font-family: Whitney, arial;
     font-size: 16px;
     color: #8E9297;
     margin: 10px 0 0 0;

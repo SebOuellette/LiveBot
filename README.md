@@ -1,4 +1,4 @@
-<center><img src='resources/icons/logoLarge.svg' height='100px' style='border-radius: 10px;'/></center>
+<center><img src='resources/app/resources/icons/logoLarge.svg' height='100px' style='border-radius: 10px;'/></center>
 
 ## LIVEBOT CAN BE USED FOR USER ACCOUNTS, HOWEVER IT IS AGAINST TOS TO DO SO. USE AT YOUR OWN RISK
 ## USE FOR BOT ACCOUNTS IS NOT AGAINST TOS TO MY KNOWLEDGE
