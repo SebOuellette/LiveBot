@@ -5,7 +5,7 @@
     margin-left: calc(100vw - 209px);
     background-color: #2F3136;
     overflow-y: auto;
-    padding: 20px 10px 0 10px;
+    padding: 20px 10px 0 20px;
     overflow-y: scroll;
 }
 
@@ -22,9 +22,13 @@
     background-color: #25272B;
     border-radius: 3px;
 }
+
+.roleContainer {
+    margin-top: 20px;
+}
   
 .roleTitle {
-    font-family: Whitney;
+    font-family: Whitney, "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #8E9297;
     font-size: 12px;
     text-transform: uppercase;
@@ -43,7 +47,8 @@
 }
 
 .mLUsername {
-    font-family: Whitney;
+    font-family: Whitney, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 100;
     font-size: 16px;
     color: #8E9297;
     margin: 10px 0 0 0;

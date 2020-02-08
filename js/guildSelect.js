@@ -12,6 +12,9 @@ function guildSelect(g, img) {
         return id == g.id;
     }
 
+    // Store the selected channel to know what to highlight
+    let selectedChannel;
+
     document.getElementById('guildIndicator').style.marginTop = `${img.offsetTop - 2}px`;
     document.getElementById('guildIndicator').style.display = "block";
     img.style.borderRadius = '25%';
@@ -88,7 +91,15 @@ function guildSelect(g, img) {
                     text.classList.add(`blocked${c1.type == 'text' ? 'Text' : 'Voice'}`);
                 } else {
                     text.classList.add(`viewable${c1.type == 'text' ? 'Text' : 'Voice'}`);
-                    text.onclick = () => channelSelect(c1, text);
+                    text.onclick = () => {
+                        if (selectedChannel) {
+                            selectedChannel.classList.remove("selectedChan");
+                        }
+                        selectedChannel = text;
+                        console.log(selectedChannel);
+                        text.classList.add("selectedChan");
+                        channelSelect(c1, text);
+                    };
                 }
 
                 text.id = `channel${c1.type == 'text' ? 'Text' : 'Voice'}x`;
@@ -137,7 +148,14 @@ function guildSelect(g, img) {
                     text1.classList.add(`blocked${c1.type == 'text' ? 'Text' : 'Voice'}`);
                 } else {
                     text1.classList.add(`viewable${c1.type == 'text' ? 'Text' : 'Voice'}`);
-                    text1.onclick = function(){channelSelect(c1, text1)};
+                    text1.onclick = () => {
+                        if (selectedChannel) {
+                            selectedChannel.classList.remove("selectedChan");
+                        }
+                        selectedChannel = text1;
+                        text1.classList.add("selectedChan");
+                        channelSelect(c1, text1);
+                    };
                 }
                 text1.id = `channel${c1.type == 'text' ? 'Text' : 'Voice'}`;
                 div1.appendChild(text1);

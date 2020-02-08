@@ -1,6 +1,6 @@
 function channelSelect(c, name) {
     let messages = document.getElementById("message-list");
-    let fetchSize = 50;
+    let fetchSize = 100;
     selectedChan = c;
     selectedChanDiv = name;
     name.style.color = '#eee';
@@ -29,13 +29,14 @@ function channelSelect(c, name) {
 
     // Create message
     async function messageCreate() {
+        // Loop through messages
         let count=0;
-        await c.fetchMessages()
+        await c.fetchMessages({limit: fetchSize})
             .then(msg => {
                 msg.map(mseg => mseg).reverse().forEach(m => {
                     let bunch;
-                    count+=1;
-                    if (count > 2 && count <= 50) {
+                    count++;
+                    if (count > 2 && count <= fetchSize) {
                         if(msg.map(mesg => mesg).reverse()[count-2].author.id == m.author.id){
                             bunch = true;
             
@@ -43,7 +44,8 @@ function channelSelect(c, name) {
                             bunch = false;
                         }
                     }
-        
+                    
+                    // Create the messages
                     let messageContainer;
                     if (!bunch) {
                         // Create message div
@@ -66,7 +68,7 @@ function channelSelect(c, name) {
                         
                         // Create user's name
                         let name = document.createElement('p');
-                        name.innerText = m.member.nickname || m.author.username;
+                        name.innerText = (m.member ? m.member.nickname : m.author.username) || m.author.username;
                         name.id = 'messageUsername';
 
                         try {
@@ -107,12 +109,31 @@ function channelSelect(c, name) {
                     }
                     
                     // Append embeds
-                    m.embeds.forEach((embed) => {
-                        showEmbed(embed, messageContainer);
-                    })
+                    m.embeds.forEach(embed => {
+                        if (embed.thumbnail && embed.message.cleanContent.match(embed.thumbnail.url)) {
+                            let img = document.createElement("img");
+
+                            let newWidth = embed.thumbnail.width < 400 ? embed.thumbnail.width : 400;
+                            let newHeight = Math.floor(newWidth / embed.thumbnail.width * embed.thumbnail.height);
+
+                            img.src = `${embed.thumbnail.proxyURL}?width=${newWidth}&height=${newHeight}`;
+                            img.classList.add("previewImage");
+                            messageContainer.appendChild(img);
+                        } else {
+                            showEmbed(embed, messageContainer);
+                        }
+                    });
                 });
             }
         );
+        // Add the no load apology
+        let shell = document.createElement("div");
+        shell.classList.add("sorryNoLoad");
+        let text = document.createElement("p");
+        text.innerText = "Sorry! No messages beyond this point can be displayed.";
+        shell.appendChild(text);
+        document.getElementById("message-list").prepend(shell);
+
         messages.scrollTop = messages.scrollHeight;
     }
 }

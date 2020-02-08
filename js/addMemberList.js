@@ -17,6 +17,7 @@ let addMemberList = guild => {
                 // Role container
                 let container = document.createElement("div");
                 container.id = r.id;
+                container.classList.add("roleContainer");
                 listDiv.appendChild(container);
 
                 // Add the role name
@@ -58,6 +59,7 @@ let addMemberList = guild => {
         // Create offline label text
         let container = document.createElement("div");
         container.id = 'onlineUserList';
+        container.classList.add("roleContainer");
         listDiv.appendChild(container);
 
         let name = document.createElement("span");
@@ -98,6 +100,7 @@ let addMemberList = guild => {
         // Create offline label text
         let container = document.createElement("div");
         container.id = 'offlineUserList';
+        container.classList.add("roleContainer");
         listDiv.appendChild(container);
 
         let name = document.createElement("span");

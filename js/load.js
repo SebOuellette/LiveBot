@@ -175,9 +175,20 @@ function load(token) {
                     }
                     
                     // Append embeds
-                    m.embeds.forEach((embed) => {
-                        showEmbed(embed, messageContainer);
-                    })
+                    m.embeds.forEach(embed => {
+                        if (embed.thumbnail && embed.message.cleanContent.match(embed.thumbnail.url)) {
+                            let img = document.createElement("img");
+
+                            let newWidth = embed.thumbnail.width < 400 ? embed.thumbnail.width : 400;
+                            let newHeight = Math.floor(newWidth / embed.thumbnail.width * embed.thumbnail.height);
+
+                            img.src = `${embed.thumbnail.proxyURL}?width=${newWidth}&height=${newHeight}`;
+                            img.classList.add("previewImage");
+                            messageContainer.appendChild(img);
+                        } else {
+                            showEmbed(embed, messageContainer);
+                        }
+                    });
 
                     // Auto scroll with the message
                     // Some debug stuff \/
