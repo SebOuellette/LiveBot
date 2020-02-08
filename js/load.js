@@ -112,60 +112,71 @@ function load(token) {
                         barry = false;
                     }
 
-                    let div;
+                    let messageContainer;
                     if (!bunch) {
+                        // Create message div
                         div = document.createElement('div');
                         div.id = 'messageCont';
-                        div.classList.add(m.author.id);
                         document.getElementById('message-list').appendChild(div);
 
+                        // Create user image
                         let img = document.createElement('img');
                         img.id = 'messageImg';
                         img.src = m.author.displayAvatarURL;
+                        img.height = '40';
+                        img.width = '40';
                         div.appendChild(img);
 
+                        messageContainer = document.createElement("div");
+                        messageContainer.classList.add(m.author.id);
+                        messageContainer.classList.add('inlineMsgCont');
+                        div.appendChild(messageContainer);
+                        
+                        // Create user's name
                         let name = document.createElement('p');
-                        let username;
-
-                        if (m.member.nickname != null) {
-                            username = document.createTextNode(m.member.nickname);
-                        } else {
-                            username = document.createTextNode(m.author.username);
-                        }
-                        name.appendChild(username);
+                        name.innerText = m.member.nickname || m.author.username;
                         name.id = 'messageUsername';
+
                         try {
                             let color = m.member.roles.sort((r1, r2) => r1.position - r2.position).map(p => p.color).length;
                             let colors = m.member.roles.sort((r1, r2) => r1.position - r2.position).map(p => p.color);
-                            while (colors[color - 1] == 0) {
+                            while (colors[color-1] == 0) {
                                 color -= 1;
                             }
                             let zeros = '';
-                            for (i = 0; i < (6 - colors[color - 1].toString(16).length); i++) {
-                                zeros += '0';
+                            for(i=0;i<(6-colors[color-1].toString(16).length);i++) {
+                                zeros+='0';
                             }
-                            name.style.color = `#${zeros + colors[color - 1].toString(16)}`;
+                            name.style.color = `#${zeros+colors[color-1].toString(16)}`;
                         } catch (err) {
                             name.style.color = '#fff';
                         }
-                        div.appendChild(name);
-                    } else {
-                        div = document.getElementsByClassName(m.author.id);
-                        div = div[div.length - 1]
-                    }
+                        messageContainer.appendChild(name);
 
+                        // Create timestamp
+                        let timestamp = document.createElement('p');
+                        timestamp.innerText = m.createdAt.toLocaleString('en-US', {day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit'});
+                        timestamp.classList.add("messageTimestamp");
+                        messageContainer.appendChild(timestamp);
+                    } else {
+                        messageContainer = document.getElementsByClassName(m.author.id);
+                        messageContainer = messageContainer[messageContainer.length - 1];
+                    }
+                    
+                    // Prepend message text
                     if (m.cleanContent.length) {
-                        // Create text elements
+                        // Render message text
                         let text = document.createElement('p');
                         text.classList.add('messageText');
+                        text.id = m.id;
                         text.innerHTML = parseMessage(m.cleanContent);
 
-                        // Append the text to the message
-                        div.appendChild(text);
+                        messageContainer.appendChild(text);
                     }
-
+                    
+                    // Append embeds
                     m.embeds.forEach((embed) => {
-                        showEmbed(embed, div);
+                        showEmbed(embed, messageContainer);
                     })
 
                     // Auto scroll with the message
