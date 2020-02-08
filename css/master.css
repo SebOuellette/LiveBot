@@ -18,7 +18,7 @@ p {
 }
 
 .titlebar.windows {
-  font-family: Whitney;
+  font-family: Whitney, arial;
   height: 20px !important;
 }
 
@@ -84,7 +84,7 @@ p {
   position: absolute;
   overflow-x: hidden;
   color: White;
-  font-family: Whitney;
+  font-family: Whitney, arial;
   text-align: center;
   font-size: 13px;
   width: 40px;
@@ -122,7 +122,7 @@ p {
 }
 
 #channel-list {
-  font-family: Whitney;
+  font-family: Whitney, arial;
   height: calc(100% - 90px);
   margin-left: 50px;
   margin-top: 40px;
@@ -147,7 +147,7 @@ p {
     height: 42px;
     width: 260px;
     margin-left: 50px;
-    font-family: Whitney;
+    font-family: Whitney, arial;
     color: #eee;
 }
 
@@ -280,7 +280,7 @@ h5 {
   background-color: grey;
   margin: 0px 0 10px 50px;
   background-color: #202225;
-  font-family: Whitney;
+  font-family: Whitney, arial;
   position: absolute;
 }
 
@@ -326,7 +326,7 @@ h5 {
   margin-top: calc(-100vh + 128px);
   margin-left: 310px;
   overflow-y: auto;
-  font-family: Whitney;
+  font-family: Whitney, arial;
   overflow-x: hidden;
   position: absolute;
 }
