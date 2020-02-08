@@ -75,6 +75,14 @@ let showEmbed = (embed, element) => {
         }
     });
 
+    //Image
+    if (embed.image) {
+        let img = document.createElement("img");
+        img.classList.add("embedImage");
+        img.src = embed.image.url;
+        embedCont.appendChild(img);
+    }
+
     // Footer
     if (embed.footer) {
         let footCont = document.createElement("div");
