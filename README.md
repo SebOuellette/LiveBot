@@ -1,4 +1,5 @@
-# Discord-LiveBot
+<center><img src='resources/icons/logoLarge.svg' height='100px' style='border-radius: 10px;'/></center>
+
 ## LIVEBOT CAN BE USED FOR USER ACCOUNTS, HOWEVER IT IS AGAINST TOS TO DO SO. USE AT YOUR OWN RISK
 ## USE FOR BOT ACCOUNTS IS NOT AGAINST TOS TO MY KNOWLEDGE
 An app that allows you to be inside a bot!
@@ -18,12 +19,7 @@ To install livebot, just download as a zip file, which you can do by pressing th
 ### Easy (Windows Only)
 If you would like to just download and open an exe file, switch to the `executable` branch, then just download that zip file. If you don't know how to switch, click the dropdown menu just above the file list, and to the left.
 
-## Some features.
-### Animated guild indicator
-Not very useful, but hey! It's here! <br>
-<img src='https://i.imgur.com/o4SWjpX.gif' style='border-radius: 10px;'>
-</br>
-
+## Some features:
 ### Token switcher
 This box is how you log into a profile. To log into a token by default, put it into this box then press the save button. Otherwise if you are just logging into a token just for a look, input the token into the box then press `enter`.<br>
 <img src='https://i.imgur.com/dbWcX2O.png' style='border-radius: 10px;'>
