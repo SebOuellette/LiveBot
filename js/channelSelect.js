@@ -19,32 +19,32 @@ function channelSelect(c, name) {
                 name.style.color = '#B4B8BC';
             }
         });
-    
+
         name.addEventListener('mouseleave', () => {
             if (name.style.color != 'rgb(238, 238, 238)') {
                 name.style.color = '#606266';
             }
         });
-    } catch (err) {console.log(err)}
+    } catch (err) { console.log(err) }
 
     // Create message
     async function messageCreate() {
         // Loop through messages
-        let count=0;
-        await c.fetchMessages({limit: fetchSize})
+        let count = 0;
+        await c.fetchMessages({ limit: fetchSize })
             .then(msg => {
                 msg.map(mseg => mseg).reverse().forEach(m => {
                     let bunch;
                     count++;
                     if (count > 2 && count <= fetchSize) {
-                        if(msg.map(mesg => mesg).reverse()[count-2].author.id == m.author.id){
+                        if (msg.map(mesg => mesg).reverse()[count - 2].author.id == m.author.id) {
                             bunch = true;
-            
+
                         } else {
                             bunch = false;
                         }
                     }
-                    
+
                     // Create the messages
                     let messageContainer;
                     if (!bunch) {
@@ -65,7 +65,7 @@ function channelSelect(c, name) {
                         messageContainer.classList.add(m.author.id);
                         messageContainer.classList.add('inlineMsgCont');
                         div.appendChild(messageContainer);
-                        
+
                         // Create user's name
                         let name = document.createElement('p');
                         name.innerText = (m.member ? m.member.nickname : m.author.username) || m.author.username;
@@ -74,12 +74,12 @@ function channelSelect(c, name) {
                         try {
                             let color = m.member.roles.sort((r1, r2) => r1.position - r2.position).map(p => p.color).length;
                             let colors = m.member.roles.sort((r1, r2) => r1.position - r2.position).map(p => p.color);
-                            while (colors[color-1] == 0) {
+                            while (colors[color - 1] == 0) {
                                 color -= 1;
                             }
                             let zeros = '';
-                            for(i=0;i<(6-colors[color-1].toString(16).length);i++) {
-                                zeros+='0';
+                            for (i = 0; i < (6 - colors[color - 1].toString(16).length); i++) {
+                                zeros += '0';
                             }
                             name.style.color = `#${zeros+colors[color-1].toString(16)}`;
                         } catch (err) {
@@ -89,14 +89,14 @@ function channelSelect(c, name) {
 
                         // Create timestamp
                         let timestamp = document.createElement('p');
-                        timestamp.innerText = m.createdAt.toLocaleString('en-US', {day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit'});
+                        timestamp.innerText = m.createdAt.toLocaleString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
                         timestamp.classList.add("messageTimestamp");
                         messageContainer.appendChild(timestamp);
                     } else {
                         messageContainer = document.getElementsByClassName(m.author.id);
                         messageContainer = messageContainer[messageContainer.length - 1];
                     }
-                    
+
                     // Prepend message text
                     if (m.cleanContent.length) {
                         // Render message text
@@ -105,9 +105,11 @@ function channelSelect(c, name) {
                         text.id = m.id;
                         text.innerHTML = parseMessage(m.cleanContent);
 
+                        messageMenu(m, text)
+
                         messageContainer.appendChild(text);
                     }
-                    
+
                     // Append embeds
                     m.embeds.forEach(embed => {
                         if (embed.thumbnail && embed.message.cleanContent.match(embed.thumbnail.url)) {
@@ -124,8 +126,7 @@ function channelSelect(c, name) {
                         }
                     });
                 });
-            }
-        );
+            });
         // Add the no load apology
         let shell = document.createElement("div");
         shell.classList.add("sorryNoLoad");
