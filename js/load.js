@@ -82,6 +82,32 @@ function load(token) {
         });
     });
 
+    bot.on("messageDelete", (m) => {
+        if (m.channel.id == selectedChan.id) {
+            let pre = document.getElementById(m.id);
+            let div = pre.parentElement;
+            let children = div.children;
+            let n = 0;
+            pre.remove();
+            for (i = 0; i <= children.length - 1; i++) {
+                if (children[i].classList.contains("messageText")) {
+                    n++;
+                }
+            }
+
+            if (n > 0) return
+            div.parentElement.parentElement.removeChild(div.parentElement)
+        }
+    });
+
+    bot.on('messageUpdate', (oldMsg, newMsg) => {
+        if (oldMsg.content === newMsg.content) return;
+        let pre = document.getElementById(newMsg.id);
+        let tmp = pre.childNodes[1]
+        pre.innerHTML = parseMessage(newMsg.cleanContent);
+        pre.appendChild(tmp)
+    });
+
     // New message recieved
     bot.on('message', (m) => {
         // If there is a channel selected
@@ -131,7 +157,7 @@ function load(token) {
                         messageContainer.classList.add(m.author.id);
                         messageContainer.classList.add('inlineMsgCont');
                         div.appendChild(messageContainer);
-                        
+
                         // Create user's name
                         let name = document.createElement('p');
                         name.innerText = m.member.nickname || m.author.username;
@@ -140,14 +166,14 @@ function load(token) {
                         try {
                             let color = m.member.roles.sort((r1, r2) => r1.position - r2.position).map(p => p.color).length;
                             let colors = m.member.roles.sort((r1, r2) => r1.position - r2.position).map(p => p.color);
-                            while (colors[color-1] == 0) {
+                            while (colors[color - 1] == 0) {
                                 color -= 1;
                             }
                             let zeros = '';
-                            for(i=0;i<(6-colors[color-1].toString(16).length);i++) {
-                                zeros+='0';
+                            for (i = 0; i < (6 - colors[color - 1].toString(16).length); i++) {
+                                zeros += '0';
                             }
-                            name.style.color = `#${zeros+colors[color-1].toString(16)}`;
+                            name.style.color = `#${zeros + colors[color - 1].toString(16)}`;
                         } catch (err) {
                             name.style.color = '#fff';
                         }
@@ -155,14 +181,14 @@ function load(token) {
 
                         // Create timestamp
                         let timestamp = document.createElement('p');
-                        timestamp.innerText = m.createdAt.toLocaleString('en-US', {day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit'});
+                        timestamp.innerText = m.createdAt.toLocaleString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
                         timestamp.classList.add("messageTimestamp");
                         messageContainer.appendChild(timestamp);
                     } else {
                         messageContainer = document.getElementsByClassName(m.author.id);
                         messageContainer = messageContainer[messageContainer.length - 1];
                     }
-                    
+
                     // Prepend message text
                     if (m.cleanContent.length) {
                         // Render message text
@@ -171,9 +197,11 @@ function load(token) {
                         text.id = m.id;
                         text.innerHTML = parseMessage(m.cleanContent);
 
+                        messageMenu(m, text)
+
                         messageContainer.appendChild(text);
                     }
-                    
+
                     // Append embeds
                     m.embeds.forEach(embed => {
                         if (embed.thumbnail && embed.message.cleanContent.match(embed.thumbnail.url)) {
