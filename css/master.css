@@ -10,6 +10,13 @@
     font-weight: 100;
 }
 
+/* Show some love for Barry */
+
+.barryText {
+    color: white;
+    margin-left: 40px
+}
+
 /* Some text styling */
 p {
     font-size: 16px;
