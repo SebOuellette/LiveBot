@@ -36,6 +36,7 @@ function command(text) {
         text2.appendChild(content);
         text2.id = 'messageText';
     }
+    text2.classList.add('barryText')
     div.appendChild(text2);
     document.getElementById('message-list').scrollTop = document.getElementById('message-list').scrollHeight;
     document.getElementById('msgbox').value = '';
