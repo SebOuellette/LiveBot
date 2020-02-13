@@ -26,6 +26,16 @@ function load(token) {
             document.getElementById('userCardBot').style.marginLeft = `5px`;
         }
 
+        // Remove the server list when connection lsot
+        while (document.getElementById('guild-list').firstChild) {
+            document.getElementById('guild-list').removeChild(document.getElementById('guild-list').firstChild);
+        }
+        
+        // Create the guild indicator
+        let guildIndicator = document.createElement('div');
+        guildIndicator.id = 'guildIndicator';
+        document.getElementById('guild-list').appendChild(guildIndicator);
+
         // Loop through all the guilds and create the element for the icon
         bot.guilds.forEach(g => {
             let img;
