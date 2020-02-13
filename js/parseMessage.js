@@ -3,7 +3,7 @@ let parseMessage = (text, embed = false) => {
     let textContent = text.replace(/(<)([^>]+)(>)/gm, '&lt;$2&gt;');
 
     // General message parsing
-    textContent = textContent.replace(/ /g, '&nbsp;');
+    textContent = textContent.replace(/ /g, ' NBSP_PLACEHOLDER ');
     textContent = textContent.replace(/https?:\/\/[^ ]+(\.[^ ]+)+(\/[^ ]*)?/g, '<a href="$&" rel="noreferrer noopener" title="$&" target="_blank">$&</a>');
 
     // Add html tags for markup
@@ -29,6 +29,9 @@ let parseMessage = (text, embed = false) => {
     if (!textContent.replace(/(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/g, "").length) {
         textContent = `<span class="bigEmoji">${textContent}</span>`
     }
+    
+    // Replace the placeholder with a real nbsp
+    textContent = textContent.replace(/ NBSP_PLACEHOLDER /g, '&nbsp;');
 
     // Parse the emojis to SVGs
     textContent = twemoji.parse(textContent);
