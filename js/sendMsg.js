@@ -58,6 +58,7 @@ function sendmsg() {
             }
         } else {
             // Make a new message with the sent text
+            text = parseSend(text);
             selectedChan.send(text);
             document.getElementById('msgbox').value = '';
         }

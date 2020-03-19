@@ -1,3 +1,17 @@
+let emojiRegex = /(>:\(|>:\-\(|>=\(|>=\-\(|:"\)|:\-"\)|="\)|=\-"\)|<\/3|<\\3|:\-\|:\-\/|=\-\|=\-\/|:'\(|:'\-\(|:,\(|:,\-\(|='\(|='\-\(|=,\(|=,\-\(|:\(|:\-\(|=\(|=\-\(|<3|♡|\]:\(|\]:\-\(|\]=\(|\]=\-\(|o:\)|O:\)|o:\-\)|O:\-\)|0:\)|0:\-\)|o=\)|O=\)|o=\-\)|O=\-\)|0=\)|0=\-\)|:'\)|:'\-\)|:,\)|:,\-\)|:'D|:'\-D|:,D|:,\-D|='\)|='\-\)|=,\)|=,\-\)|='D|='\-D|=,D|=,\-D|:\*|:\-\*|=\*|=\-\*|x\-\)|X\-\)|:\||:\-\||=\||=\-\||:o|:\-o|:O|:\-O|=o|=\-o|=O|=\-O|:@|:\-@|=@|=\-@|:D|:\-D|=D|=\-D|:\)|:\-\)|=\)|=\-\)|\]:\)|\]:\-\)|\]=\)|\]=\-\)|:,'\(|:,'\-\(|;\(|;\-\(|=,'\(|=,'\-\(|:P|:\-P|=P|=\-P|8\-\)|B\-\)|,:\(|,:\-\(|,=\(|,=\-\(|,:\)|,:\-\)|,=\)|,=\-\)|:s|:\-S|:z|:\-Z|:\$|:\-\$|=s|=\-S|=z|=\-Z|=\$|=\-\$|;\)|;\-\))/gm
+
+let parseSend = (text) => {
+    // Parse Emojis
+    text = text.replace(emojiRegex, (a) => {
+
+        let shortcut = shortcuts.find(s => s.face === a);
+        if (shortcut) return idToUni[shortcut.id];
+        return a;
+    });
+
+    return text;
+}
+
 let parseMessage = (text, embed = false) => {
     // Remove html in the message
     let textContent = text.replace(/(<)([^>]+)(>)/gm, '&lt;$2&gt;');
@@ -16,11 +30,9 @@ let parseMessage = (text, embed = false) => {
 
     // Parse Emojis
     textContent = textContent.replace(/:([_a-z0-9]+):/gi, (m, g1) => idToUni[g1.toLowerCase()] || m);
-    textContent = textContent.replace(/(:|=|;)('?)-?([^ ])/gm, (a, b, c, d) => {
-        let wink = b === ';' ? true : false;
-        let cry = c ? true : false;
+    textContent = textContent.replace(emojiRegex, (a) => {
 
-        let shortcut = shortcuts.find(s => s.face === d && s.wink === wink && s.cry === cry);
+        let shortcut = shortcuts.find(s => s.face === a);
         if (shortcut) return idToUni[shortcut.id];
         return a;
     });

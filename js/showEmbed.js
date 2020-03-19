@@ -3,9 +3,16 @@ let showEmbed = (embed, element) => {
     let embedCont = document.createElement("div");
     embedCont.classList.add("embed");
     element.appendChild(embedCont);
-    
+
     if (embed.color) {
-        embedCont.style.borderColor = `#${embed.color.toString(16)}`;
+        let color = embed.color.toString(16);
+        if(color.length < 6){
+            color = "0".repeat(6-color.length) + color
+        }
+        embedCont.style.borderColor = `#${color}`;
+        if (embedCont.style.borderColor.match("rgba")) {
+            embedCont.style.borderColor = embedCont.style.borderColor.slice(0, -4).replace("rgba", "rgb") + ")"
+        }
     }
 
     // Large Icon
@@ -84,14 +91,23 @@ let showEmbed = (embed, element) => {
     }
 
     // Footer
-    if (embed.footer) {
+    if (embed.footer || embed.timestamp) {
         let footCont = document.createElement("div");
         footCont.classList.add("footer");
         embedCont.appendChild(footCont);
 
         let footText = document.createElement("p");
         footText.classList.add("footerText");
-        footText.innerHTML = parseMessage(embed.footer.text, true);
+        
+        timestamp = embed.message.createdAt.toLocaleString('en-US', {hour:'2-digit', minute:'2-digit'});
+
+        if (embed.footer && embed.timestamp) {
+            footText.innerHTML = parseMessage(embed.footer.text + ' - [Placeholder] at ' + timestamp, true);
+        } else if (embed.footer && !embed.timestamp) {
+            footText.innerHTML = parseMessage(embed.footer.text, true);
+        } else {
+            footText.innerHTML = parseMessage('[Placeholder] at ' + timestamp, true);
+        }
         footCont.appendChild(footText);
     }
 }
