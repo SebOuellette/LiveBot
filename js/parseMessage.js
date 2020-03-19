@@ -30,23 +30,34 @@ let parseMessage = (text, embed = false) => {
 
     // Parse Emojis
     textContent = textContent.replace(/:([_a-z0-9]+):/gi, (m, g1) => idToUni[g1.toLowerCase()] || m);
-    textContent = textContent.replace(emojiRegex, (a) => {
 
+    textContent = textContent.replace(emojiRegex, (a) => {
         let shortcut = shortcuts.find(s => s.face === a);
         if (shortcut) return idToUni[shortcut.id];
         return a;
+    });
+
+    let nitro = /&lt;(a):.+:(.+)&gt;|&lt;:.+:(.+)&gt;/gm
+    textContent = textContent.replace(nitro, (a, b, c, d) => {
+        if (b == "a") {
+            return `<img class="emoji" src="https://cdn.discordapp.com/emojis/${c}.gif?v=1"></img>`
+        } else {
+            return `<img class="emoji" src="https://cdn.discordapp.com/emojis/${d}.png?v=1"></img>`
+        }
     });
 
     // Match all emojis
     if (!textContent.replace(/(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/g, "").length) {
         textContent = `<span class="bigEmoji">${textContent}</span>`
     }
-    
+
     // Replace the placeholder with a real nbsp
     textContent = textContent.replace(/ NBSP_PLACEHOLDER /g, '&nbsp;');
 
     // Parse the emojis to SVGs
     textContent = twemoji.parse(textContent);
+    console.log(textContent)
+
 
     return textContent;
 };

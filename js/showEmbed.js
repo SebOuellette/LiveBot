@@ -98,7 +98,7 @@ let showEmbed = (embed, element) => {
 
         let footText = document.createElement("p");
         footText.classList.add("footerText");
-        
+
         timestamp = embed.message.createdAt.toLocaleString('en-US', {hour:'2-digit', minute:'2-digit'});
 
         if (embed.footer && embed.timestamp) {
