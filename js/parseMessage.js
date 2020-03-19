@@ -37,14 +37,20 @@ let parseMessage = (text, embed = false) => {
         return a;
     });
 
-    let nitro = /&lt;(a):.+:(.+)&gt;|&lt;:.+:(.+)&gt;/gm
+    let nitro = /&lt;(a):.+?:(.+?)&gt;|&lt;:.+?:(.+?)&gt;/gm
+    var i = 0
     textContent = textContent.replace(nitro, (a, b, c, d) => {
+        i++
         if (b == "a") {
             return `<img class="emoji" src="https://cdn.discordapp.com/emojis/${c}.gif?v=1"></img>`
-        } else {
+        } else if (d !== undefined){
             return `<img class="emoji" src="https://cdn.discordapp.com/emojis/${d}.png?v=1"></img>`
         }
+        return b
     });
+    if (i > 0) {
+        console.log(i, textContent)
+    }
 
     // Match all emojis
     if (!textContent.replace(/(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/g, "").length) {
@@ -56,7 +62,6 @@ let parseMessage = (text, embed = false) => {
 
     // Parse the emojis to SVGs
     textContent = twemoji.parse(textContent);
-    console.log(textContent)
 
 
     return textContent;
