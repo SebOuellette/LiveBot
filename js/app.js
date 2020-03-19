@@ -8,6 +8,15 @@ let selectedChatDiv;
 let oldimg;
 let barry = false;
 
+let shell = require('electron').shell
+document.addEventListener('click', function(event) {
+    if (event.target.tagName === 'A' && event.target.href.startsWith('http')) {
+        event.preventDefault()
+        shell.openExternal(event.target.href)
+    }
+})
+
+
 // Create the app and attach event listeners
 function create() {
     document.getElementById("msgbox")
