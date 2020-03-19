@@ -48,9 +48,6 @@ let parseMessage = (text, embed = false) => {
         }
         return b
     });
-    if (i > 0) {
-        console.log(i, textContent)
-    }
 
     // Match all emojis
     if (!textContent.replace(/(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/g, "").length) {

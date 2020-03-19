@@ -251,6 +251,10 @@ h5 {
     border-radius: 3px;
 }
 
+#channelVoice:hover{
+    co
+}
+
 #channelVoicex {
     width: calc(100% - 30px);
     padding: 7px 0 7px 20px;
@@ -261,7 +265,7 @@ h5 {
 
 .viewableVoice:hover {
     background-color: #34373c;
-    color: #B4B8BC;
+    color: #FF0000;
 }
 
 .blockedVoice {

@@ -5,7 +5,7 @@ function guildSelect(g, img) {
     try {
         oldimg.classList.remove('selectedGuild');
         oldimg.style.borderRadius = '50%';
-    } catch (err){}
+    } catch (err) {}
     img.classList.add('selectedGuild');
 
     function guildPos(id) {
@@ -24,7 +24,7 @@ function guildSelect(g, img) {
     // Update the message count
     try {
         clearInterval(memberLoop);
-    } catch(err){}
+    } catch (err) {}
 
     // Update the member count every 500 ms
     global.memberLoop = setInterval(() => {
@@ -43,7 +43,7 @@ function guildSelect(g, img) {
     if (g.name.length <= 22) {
         document.getElementById('guildName').innerHTML = g.name;
     } else {
-        document.getElementById('guildName').innerHTML = g.name.substring(0, 19)+'...';
+        document.getElementById('guildName').innerHTML = g.name.substring(0, 19) + '...';
     }
 
     // Update guild profile image
@@ -65,14 +65,14 @@ function guildSelect(g, img) {
 
         g.channels.forEach(c1 => {
             // If channel type is text
-            if (((c1.type === 'text'  && textPlaced == false) || (c1.type === 'voice' && voicePlaced == true)) && c1.parent == null) {
+            if (((c1.type === 'text' && textPlaced == false) || (c1.type === 'voice' && voicePlaced == true)) && c1.parent == null) {
                 // Create new channel list element
                 let div = document.createElement('div');
                 div.classList.add(c1.type == 'text' ? 'channel' : 'voice');
                 document.getElementById('channel-elements').appendChild(div);
 
                 //console.log(c);
-                
+
                 // Create the text for the channel
                 let text = document.createElement('h5');
                 let content;
@@ -81,7 +81,7 @@ function guildSelect(g, img) {
                 } else {
                     content = document.createTextNode(`${c1.type == 'text' ? '#' : '🔊'} ${c1.name.substring(0,25)}...`);
                 }
-                
+
                 // Add the text to the div
                 text.appendChild(content);
 
@@ -91,15 +91,19 @@ function guildSelect(g, img) {
                     text.classList.add(`blocked${c1.type == 'text' ? 'Text' : 'Voice'}`);
                 } else {
                     text.classList.add(`viewable${c1.type == 'text' ? 'Text' : 'Voice'}`);
-                    text.onclick = () => {
-                        if (selectedChannel) {
-                            selectedChannel.classList.remove("selectedChan");
-                        }
-                        selectedChannel = text;
-                        console.log(selectedChannel);
-                        text.classList.add("selectedChan");
-                        channelSelect(c1, text);
-                    };
+                    if (c1.type == 'text') {
+                        text.onclick = () => {
+                            if (selectedChannel) {
+                                selectedChannel.classList.remove("selectedChan");
+                            }
+                            selectedChannel = text;
+                            console.log(selectedChannel);
+                            text.classList.add("selectedChan");
+                            channelSelect(c1, text);
+                        };
+                    } else {
+                        // Code to connect to the voice channel
+                    }
                 }
 
                 text.id = `channel${c1.type == 'text' ? 'Text' : 'Voice'}x`;
@@ -124,13 +128,13 @@ function guildSelect(g, img) {
             } else {
                 content = document.createTextNode(`${c.name.substring(0,25).toLowerCase()}...`);
             }
-            
+
             text.appendChild(content);
             text.classList.add('categoryText');
             div.appendChild(text);
 
             // Categorized text channels
-            g.channels.filter(c1 => c1.parent == c && (c1.type === 'text' || c1.type === 'voice')) .sort((c1, c2) => c1.position - c2.position).forEach(c1 => {
+            g.channels.filter(c1 => c1.parent == c && (c1.type === 'text' || c1.type === 'voice')).sort((c1, c2) => c1.position - c2.position).forEach(c1 => {
                 let div1 = document.createElement('div');
                 div1.class = c1.type == "text" ? 'channel' : 'voice';
                 div.appendChild(div1);
@@ -148,14 +152,18 @@ function guildSelect(g, img) {
                     text1.classList.add(`blocked${c1.type == 'text' ? 'Text' : 'Voice'}`);
                 } else {
                     text1.classList.add(`viewable${c1.type == 'text' ? 'Text' : 'Voice'}`);
-                    text1.onclick = () => {
-                        if (selectedChannel) {
-                            selectedChannel.classList.remove("selectedChan");
-                        }
-                        selectedChannel = text1;
-                        text1.classList.add("selectedChan");
-                        channelSelect(c1, text1);
-                    };
+                    if (c1.type == 'text') {
+                        text1.onclick = () => {
+                            if (selectedChannel) {
+                                selectedChannel.classList.remove("selectedChan");
+                            }
+                            selectedChannel = text1;
+                            text1.classList.add("selectedChan");
+                            channelSelect(c1, text1);
+                        };
+                    } else {
+                        // Code to connect to the voice channel
+                    }
                 }
                 text1.id = `channel${c1.type == 'text' ? 'Text' : 'Voice'}`;
                 div1.appendChild(text1);
