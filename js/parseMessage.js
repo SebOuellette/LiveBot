@@ -28,17 +28,8 @@ let parseMessage = (text, embed = false) => {
     textContent = textContent.replace(/`(.*?)`/gm, '<span class="inlineCodeBlock">$1</span>');
     textContent = textContent.replace(/\|\|(.*?)\|\|/gm, '<span class="spoilerBlock" onclick="discoverSpoiler(this)">$1</span>');
 
-    // Parse Emojis
-    textContent = textContent.replace(/:([_a-z0-9]+):/gi, (m, g1) => idToUni[g1.toLowerCase()] || m);
-
-    textContent = textContent.replace(emojiRegex, (a) => {
-        let shortcut = shortcuts.find(s => s.face === a);
-        if (shortcut) return idToUni[shortcut.id];
-        return a;
-    });
-
+    // Parse custom emojis
     let nitro = /&lt;(a):.+?:(.+?)&gt;|&lt;:.+?:(.+?)&gt;/gm
-    var i = 0
     textContent = textContent.replace(nitro, (a, b, c, d) => {
         i++
         if (b == "a") {
@@ -47,6 +38,15 @@ let parseMessage = (text, embed = false) => {
             return `<img class="emoji" src="https://cdn.discordapp.com/emojis/${d}.png?v=1"></img>`
         }
         return b
+    });
+
+    // Parse Emojis
+    textContent = textContent.replace(/:([_a-z0-9]+):/gi, (m, g1) => idToUni[g1.toLowerCase()] || m);
+
+    textContent = textContent.replace(emojiRegex, (a) => {
+        let shortcut = shortcuts.find(s => s.face === a);
+        if (shortcut) return idToUni[shortcut.id];
+        return a;
     });
 
     // Match all emojis
