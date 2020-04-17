@@ -1,0 +1,43 @@
+.msgMenu {
+    float: right;
+    position: relative;
+    opacity: 0;
+    user-drag: none;
+    user-select: none;
+    color: rgba(255, 255, 255, 0.40);
+}
+
+.msgMenu:hover {
+    color: rgba(255, 255, 255, 1);
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    margin-left: -45px;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 5px;
+    min-width: 0px;
+    overflow: auto;
+    z-index: 101;
+}
+
+.dropdown-content a {
+    color: gray;
+    padding: 2px 10px;
+    text-align: center;
+    font-size: 13px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: rgba(0, 0, 0, 1);
+    color: white;
+    cursor: pointer;
+}
+
+.show {
+    display: block;
+} 

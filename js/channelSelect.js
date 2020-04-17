@@ -105,6 +105,7 @@ function channelSelect(c, name) {
                         text.id = m.id;
                         text.innerHTML = parseMessage(m.cleanContent);
 
+                        messageMenu(m, text)
                         messageContainer.appendChild(text);
                     }
                     

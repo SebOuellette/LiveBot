@@ -383,6 +383,7 @@ h5 {
 
 /* Send message bar */
 #sendmsg {
+    font-family: Whitney-light;
     position: absolute;
     margin-left: 310px;
     margin-top: -28px;
@@ -394,6 +395,7 @@ h5 {
 }
 
 #msgbox {
+    overflow:hidden;
     width: calc(100% - 50px);
     display: block;
     margin-left: auto;

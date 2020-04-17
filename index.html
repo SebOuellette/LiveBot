@@ -1,69 +1,83 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Discord Livebot</title>
-    <script src="js/app.js" charset="utf-8"></script>
-    <script src="js/load.js" charset="utf-8"></script>
-    <script src="js/guildSelect.js" charset="utf-8"></script>
-    <script src="js/channelSelect.js" charset="utf-8"></script>
-    <script src="js/command.js" charset="utf-8"></script>
-    <script src="js/setToken.js" charset="utf-8"></script>
-    <script src="js/sendMsg.js" charset="utf-8"></script>
-    <script src="js/userSettings.js" charset="utf-8"></script>
 
-    <script src="js/parseMessage.js" charset="utf-8"></script>
-    <script src="js/showEmbed.js" charset="utf-8"></script>
-    <script src="js/addMemberList.js" charset="utf-8"></script>
+    <head>
+        <meta charset="utf-8">
+        <title>Discord Livebot</title>
+        <script src="js/app.js" charset="utf-8"></script>
+        <script src="js/load.js" charset="utf-8"></script>
+        <script src="js/guildSelect.js" charset="utf-8"></script>
+        <script src="js/channelSelect.js" charset="utf-8"></script>
+        <script src="js/command.js" charset="utf-8"></script>
+        <script src="js/setToken.js" charset="utf-8"></script>
+        <script src="js/sendMsg.js" charset="utf-8"></script>
+        <script src="js/userSettings.js" charset="utf-8"></script>
 
-    <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
-    <script src="js/converter.js" charset="utf-8"></script>
-    
-    <link rel="stylesheet" href="css/master.css">
-    <link rel="stylesheet" href="css/embeds.css">
-    <link rel="stylesheet" href="css/memberList.css">
-    <link rel="stylesheet" href="css/userSettings.css">
-    <link rel="stylesheet" href="css/textFormat.css">
-    <link rel="stylesheet" href="css/barry.css">
-  </head>
-  <body onload='create()'>
-    <div id='main'>
-      <div id='guild-list'></div>
+        <script src="js/parseMessage.js" charset="utf-8"></script>
+        <script src="js/messageMenu.js" charset="utf-8"></script>
+        <script src="js/showEmbed.js" charset="utf-8"></script>
+        <script src="js/addMemberList.js" charset="utf-8"></script>
 
-      <div id='serverName'>
-        <h5 id='guildName'>discord-livebot</h5>
-        <img src='resources/images/default.png' id='guildImg'/>
-        <p id='members-text' class='members'>Members: </p>
-        <p id='members-count' class='members'>discord-livebot</p>
-      </div>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="js/converter.js" charset="utf-8"></script>
 
-      <div id='channel-list'>
-        <div id='channel-elements'>
+        <link rel="stylesheet" href="css/master.css">
+        <link rel="stylesheet" href="css/embeds.css">
+        <link rel="stylesheet" href="css/memberList.css">
+        <link rel="stylesheet" href="css/userSettings.css">
+        <link rel="stylesheet" href="css/textFormat.css">
+        <link rel="stylesheet" href="css/msgMenu.css">
+        <link rel="stylesheet" href="css/barry.css">
+    </head>
 
-        </div>
-      </div>
+    <body onload='create()'>
+        <div id='main'>
+            <div id="messageMenu" class="dropdown-content" style="float:right"></div>
+            <div id='guild-list'></div>
 
-      <div id="userSettings">
-        <div id=userCard>
-            <p id='userCardBot'>BOT</p>
-            <img src="resources/images/default.png" alt="UserIcon" id='userCardIcon' height='30px'>
-            <p id='userCardName'>User</p>
-            <p id='userCardDiscrim'>#1234</p>
-            <img id="userPullOutIcon" src="resources/icons/pullOut.svg" onclick="toggleSettings()"></div>
-        <div id="optionGroups"></div>
-      </div>
+            <div id='serverName'>
+                <h5 id='guildName'>discord-livebot</h5>
+                <img src='resources/images/default.png' id='guildImg' />
+                <p id='members-text' class='members'>Members: </p>
+                <p id='members-count' class='members'>discord-livebot</p>
+            </div>
 
-      <div id='msgSpace'>
-        <div id='settoken'>
-          <div id='tokenspace'>
-            <input type="text" name="token" value="" placeholder='Token' id='tokenbox'/>
-            <button type="button" name="button" onclick='savetoken()' id='savebtn'>Save</button>
-          </div>
-        </div>
+            <div id='channel-list'>
+                <div id='channel-elements'>
 
-        <!--This div would normally be empty, this is for embed stylingj-->
-        <div id='message-list'>
-<!--             
+                </div>
+            </div>
+
+            <div id="userSettings">
+                <div id=userCard>
+                    <p id='userCardBot'>BOT</p>
+                    <img src="resources/images/default.png" alt="UserIcon" id='userCardIcon' height='30px'>
+                    <p id='userCardName'>User</p>
+                    <p id='userCardDiscrim'>#1234</p>
+                    <img id="userPullOutIcon" src="resources/icons/pullOut.svg" onclick="toggleSettings()">
+                </div>
+                <div id="optionGroups">
+                    <div id="Groups">
+                        <input type='text' name='name' value='' placeholder='Username' id='usernameBox' class='optionBox'/>
+                      <input type='button' name='invite' value='Change name' id='inviteBtn' class='optionBox' onclick="options('username','')" />
+                    </div>
+                    <div id="Group">
+                      <input type='button' name='invite' value='Generate Invite for this server' id='inviteBtn' class='optionBox' onclick="options('invite','')" />
+                    </div>
+                </div>
+            </div>
+
+            <div id='msgSpace'>
+                <div id='settoken'>
+                    <div id='tokenspace'>
+                        <input type="text" name="token" value="" placeholder='Token' id='tokenbox' />
+                        <button type="button" name="button" onclick='savetoken()' id='savebtn'>Save</button>
+                    </div>
+                </div>
+
+                <!--This div would normally be empty, this is for embed stylingj-->
+                <div id='message-list'>
+                    <!--             
             <div id="messageCont" class="110203547623154">
                 <img id="messageImg" height="40" width="40" src="https://cdn.discordapp.com/avatars/368115108641112064/f9fc69042bb0e1b932a5fadd135f64c8.png?size=2048">
                 <p id="messageUsername" style="color: rgb(0, 150, 255)">Voila!</p>
@@ -94,19 +108,21 @@
                     </div>
                 </div>
             </div> -->
-        </div>
+                </div>
 
-        <div id='sendmsg'>
-          <input type="text" name="message" value="" placeholder='Message' id='msgbox'  ontype='typing()'/>
-        </div>
-      </div>
+                <div id='sendmsg'>
+                    <div name="message" id='msgbox' aria-label="Message #general" aria-multiline="true" contenteditable="true" style="outline: none; white-space: pre-wrap; overflow-wrap: break-word; -webkit-user-modify: read-write-plaintext-only; height:1em;"></div>
+                    <!-- <textarea name="message" value="" placeholder='Message' id='msgbox'rows="1" style="height:1em;" ontype='typing()'></textarea> /> -->
+                </div>
+            </div>
 
-      <div id='memberBar'>
-        <!--<input type='text' name='name' value='' placeholder='Username' id='usernameBox' class='optionBox'/>
+            <div id='memberBar'>
+                <!--<input type='text' name='name' value='' placeholder='Username' id='usernameBox' class='optionBox'/>
         <input type='button' name='invite' value='Generate Invite' id='inviteBtn' class='optionBox' onclick="options('invite','')"/>-->
-      </div>
-    </div>
+            </div>
+        </div>
 
-    <script src="js/titlebar.js" charset="utf-8"></script>
-  </body>
+        <script src="js/titlebar.js" charset="utf-8"></script>
+    </body>
+
 </html>

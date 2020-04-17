@@ -92,6 +92,32 @@ function load(token) {
         });
     });
 
+    bot.on("messageDelete", (m) => {
+        if (m.channel.id == selectedChan.id) {
+            let pre = document.getElementById(m.id);
+            let div = pre.parentElement;
+            let children = div.children;
+            let n = 0;
+            pre.remove();
+            for (i = 0; i <= children.length - 1; i++) {
+                if (children[i].classList.contains("messageText")) {
+                    n++;
+                }
+            }
+
+            if (n > 0) return
+            div.parentElement.parentElement.removeChild(div.parentElement)
+        }
+    });
+
+    bot.on('messageUpdate', (oldMsg, newMsg) => {
+        if (oldMsg.content === newMsg.content) return;
+        let pre = document.getElementById(newMsg.id);
+        let tmp = pre.childNodes[1]
+        pre.innerHTML = parseMessage(newMsg.cleanContent);
+        pre.appendChild(tmp)
+    });
+
     // New message recieved
     bot.on('message', (m) => {
         // If there is a channel selected
@@ -181,6 +207,7 @@ function load(token) {
                         text.id = m.id;
                         text.innerHTML = parseMessage(m.cleanContent);
 
+                        messageMenu(m, text)
                         messageContainer.appendChild(text);
                     }
                     

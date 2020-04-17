@@ -17,11 +17,30 @@ document.addEventListener('click', function(event) {
 })
 
 
+function scale(w, h) {
+    if (w <= 400 && h <= 400) {
+        return [w, h];
+    }
+
+    if (w == h) {
+        w = 400;
+        h = 400;
+    } else if (w > h) {
+        h = Math.round((h * 400) / w);
+        w = 400;
+    } else {
+        w = Math.round((w * 400) / h);
+        h = 400;
+    }
+    return [w, h]
+}
+
 // Create the app and attach event listeners
 function create() {
     document.getElementById("msgbox")
         .addEventListener("keyup", function(event) {
-            if (event.keyCode === 13) {
+            if (event.keyCode === 13 && !keys.Shift) {
+                event.preventDefault()
                 sendmsg();
             }
         });
@@ -52,7 +71,6 @@ function savetoken() {
 }
 
 function typing() {
-
 }
 
 // Options on the right pane
