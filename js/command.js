@@ -8,6 +8,7 @@ function command(text) {
     let img = document.createElement('img');
     img.id = 'messageImg';
     img.src = './resources/images/Barry.png';
+    img.classList.toggle('barryImg')
     div.appendChild(img);
   
     let name = document.createElement('p');
@@ -40,6 +41,6 @@ function command(text) {
     text2.classList.toggle("barryText")
     div.appendChild(text2);
     document.getElementById('message-list').scrollTop = document.getElementById('message-list').scrollHeight;
-    document.getElementById('msgbox').value = '';
+    document.getElementById('msgbox').innerText = '';
     barry = true;
   }
