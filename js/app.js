@@ -1,5 +1,6 @@
 global.Discord = require('discord.js');
 const remote = require('electron').remote;
+// In the future there will be two discord moudles, main and remote (For voice chat)
 const fs = require('fs');
 
 let selectedGuild;
@@ -13,9 +14,14 @@ document.addEventListener('click', function(event) {
     if (event.target.tagName === 'A' && event.target.href.startsWith('http')) {
         event.preventDefault()
         shell.openExternal(event.target.href)
+        // Just a thought but there are links to channels so that could be added here (ex. https://discordapp.com/channels/GuildID/ChannelId/MessageId)
     }
 })
 
+let keys = {
+    delete: false,
+    shift: false
+}
 
 function scale(w, h) {
     if (w <= 400 && h <= 400) {
@@ -38,9 +44,13 @@ function scale(w, h) {
 // Create the app and attach event listeners
 function create() {
     document.getElementById("msgbox")
-        .addEventListener("keyup", function(event) {
+        // keydown because it adds a newline if it's keyup (discord also uses keydown)
+        .addEventListener("keydown", function(event) {
+            typing(true);
             if (event.keyCode === 13 && !keys.Shift) {
-                event.preventDefault()
+                // Prevent newline after sending a message
+                event.preventDefault();
+                typing(false);
                 sendmsg();
             }
         });
@@ -70,7 +80,10 @@ function savetoken() {
     setToken();
 }
 
-function typing() {
+
+function typing(on) {
+    // Needs a timer to work or it won't stop typing
+    // on ? selectedChan.startTyping() : selectedChan.stopTyping(true)
 }
 
 // Options on the right pane
