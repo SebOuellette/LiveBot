@@ -73,10 +73,19 @@ function sendmsg() {
                     }
 
                 case 'server':
+                    channels = {}
+                    users = {}
+                    selectedChan.guild.channels.forEach(e=> {channels[e.type] == undefined ? channels[e.type] = 1 : channels[e.type] += 1})
+                    selectedChan.guild.members.forEach(e=> {users[e.user.bot] == undefined ? users[e.user.bot]  = 1 : users[e.user.bot]  += 1})
                     let serverinfo = [
                         'Here is some info about ' + selectedChan.guild.name + '. \n',
                         'Members - ' + selectedChan.guild.memberCount,
-                        'Channels - ' + selectedChan.guild.channels.size,
+                        'Bots - ' + users[true] + 
+                        ' | Users - ' + users[false],
+                        'Channels - ' + (channels["text"] + channels["voice"]) ,
+                        'Categories - ' + channels["category"] +
+                        ' | Text channels - ' + channels["text"] +
+                        ' | Voice channels - ' + channels["voice"],
                         'Roles - ' + selectedChan.guild.roles.size,
                         'Id - ' + selectedChan.guild.id,
                         'Owner - ' + selectedChan.guild.owner.user.tag
