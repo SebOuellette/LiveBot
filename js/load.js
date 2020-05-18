@@ -115,6 +115,7 @@ function load(token) {
         let pre = document.getElementById(newMsg.id);
         let tmp = pre.childNodes[1]
         pre.innerHTML = parseMessage(newMsg.cleanContent);
+        pre.innerHTML += '<time class="edited"> (edited)</time>'
         pre.appendChild(tmp)
     });
 

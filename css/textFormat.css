@@ -52,6 +52,12 @@ a:hover {
     width: calc(100% - 100px);
 }
 
+.edited {
+    font-size: 10px;
+    color: #72767d;
+    user-select: none;
+}
+
 #messageUsername {
     user-select: none;
     cursor: default;
