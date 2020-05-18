@@ -80,12 +80,12 @@ function sendmsg() {
                     let serverinfo = [
                         'Here is some info about ' + selectedChan.guild.name + '. \n',
                         'Members - ' + selectedChan.guild.memberCount,
-                        'Bots - ' + users[true] + 
-                        ' | Users - ' + users[false],
+                        '   | Bots - ' + users[true] ,
+                        '   | Users - ' + users[false],
                         'Channels - ' + (channels["text"] + channels["voice"]) ,
-                        'Categories - ' + channels["category"] +
-                        ' | Text channels - ' + channels["text"] +
-                        ' | Voice channels - ' + channels["voice"],
+                        '   | Categories - ' + channels["category"] ,
+                        '   | Text channels - ' + channels["text"] ,
+                        '   | Voice channels - ' + channels["voice"],
                         'Roles - ' + selectedChan.guild.roles.size,
                         'Id - ' + selectedChan.guild.id,
                         'Owner - ' + selectedChan.guild.owner.user.tag
