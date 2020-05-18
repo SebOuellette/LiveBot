@@ -1,8 +1,3 @@
-let keys = {
-    delete: false,
-    shift: false
-}
-
 window.onclick = function(event) {
     if (!event.target.matches('.msgMenu')) {
         var dropdowns = document.getElementsByClassName("dropdown-content");
@@ -58,16 +53,9 @@ function messageMenu(m, text) {
         }
         if (m.pinnable) {
             let pin = document.createElement('a')
-            if (!m.pinned) {
-                pin.innerHTML = "Pin"
-                pin.onclick = function(e) {
-                    m.pin();
-                }
-            } else {
-                pin.innerHTML = "Unpin"
-                pin.onclick = function(e) {
-                    m.unpin();
-                }
+            pin.innerHTML = m.pinned ? "Unpin" : "Pin"
+            pin.onclick = function(e) {
+                m.pinned ? m.unpin() : m.pin();
             }
             messageMenu.appendChild(pin)
         }
