@@ -1,10 +1,12 @@
 <center><img src='resources/icons/logoLarge.svg' height='100px' style='border-radius: 10px;'/></center>
 
 ## LIVEBOT CAN BE USED FOR USER ACCOUNTS, HOWEVER IT IS AGAINST TOS TO DO SO. USE AT YOUR OWN RISK
-## USE FOR BOT ACCOUNTS IS NOT AGAINST TOS TO MY KNOWLEDGE
 An app that allows you to be inside a bot!
 
-At the moment, livebot is still in extreme beta. Installation instructions can be found below.
+At the moment, livebot is still in beta. Installation instructions can be found below.
+
+## Discord
+If you would like to get the latest information on the project, talk with the developers, post suggestions, get help, etc... join the official Livebot [Discord server!](https://discord.gg/22xRth9)
 
 <img src='https://i.imgur.com/EcdCjI6.png' height='300px' style='border-radius: 10px;'/>
 
