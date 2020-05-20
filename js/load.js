@@ -1,3 +1,19 @@
+const loadScripts = () => {
+    fs.readdir('./scripts', (err, files) => {
+        console.log('Loading scripts...');
+
+        files.forEach(file => {
+            console.log('  ' + file + ' loaded!');
+
+            let scriptTag = document.createElement('script');
+            scriptTag.src = 'scripts/' + files;
+            scriptTag.charset = 'utf-8';
+
+            document.head.appendChild(scriptTag);
+        });
+    });
+};
+
 // Load a new token
 function load(token) {
     // Login to the bot profile
@@ -5,6 +21,9 @@ function load(token) {
     bot.login(token);
 
     bot.on('ready', () => {
+
+        loadScripts();
+
         // Log the status of the bot
         try {
             console.log(`Logged in as ${bot.user.tag}`);
