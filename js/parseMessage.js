@@ -9,7 +9,7 @@ let parseMessage = (text, msg, embed = false) => {
     textContent = textContent.replace(/\*\*(.*?)\*\*/gm, '<strong>$1</strong>');
     textContent = textContent.replace(/__(.*?)__/gm, '<u>$1</u>');
     textContent = textContent.replace(/\*(.*?)\*/gm, '<i>$1</i>');
-    textContent = textContent.replace(/```(.*?)```/gs, `<div class="codeBlock${embed ? " codeBlockEmbed" : ""}">$1</div>`);
+    textContent = textContent.replace(/```([^\n]+)\n(.*?)(?=```)```/gs, `<div class="codeBlock${embed ? " codeBlockEmbed" : ""} $1">$2</div>`);
     textContent = textContent.replace(/`(.*?)`/gm, '<span class="inlineCodeBlock">$1</span>');
     textContent = textContent.replace(/\|\|(.*?)\|\|/gm, '<span class="spoilerBlock" onclick="discoverSpoiler(this)">$1</span>');
     textContent = textContent.replace(/~~(.*?)~~/gm, '<del>$1</del>');
@@ -54,7 +54,6 @@ function formatPings(msg, text) {
 
     // Replace the ping with a span container
     keys.forEach(id => {
-        console.log(id);
         let member = msg.guild.members.get(id);
         let name = member ? member.displayName : bot.users.get(id).username;
 

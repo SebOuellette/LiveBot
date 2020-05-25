@@ -46,7 +46,11 @@ let addMemberList = guild => {
                         // Make the username text
                         let username = document.createElement("p");
                         username.classList.add("mLUsername");
-                        username.innerText = m.nickname || m.user.username;
+                        let name = m.nickname || m.user.username;
+                        if (name.length > 15) {
+                            name = `${name.substring(0, 15)}...`
+                        }
+                        username.innerText = name;
                         username.style.color = m.displayHexColor || "#8E9297";
                         userDiv.appendChild(username);
                     });
@@ -88,7 +92,7 @@ let addMemberList = guild => {
                 let username = document.createElement("p");
                 username.classList.add("mLUsername");
                 username.innerText = m.nickname || m.user.username;
-                username.style.color = m.displayHexColor || "#8E9297";
+                username.style.color = (m.displayColor == 0) ? "#8E9297" : m.displayHexColor;
                 userDiv.appendChild(username);
             });
     }
@@ -129,8 +133,8 @@ let addMemberList = guild => {
                 // Make the username text
                 let username = document.createElement("p");
                 username.classList.add("mLUsername");
-                username.innerText = m.nickname || m.user.username;
-                username.style.color = m.displayHexColor || "#8E9297";
+                username.innerText = m.displayName || m.user.username;
+                username.style.color = (m.displayColor == 0) ? "#8E9297" : m.displayHexColor;
                 userDiv.appendChild(username);
             });
     }

@@ -101,15 +101,17 @@ let guildSelect = (g, img) => {
                     text.classList.add(`blocked${c1.type == 'text' ? 'Text' : 'Voice'}`);
                 } else {
                     text.classList.add(`viewable${c1.type == 'text' ? 'Text' : 'Voice'}`);
-                    text.onclick = () => {
-                        if (selectedChannel) {
-                            selectedChannel.classList.remove("selectedChan");
-                        }
-                        selectedChannel = div;
-                        console.log(selectedChannel);
-                        div.classList.add("selectedChan");
-                        channelSelect(c1, div);
-                    };
+                    if (c1.type == 'text') {
+                        text.onclick = () => {
+                            if (selectedChannel) {
+                                selectedChannel.classList.remove("selectedChan");
+                            }
+                            selectedChannel = div;
+                            console.log(selectedChannel);
+                            div.classList.add("selectedChan");
+                            channelSelect(c1, div);
+                        };
+                    }
                 }
 
                 text.id = `channel${c1.type == 'text' ? 'Text' : 'Voice'}x`;
@@ -168,14 +170,16 @@ let guildSelect = (g, img) => {
                     text1.classList.add(`blocked${c1.type == 'text' ? 'Text' : 'Voice'}`);
                 } else {
                     text1.classList.add(`viewable${c1.type == 'text' ? 'Text' : 'Voice'}`);
-                    div1.onclick = () => {
-                        if (selectedChannel) {
-                            selectedChannel.classList.remove("selectedChan");
-                        }
-                        selectedChannel = div1;
-                        div1.classList.add("selectedChan");
-                        channelSelect(c1, div1);
-                    };
+                    if (c1.type == 'text') {
+                        div1.onclick = () => {
+                            if (selectedChannel) {
+                                selectedChannel.classList.remove("selectedChan");
+                            }
+                            selectedChannel = div1;
+                            div1.classList.add("selectedChan");
+                            channelSelect(c1, div1);
+                        };
+                    }
                 }
                 text1.id = `channel${c1.type == 'text' ? 'Text' : 'Voice'}`;
                 div1.appendChild(text1);

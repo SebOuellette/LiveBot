@@ -87,10 +87,7 @@ let channelSelect = (c, name) => {
                             while (colors[color-1] == 0) {
                                 color -= 1;
                             }
-                            let zeros = '';
-                            for(i=0;i<(6-colors[color-1].toString(16).length);i++) {
-                                zeros+='0';
-                            }
+                            let zeros = '0'.repeat(6-colors[color-1].toString(16).length);
                             name.style.color = `#${zeros+colors[color-1].toString(16)}`;
                         } catch (err) {
                             name.style.color = '#fff';
