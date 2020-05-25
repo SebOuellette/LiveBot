@@ -1,6 +1,11 @@
-function channelSelect(c, name) {
+let channelSelect = (c, name) => {
     let messages = document.getElementById("message-list");
-    let fetchSize = 50;
+    let fetchSize = 100;
+
+    // Stop typing in the current channel before switching
+    if (selectedChan) {
+        selectedChan.stopTyping(true);
+    }
     selectedChan = c;
     selectedChanDiv = name;
     name.style.color = '#eee';
@@ -29,21 +34,28 @@ function channelSelect(c, name) {
 
     // Create message
     async function messageCreate() {
-        let count=0;
-        await c.fetchMessages()
+        // Loop through messages
+        let count = 0;
+        await c.fetchMessages({limit: fetchSize})
             .then(msg => {
                 msg.map(mseg => mseg).reverse().forEach(m => {
                     let bunch;
-                    count+=1;
-                    if (count > 2 && count <= 50) {
-                        if(msg.map(mesg => mesg).reverse()[count-2].author.id == m.author.id){
+                    count++;
+                    if (count > 2 && count <= fetchSize) {
+                        let previousMessage = msg.map(mesg => mesg).reverse()[count-2];
+                        if(previousMessage.author.id == m.author.id){
                             bunch = true;
-            
+                            
+                            if (Math.floor(previousMessage.createdTimestamp/1000/60/60/24) != Math.floor(m.createdTimestamp/1000/60/60/24)) {
+                                bunch = false;
+                            }
+
                         } else {
                             bunch = false;
                         }
                     }
-        
+                    
+                    // Create the messages
                     let messageContainer;
                     if (!bunch) {
                         // Create message div
@@ -66,7 +78,7 @@ function channelSelect(c, name) {
                         
                         // Create user's name
                         let name = document.createElement('p');
-                        name.innerText = m.member.nickname || m.author.username;
+                        name.innerText = (m.member ? m.member.nickname : m.author.username) || m.author.username;
                         name.id = 'messageUsername';
 
                         try {
@@ -75,10 +87,7 @@ function channelSelect(c, name) {
                             while (colors[color-1] == 0) {
                                 color -= 1;
                             }
-                            let zeros = '';
-                            for(i=0;i<(6-colors[color-1].toString(16).length);i++) {
-                                zeros+='0';
-                            }
+                            let zeros = '0'.repeat(6-colors[color-1].toString(16).length);
                             name.style.color = `#${zeros+colors[color-1].toString(16)}`;
                         } catch (err) {
                             name.style.color = '#fff';
@@ -101,18 +110,37 @@ function channelSelect(c, name) {
                         let text = document.createElement('p');
                         text.classList.add('messageText');
                         text.id = m.id;
-                        text.innerHTML = parseMessage(m.cleanContent);
+                        text.innerHTML = parseMessage(m.cleanContent, m, false);
 
                         messageContainer.appendChild(text);
                     }
                     
                     // Append embeds
-                    m.embeds.forEach((embed) => {
-                        showEmbed(embed, messageContainer);
-                    })
+                    m.embeds.forEach(embed => {
+                        if (embed.thumbnail && embed.message.cleanContent.match(embed.thumbnail.url)) {
+                            let img = document.createElement("img");
+
+                            let newWidth = embed.thumbnail.width < 400 ? embed.thumbnail.width : 400;
+                            let newHeight = Math.floor(newWidth / embed.thumbnail.width * embed.thumbnail.height);
+
+                            img.src = `${embed.thumbnail.proxyURL}?width=${newWidth}&height=${newHeight}`;
+                            img.classList.add("previewImage");
+                            messageContainer.appendChild(img);
+                        } else {
+                            showEmbed(embed, messageContainer, m);
+                        }
+                    });
                 });
             }
         );
+        // Add the no load apology
+        let shell = document.createElement("div");
+        shell.classList.add("sorryNoLoad");
+        let text = document.createElement("p");
+        text.innerText = "Sorry! No messages beyond this point can be displayed.";
+        shell.appendChild(text);
+        document.getElementById("message-list").prepend(shell);
+
         messages.scrollTop = messages.scrollHeight;
     }
 }

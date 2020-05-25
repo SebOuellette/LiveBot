@@ -1,5 +1,5 @@
 // Selecting new guild
-function guildSelect(g, img) {
+let guildSelect = (g, img) => {
     // Update the selected guild
     //document.getElementById('guildIndicator').style.display = 'block';
     try {
@@ -8,9 +8,12 @@ function guildSelect(g, img) {
     } catch (err){}
     img.classList.add('selectedGuild');
 
-    function guildPos(id) {
+    guildPos = id => {
         return id == g.id;
     }
+
+    // Store the selected channel to know what to highlight
+    let selectedChannel;
 
     document.getElementById('guildIndicator').style.marginTop = `${img.offsetTop - 2}px`;
     document.getElementById('guildIndicator').style.display = "block";
@@ -65,7 +68,8 @@ function guildSelect(g, img) {
             if (((c1.type === 'text'  && textPlaced == false) || (c1.type === 'voice' && voicePlaced == true)) && c1.parent == null) {
                 // Create new channel list element
                 let div = document.createElement('div');
-                div.classList.add(c1.type == 'text' ? 'channel' : 'voice');
+                div.classList.add('channel');
+                div.classList.add(c1.type == 'text' ? 'text' : 'voice');
                 document.getElementById('channel-elements').appendChild(div);
 
                 //console.log(c);
@@ -73,10 +77,19 @@ function guildSelect(g, img) {
                 // Create the text for the channel
                 let text = document.createElement('h5');
                 let content;
-                if (c1.name.length < 25) {
-                    content = document.createTextNode(`${c1.type == 'text' ? '#' : '🔊'} ${c1.name}`);
+                let svg = document.createElement('img');
+                if (c1.type == 'text') {
+                    svg.src = './resources/icons/textChannel.svg';
                 } else {
-                    content = document.createTextNode(`${c1.type == 'text' ? '#' : '🔊'} ${c1.name.substring(0,25)}...`);
+                    svg.src = './resources/icons/voiceChannel.svg';
+                }
+                svg.classList.add('channelSVG');
+                div.appendChild(svg);
+
+                if (c1.name.length < 25) {
+                    content = document.createTextNode(c1.name);
+                } else {
+                    content = document.createTextNode(`${c1.name.substring(0,25)}...`);
                 }
                 
                 // Add the text to the div
@@ -88,7 +101,17 @@ function guildSelect(g, img) {
                     text.classList.add(`blocked${c1.type == 'text' ? 'Text' : 'Voice'}`);
                 } else {
                     text.classList.add(`viewable${c1.type == 'text' ? 'Text' : 'Voice'}`);
-                    text.onclick = () => channelSelect(c1, text);
+                    if (c1.type == 'text') {
+                        text.onclick = () => {
+                            if (selectedChannel) {
+                                selectedChannel.classList.remove("selectedChan");
+                            }
+                            selectedChannel = div;
+                            console.log(selectedChannel);
+                            div.classList.add("selectedChan");
+                            channelSelect(c1, div);
+                        };
+                    }
                 }
 
                 text.id = `channel${c1.type == 'text' ? 'Text' : 'Voice'}x`;
@@ -121,15 +144,25 @@ function guildSelect(g, img) {
             // Categorized text channels
             g.channels.filter(c1 => c1.parent == c && (c1.type === 'text' || c1.type === 'voice')) .sort((c1, c2) => c1.position - c2.position).forEach(c1 => {
                 let div1 = document.createElement('div');
-                div1.class = c1.type == "text" ? 'channel' : 'voice';
+                div1.classList.add('channel');
+                div1.classList.add(c1.type == "text" ? 'text' : 'voice');
                 div.appendChild(div1);
 
                 let text1 = document.createElement('h5');
                 let content1;
-                if (c1.name.length < 25) {
-                    content1 = document.createTextNode(`${c1.type == 'text' ? '#' : '🔊'} ${c1.name}`);
+                let svg = document.createElement('img');
+                if (c1.type == 'text') {
+                    svg.src = './resources/icons/textChannel.svg';
                 } else {
-                    content1 = document.createTextNode(`${c1.type == 'text' ? '#' : '🔊'} ${c1.name.substring(0,25)}...`);
+                    svg.src = './resources/icons/voiceChannel.svg';
+                }
+                svg.classList.add('channelSVG');
+                div1.appendChild(svg);
+
+                if (c1.name.length < 25) {
+                    content1 = document.createTextNode(c1.name);
+                } else {
+                    content1 = document.createTextNode(`${c1.name.substring(0,25)}...`);
                 }
                 text1.appendChild(content1);
                 if (!c1.permissionsFor(g.me).has("VIEW_CHANNEL")) {
@@ -137,7 +170,16 @@ function guildSelect(g, img) {
                     text1.classList.add(`blocked${c1.type == 'text' ? 'Text' : 'Voice'}`);
                 } else {
                     text1.classList.add(`viewable${c1.type == 'text' ? 'Text' : 'Voice'}`);
-                    text1.onclick = function(){channelSelect(c1, text1)};
+                    if (c1.type == 'text') {
+                        div1.onclick = () => {
+                            if (selectedChannel) {
+                                selectedChannel.classList.remove("selectedChan");
+                            }
+                            selectedChannel = div1;
+                            div1.classList.add("selectedChan");
+                            channelSelect(c1, div1);
+                        };
+                    }
                 }
                 text1.id = `channel${c1.type == 'text' ? 'Text' : 'Voice'}`;
                 div1.appendChild(text1);

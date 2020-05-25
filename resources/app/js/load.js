@@ -1,10 +1,15 @@
+
 // Load a new token
-function load(token) {
+let load = token => {
     // Login to the bot profile
     global.bot = new Discord.Client();
     bot.login(token);
 
     bot.on('ready', () => {
+        
+        // Load and start all the scripts
+        loadAllScripts();
+
         // Log the status of the bot
         try {
             console.log(`Logged in as ${bot.user.tag}`);
@@ -25,6 +30,16 @@ function load(token) {
             document.getElementById('userCardBot').innerHTML = `USER`;
             document.getElementById('userCardBot').style.marginLeft = `5px`;
         }
+
+        // Remove the server list when connection lsot
+        while (document.getElementById('guild-list').firstChild) {
+            document.getElementById('guild-list').removeChild(document.getElementById('guild-list').firstChild);
+        }
+        
+        // Create the guild indicator
+        let guildIndicator = document.createElement('div');
+        guildIndicator.id = 'guildIndicator';
+        document.getElementById('guild-list').appendChild(guildIndicator);
 
         // Loop through all the guilds and create the element for the icon
         bot.guilds.forEach(g => {
@@ -95,8 +110,13 @@ function load(token) {
                 // Get last message in channel
                 async function fetchLast() {
                     await m.channel.fetchMessages({ limit: 2 }).then(msg => {
-                        if (msg.map(mseg => mseg)[1] && msg.map(mseg => mseg)[1].author.id == m.author.id) {
+                        let previousMessage = msg.map(mseg => mseg)[1];
+                        if (previousMessage && previousMessage.author.id == m.author.id) {
                             bunch = true;
+
+                            if (Math.floor(previousMessage.createdTimestamp/1000/60/60/24) != Math.floor(m.createdTimestamp/1000/60/60/24)) {
+                                bunch = false;
+                            }
                         } else {
                             bunch = false;
                         }
@@ -169,15 +189,26 @@ function load(token) {
                         let text = document.createElement('p');
                         text.classList.add('messageText');
                         text.id = m.id;
-                        text.innerHTML = parseMessage(m.cleanContent);
+                        text.innerHTML = parseMessage(m.cleanContent, m, false);
 
                         messageContainer.appendChild(text);
                     }
                     
                     // Append embeds
-                    m.embeds.forEach((embed) => {
-                        showEmbed(embed, messageContainer);
-                    })
+                    m.embeds.forEach(embed => {
+                        if (embed.thumbnail && embed.message.cleanContent.match(embed.thumbnail.url)) {
+                            let img = document.createElement("img");
+
+                            let newWidth = embed.thumbnail.width < 400 ? embed.thumbnail.width : 400;
+                            let newHeight = Math.floor(newWidth / embed.thumbnail.width * embed.thumbnail.height);
+
+                            img.src = `${embed.thumbnail.proxyURL}?width=${newWidth}&height=${newHeight}`;
+                            img.classList.add("previewImage");
+                            messageContainer.appendChild(img);
+                        } else {
+                            showEmbed(embed, messageContainer, m);
+                        }
+                    });
 
                     // Auto scroll with the message
                     // Some debug stuff \/
@@ -193,4 +224,4 @@ function load(token) {
             }
         }
     });
-}
+};

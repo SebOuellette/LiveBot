@@ -17,6 +17,7 @@ let addMemberList = guild => {
                 // Role container
                 let container = document.createElement("div");
                 container.id = r.id;
+                container.classList.add("roleContainer");
                 listDiv.appendChild(container);
 
                 // Add the role name
@@ -45,7 +46,11 @@ let addMemberList = guild => {
                         // Make the username text
                         let username = document.createElement("p");
                         username.classList.add("mLUsername");
-                        username.innerText = m.nickname || m.user.username;
+                        let name = m.nickname || m.user.username;
+                        if (name.length > 15) {
+                            name = `${name.substring(0, 15)}...`
+                        }
+                        username.innerText = name;
                         username.style.color = m.displayHexColor || "#8E9297";
                         userDiv.appendChild(username);
                     });
@@ -58,6 +63,7 @@ let addMemberList = guild => {
         // Create offline label text
         let container = document.createElement("div");
         container.id = 'onlineUserList';
+        container.classList.add("roleContainer");
         listDiv.appendChild(container);
 
         let name = document.createElement("span");
@@ -86,7 +92,7 @@ let addMemberList = guild => {
                 let username = document.createElement("p");
                 username.classList.add("mLUsername");
                 username.innerText = m.nickname || m.user.username;
-                username.style.color = m.displayHexColor || "#8E9297";
+                username.style.color = (m.displayColor == 0) ? "#8E9297" : m.displayHexColor;
                 userDiv.appendChild(username);
             });
     }
@@ -98,16 +104,13 @@ let addMemberList = guild => {
         // Create offline label text
         let container = document.createElement("div");
         container.id = 'offlineUserList';
+        container.classList.add("roleContainer");
         listDiv.appendChild(container);
 
         let name = document.createElement("span");
         name.classList.add("roleTitle");
         name.innerText = 'offline';
         container.appendChild(name);
-
-        let content = document.createElement("div");
-        content.id = 'offlineUsersTransparent';
-        container.appendChild(content);
 
         // Show offline users
         guild.members
@@ -117,8 +120,9 @@ let addMemberList = guild => {
                 // Make the div for the user
                 let userDiv = document.createElement("div");
                 userDiv.id = m.id;
+                userDiv.classList.add('mLUserDivOffline');
                 userDiv.classList.add('mLUserDiv');
-                content.appendChild(userDiv);
+                container.appendChild(userDiv);
 
                 // Add the user icon
                 let icon = document.createElement("img");
@@ -129,8 +133,8 @@ let addMemberList = guild => {
                 // Make the username text
                 let username = document.createElement("p");
                 username.classList.add("mLUsername");
-                username.innerText = m.nickname || m.user.username;
-                username.style.color = m.displayHexColor || "#8E9297";
+                username.innerText = m.displayName || m.user.username;
+                username.style.color = (m.displayColor == 0) ? "#8E9297" : m.displayHexColor;
                 userDiv.appendChild(username);
             });
     }

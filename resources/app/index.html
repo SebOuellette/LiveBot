@@ -11,10 +11,14 @@
     <script src="js/setToken.js" charset="utf-8"></script>
     <script src="js/sendMsg.js" charset="utf-8"></script>
     <script src="js/userSettings.js" charset="utf-8"></script>
+    <script src="js/handleScripts.js" charset="utf-8"></script>
 
     <script src="js/parseMessage.js" charset="utf-8"></script>
     <script src="js/showEmbed.js" charset="utf-8"></script>
     <script src="js/addMemberList.js" charset="utf-8"></script>
+
+    <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+    <script src="js/converter.js" charset="utf-8"></script>
     
     <link rel="stylesheet" href="css/master.css">
     <link rel="stylesheet" href="css/embeds.css">
@@ -24,9 +28,7 @@
   </head>
   <body onload='create()'>
     <div id='main'>
-      <div id='guild-list'>
-        <div id='guildIndicator'></div>
-      </div>
+      <div id='guild-list'></div>
 
       <div id='serverName'>
         <h5 id='guildName'>discord-livebot</h5>
@@ -48,7 +50,20 @@
             <p id='userCardName'>User</p>
             <p id='userCardDiscrim'>#1234</p>
             <img id="userPullOutIcon" src="resources/icons/pullOut.svg" onclick="toggleSettings()"></div>
-        <div id="optionGroups"></div>
+        <div id="optionGroups">
+            <div class="optionCategory">
+                <p>test</p>
+            </div>
+            <div class="optionCategory">
+                <p>test</p>
+            </div>
+            <div class="optionCategory">
+                <p>test</p>
+            </div>
+            <div class="optionCategory">
+                <p>test</p>
+            </div>
+        </div>
       </div>
 
       <div id='msgSpace'>
@@ -61,7 +76,7 @@
 
         <!--This div would normally be empty, this is for embed stylingj-->
         <div id='message-list'>
-            <!--
+             <!--
             <div id="messageCont" class="110203547623154">
                 <img id="messageImg" height="40" width="40" src="https://cdn.discordapp.com/avatars/368115108641112064/f9fc69042bb0e1b932a5fadd135f64c8.png?size=2048">
                 <p id="messageUsername" style="color: rgb(0, 150, 255)">Voila!</p>
@@ -84,16 +99,20 @@
                         <p class="fieldName embedContent">Test Field</p>
                         <p class="fieldText embedContent">Here is the embed content</p>
                     </div>
+
+                    <img class="embedImage" src="https://images.soue.tk/zTYunOOF9o.png">
                     
                     <div class="footer">
                         <p class="footerText">Footer Text</p>
                     </div>
                 </div>
-            </div>-->
+            </div> 
+        -->
+
         </div>
 
         <div id='sendmsg'>
-          <input type="text" name="message" value="" placeholder='Message' id='msgbox'  ontype='typing()'/>
+          <input type="text" name="message" value="" placeholder='Message' id='msgbox' class='messageText'  oninput='typing()'/>
         </div>
       </div>
 

@@ -10,23 +10,21 @@ let barry = false;
 
 // Create the app and attach event listeners
 function create() {
+    let newlineCode = "&#13;&#10;";
+
     document.getElementById("msgbox")
-        .addEventListener("keyup", function(event) {
-            if (event.keyCode === 13) {
+        .addEventListener("keydown", event => {
+            if (event.keyCode === 13 && event.shiftKey) {
+                // Add a new line in to the message box
+                document.getElementById("msgbox").innerHTML = document.getElementById("msgbox").innerHTML + newlineCode;
+            } else if (event.keyCode === 13) {
                 sendmsg();
             }
         });
 
-    /*document.getElementById("usernameBox")
-        .addEventListener("keyup", function(event) {
-            if (event.keyCode === 13) {
-                options('username', document.getElementById('usernameBox').value);
-                document.getElementById("usernameBox").value = '';
-            }
-        });*/
 
     document.getElementById("tokenbox")
-        .addEventListener("keyup", function(event) {
+        .addEventListener("keydown", event => {
             if (event.keyCode === 13) {
                 setToken();
             }
@@ -43,7 +41,20 @@ function savetoken() {
 }
 
 function typing() {
+    if (selectedChan) {
+        let isTyping = bot.user._typing.has(selectedChan.id);
 
+        // Handle start and stop typing
+        if (document.getElementById("msgbox").value.length > 0 && !isTyping) {
+            
+            // Text box is not empty, start typing
+            selectedChan.startTyping();
+        } else if (document.getElementById("msgbox").value.length == 0 && isTyping) {
+
+            // Text box is empty, stop typing
+            selectedChan.stopTyping(true);
+        }
+    }
 }
 
 // Options on the right pane

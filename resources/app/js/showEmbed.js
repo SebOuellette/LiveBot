@@ -1,11 +1,15 @@
-let showEmbed = (embed, element) => {
+let showEmbed = (embed, element, msg) => {
     // Embed container
     let embedCont = document.createElement("div");
     embedCont.classList.add("embed");
     element.appendChild(embedCont);
     
     if (embed.color) {
-        embedCont.style.borderColor = `#${embed.color.toString(16)}`;
+        let color = embed.color.toString(16);
+        color = "0".repeat(6 - color.length) + color;
+
+        embedCont.style.borderColor = `#${color}`;
+        
     }
 
     // Large Icon
@@ -40,7 +44,7 @@ let showEmbed = (embed, element) => {
     if (embed.title) {
         let title = document.createElement("p");
         title.classList.add("embedTitle");
-        title.innerHTML = parseMessage(embed.title, true);
+        title.innerHTML = parseMessage(embed.title, true, msg);
         embedCont.appendChild(title);
     }
 
@@ -48,7 +52,7 @@ let showEmbed = (embed, element) => {
         let description = document.createElement("p");
         description.classList.add("embedDescription");
         description.classList.add("embedContent");
-        description.innerHTML = parseMessage(embed.description, true);
+        description.innerHTML = parseMessage(embed.description, true, msg);
         embedCont.appendChild(description);
     }
 
@@ -61,19 +65,27 @@ let showEmbed = (embed, element) => {
         let fieldTitle = document.createElement("p");
         fieldTitle.classList.add("fieldName");
         fieldTitle.classList.add("embedContent");
-        fieldTitle.innerHTML = parseMessage(field.name, true);
+        fieldTitle.innerHTML = parseMessage(field.name, true, msg);
         fieldCont.appendChild(fieldTitle);
 
         let fieldValue = document.createElement("p");
         fieldValue.classList.add("fieldText");
         fieldValue.classList.add("embedContent");
-        fieldValue.innerHTML = parseMessage(field.value, true);
+        fieldValue.innerHTML = parseMessage(field.value, true, msg);
         fieldCont.appendChild(fieldValue);
 
         if (field.inline) {
             fieldCont.style.display = "inline-block";
         }
     });
+
+    //Image
+    if (embed.image) {
+        let img = document.createElement("img");
+        img.classList.add("embedImage");
+        img.src = embed.image.url;
+        embedCont.appendChild(img);
+    }
 
     // Footer
     if (embed.footer) {
@@ -83,7 +95,7 @@ let showEmbed = (embed, element) => {
 
         let footText = document.createElement("p");
         footText.classList.add("footerText");
-        footText.innerHTML = parseMessage(embed.footer.text, true);
+        footText.innerHTML = parseMessage(embed.footer.text,  true, msg);
         footCont.appendChild(footText);
     }
 }

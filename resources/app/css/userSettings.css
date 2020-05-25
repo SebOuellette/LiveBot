@@ -4,6 +4,7 @@
     margin: 8px;
     padding: 5px;
     border-radius: 5px;
+    user-select: none;
 }
 
 #userPullOutIcon:hover {
@@ -33,6 +34,16 @@
 }
 
 /* Settings menu */
+#userSettings {
+    position: absolute;
+    background-color: #2A2C31;
+    height: 42px;
+    width: 260px;
+    margin-left: 50px;
+    font-family: Whitney-light, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #eee;
+}
+
 #userSettings.userSettingsToggle {
     margin-top: calc(-100vh + 60px);
     height: calc(100vh - 60px);
@@ -65,4 +76,9 @@
 #optionGroups {
     height: 100%;
     background-color: #2a2c31;
+}
+
+.optionCategory {
+    background-color: pink;
+    margin: 10px 0;
 }

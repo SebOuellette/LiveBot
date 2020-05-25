@@ -2,16 +2,58 @@
 .inlineMsgCont {
     margin-left: 60px;
     margin-top: -60px;
+    margin: -60px 0 20px 60px;
+}
+
+/* Emojis */
+.emoji {
+    height: 22px;
+    margin: -2px 0 0 0;
+    transform: translateY(2px);
+}
+
+.embed .emoji {
+    height: 18px !important;
+}
+
+.bigEmoji .emoji {
+    height: 50px !important;
+}
+
+.spoilerBlock .emoji {
+    opacity: 0;
+}
+
+.discovered .emoji {
+    opacity: 1;
+}
+
+/* Links */
+a {
+    color: #00b0f4;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Image Previews */
+.previewImage {
+    margin-bottom: 10px;
 }
 
 /* Message Text */
 .messageText {
-    font-family: Whitney-light, arial;
-    font-weight: 100;
-    margin-top: -5px;
-    margin-bottom: 7px;
+    font-family: Whitney-light, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    margin-top: 0px;
+    margin-bottom: 5px;
+    margin-right: 0;
     color: #dcddde;
-    width: calc(100% - 100px);
+    width: calc(100% - 40px);
+    word-spacing: 2px;
 }
 
 #messageUsername {
@@ -48,6 +90,7 @@
 }
 
 .codeBlockEmbed {
+    margin-top: 10px;
     background-color: #202225;
 }
 
@@ -66,6 +109,9 @@
     cursor: pointer;
     border-radius: 3px;
     user-select: none;
+    min-width: 20px;
+    height: 22px;
+    display: inline-block;
 }
 
 .spoilerBlock:hover {
@@ -79,4 +125,18 @@
 
 .spoilerBlock.discovered:hover {
     background-color: #474a4f;
+}
+
+/* Mention */
+.ping {
+    background-color: #3d414f;
+    padding: 0 2px 2px 2px;
+    color: #7289da;
+    border-radius: 3px;
+}
+
+.ping:hover {
+    background-color: #7289da;
+    cursor: pointer;
+    color: #dcddde;
 }

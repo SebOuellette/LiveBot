@@ -9,7 +9,7 @@ let helpMsg = [
     ].join('\n')
   
 // Commands  
-function sendmsg() {
+let sendmsg = () => {
     if (selectedChan) {
         let text = document.getElementById('msgbox').value;
         if (text.substring(0,1) == '/') {
@@ -56,11 +56,13 @@ function sendmsg() {
                     document.getElementById('msgbox').value = '';
                 break;
             }
+            selectedChan.stopTyping(true);
         } else {
             // Make a new message with the sent text
             selectedChan.send(text);
             document.getElementById('msgbox').value = '';
+            selectedChan.stopTyping(true);
         }
     }
     return false;
-}
+};
