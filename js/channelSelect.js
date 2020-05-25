@@ -1,4 +1,4 @@
-function channelSelect(c, name) {
+let channelSelect = (c, name) => {
     let messages = document.getElementById("message-list");
     let fetchSize = 100;
     selectedChan = c;
@@ -30,16 +30,21 @@ function channelSelect(c, name) {
     // Create message
     async function messageCreate() {
         // Loop through messages
-        let count=0;
+        let count = 0;
         await c.fetchMessages({limit: fetchSize})
             .then(msg => {
                 msg.map(mseg => mseg).reverse().forEach(m => {
                     let bunch;
                     count++;
                     if (count > 2 && count <= fetchSize) {
-                        if(msg.map(mesg => mesg).reverse()[count-2].author.id == m.author.id){
+                        let previousMessage = msg.map(mesg => mesg).reverse()[count-2];
+                        if(previousMessage.author.id == m.author.id){
                             bunch = true;
-            
+                            
+                            if (Math.floor(previousMessage.createdTimestamp/1000/60/60/24) != Math.floor(m.createdTimestamp/1000/60/60/24)) {
+                                bunch = false;
+                            }
+
                         } else {
                             bunch = false;
                         }

@@ -108,10 +108,6 @@ let addMemberList = guild => {
         name.innerText = 'offline';
         container.appendChild(name);
 
-        let content = document.createElement("div");
-        content.id = 'offlineUsersTransparent';
-        container.appendChild(content);
-
         // Show offline users
         guild.members
             .filter(m => m.presence.status == 'offline')
@@ -120,8 +116,9 @@ let addMemberList = guild => {
                 // Make the div for the user
                 let userDiv = document.createElement("div");
                 userDiv.id = m.id;
+                userDiv.classList.add('mLUserDivOffline');
                 userDiv.classList.add('mLUserDiv');
-                content.appendChild(userDiv);
+                container.appendChild(userDiv);
 
                 // Add the user icon
                 let icon = document.createElement("img");

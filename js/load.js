@@ -1,28 +1,14 @@
-const loadScripts = () => {
-    fs.readdir('./scripts', (err, files) => {
-        console.log('Loading scripts...');
-
-        files.forEach(file => {
-            console.log('  ' + file + ' loaded!');
-
-            let scriptTag = document.createElement('script');
-            scriptTag.src = 'scripts/' + files;
-            scriptTag.charset = 'utf-8';
-
-            document.head.appendChild(scriptTag);
-        });
-    });
-};
 
 // Load a new token
-function load(token) {
+let load = token => {
     // Login to the bot profile
     global.bot = new Discord.Client();
     bot.login(token);
 
     bot.on('ready', () => {
-
-        loadScripts();
+        
+        // Load and start all the scripts
+        loadAllScripts();
 
         // Log the status of the bot
         try {
@@ -124,8 +110,13 @@ function load(token) {
                 // Get last message in channel
                 async function fetchLast() {
                     await m.channel.fetchMessages({ limit: 2 }).then(msg => {
-                        if (msg.map(mseg => mseg)[1] && msg.map(mseg => mseg)[1].author.id == m.author.id) {
+                        let previousMessage = msg.map(mseg => mseg)[1];
+                        if (previousMessage && previousMessage.author.id == m.author.id) {
                             bunch = true;
+
+                            if (Math.floor(previousMessage.createdTimestamp/1000/60/60/24) != Math.floor(m.createdTimestamp/1000/60/60/24)) {
+                                bunch = false;
+                            }
                         } else {
                             bunch = false;
                         }
@@ -233,4 +224,4 @@ function load(token) {
             }
         }
     });
-}
+};

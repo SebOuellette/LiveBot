@@ -77,3 +77,8 @@
     height: 100%;
     background-color: #2a2c31;
 }
+
+.optionCategory {
+    background-color: pink;
+    margin: 10px 0;
+}

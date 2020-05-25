@@ -1,4 +1,4 @@
-async function setToken() {
+let setToken = async () => {
     let client = new Discord.Client()
     try{
         await client.login(document.getElementById('tokenbox').value);

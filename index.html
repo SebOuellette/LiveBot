@@ -11,6 +11,7 @@
     <script src="js/setToken.js" charset="utf-8"></script>
     <script src="js/sendMsg.js" charset="utf-8"></script>
     <script src="js/userSettings.js" charset="utf-8"></script>
+    <script src="js/handleScripts.js" charset="utf-8"></script>
 
     <script src="js/parseMessage.js" charset="utf-8"></script>
     <script src="js/showEmbed.js" charset="utf-8"></script>
@@ -24,9 +25,6 @@
     <link rel="stylesheet" href="css/memberList.css">
     <link rel="stylesheet" href="css/userSettings.css">
     <link rel="stylesheet" href="css/textFormat.css">
-
-    <!-- Scripts -->
-
   </head>
   <body onload='create()'>
     <div id='main'>
@@ -52,7 +50,20 @@
             <p id='userCardName'>User</p>
             <p id='userCardDiscrim'>#1234</p>
             <img id="userPullOutIcon" src="resources/icons/pullOut.svg" onclick="toggleSettings()"></div>
-        <div id="optionGroups"></div>
+        <div id="optionGroups">
+            <div class="optionCategory">
+                <p>test</p>
+            </div>
+            <div class="optionCategory">
+                <p>test</p>
+            </div>
+            <div class="optionCategory">
+                <p>test</p>
+            </div>
+            <div class="optionCategory">
+                <p>test</p>
+            </div>
+        </div>
       </div>
 
       <div id='msgSpace'>
@@ -65,7 +76,7 @@
 
         <!--This div would normally be empty, this is for embed stylingj-->
         <div id='message-list'>
-<!--             
+             <!--
             <div id="messageCont" class="110203547623154">
                 <img id="messageImg" height="40" width="40" src="https://cdn.discordapp.com/avatars/368115108641112064/f9fc69042bb0e1b932a5fadd135f64c8.png?size=2048">
                 <p id="messageUsername" style="color: rgb(0, 150, 255)">Voila!</p>
@@ -95,11 +106,13 @@
                         <p class="footerText">Footer Text</p>
                     </div>
                 </div>
-            </div> -->
+            </div> 
+        -->
+
         </div>
 
         <div id='sendmsg'>
-          <input type="text" name="message" value="" placeholder='Message' id='msgbox'  ontype='typing()'/>
+          <input type="text" name="message" value="" placeholder='Message' id='msgbox' class='messageText'  ontype='typing()'/>
         </div>
       </div>
 

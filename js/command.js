@@ -1,4 +1,4 @@
-function command(text) {
+let command = text => {
     let div = document.createElement('div');
     div.id = 'messageCont';
     div.classList.add('barryCommand');

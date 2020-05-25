@@ -45,11 +45,13 @@ a:hover {
 /* Message Text */
 .messageText {
     font-family: Whitney-light, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-weight: 100;
-    margin-top: -5px;
-    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: 400;
+    margin-top: 0px;
+    margin-bottom: 5px;
     color: #dcddde;
     width: calc(100% - 100px);
+    word-spacing: 2px;
 }
 
 #messageUsername {

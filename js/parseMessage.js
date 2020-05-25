@@ -13,6 +13,7 @@ let parseMessage = (text, embed = false) => {
     textContent = textContent.replace(/```(.*?)```/gs, `<div class="codeBlock${embed ? " codeBlockEmbed" : ""}">$1</div>`);
     textContent = textContent.replace(/`(.*?)`/gm, '<span class="inlineCodeBlock">$1</span>');
     textContent = textContent.replace(/\|\|(.*?)\|\|/gm, '<span class="spoilerBlock" onclick="discoverSpoiler(this)">$1</span>');
+    textContent = textContent.replace(/~~(.*?)~~/gm, '<del>$1</del>');
 
     // Parse Emojis
     textContent = textContent.replace(/:([_a-z0-9]+):/gi, (m, g1) => idToUni[g1.toLowerCase()] || m);
@@ -39,6 +40,6 @@ let parseMessage = (text, embed = false) => {
     return textContent;
 };
 
-let discoverSpoiler = spoiler => {
+function discoverSpoiler() {
     spoiler.classList.toggle("discovered");
 };

@@ -9,7 +9,7 @@ let helpMsg = [
     ].join('\n')
   
 // Commands  
-function sendmsg() {
+let sendmsg = () => {
     if (selectedChan) {
         let text = document.getElementById('msgbox').value;
         if (text.substring(0,1) == '/') {
@@ -63,4 +63,4 @@ function sendmsg() {
         }
     }
     return false;
-}
+};

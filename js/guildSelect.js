@@ -1,5 +1,5 @@
 // Selecting new guild
-function guildSelect(g, img) {
+let guildSelect = (g, img) => {
     // Update the selected guild
     //document.getElementById('guildIndicator').style.display = 'block';
     try {
@@ -8,7 +8,7 @@ function guildSelect(g, img) {
     } catch (err){}
     img.classList.add('selectedGuild');
 
-    function guildPos(id) {
+    guildPos = id => {
         return id == g.id;
     }
 
