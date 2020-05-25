@@ -52,7 +52,7 @@ function typing() {
         } else if (document.getElementById("msgbox").value.length == 0 && isTyping) {
 
             // Text box is empty, stop typing
-            selectedChan.stopTyping();
+            selectedChan.stopTyping(true);
         }
     }
 }

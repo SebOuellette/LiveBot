@@ -1,6 +1,11 @@
 let channelSelect = (c, name) => {
     let messages = document.getElementById("message-list");
     let fetchSize = 100;
+
+    // Stop typing in the current channel before switching
+    if (selectedChan) {
+        selectedChan.stopTyping(true);
+    }
     selectedChan = c;
     selectedChanDiv = name;
     name.style.color = '#eee';
