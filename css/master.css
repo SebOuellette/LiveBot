@@ -14,7 +14,8 @@
 p {
     font-size: 16px;
     overflow-wrap: break-word;
-    white-space: pre-line;
+    word-wrap: break-word;
+    white-space: pre-wrap;
 }
 
 .titlebar.windows {
@@ -173,10 +174,12 @@ p {
     font-size: 13px;
     margin-top: 13px;
     margin-left: 8px;
-    background-color: #0066dd;
-    padding: 2px;
+    background-color: #7289da;
+    padding: 2px 3px 2px 2px;
     border-radius: 4px;
 }
+
+/* Channel Stuff */
 
 #channel-list::-webkit-scrollbar {
     background-color: transparent;
@@ -193,15 +196,20 @@ p {
 }
 
 .categoryText {
-    font-variant: small-caps;
+    /* font-variant: small-caps; */
+    text-transform: uppercase;
     user-select: none;
-    cursor: default;
-    margin: 20px 0;
+    padding: 15px 0 0 0 !important;
+    height: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    
+    transform: translateY(5px) !important;
 }
 
 .channel {
     user-select: none;
-    margin-left: -5px;
+    margin: 2px 0 0 -5px;
 }
 
 .voice {
@@ -214,14 +222,6 @@ h5 {
     font-size: 16px;
 }
 
-#channelText {
-    width: calc(100% - 30px);
-    padding: 7px 0 7px 20px;
-    margin-top: -20px;
-    margin-bottom: 20px;
-    border-radius: 3px;
-}
-
 #channelTextx {
     width: calc(100% - 30px);
     padding: 7px 0 7px 20px;
@@ -230,25 +230,14 @@ h5 {
     border-radius: 3px;
 }
 
-.viewableText {
-    cursor: pointer;
-}
-
-.viewableText:hover {
-    background-color: #34373c;
-    color: #B4B8BC;
+.channelSVG {
+    height: 20px;
+    width: 20px;
+    display: inline-box;
 }
 
 .blockedText {
     cursor: default;
-}
-
-#channelVoice {
-    width: calc(100% - 30px);
-    padding: 7px 0 7px 20px;
-    margin-top: -20px;
-    margin-bottom: 20px;
-    border-radius: 3px;
 }
 
 #channelVoicex {
@@ -259,17 +248,28 @@ h5 {
     border-radius: 3px;
 }
 
-.viewableVoice:hover {
-    background-color: #34373c;
-    color: #B4B8BC;
-}
-
 .blockedVoice {
     cursor: default;
 }
 
-.viewableVoice {
+#channel-elements h5 {
+    transform: translateY(-5px);
+    display: inline-block;
+    margin: 0 !important;
+    padding: 7px 0 7px 10px;
+}
+
+.channel {
+    /* margin: 0 0 0 20px; */
+    padding: 5px 10px;
     cursor: pointer;
+    border-radius: 3px;
+    height: 25px;
+}
+
+.channel:hover {
+    background-color: #34373c;
+    color: #B4B8BC;
 }
 
 #serverName {

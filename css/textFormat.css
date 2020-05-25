@@ -9,6 +9,7 @@
 .emoji {
     height: 22px;
     margin: -2px 0 0 0;
+    transform: translateY(2px);
 }
 
 .embed .emoji {
@@ -49,8 +50,9 @@ a:hover {
     font-weight: 400;
     margin-top: 0px;
     margin-bottom: 5px;
+    margin-right: 0;
     color: #dcddde;
-    width: calc(100% - 100px);
+    width: calc(100% - 40px);
     word-spacing: 2px;
 }
 
@@ -88,6 +90,7 @@ a:hover {
 }
 
 .codeBlockEmbed {
+    margin-top: 10px;
     background-color: #202225;
 }
 
@@ -122,4 +125,18 @@ a:hover {
 
 .spoilerBlock.discovered:hover {
     background-color: #474a4f;
+}
+
+/* Mention */
+.ping {
+    background-color: #3d414f;
+    padding: 0 2px 2px 2px;
+    color: #7289da;
+    border-radius: 3px;
+}
+
+.ping:hover {
+    background-color: #7289da;
+    cursor: pointer;
+    color: #dcddde;
 }

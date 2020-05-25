@@ -56,10 +56,12 @@ let sendmsg = () => {
                     document.getElementById('msgbox').value = '';
                 break;
             }
+            selectedChan.stopTyping();
         } else {
             // Make a new message with the sent text
             selectedChan.send(text);
             document.getElementById('msgbox').value = '';
+            selectedChan.stopTyping();
         }
     }
     return false;

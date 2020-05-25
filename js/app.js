@@ -41,7 +41,20 @@ function savetoken() {
 }
 
 function typing() {
+    if (selectedChan) {
+        let isTyping = bot.user._typing.has(selectedChan.id);
 
+        // Handle start and stop typing
+        if (document.getElementById("msgbox").value.length > 0 && !isTyping) {
+            
+            // Text box is not empty, start typing
+            selectedChan.startTyping();
+        } else if (document.getElementById("msgbox").value.length == 0 && isTyping) {
+
+            // Text box is empty, stop typing
+            selectedChan.stopTyping();
+        }
+    }
 }
 
 // Options on the right pane

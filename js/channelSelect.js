@@ -108,7 +108,7 @@ let channelSelect = (c, name) => {
                         let text = document.createElement('p');
                         text.classList.add('messageText');
                         text.id = m.id;
-                        text.innerHTML = parseMessage(m.cleanContent);
+                        text.innerHTML = parseMessage(m.cleanContent, m, false);
 
                         messageContainer.appendChild(text);
                     }
@@ -125,7 +125,7 @@ let channelSelect = (c, name) => {
                             img.classList.add("previewImage");
                             messageContainer.appendChild(img);
                         } else {
-                            showEmbed(embed, messageContainer);
+                            showEmbed(embed, messageContainer, m);
                         }
                     });
                 });

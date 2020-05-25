@@ -21,8 +21,6 @@ let loadAllScripts = () => {
             console.log('  ' + file + ' started!');
         }
     });
-
-    console.log(getData());
 };
 
 let getData = () => {

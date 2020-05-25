@@ -189,7 +189,7 @@ let load = token => {
                         let text = document.createElement('p');
                         text.classList.add('messageText');
                         text.id = m.id;
-                        text.innerHTML = parseMessage(m.cleanContent);
+                        text.innerHTML = parseMessage(m.cleanContent, m, false);
 
                         messageContainer.appendChild(text);
                     }
@@ -206,7 +206,7 @@ let load = token => {
                             img.classList.add("previewImage");
                             messageContainer.appendChild(img);
                         } else {
-                            showEmbed(embed, messageContainer);
+                            showEmbed(embed, messageContainer, m);
                         }
                     });
 
