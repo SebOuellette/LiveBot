@@ -9,6 +9,10 @@ module.exports.start = () => {
     myFunction();
 };
 
+module.exports.stop = () => {
+    // This code will call when the script should be unloaded
+};
+
 function myFunction() {
     // You can make normal functions and call them from start()
 }

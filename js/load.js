@@ -224,4 +224,9 @@ let load = token => {
             }
         }
     });
+
+    // Runs when unloaded
+    bot.on('error', () => {
+        unloadAllScripts();
+    });
 };
