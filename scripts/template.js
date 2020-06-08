@@ -4,6 +4,12 @@ module.exports.info = {
 }
 
 module.exports.start = () => {
+    /*
+    Global Variables Available:
+    bot - the Discord.client() that is signed in
+
+    */
+
     // Your code goes here
 
     myFunction();

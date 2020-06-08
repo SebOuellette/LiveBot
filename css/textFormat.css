@@ -56,6 +56,10 @@ a:hover {
     word-spacing: 2px;
 }
 
+.messageText:hover {
+    background-color: #32353b;
+}
+
 #messageUsername {
     user-select: none;
     cursor: default;

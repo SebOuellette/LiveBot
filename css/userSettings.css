@@ -23,6 +23,10 @@
     animation-duration: 0.5s;
 }
 
+#userSettings.userSettingsToggle {
+    border-radius: 10px 0 0 0;
+}
+
 @keyframes userIconRotateDown {
     from {transform: rotate(0deg);}
     to {transform: rotate(-180deg);}
@@ -76,9 +80,23 @@
 #optionGroups {
     height: 100%;
     background-color: #2a2c31;
+    display: block;
 }
 
+
 .optionCategory {
-    background-color: pink;
-    margin: 10px 0;
+    margin: 0 0 0 2.5%;
+    padding: 10px 0;
+    font-size: 18px !important;
+    padding-left: 20px;
+    width: calc(95% - 20px);
+    border-radius: 5px;
+    color: #B4B8BC;
 }
+
+.optionCategory:hover {
+    background-color: #34373c;
+    cursor: pointer;
+    color: #d0d4d9;
+}
+

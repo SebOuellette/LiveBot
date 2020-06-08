@@ -38,7 +38,7 @@ let parseMessage = (text, msg, embed = false) => {
     return textContent;
 };
 
-function discoverSpoiler() {
+function discoverSpoiler(spoiler) {
     spoiler.classList.toggle("discovered");
 };
 
