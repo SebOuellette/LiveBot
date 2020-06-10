@@ -3,7 +3,7 @@ let parseMessage = (text, msg, embed = false) => {
     let textContent = text.replace(/(<)([^>]+)(>)/gm, '&lt;$2&gt;');
 
     // General message parsing
-    textContent = textContent.replace(/https?:\/\/[^ ]+(\.[^ ]+)+(\/[^ ]*)?/g, '<a href="$&" rel="noreferrer noopener" title="$&" target="_blank">$&</a>');
+    textContent = textContent.replace(/https?:\/\/.+?(\/(.+?(\?.+?((?= )|$)))|(?= )|$)/mg, '<a href="$&" rel="noreferrer noopener" title="$&" target="_blank">$&</a>');
 
     // Add html tags for markup
     textContent = textContent.replace(/\*\*(.*?)\*\*/gm, '<strong>$1</strong>');

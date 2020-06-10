@@ -1,6 +1,7 @@
 global.Discord = require('discord.js');
 const remote = require('electron').remote;
 const fs = require('fs');
+let jsonSettings = require("./json/settings.json");
 
 let selectedGuild;
 let selectedChan;
@@ -29,6 +30,25 @@ function create() {
                 setToken();
             }
         });
+    
+    // Call the popup menu builder
+    Array.from(document.getElementsByClassName("optionCategory")).forEach(category => {
+        category.addEventListener("click", event => {
+    
+            Array.from(document.getElementsByClassName("optionCategory")).forEach(category2 => {
+                if (category != category2) {
+                    category2.classList.remove("toggledOn");
+                }
+            });
+
+            category.classList.toggle("toggledOn");
+            if (category.classList.contains("toggledOn")) {
+                togglePopup(category.parentElement,  jsonSettings[0].groups[0]);
+            } else {
+                category.parentElement.querySelector(".settingsPopup").remove();
+            }
+        });
+    });
 
     load(localStorage.getItem('livebot-token'));
 }

@@ -7,6 +7,8 @@ module.exports.start = () => {
     /*
     Global Variables Available:
     bot - the Discord.client() that is signed in
+    selectedChan - the current channel you're in (Object, not the DOM)
+    selectedGuild - the current guild you're in 
 
     */
 

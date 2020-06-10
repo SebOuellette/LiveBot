@@ -49,20 +49,65 @@
             <img src="resources/images/default.png" alt="UserIcon" id='userCardIcon' height='30px'>
             <p id='userCardName'>User</p>
             <p id='userCardDiscrim'>#1234</p>
-            <img id="userPullOutIcon" src="resources/icons/pullOut.svg" onclick="toggleSettings()"></div>
+            <img id="userPullOutIcon" src="resources/icons/pullOut.svg" onclick="toggleSettings()">
+        </div>
+        
         <div id="optionGroups">
-            <center><h2>Options</h2></center>
-            <div class="optionCategory">
-                <span class="settingLabel">Presence</span>
+            <center><h2>User Options</h2></center>
+            <div class="optionCategoryContainer">
+                <div class="optionCategory">
+                    <span class="settingLabel">Presence</span>
+                </div>
+
+
+                <!-- The following is to test the styling of the settings menu -->
+                 <!-- <div class="settingsPopup">
+                    <div class="option">
+                        <label>Status</label>
+                        <p class="description">Set the status for your bot. The default is online, but you can change it here. If you change this value too often it could take some time before discord displays your new status.</p>
+                        
+                        <select class="dropdown">
+                            <div class="dropdownDisplay">
+                                <span class="dropDownTitle">Online</span>
+                                <img class="dropdownIcon" src="resources/icons/pullOut.svg">
+                            </div>
+                            <div class="dropdownChildren">
+                                <option class="selectedOption">Online</option>
+                                <option>Invisible</option>
+                                <option>Do Not Disturb</option>
+                                <option>Idle</option>
+                            </div>
+                        </select>
+
+                        BUTTON GOES HERE
+                    </div>
+                    <hr>
+                    <div class="option">
+                        <label>Activity & Message</label>
+                    </div>
+                    <hr>
+                    <div class="option">
+                        <label>Status</label>
+                    </div>
+                </div>  -->
+
+
+
             </div>
-            <div class="optionCategory">
-                <span class="settingLabel">User</span>
+            <div class="optionCategoryContainer">
+                <div class="optionCategory">
+                    <span class="settingLabel">User</span>
+                </div>
             </div>
-            <div class="optionCategory">
-                <span class="settingLabel">Scripts</span>
+            <div class="optionCategoryContainer">
+                <div class="optionCategory">
+                    <span class="settingLabel">Scripts</span>
+                </div>
             </div>
-            <div class="optionCategory">
-                <span class="settingLabel">Servers</span>
+            <div class="optionCategoryContainer">
+                <div class="optionCategory">
+                    <span class="settingLabel">Servers</span>
+                </div>
             </div>
         </div>
       </div>
@@ -75,7 +120,7 @@
           </div>
         </div>
 
-        <!--This div would normally be empty, this is for embed stylingj-->
+        <!--This div would normally be empty, this is for embed styling/testing-->
         <div id='message-list'>
              <!--
             <div id="messageCont" class="110203547623154">

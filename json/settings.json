@@ -1,0 +1,95 @@
+[
+    {
+        "name": "User Options",
+        "groups": [
+            {
+                "name": "Presence",
+                "settings": [
+                    {
+                        "name": "Activity, Status & Message",
+                        "description": "Here you can set the activity status for your bot. By default livebot does not have an activity set, but you can change that here. This may take a while to update, especially if it is changed often.",
+                        "call": "setActivity([DROPDOWNS], ACTIVITYNAME, STREAMURL)",
+                        "update": true,
+                        "options": [
+                            {
+                                "type": "dropdown",
+                                "options": ["Online", "Invisible", "Do Not Disturb", "Idle"],
+                                "default": 0,
+                                "exception": {
+                                    "with": 1,
+                                    "options": {
+                                        "Invisible": [1, 2, 3, 4]
+                                    } 
+                                }
+                            },
+                            {
+                                "type": "dropdown",
+                                "options": ["None", "Streaming", "Playing", "Listening", "Watching"],
+                                "default": 0,
+                                "special": [
+                                    {
+                                        "id": 1,
+                                        "needs": [
+                                            {
+                                                "type": "shortinput",
+                                                "placeholder": "URL of the stream",
+                                                "class": "streamURLInput"
+                                            },
+                                            {
+                                                "type": "shortinput",
+                                                "placeholder": "Name of the stream",
+                                                "class": "activityInput"
+                                            }
+                                        ] 
+                                    },
+                                    {
+                                        "id": 2,
+                                        "needs": [
+                                            {
+                                                "type": "shortinput",
+                                                "placeholder": "Name of the game / action",
+                                                "class": "activityInput"
+                                            }  
+                                        ]
+                                    },
+                                    {
+                                        "id": 3,
+                                        "needs": [
+                                            {
+                                                "type": "shortinput",
+                                                "placeholder": "Name of the music / show / whatever sound source",
+                                                "class": "activityInput"
+                                            }  
+                                        ]
+                                    },
+                                    {
+                                        "id": 4,
+                                        "needs": [
+                                            {
+                                                "type": "shortinput",
+                                                "placeholder": "Name of the video / thing",
+                                                "class": "activityInput"
+                                            }  
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                
+                            }
+                        ]
+                    }
+                ]
+            }, 
+            {
+                "name": "User"
+            },
+            {
+                "name": "Scripts"
+            },
+            {
+                "name": "Servers"
+            }
+        ]
+    }
+]
