@@ -74,9 +74,10 @@ h5 {
     display: inline-box;
 }
 
-.blockedText {
-    cursor: not-allowed;
-}
+/* .channelSVG svg path {
+    color: #fc5c65;
+    fill: #fc5c65;
+} */
 
 /* #channelVoicex {
     width: calc(100% - 30px);
@@ -85,10 +86,6 @@ h5 {
     margin-bottom: 0;
     border-radius: 3px;
 } */
-
-.blockedVoice {
-    cursor: not-allowed;
-}
 
 #channel-elements h5 {
     transform: translateY(-5px);
@@ -108,4 +105,24 @@ h5 {
 .channel:hover {
     background-color: #34373c;
     color: #B4B8BC;
+}
+
+.blocked {
+    cursor: not-allowed;
+    /* color: #904d3c; */
+    color: #fc5c65;
+}
+
+.blocked h5 {
+    opacity: 0.35;
+}
+
+.blocked:hover {
+    color: #fc5c65;
+    /* background-color: #4d4040; */
+    background-color: #3c3434;
+}
+
+.blocked:hover h5 {
+    opacity: 1;
 }

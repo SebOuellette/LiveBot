@@ -26,6 +26,8 @@ let guildSelect = (g, img) => {
 
     // Clear the channels list
     let channelList = document.getElementById("channel-elements");
+    while (channelList.firstChild)
+        channelList.removeChild(channelList.firstChild);
 
     // Update guild profile name
     let name = g.name;
@@ -82,9 +84,18 @@ let guildSelect = (g, img) => {
             div.classList.add(c.type);
             div.id = c.id;
 
+            // check if user can access the channel
+            let blocked = false;
+            if (!c.permissionsFor(g.me).has("VIEW_CHANNEL")) {
+                blocked = true;
+                div.classList.add("blocked");
+            }
+
             // Create the svg icon
             let svg = document.createElement('img');
-            svg.src = `./resources/icons/${c.type}Channel.svg`;
+            // svg.type = "image/svg+xml";
+            // svg.data
+            svg.src = `./resources/icons/${c.type}Channel${blocked ? 'Blocked' : ''}.svg`;
             svg.classList.add("channelSVG");
             div.appendChild(svg);
 
@@ -101,19 +112,21 @@ let guildSelect = (g, img) => {
                 realParent.insertBefore(div, realParent.querySelector('.category'));
 
 
-            div.addEventListener("click", event => {
-                let previous = realParent.querySelector('.selectedChan');
-                let id;
-                if (previous) {
-                    id = previous.id;
-                    if (id != c.id)
-                        previous.classList.remove("selectedChan");
-                }
+            if (!blocked) {
+                div.addEventListener("click", event => {
+                    let previous = realParent.querySelector('.selectedChan');
+                    let id;
+                    if (previous) {
+                        id = previous.id;
+                        if (id != c.id)
+                            previous.classList.remove("selectedChan");
+                    }
 
-                if (id != c.id) {
-                    div.classList.add("selectedChan");
-                    channelSelect(c, div);
-                }
-            });
+                    if (id != c.id) {
+                        div.classList.add("selectedChan");
+                        channelSelect(c, div);
+                    }
+                });
+            }
         });
 }
