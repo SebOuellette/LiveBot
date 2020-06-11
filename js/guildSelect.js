@@ -60,8 +60,14 @@ let guildSelect = (g, img) => {
                 let category = document.createElement('div');
                 category.classList.add("category");
                 category.id = c.id;
-                realParent.appendChild(category);
-
+				//Add the images
+				let svg = document.createElement('img');
+                svg.src = `./resources/icons/categoryArrow.svg`;
+				svg.classList.add("channelSVG");
+				category.appendChild(svg);
+				
+				realParent.appendChild(category);
+				
                 // Set the parent for the next added channels
                 parent = category;
                 categoryParent = c;
@@ -70,7 +76,20 @@ let guildSelect = (g, img) => {
                 text.classList.add("categoryText");
                 text.innerText = c.name;
                 category.appendChild(text);
-
+				
+				category.addEventListener("click", function() {
+						for(i = 0;i<category.children.length;i++){
+						var content = category.children[i];
+							if(content.classList.contains("channel")){
+								console.log(content);
+									if (content.style.display === "block") {
+									  content.style.display = "none";
+									} else {
+									  content.style.display = "block";
+									}
+							}
+						}
+			  });
             }
         });
 
@@ -83,6 +102,7 @@ let guildSelect = (g, img) => {
             div.classList.add("channel");
             div.classList.add(c.type);
             div.id = c.id;
+			div.style.display === "block"
 
             // check if user can access the channel
             let blocked = false;
@@ -104,7 +124,6 @@ let guildSelect = (g, img) => {
             channelName.classList.add('viewableText');
             channelName.innerText = c.name;
             div.appendChild(channelName);
-
             // Finally, add it to the parent
             if (c.parentID)
                 document.getElementById(c.parentID).appendChild(div);

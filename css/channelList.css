@@ -33,11 +33,14 @@
     border-radius: 3px;
 }
 
+.category{
+    padding: 15px 0 0 0 !important;
+}
+
 .categoryText {
     /* font-variant: small-caps; */
     text-transform: uppercase;
     user-select: none;
-    padding: 15px 0 0 0 !important;
     height: 20px;
     font-size: 12px;
     font-weight: bold;
@@ -88,7 +91,7 @@ h5 {
 } */
 
 #channel-elements h5 {
-    transform: translateY(-5px);
+    transform: translateY(-5px) !important;
     display: inline-block;
     margin: 0 !important;
     padding: 7px 0 7px 10px;
