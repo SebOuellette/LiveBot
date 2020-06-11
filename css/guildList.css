@@ -7,6 +7,11 @@
 }
 
 .guild-icon.selectedGuild {
+    border-radius: 25% !important;
+}
+
+.guild-icon:hover {
+    cursor: pointer;
     border-radius: 25%;
 }
 
@@ -18,10 +23,6 @@
     text-align: center;
     font-size: 13px;
     width: 40px;
-}
-
-.guild-icon:hover {
-    cursor: pointer;
 }
 
 #guild-list {

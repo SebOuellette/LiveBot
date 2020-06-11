@@ -20,6 +20,9 @@ let channelSelect = (c, name) => {
     name.style.color = '#eee';
     messageCreate();
 
+    // Remove the notification class
+    name.classList.remove("newMsg");
+
     // Clear the messages
     while (messages.firstChild) {
         messages.removeChild(messages.firstChild);

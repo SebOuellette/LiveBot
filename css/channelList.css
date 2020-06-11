@@ -14,11 +14,6 @@
     font-weight: 100;
 }
 
-.selectedChan {
-    background-color: #393c43 !important;
-    color: white !important;
-}
-
 #channel-list::-webkit-scrollbar {
     background-color: transparent;
     width: 6px;
@@ -105,6 +100,15 @@ h5 {
 .channel:hover {
     background-color: #34373c;
     color: #B4B8BC;
+}
+
+.selectedChan {
+    background-color: #393c43 !important;
+    color: white !important;
+}
+
+.channel.newMsg {
+    color: white !important;
 }
 
 .blocked {

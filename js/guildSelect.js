@@ -1,3 +1,10 @@
+function format(text) {
+    if (text.length >= 25) {
+        return `${text.substring(0, 25)}...`;
+    }
+    return text;
+}
+
 // Selecting new guild
 let guildSelect = (g, img) => {
     // Update the selected guild
@@ -68,7 +75,7 @@ let guildSelect = (g, img) => {
 
                 let text = document.createElement("h5");
                 text.classList.add("categoryText");
-                text.innerText = c.name;
+                text.innerText = format(c.name);
                 category.appendChild(text);
 
             }
@@ -102,7 +109,7 @@ let guildSelect = (g, img) => {
             // Add the text
             let channelName = document.createElement('h5');
             channelName.classList.add('viewableText');
-            channelName.innerText = c.name;
+            channelName.innerText = format(c.name);
             div.appendChild(channelName);
 
             // Finally, add it to the parent

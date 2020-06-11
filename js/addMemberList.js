@@ -140,8 +140,6 @@ let addMemberList = guild => {
             });
     }
 
-    console.log(offline);
-
     // Display the unsorted, online users
     guild.fetchMembers().then(promiseGuild => {
         let members = promiseGuild.members.array();

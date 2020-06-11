@@ -75,17 +75,17 @@ let load = token => {
                 selectedGuild = g;
             };
 
-            img.onmouseover = () => {
-                img.style.borderRadius = '25%';
-            };
+            // img.onmouseover = () => {
+            //     img.style.borderRadius = '25%';
+            // };
 
-            img.onmouseleave = () => {
-                if (selectedGuild == g) {
-                    img.style.borderRadius = '25%';
-                } else {
-                    img.style.borderRadius = '50%';
-                }
-            };
+            // img.onmouseleave = () => {
+            //     if (selectedGuild == g) {
+            //         img.style.borderRadius = '25%';
+            //     } else {
+            //         img.style.borderRadius = '50%';
+            //     }
+            // };
 
             // Add image to the list of guilds
             document.getElementById('guild-list').appendChild(img);
@@ -95,9 +95,15 @@ let load = token => {
     // New message recieved
     bot.on('message', (m) => {
         // If there is a channel selected
-        if (selectedChan) {
+        if (selectedGuild && m.guild.id == selectedGuild.id) {
+
+            let channel = document.getElementById(m.channel.id);
+            if (channel) {
+                channel.classList.add("newMsg");
+            }
+
             // If the message was sent to the selected channel
-            if (m.channel.id == selectedChan.id) {
+            if (selectedChan && m.channel.id == selectedChan.id) {
                 //document.getElementById('message-list').removeChild(document.getElementById('message-list').firstChild);
                 let bunch;
                 fetchLast();
