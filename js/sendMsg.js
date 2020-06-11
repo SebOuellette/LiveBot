@@ -1,11 +1,11 @@
 let helpMsg = [
         'Here is a list of available commands. \n',
-        '/help - Lists all commands.',
-        '/shrug - Prepends ¯\\_(ツ)_/¯ to your message.',
-        '/tableflip - Prepends (╯°□°）╯︵ ┻━┻ to your message.',
-        '/ping - Check the hearbeat to discord.',
-        '/server - Get some info about the server.',
-        '/eval - Execute a command.'
+        '`/help` - Lists all commands.',
+        '`/shrug` - Prepends ¯\\_(ツ)_/¯ to your message.',
+        '`/tableflip` - Prepends (╯°□°）╯︵ ┻━┻ to your message.',
+        '`/ping` - Check the hearbeat to discord.',
+        '`/server` - Get some info about the server.',
+        '`/eval` - Execute a command.'
     ].join('\n')
   
 // Commands  

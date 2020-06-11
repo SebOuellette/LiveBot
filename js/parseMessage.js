@@ -1,4 +1,4 @@
-let parseMessage = (text, msg, embed = false) => {
+let parseMessage = (text, msg = null, embed = false) => {
     // Remove html in the message
     let textContent = text.replace(/(<)([^>]+)(>)/gm, '&lt;$2&gt;');
 
@@ -31,7 +31,9 @@ let parseMessage = (text, msg, embed = false) => {
     }
 
     // Format pings
-    textContent = formatPings(msg, textContent);
+    if (msg) {
+        textContent = formatPings(msg, textContent);
+    }
 
     // Parse the emojis to SVGs
     textContent = twemoji.parse(textContent);
