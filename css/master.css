@@ -233,11 +233,16 @@ body {
     position: absolute;
     margin-left: 310px;
     margin-top: -28px;
+    /* margin-top: -200px; */
     width: calc(100vw - 518px);
     height: 40px;
     padding-top: 20px;
     padding-bottom: 10px;
     background-color: #36393E;
+}
+
+#msgbox::-webkit-scrollbar {
+    width: 0;
 }
 
 #msgbox {
@@ -251,6 +256,7 @@ body {
     border-radius: 5px;
     outline: none;
     color: white;
+    resize: none;
 }
 
 #settoken {

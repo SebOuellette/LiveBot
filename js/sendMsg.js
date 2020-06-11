@@ -60,8 +60,10 @@ let sendmsg = () => {
         } else {
             // Make a new message with the sent text
             selectedChan.send(text);
-            document.getElementById('msgbox').value = '';
-            selectedChan.stopTyping(true);
+            setTimeout(() => {
+                document.getElementById('msgbox').value = '';
+                selectedChan.stopTyping(true);
+            },1);
         }
     }
     return false;

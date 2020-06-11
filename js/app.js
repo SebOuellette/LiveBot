@@ -5,6 +5,7 @@ let jsonSettings = require("./json/settings.json");
 
 let selectedGuild;
 let selectedChan;
+let selectedVoice;
 let selectedChatDiv;
 let oldimg;
 let barry = false;
@@ -21,6 +22,14 @@ function create() {
             } else if (event.keyCode === 13) {
                 sendmsg();
             }
+        })
+
+    document.getElementById("msgbox")
+        .addEventListener("input", event => {
+            let rows = document.getElementById("msgbox").value.split('\n').length;
+            if (rows == 0)
+                rows++;
+            //document.getElementById("msgbox").rows = rows;
         });
 
 
