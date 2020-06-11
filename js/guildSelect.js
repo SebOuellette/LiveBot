@@ -77,7 +77,7 @@ let guildSelect = (g, img) => {
                 text.innerText = c.name;
                 category.appendChild(text);
 				
-				category.addEventListener("click", function() {
+				text.addEventListener("click", function() {
 						for(i = 0;i<category.children.length;i++){
 						var content = category.children[i];
 							if(content.classList.contains("channel")){
