@@ -2,188 +2,118 @@
 let guildSelect = (g, img) => {
     // Update the selected guild
     //document.getElementById('guildIndicator').style.display = 'block';
-    try {
+    if (oldimg)
         oldimg.classList.remove('selectedGuild');
-        oldimg.style.borderRadius = '50%';
-    } catch (err){}
     img.classList.add('selectedGuild');
 
-    guildPos = id => {
-        return id == g.id;
-    }
-
-    // Store the selected channel to know what to highlight
-    let selectedChannel;
-
+    // this should be done another way
     document.getElementById('guildIndicator').style.marginTop = `${img.offsetTop - 2}px`;
     document.getElementById('guildIndicator').style.display = "block";
-    img.style.borderRadius = '25%';
 
     oldimg = img;
 
-    // Update the message count
+    // Clear the message loop interval
     try {
         clearInterval(memberLoop);
     } catch(err){}
 
-    // Update the member count every 500 ms
+    // Update the member count every 2000 ms
     global.memberLoop = setInterval(() => {
         document.getElementById('members-count').innerText = g.memberCount;
-    }, 500);
-
+    }, 2000);
+    // Set the count to begin
     document.getElementById('members-count').innerText = g.memberCount;
 
     // Clear the channels list
     let channelList = document.getElementById("channel-elements");
-    while (channelList.firstChild) {
-        channelList.removeChild(channelList.firstChild);
-    }
 
     // Update guild profile name
-    if (g.name.length <= 22) {
-        document.getElementById('guildName').innerHTML = g.name;
-    } else {
-        document.getElementById('guildName').innerHTML = g.name.substring(0, 19)+'...';
-    }
+    let name = g.name;
+    if (g.name.length <= 22)
+        name = name.substring(0, 19)+'...';
+    document.getElementById('guildName').innerHTML = name;
 
     // Update guild profile image
-    if (g.iconURL != null) {
-        document.getElementById('guildImg').src = g.iconURL;
-    } else {
-        document.getElementById('guildImg').src = 'resources/images/default.png';
+    let icon = g.iconURL;
+    if (!icon) {
+        icon = 'resources/images/default.png';
     }
+    document.getElementById('guildImg').src = icon;
 
     // Create the member list
     addMemberList(g);
 
-    let textPlaced = false;
-    let voicePlaced = false;
+    // The parent variable will change, realParent will not
+    const realParent = document.getElementById("channel-elements");
+    let parent = realParent;
+    let categoryParent;
 
     // Sort the channels and add them to the screen
-    g.channels.sort((c1, c2) => c1.position - c2.position).forEach(c => {
-        // Totally unsure of what this commented code does.... I'll keep it here till I find an issue this fixes lmao
+    g.channels.array()
+        .filter(c => c.type == 'category')
+        .sort((c1, c2) => c1.position - c2.position)
+        .forEach(c => {
 
-        g.channels.forEach(c1 => {
-            // If channel type is text
-            if (((c1.type === 'text'  && textPlaced == false) || (c1.type === 'voice' && voicePlaced == true)) && c1.parent == null) {
-                // Create new channel list element
-                let div = document.createElement('div');
-                div.classList.add('channel');
-                div.classList.add(c1.type == 'text' ? 'text' : 'voice');
-                document.getElementById('channel-elements').appendChild(div);
+            if (c.type == 'category') {
+                let category = document.createElement('div');
+                category.classList.add("category");
+                category.id = c.id;
+                realParent.appendChild(category);
 
-                //console.log(c);
-                
-                // Create the text for the channel
-                let text = document.createElement('h5');
-                let content;
-                let svg = document.createElement('img');
-                if (c1.type == 'text') {
-                    svg.src = './resources/icons/textChannel.svg';
-                } else {
-                    svg.src = './resources/icons/voiceChannel.svg';
-                }
-                svg.classList.add('channelSVG');
-                div.appendChild(svg);
+                // Set the parent for the next added channels
+                parent = category;
+                categoryParent = c;
 
-                if (c1.name.length < 25) {
-                    content = document.createTextNode(c1.name);
-                } else {
-                    content = document.createTextNode(`${c1.name.substring(0,25)}...`);
-                }
-                
-                // Add the text to the div
-                text.appendChild(content);
+                let text = document.createElement("h5");
+                text.classList.add("categoryText");
+                text.innerText = c.name;
+                category.appendChild(text);
 
-                // Check if the bot has permissions to view the channel
-                if (!c1.permissionsFor(g.me).has("VIEW_CHANNEL")) {
-                    text.style.textDecoration = 'line-through';
-                    text.classList.add(`blocked${c1.type == 'text' ? 'Text' : 'Voice'}`);
-                } else {
-                    text.classList.add(`viewable${c1.type == 'text' ? 'Text' : 'Voice'}`);
-                    if (c1.type == 'text') {
-                        text.onclick = () => {
-                            if (selectedChannel) {
-                                selectedChannel.classList.remove("selectedChan");
-                            }
-                            selectedChannel = div;
-                            console.log(selectedChannel);
-                            div.classList.add("selectedChan");
-                            channelSelect(c1, div);
-                        };
-                    }
-                }
-
-                text.id = `channel${c1.type == 'text' ? 'Text' : 'Voice'}x`;
-                div.appendChild(text);
             }
         });
 
-        textPlaced = true;
-        voicePlaced = true;
-        if (c.type === "category") {
+    g.channels.array()
+        .filter(c => c.type != 'category')
+        .sort((c1, c2) => c1.position - c2.position)
+        .forEach(c => {
+            // At this point, the channel is either text or voice
+            let div = document.createElement("div");
+            div.classList.add("channel");
+            div.classList.add(c.type);
+            div.id = c.id;
 
-            // Categories
-            let div = document.createElement('div');
-            div.id = 'category';
-            document.getElementById('channel-elements').appendChild(div);
+            // Create the svg icon
+            let svg = document.createElement('img');
+            svg.src = `./resources/icons/${c.type}Channel.svg`;
+            svg.classList.add("channelSVG");
+            div.appendChild(svg);
 
-            // Category text
-            let text = document.createElement('h5');
-            let content;
-            if (c.name.length < 25) {
-                content = document.createTextNode(`${c.name.toLowerCase()}`);
-            } else {
-                content = document.createTextNode(`${c.name.substring(0,25).toLowerCase()}...`);
-            }
-            
-            text.appendChild(content);
-            text.classList.add('categoryText');
-            div.appendChild(text);
+            // Add the text
+            let channelName = document.createElement('h5');
+            channelName.classList.add('viewableText');
+            channelName.innerText = c.name;
+            div.appendChild(channelName);
 
-            // Categorized text channels
-            g.channels.filter(c1 => c1.parent == c && (c1.type === 'text' || c1.type === 'voice')) .sort((c1, c2) => c1.position - c2.position).forEach(c1 => {
-                let div1 = document.createElement('div');
-                div1.classList.add('channel');
-                div1.classList.add(c1.type == "text" ? 'text' : 'voice');
-                div.appendChild(div1);
+            // Finally, add it to the parent
+            if (c.parentID)
+                document.getElementById(c.parentID).appendChild(div);
+            else
+                realParent.insertBefore(div, realParent.querySelector('.category'));
 
-                let text1 = document.createElement('h5');
-                let content1;
-                let svg = document.createElement('img');
-                if (c1.type == 'text') {
-                    svg.src = './resources/icons/textChannel.svg';
-                } else {
-                    svg.src = './resources/icons/voiceChannel.svg';
+
+            div.addEventListener("click", event => {
+                let previous = realParent.querySelector('.selectedChan');
+                let id;
+                if (previous) {
+                    id = previous.id;
+                    if (id != c.id)
+                        previous.classList.remove("selectedChan");
                 }
-                svg.classList.add('channelSVG');
-                div1.appendChild(svg);
 
-                if (c1.name.length < 25) {
-                    content1 = document.createTextNode(c1.name);
-                } else {
-                    content1 = document.createTextNode(`${c1.name.substring(0,25)}...`);
+                if (id != c.id) {
+                    div.classList.add("selectedChan");
+                    channelSelect(c, div);
                 }
-                text1.appendChild(content1);
-                if (!c1.permissionsFor(g.me).has("VIEW_CHANNEL")) {
-                    text1.style.textDecoration = 'line-through';
-                    text1.classList.add(`blocked${c1.type == 'text' ? 'Text' : 'Voice'}`);
-                } else {
-                    text1.classList.add(`viewable${c1.type == 'text' ? 'Text' : 'Voice'}`);
-                    if (c1.type == 'text') {
-                        div1.onclick = () => {
-                            if (selectedChannel) {
-                                selectedChannel.classList.remove("selectedChan");
-                            }
-                            selectedChannel = div1;
-                            div1.classList.add("selectedChan");
-                            channelSelect(c1, div1);
-                        };
-                    }
-                }
-                text1.id = `channel${c1.type == 'text' ? 'Text' : 'Voice'}`;
-                div1.appendChild(text1);
             });
-        }
-    });
+        });
 }

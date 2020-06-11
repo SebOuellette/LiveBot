@@ -22,10 +22,62 @@ let toggleSettings = () => {
 };
 
 // Building main settings menu
+function buildSettingsMenu(jsonObj) {
+    let parent = document.getElementById("optionGroups");
+    jsonObj.forEach(menuSection => {
+        // Create and add the title
+        let centerTag = document.createElement("center");
+        let sectionTitle = document.createElement("h2");
+        sectionTitle.innerText = menuSection.name;
+        centerTag.appendChild(sectionTitle);
+        parent.appendChild(centerTag);
 
+        // Loop through each section
+        menuSection.groups.forEach(group => {
+            // Create the category container
+            let categoryContainer = document.createElement("div");
+            categoryContainer.classList.add("optionCategoryContainer");
+            parent.appendChild(categoryContainer);
+
+            // Span surrounding div
+            let category = document.createElement("div");
+            category.classList.add("optionCategory");
+            categoryContainer.appendChild(category);
+
+            let span = document.createElement("span");
+            span.classList.add("settingLabel");
+            span.innerText = group.name;
+            category.appendChild(span);
+
+            // Add the on click event listener
+            category.addEventListener("click", event => {
+    
+                Array.from(document.getElementsByClassName("optionCategory")).forEach(category2 => {
+                    if (category != category2) {
+                        category2.classList.remove("toggledOn");
+                    }
+                });
+    
+                category.classList.toggle("toggledOn");
+                if (category.classList.contains("toggledOn")) {
+                    createPopup(category.parentElement,  group);
+                } else {
+                    category.parentElement.querySelector(".settingsPopup").remove();
+                }
+            });
+
+        })
+    })
+}
 
 // Building popup menu
-function togglePopup(parent, jsonObj) {
+function createPopup(parent, jsonObj) {
+    // Remove all other popups before continuing
+    let items = parent.parentElement.querySelectorAll(".settingsPopup");
+    items.forEach(item => {
+        item.parentElement.removeChild(item);
+    });
+
     let popupContainer = document.createElement("div");
     popupContainer.classList.add("settingsPopup");
 
@@ -198,9 +250,14 @@ function genDropDown(parent, options, defaultOpt = 0, group, optionObj) {
                 }
 
                 // Remove all the other specials in this section first
-                Array.from(dropdown.parentElement.querySelectorAll('.special')).forEach(special => {
-                    dropdown.parentElement.removeChild(special);
-                });
+                let target = dropdown.nextElementSibling;
+                if (target) {
+                    while (target.classList.contains("special")) {
+                        let next = target.nextElementSibling;
+                        dropdown.parentElement.removeChild(target);
+                        target = next;
+                    }
+                }
 
                 handleSpecials(option.innerText, group, optionObj, dropdown);
             }

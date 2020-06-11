@@ -30,11 +30,6 @@ let load = token => {
             document.getElementById('userCardBot').innerHTML = `USER`;
             document.getElementById('userCardBot').style.marginLeft = `5px`;
         }
-
-        // Remove the server list when connection lsot
-        while (document.getElementById('guild-list').firstChild) {
-            document.getElementById('guild-list').removeChild(document.getElementById('guild-list').firstChild);
-        }
         
         // Create the guild indicator
         let guildIndicator = document.createElement('div');
@@ -227,6 +222,11 @@ let load = token => {
 
     // Runs when unloaded
     bot.on('error', () => {
+        // Remove the server list when connection lost
+        while (document.getElementById('guild-list').firstChild) {
+            document.getElementById('guild-list').removeChild(document.getElementById('guild-list').firstChild);
+        }
+        
         unloadAllScripts();
     });
 };

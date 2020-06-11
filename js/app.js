@@ -27,28 +27,13 @@ function create() {
     document.getElementById("tokenbox")
         .addEventListener("keydown", event => {
             if (event.keyCode === 13) {
+                unloadAllScripts();
                 setToken();
             }
         });
     
-    // Call the popup menu builder
-    Array.from(document.getElementsByClassName("optionCategory")).forEach(category => {
-        category.addEventListener("click", event => {
-    
-            Array.from(document.getElementsByClassName("optionCategory")).forEach(category2 => {
-                if (category != category2) {
-                    category2.classList.remove("toggledOn");
-                }
-            });
-
-            category.classList.toggle("toggledOn");
-            if (category.classList.contains("toggledOn")) {
-                togglePopup(category.parentElement,  jsonSettings[0].groups[0]);
-            } else {
-                category.parentElement.querySelector(".settingsPopup").remove();
-            }
-        });
-    });
+    // Call the settings meny builder
+    buildSettingsMenu(jsonSettings);
 
     load(localStorage.getItem('livebot-token'));
 }

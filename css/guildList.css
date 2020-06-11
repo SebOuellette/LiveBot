@@ -1,0 +1,53 @@
+.guild-icon {
+    border-radius: 50%;
+    margin-left: 10px;
+    transition-duration: 0.3s;
+    user-select: none;
+    border-radius: 50%;
+}
+
+.guild-icon.selectedGuild {
+    border-radius: 25%;
+}
+
+#guildAbrev {
+    position: absolute;
+    overflow-x: hidden;
+    color: White;
+    font-family: Whitney-light, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-align: center;
+    font-size: 13px;
+    width: 40px;
+}
+
+.guild-icon:hover {
+    cursor: pointer;
+}
+
+#guild-list {
+    width: 60px;
+    height: 100%;
+    margin: 0 -10px 10px -10px;
+    padding-top: 2px;
+    background-color: #202225;
+    overflow-y: auto;
+    position: absolute;
+    padding-bottom: 2px;
+}
+
+#guild-list::-webkit-scrollbar {
+    display: none;
+}
+
+#guildIndicator {
+    background-color: white;
+    height: 40px;
+    width: 6px;
+    margin-left: 0px;
+    position: absolute;
+    z-index: 100;
+    border-radius: 3px;
+    display: none;
+    transition-duration: 0.2s;
+}
+

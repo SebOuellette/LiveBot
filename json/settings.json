@@ -82,7 +82,14 @@
                 ]
             }, 
             {
-                "name": "User"
+                "name": "User",
+                "settings": [
+                    {
+                        "name": "Display Information",
+                        "description": "These are your personal user settings. Change things like your username, icon, etc. Personalize yourself!",
+                        "call": ""
+                    }
+                ]
             },
             {
                 "name": "Scripts"
