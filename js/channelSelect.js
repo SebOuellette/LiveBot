@@ -2,6 +2,15 @@ let channelSelect = (c, name) => {
     let messages = document.getElementById("message-list");
     let fetchSize = 100;
 
+    if (c.type == 'voice') {
+        selectedVoice = c;
+        return;
+    }
+
+    if (generatingMessages) {
+        return;
+    }
+
     // Stop typing in the current channel before switching
     if (selectedChan) {
         selectedChan.stopTyping(true);
@@ -34,6 +43,7 @@ let channelSelect = (c, name) => {
 
     // Create message
     async function messageCreate() {
+        generatingMessages = true;
         // Loop through messages
         let count = 0;
         await c.fetchMessages({limit: fetchSize})
@@ -66,7 +76,7 @@ let channelSelect = (c, name) => {
                         // Create user image
                         let img = document.createElement('img');
                         img.id = 'messageImg';
-                        img.src = m.author.displayAvatarURL;
+                        img.src = m.author.displayAvatarURL.replace(/(size=)\d+?($| )/, '$164');
                         img.height = '40';
                         img.width = '40';
                         div.appendChild(img);
@@ -142,5 +152,6 @@ let channelSelect = (c, name) => {
         document.getElementById("message-list").prepend(shell);
 
         messages.scrollTop = messages.scrollHeight;
+        generatingMessages = false;
     }
 }

@@ -8,6 +8,7 @@ let selectedChan;
 let selectedVoice;
 let selectedChatDiv;
 let oldimg;
+let generatingMessages = false;
 let barry = false;
 
 // Create the app and attach event listeners

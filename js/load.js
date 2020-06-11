@@ -21,7 +21,7 @@ let load = token => {
         // Update the user card
         document.getElementById('userCardName').innerHTML = bot.user.username;
         document.getElementById('userCardDiscrim').innerHTML = `#${bot.user.discriminator}`;
-        document.getElementById('userCardIcon').src = `${bot.user.displayAvatarURL}`;
+        document.getElementById('userCardIcon').src = `${bot.user.displayAvatarURL.replace(/(size=)\d+?($| )/, '$164')}`;
 
         if (bot.user.bot) {
             document.getElementById('userCardBot').innerHTML = `BOT`;
@@ -137,7 +137,7 @@ let load = token => {
                         // Create user image
                         let img = document.createElement('img');
                         img.id = 'messageImg';
-                        img.src = m.author.displayAvatarURL;
+                        img.src = m.author.displayAvatarURL.replace(/(size=)\d+?($| )/, '$164');
                         img.height = '40';
                         img.width = '40';
                         div.appendChild(img);

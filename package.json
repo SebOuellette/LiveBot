@@ -1,5 +1,5 @@
 {
-	"name": "discord-livebot",
+	"name": "livebot",
 	"version": "1.0.0",
 	"description": "Discord for bots!",
 	"main": "start.js",

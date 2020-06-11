@@ -56,8 +56,7 @@ let addMemberList = guild => {
                     });
             }
         });
-    
-    // Display the unsorted, online users
+
     let onlineCount = guild.members.filter(m => (m.presence.status != 'offline' && m.hoistRole == null)).size;
     if (onlineCount) {
         // Create offline label text
@@ -97,7 +96,8 @@ let addMemberList = guild => {
             });
     }
 
-    
+    let offline = [];
+
     // Display the offline users
     let offlineCount = guild.members.filter(m => (m.presence.status == 'offline')).size;
     if (offlineCount) {
@@ -117,6 +117,7 @@ let addMemberList = guild => {
             .filter(m => m.presence.status == 'offline')
             .sort((m1, m2) => m1.id - m2.id)
             .forEach(m => {
+                offline.push(m.user.id);
                 // Make the div for the user
                 let userDiv = document.createElement("div");
                 userDiv.id = m.id;
@@ -126,7 +127,7 @@ let addMemberList = guild => {
 
                 // Add the user icon
                 let icon = document.createElement("img");
-                icon.src = m.user.avatarURL ? m.user.avatarURL.replace(/(size=)(\d+)/gi, "$164") : "resources/images/default.png";
+                icon.src = m.user.avatarURL ? m.user.avatarURL.replace(/(size=)\d+?($| )/, '$164') : "resources/images/default.png";
                 icon.classList.add('mLIcon');
                 userDiv.appendChild(icon);
 
@@ -138,4 +139,51 @@ let addMemberList = guild => {
                 userDiv.appendChild(username);
             });
     }
+
+    console.log(offline);
+
+    // Display the unsorted, online users
+    guild.fetchMembers().then(promiseGuild => {
+        let members = promiseGuild.members.array();
+        // Display the other unshown users users
+        let offlineCount = members.filter(m => (m.presence.status == 'offline' && !offline.includes(m.user.id))).length;
+        if (offlineCount) {
+            // Create offline label text
+            let container = document.createElement("div");
+            container.id = 'offlineUserList';
+            container.classList.add("roleContainer");
+            listDiv.appendChild(container);
+
+            let name = document.createElement("span");
+            name.classList.add("roleTitle");
+            name.innerText = 'uncached users';
+            container.appendChild(name);
+
+            // Show offline users
+            members
+                .filter(m => m.presence.status == 'offline' && !offline.includes(m.user.id))
+                .sort((m1, m2) => m1.id - m2.id)
+                .forEach(m => {
+                    // Make the div for the user
+                    let userDiv = document.createElement("div");
+                    userDiv.id = m.id;
+                    userDiv.classList.add('mLUserDivOffline');
+                    userDiv.classList.add('mLUserDiv');
+                    container.appendChild(userDiv);
+
+                    // Add the user icon
+                    let icon = document.createElement("img");
+                    icon.src = m.user.avatarURL ? m.user.avatarURL.replace(/(size=)\d+?($| )/, '$164') : "resources/images/default.png";
+                    icon.classList.add('mLIcon');
+                    userDiv.appendChild(icon);
+
+                    // Make the username text
+                    let username = document.createElement("p");
+                    username.classList.add("mLUsername");
+                    username.innerText = m.displayName || m.user.username;
+                    username.style.color = (m.displayColor == 0) ? "#8E9297" : m.displayHexColor;
+                    userDiv.appendChild(username);
+                });
+        }
+    });
 };
