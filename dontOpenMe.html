@@ -20,6 +20,7 @@
     <script src="js/messageGeneration.js" charset="utf-8"></script>
     <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
     <script src="js/converter.js" charset="utf-8"></script>
+    <script src="js/typingStatus.js" charset="utf-8"></script>
     
     <!-- CSS -->
     <link rel="stylesheet" href="css/master.css">
@@ -29,6 +30,7 @@
     <link rel="stylesheet" href="css/textFormat.css">
     <link rel="stylesheet" href="css/channelList.css">
     <link rel="stylesheet" href="css/guildList.css">
+    <link rel="stylesheet" href="css/miscs.css">
     </head>
     <body onload='create()'>
         <div id='main'>
@@ -40,7 +42,7 @@
             <p id='members-text' class='members'>Members: </p>
             <p id='members-count' class='members'>Infinite</p>
         </div>
-
+        
         <div id='channel-list'>
             <div id='channel-elements'>
 
@@ -115,8 +117,8 @@
                 <!--<input type='text' name='name' value='' placeholder='Username' id='usernameBox' class='optionBox'/>
                 <input type='button' name='invite' value='Generate Invite' id='inviteBtn' class='optionBox' onclick="options('invite','')"/>-->
             </div>
+            <div id="typingIndicator">
         </div>
-
         <script src="js/titlebar.js" charset="utf-8"></script>
     </body>
 </html>

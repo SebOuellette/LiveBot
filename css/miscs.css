@@ -1,0 +1,13 @@
+#typingIndicator {
+    font-size: 14px;
+    color: white;
+    position: absolute;
+    z-index: 1000;
+    bottom: 3.6em;
+    left: 326px;
+    user-select: none;
+}
+
+.typingDot {
+    color: violet;
+}
