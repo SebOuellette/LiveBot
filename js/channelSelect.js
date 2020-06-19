@@ -52,15 +52,17 @@ let channelSelect = (c, name) => {
         await c.fetchMessages({limit: fetchSize})
             .then(msg => {
                 msg.map(mseg => mseg).reverse().forEach(m => {
-                    let bunch;
+					let bunch;
+					let timebunch = false;
                     count++;
                     if (count > 2 && count <= fetchSize) {
                         let previousMessage = msg.map(mesg => mesg).reverse()[count-2];
                         if(previousMessage.author.id == m.author.id){
-                            bunch = true;
+							bunch = true;
                             
                             if (Math.floor(previousMessage.createdTimestamp/1000/60/60/24) != Math.floor(m.createdTimestamp/1000/60/60/24)) {
-                                bunch = false;
+								bunch = false;
+								timebunch = true;
                             }
 
                         } else {
@@ -73,7 +75,10 @@ let channelSelect = (c, name) => {
                     if (!bunch) {
                         // Create message div
                         div = document.createElement('div');
-                        div.id = 'messageCont';
+						div.id = 'messageCont';
+						if (timebunch) {
+							div.classList.add('timeSeparated');
+						}
                         document.getElementById('message-list').appendChild(div);
 
                         // Create user image

@@ -218,6 +218,10 @@ body {
     border-radius: 3px;
 }
 
+.timeSeparated {
+	border-top: 1px solid #484B51;
+}
+
 /* Apology for not being able to view messages */
 .sorryNoLoad {
     height: 50px;

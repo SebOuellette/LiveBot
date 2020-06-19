@@ -74,19 +74,7 @@ let load = token => {
                 guildSelect(g, img);
                 selectedGuild = g;
             };
-
-            // img.onmouseover = () => {
-            //     img.style.borderRadius = '25%';
-            // };
-
-            // img.onmouseleave = () => {
-            //     if (selectedGuild == g) {
-            //         img.style.borderRadius = '25%';
-            //     } else {
-            //         img.style.borderRadius = '50%';
-            //     }
-            // };
-
+            
             // Add image to the list of guilds
             document.getElementById('guild-list').appendChild(img);
         });

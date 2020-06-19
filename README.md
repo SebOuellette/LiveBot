@@ -8,9 +8,8 @@ At the moment, livebot is still in beta. Installation instructions can be found 
 ## Discord
 If you would like to get the latest information on the project, talk with the developers, post suggestions, get help, etc... join the official Livebot [Discord server!](https://discord.gg/TMUc8Bs)
 
-<img src='https://i.imgur.com/SUsqAhl.png' height='300px' style='border-radius: 10px;'/>
-
 ## What is this?
+<img src='https://i.imgur.com/SUsqAhl.png' height='300px' style='border-radius: 10px;'/>
 Livebot is a program built with electron and discord.js, that will allow you to have discord controlling a bot. You are able to view messages in channels, send messages, interact with people, and see what is going on in the servers your bot is in. Livebot will also work with a user account as well, so you are not just limited to bots.
 
 Livebot had been built to copy discord, and while it is not exact, it is pretty close. More additions will come soon, so just be patient, but feel free to recommend any addition!

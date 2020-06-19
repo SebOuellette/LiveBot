@@ -198,6 +198,7 @@ function dropSelect(option) {
     option.classList.toggle('selectedOption');
 }
 
+// Generate the custom dropdown
 function genDropDown(parent, options, defaultOpt = 0, group, optionObj) {
     let defaultOption = options[defaultOpt];
 
@@ -314,10 +315,13 @@ function genDropDown(parent, options, defaultOpt = 0, group, optionObj) {
 }
 
 
+// 		Custom functions down here
+// Set the status
 function setStatus(status) {
     console.log(status);
 }
 
+// Set the activity
 function setActivity(dropdowns, activityName, streamurl) {
     let status = dropdowns[0];
     let activity = dropdowns[1];

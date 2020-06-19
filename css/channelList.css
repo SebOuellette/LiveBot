@@ -28,6 +28,10 @@
     border-radius: 3px;
 }
 
+.categoryNameContainer {
+	display: block;
+}
+
 .categoryText {
     /* font-variant: small-caps; */
     text-transform: uppercase;
@@ -38,6 +42,35 @@
     font-weight: bold;
     
     transform: translateY(5px) !important;
+}
+
+.categoryNameContainer{
+	cursor: pointer;
+}
+
+.categoryNameContainer:hover .categoryText {
+	color: #B4B8BC;
+}
+
+.categorySVG {
+	height: 10px;
+	position: relative;
+    top: 5px;
+    margin-right: 8px;
+	transform: rotate(90deg);
+	transition-duration: 0.1s;
+}
+
+.open .categorySVG {
+	transform: rotate(180deg);
+}
+
+.channelContainer {
+	display: none;
+}
+
+.open .channelContainer {
+	display: block;
 }
 
 .channel {
