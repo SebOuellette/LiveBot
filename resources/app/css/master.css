@@ -9,13 +9,17 @@
     src: url("../fonts/whitney-light.otf");
     font-weight: 100;
 }
-
 /* Some text styling */
 p {
     font-size: 16px;
     overflow-wrap: break-word;
     word-wrap: break-word;
     white-space: pre-wrap;
+}
+
+body {
+    background-color: #202225;
+    font-family: Whitney-light, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .titlebar.windows {
@@ -73,79 +77,11 @@ p {
     height: calc(100vh - 20px);
 }
 
-
-.guild-icon {
-    border-radius: 50%;
-    margin-left: 10px;
-    transition-duration: 0.3s;
-    user-select: none;
-}
-
-#guildAbrev {
-    position: absolute;
-    overflow-x: hidden;
-    color: White;
-    font-family: Whitney-light, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    text-align: center;
-    font-size: 13px;
-    width: 40px;
-}
-
-.guild-icon:hover {
-    cursor: pointer;
-}
-
-#guild-list {
-    width: 60px;
-    height: 100%;
-    margin: 0 -10px 10px -10px;
-    padding-top: 2px;
-    background-color: #202225;
-    overflow-y: auto;
-    position: absolute;
-    padding-bottom: 2px;
-}
-
-#guild-list::-webkit-scrollbar {
-    display: none;
-}
-
-#guildIndicator {
-    background-color: white;
-    height: 40px;
-    width: 6px;
-    margin-left: 0px;
-    position: absolute;
-    z-index: 100;
-    border-radius: 3px;
-    display: none;
-    transition-duration: 0.2s;
-}
-
-#channel-list {
-    font-family: Whitney, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    height: calc(100% - 90px);
-    margin-left: 50px;
-    margin-top: 40px;
-    width: 250px;
-    padding-left: 10px;
-    padding-top: 10px;
-    padding-bottom: -10px;
-    background-color: #2F3136;
-    color: #606266;
-    overflow-y: auto;
-    overflow-x: hidden;
-    font-weight: 100;
-}
-
-.selectedChan {
-    background-color: #393c43;
-    color: white !important;
-}
-
 /* User card */
 #userCard {
-    height: 42px;
+    height: 45px;
+    border-bottom: 2px solid #202225;
+    margin-bottom: 10px;
 }
 
 #userCardIcon {
@@ -179,107 +115,18 @@ p {
     border-radius: 4px;
 }
 
-/* Channel Stuff */
-
-#channel-list::-webkit-scrollbar {
-    background-color: transparent;
-    width: 6px;
-}
-
-#channel-list::-webkit-scrollbar-track {
-    background-color: transparent;
-}
-
-#channel-list::-webkit-scrollbar-thumb {
-    background-color: #25272B;
-    border-radius: 3px;
-}
-
-.categoryText {
-    /* font-variant: small-caps; */
-    text-transform: uppercase;
-    user-select: none;
-    padding: 15px 0 0 0 !important;
-    height: 20px;
-    font-size: 12px;
-    font-weight: bold;
-    
-    transform: translateY(5px) !important;
-}
-
-.channel {
-    user-select: none;
-    margin: 2px 0 0 -5px;
-}
-
-.voice {
-    user-select: none;
-    margin-left: -5px;
-}
-
-h5 {
-    font-weight: 100;
-    font-size: 16px;
-}
-
-#channelTextx {
-    width: calc(100% - 30px);
-    padding: 7px 0 7px 20px;
-    margin-top: 0;
-    margin-bottom: 0;
-    border-radius: 3px;
-}
-
-.channelSVG {
-    height: 20px;
-    width: 20px;
-    display: inline-box;
-}
-
-.blockedText {
-    cursor: default;
-}
-
-#channelVoicex {
-    width: calc(100% - 30px);
-    padding: 7px 0 7px 20px;
-    margin-top: 0;
-    margin-bottom: 0;
-    border-radius: 3px;
-}
-
-.blockedVoice {
-    cursor: default;
-}
-
-#channel-elements h5 {
-    transform: translateY(-5px);
-    display: inline-block;
-    margin: 0 !important;
-    padding: 7px 0 7px 10px;
-}
-
-.channel {
-    /* margin: 0 0 0 20px; */
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 3px;
-    height: 25px;
-}
-
-.channel:hover {
-    background-color: #34373c;
-    color: #B4B8BC;
-}
+/* Channel stuff I think */
 
 #serverName {
     height: 40px;
     width: 270px;
     background-color: grey;
     margin: 0px 0 10px 50px;
-    background-color: #202225;
+    background-color: #2f3136;
     font-family: Whitney, "Helvetica Neue", Helvetica, Arial, sans-serif;
     position: absolute;
+    border-bottom: 1px solid #202225;
+    border-radius: 10px 0 0 0;
 }
 
 #guildName {
@@ -294,7 +141,7 @@ h5 {
     height: 35px;
     margin-top: -30px;
     margin-left: 220px;
-    border-radius: 25%;
+    border-radius: 50%;
     position: absolute;
 }
 
@@ -345,30 +192,32 @@ h5 {
     border-radius: 3px;
 }
 
-#messageCont {
-    width: calc(100% - 30px);
-    margin-left: auto;
-    margin-right: auto;
+.messageCont {
+    width: 100%;
     /* border-top: 1px solid #484B51; */
-    margin-top: 3px;
+    padding: 10px 0;
     min-height: 57px;
     overflow-y: hidden;
     overflow-x: auto;
     padding-bottom: -30px;
 }
 
-#messageCont::-webkit-scrollbar {
+.messageCont::-webkit-scrollbar {
     background-color: transparent;
     height: 6px;
 }
 
-#messageCont::-webkit-scrollbar-track {
+.messageCont::-webkit-scrollbar-track {
     background-color: transparent;
 }
 
-#messageCont::-webkit-scrollbar-thumb {
+.messageCont::-webkit-scrollbar-thumb {
     background-color: #25272B;
     border-radius: 3px;
+}
+
+.timeSeparated {
+    border-top: 1px solid #484B51;
 }
 
 /* Apology for not being able to view messages */
@@ -386,11 +235,16 @@ h5 {
     position: absolute;
     margin-left: 310px;
     margin-top: -28px;
+    /* margin-top: -200px; */
     width: calc(100vw - 518px);
     height: 40px;
     padding-top: 20px;
     padding-bottom: 10px;
     background-color: #36393E;
+}
+
+#msgbox::-webkit-scrollbar {
+    width: 0;
 }
 
 #msgbox {
@@ -404,6 +258,7 @@ h5 {
     border-radius: 5px;
     outline: none;
     color: white;
+    resize: none;
 }
 
 #settoken {

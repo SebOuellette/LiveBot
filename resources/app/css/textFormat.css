@@ -1,8 +1,6 @@
 /* Message Container */
 .inlineMsgCont {
-    margin-left: 60px;
-    margin-top: -60px;
-    margin: -60px 0 20px 60px;
+    margin: -60px 0 20px 90px;
 }
 
 /* Emojis */
@@ -48,33 +46,75 @@ a:hover {
     font-family: Whitney-light, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 16px;
     font-weight: 400;
-    margin-top: 0px;
-    margin-bottom: 5px;
-    margin-right: 0;
+    padding: 2px 0 3px 0;
+    margin: 0;
     color: #dcddde;
     width: calc(100% - 40px);
     word-spacing: 2px;
+    position: relative;
+    right: 10px
 }
 
-#messageUsername {
+.messageBoxText {
+    font-family: Whitney-light, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 2px 0 3px 0;
+    margin: 0;
+    color: #dcddde;
+    width: calc(100% - 40px);
+    word-spacing: 2px;
+    position: relative;
+}
+
+.messageTimestamp + .messageText {
+    margin-top: -25px;
+}
+
+.messageBlock {
+    display: block;
+    position: relative;
+    padding-left: 90px;
+    border-radius: 3px;
+}
+
+.messageBlock.firstmsg {
+    padding-top: 5px;
+    padding-bottom: 2px;
+}
+
+.messageBlock:hover {
+    background-color: #32353b;
+    z-index: 0;
+}
+
+.messageUsername {
     user-select: none;
     cursor: default;
     display: inline-block;
-    margin-bottom: 10px;
+    margin: 3px 0;
+    left: -40px;
+    top: -26px;
+    position: relative;
 }
 
 .messageTimestamp {
     color: #72767d;
     font-size: 12px;
     display: inline-block;
-    margin-left: 10px;
+    margin: 3px 0;
+    top: -26px;
+    left: -35px;
+    position: relative;
 }
 
-#messageImg {
+.messageImg {
     height: 40px;
-    margin-top: 10px;
+    left: -60px;
     border-radius: 50%;
     user-select: none;
+    z-index: 1;
+    position: relative;
 }
 
 /* Code Block */
@@ -139,4 +179,18 @@ a:hover {
     background-color: #7289da;
     cursor: pointer;
     color: #dcddde;
+}
+
+.emoji {
+    height: 22px;
+}
+
+.emoji.big {
+    height: 50px;
+}
+
+.edited {
+    font-size: 10px;
+    color: #72767d;
+    user-select: none;
 }

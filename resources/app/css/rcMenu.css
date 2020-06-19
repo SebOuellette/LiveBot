@@ -1,0 +1,13 @@
+#rcMenu {
+    position: fixed;
+    width: 200px;
+    background-color: #18191c;
+    border-radius: 5px;
+    height: 200px;
+    z-index: 100;
+    display: none;
+}
+
+#rcMenu.open {
+    display: block;
+}

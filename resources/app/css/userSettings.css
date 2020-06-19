@@ -23,6 +23,10 @@
     animation-duration: 0.5s;
 }
 
+#userSettings.userSettingsToggle {
+    border-radius: 10px 0 0 0;
+}
+
 @keyframes userIconRotateDown {
     from {transform: rotate(0deg);}
     to {transform: rotate(-180deg);}
@@ -76,9 +80,227 @@
 #optionGroups {
     height: 100%;
     background-color: #2a2c31;
+    display: block;
+    user-select: none;
+}
+
+.optionCategoryContainer {
+    height: 40px;
 }
 
 .optionCategory {
-    background-color: pink;
-    margin: 10px 0;
+    margin: 2px 0 2px 2.5%;
+    padding: 10px 0;
+    font-size: 18px !important;
+    padding-left: 20px;
+    width: calc(95% - 20px);
+    border-radius: 5px;
+    color: #B4B8BC;
+    transition: width 0.2s;
+    height: 20px;
+}
+
+.optionCategory.toggledOn {
+    background-color: #393c43 !important;
+    color: #e7e9ec !important;
+    width: calc(95% - 5px);
+}
+
+.optionCategory:hover {
+    background-color: #34373c;
+    cursor: pointer;
+    color: #d0d4d9;
+}
+
+.settingsPopup {
+    position: relative;
+    max-height: 65vh;
+    width: 30vw;
+    padding: 2.5vh 2.5vw;
+    background-color: #202225;
+    z-index: 2;
+    left: 300px;
+    top: -44px;
+    transition: left 1s;
+    display: none;
+    border-radius: 5px;
+    overflow-y: scroll;
+    user-select: text;
+    overflow: none;
+    padding-bottom: 180px;
+}
+
+.settingsPopup::-webkit-scrollbar {
+    background-color: transparent;
+    width: 6px;
+}
+
+.settingsPopup::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.settingsPopup::-webkit-scrollbar-thumb {
+    background-color: #484b51;
+    border-radius: 3px;
+}
+
+
+.toggledOn + .settingsPopup {
+    left: 265px;
+    display: block;
+}
+
+.settingsPopup hr {
+    border: none;
+    height: 1px;
+    background-color: #36393e;
+}
+
+.settingsPopup .option {
+    /* background-color: pink; */
+    width: 100%;
+    min-height: 70px;
+    padding: 15px 0;
+}
+
+.settingsPopup p {
+    color: #8e9297;
+    margin-top: 0;
+}
+
+.option label {
+    margin-bottom: 16px;
+    font-size: 15px;
+    text-transform: uppercase;
+    display: block;
+}
+
+/* Dropdown Boxes */
+.dropdown {
+    color: #e7e9ec;
+    user-select: none;
+    height: calc(18.623px + 22px);
+    margin: 5px 0;
+    outline: none;
+}
+
+.dropdown:focus {
+    outline: none;
+}
+
+.dropdownDisplay {
+    padding: 10px;
+    border-radius: 3px;
+    background-color: #313339;
+    cursor: pointer;
+    border: 1px solid #313339;
+}
+
+.dropdownDisplay:hover {
+    border: 1px solid black;
+}
+
+.dropdownChildren {
+    display: none;
+    position: relative;
+    transition-duration: 0.2s;
+    border-radius: 0 0 3px 3px;
+    background-color: #2f3136;
+    border-style: solid;
+    border-color: black;
+    border-width: 0 1px 1px 1px;
+    z-index: 2;
+}
+
+.dropdownChildren option {
+    cursor: pointer;
+    padding: 10px;
+    width: calc(100% - 21px);
+    margin-left: 1px;
+}
+
+.dropdownChildren option:hover {
+    background-color: #2a2c31;
+}
+
+.dropdownChildren option.disabled {
+    cursor: not-allowed;
+    background-color: #484b51;
+}
+
+.dropdownChildren option.disabled:hover {
+    background-color: #484b51;
+}
+
+.selectedOption {
+    background-color: #26272b !important;
+}
+
+.dropdownIcon {
+    height: 15px;
+    float: right;
+    margin-top: 3px;
+    transition-duration: 0.3s;
+}
+
+/* Opened */
+.openDrop .dropdownDisplay {
+    border: 1px solid black;
+    border-radius: 3px 3px 0 0;
+}
+
+.openDrop .dropdownIcon {
+    transform: rotate(180deg);
+}
+
+.openDrop .dropdownChildren {
+    display: block;
+}
+
+/* Update button */
+.settingsUpdateBtn {
+    display: block;
+    transform: translateX(-50%);
+    margin: 10px 10px 10px 50%;
+    background-color: #313339;
+    border: none;
+    color: #e7e9ec;
+    padding: 10px;
+    font-size: 16px;
+    width: 50%;
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+    user-select: none;
+}
+
+.settingsUpdateBtn:hover {
+    background-color: #2a2c31;
+}
+
+.settingsUpdateBtn:active {
+    background-color: #26272b;
+}
+
+/* Text Input */
+.settingsPopup input {
+    display: block;
+    width: calc(100% - 20px);
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #313339;
+    margin-top: 5px;
+    outline: none;
+    border: 1px solid #313339;
+    color: #aeb0b3;
+    border-radius: 3px;
+}
+
+.settingsPopup input:focus {
+    border: 1px solid black;
+}
+
+.settingsPopup input::placeholder {
+    color: #7a7c80;
 }

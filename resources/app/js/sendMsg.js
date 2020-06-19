@@ -1,17 +1,26 @@
 let helpMsg = [
         'Here is a list of available commands. \n',
-        '/help - Lists all commands.',
-        '/shrug - Prepends ¯\\_(ツ)_/¯ to your message.',
-        '/tableflip - Prepends (╯°□°）╯︵ ┻━┻ to your message.',
-        '/ping - Check the hearbeat to discord.',
-        '/server - Get some info about the server.',
-        '/eval - Execute a command.'
+        '`/help` - Lists all commands.',
+        '`/shrug` - Prepends ¯\\_(ツ)_/¯ to your message.',
+        '`/tableflip` - Prepends (╯°□°）╯︵ ┻━┻ to your message.',
+        '`/ping` - Check the hearbeat to discord.',
+        '`/server` - Get some info about the server.',
+        '`/eval` - Execute a command.'
     ].join('\n')
   
 // Commands  
 let sendmsg = () => {
     if (selectedChan) {
         let text = document.getElementById('msgbox').value;
+        // If the emoji isn't a gloabal emoji, treat it as one. 
+        let customEmoji = /(<a?:)(!)?(.+?:[0-9]+?>)/gm
+        text = text.replace(customEmoji, (a, b, c, d) => {
+            if (c != '!') {
+                return `${b}!${d}`; 
+            }
+            return a;
+        });
+
         if (text.substring(0,1) == '/') {
             let cmd = text.split(' ')[0].substring(1);
             let msg = text.split(' ').splice(1).join(' ');
@@ -41,7 +50,7 @@ let sendmsg = () => {
                             'Members - '+selectedChan.guild.memberCount,
                             'Channels - '+selectedChan.guild.channels.size,
                             'Roles - '+selectedChan.guild.roles.size,
-                            'Id - '+selectedChan.guild.id,
+                            'ID - '+selectedChan.guild.id,
                             'Owner - '+selectedChan.guild.owner.user.tag
                         ].join('\n');
                     command(serverinfo);
@@ -59,9 +68,12 @@ let sendmsg = () => {
             selectedChan.stopTyping(true);
         } else {
             // Make a new message with the sent text
+            text = parseSend(text)
             selectedChan.send(text);
-            document.getElementById('msgbox').value = '';
-            selectedChan.stopTyping(true);
+            setTimeout(() => {
+                document.getElementById('msgbox').value = '';
+                selectedChan.stopTyping(true);
+            },1);
         }
     }
     return false;

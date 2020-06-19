@@ -21,7 +21,7 @@ let load = token => {
         // Update the user card
         document.getElementById('userCardName').innerHTML = bot.user.username;
         document.getElementById('userCardDiscrim').innerHTML = `#${bot.user.discriminator}`;
-        document.getElementById('userCardIcon').src = `${bot.user.displayAvatarURL}`;
+        document.getElementById('userCardIcon').src = `${bot.user.displayAvatarURL.replace(/(size=)\d+?($| )/, '$164')}`;
 
         if (bot.user.bot) {
             document.getElementById('userCardBot').innerHTML = `BOT`;
@@ -29,11 +29,6 @@ let load = token => {
         } else {
             document.getElementById('userCardBot').innerHTML = `USER`;
             document.getElementById('userCardBot').style.marginLeft = `5px`;
-        }
-
-        // Remove the server list when connection lsot
-        while (document.getElementById('guild-list').firstChild) {
-            document.getElementById('guild-list').removeChild(document.getElementById('guild-list').firstChild);
         }
         
         // Create the guild indicator
@@ -79,47 +74,70 @@ let load = token => {
                 guildSelect(g, img);
                 selectedGuild = g;
             };
-
-            img.onmouseover = () => {
-                img.style.borderRadius = '25%';
-            };
-
-            img.onmouseleave = () => {
-                if (selectedGuild == g) {
-                    img.style.borderRadius = '25%';
-                } else {
-                    img.style.borderRadius = '50%';
-                }
-            };
-
+            
             // Add image to the list of guilds
             document.getElementById('guild-list').appendChild(img);
         });
     });
 
+    // A message has been deleted
+    bot.on('messageDelete', (m) => {
+        // Return if it's not the selected channel
+        if(m.channel != selectedChan) return;
+        // Get the dom element from the message
+        let message = document.getElementById(m.id);
+
+        // Check if you need to delete just the message or the whole message block
+        if (message.parentNode.parentNode.children.length > 1) 
+            message.parentNode.parentNode.removeChild(message.parentNode);
+        else 
+            message.parentNode.parentNode.parentNode.removeChild(message.parentNode.parentNode);
+    });
+
+    // Multiple messages have been deleted
+    bot.on('messageDeleteBulk', (msgs) => {
+        // Return if it's not the selected channel
+        if(msgs.first().channel != selectedChan) return;
+        for(let m of msgs){
+            let message = document.getElementById(m[1].id);
+            // Check if you need to delete just the message or the whole message block
+            if (message.parentNode.parentNode.children.length > 1) 
+                message.parentNode.parentNode.removeChild(message.parentNode);
+            else 
+                message.parentNode.parentNode.parentNode.removeChild(message.parentNode.parentNode);
+        }
+    });
+
+    // A message has been updated
+    bot.on('messageUpdate', (oldM, m) => {
+        // Return if it's not the selected channel
+        if(m.channel != selectedChan) return;
+        // Get the dom element from the message
+        let message = document.getElementById(m.id);
+        message.innerHTML = `${parseMessage(m.cleanContent)} <time class='edited'>(edited)</time>`;
+    });
+
+
     // New message recieved
     bot.on('message', (m) => {
         // If there is a channel selected
-        if (selectedChan) {
+        if (selectedGuild && m.guild.id == selectedGuild.id) {
+
+            let channel = document.getElementById(m.channel.id);
+            if (channel && (!selectedChan || (selectedChan && selectedChan.id != m.channel.id))) {
+                channel.classList.add("newMsg");
+            }
+
             // If the message was sent to the selected channel
-            if (m.channel.id == selectedChan.id) {
+            if (selectedChan && m.channel.id == selectedChan.id) {
                 //document.getElementById('message-list').removeChild(document.getElementById('message-list').firstChild);
-                let bunch;
+                let previousMessage;
                 fetchLast();
 
                 // Get last message in channel
                 async function fetchLast() {
                     await m.channel.fetchMessages({ limit: 2 }).then(msg => {
-                        let previousMessage = msg.map(mseg => mseg)[1];
-                        if (previousMessage && previousMessage.author.id == m.author.id) {
-                            bunch = true;
-
-                            if (Math.floor(previousMessage.createdTimestamp/1000/60/60/24) != Math.floor(m.createdTimestamp/1000/60/60/24)) {
-                                bunch = false;
-                            }
-                        } else {
-                            bunch = false;
-                        }
+                        previousMessage = msg.map(mseg => mseg)[1];
                     });
 
                     let scroll = false;
@@ -132,83 +150,9 @@ let load = token => {
                         barry = false;
                     }
 
-                    let messageContainer;
-                    if (!bunch) {
-                        // Create message div
-                        div = document.createElement('div');
-                        div.id = 'messageCont';
-                        document.getElementById('message-list').appendChild(div);
-
-                        // Create user image
-                        let img = document.createElement('img');
-                        img.id = 'messageImg';
-                        img.src = m.author.displayAvatarURL;
-                        img.height = '40';
-                        img.width = '40';
-                        div.appendChild(img);
-
-                        messageContainer = document.createElement("div");
-                        messageContainer.classList.add(m.author.id);
-                        messageContainer.classList.add('inlineMsgCont');
-                        div.appendChild(messageContainer);
-                        
-                        // Create user's name
-                        let name = document.createElement('p');
-                        name.innerText = m.member.nickname || m.author.username;
-                        name.id = 'messageUsername';
-
-                        try {
-                            let color = m.member.roles.sort((r1, r2) => r1.position - r2.position).map(p => p.color).length;
-                            let colors = m.member.roles.sort((r1, r2) => r1.position - r2.position).map(p => p.color);
-                            while (colors[color-1] == 0) {
-                                color -= 1;
-                            }
-                            let zeros = '';
-                            for(i=0;i<(6-colors[color-1].toString(16).length);i++) {
-                                zeros+='0';
-                            }
-                            name.style.color = `#${zeros+colors[color-1].toString(16)}`;
-                        } catch (err) {
-                            name.style.color = '#fff';
-                        }
-                        messageContainer.appendChild(name);
-
-                        // Create timestamp
-                        let timestamp = document.createElement('p');
-                        timestamp.innerText = m.createdAt.toLocaleString('en-US', {day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit'});
-                        timestamp.classList.add("messageTimestamp");
-                        messageContainer.appendChild(timestamp);
-                    } else {
-                        messageContainer = document.getElementsByClassName(m.author.id);
-                        messageContainer = messageContainer[messageContainer.length - 1];
-                    }
-                    
-                    // Prepend message text
-                    if (m.cleanContent.length) {
-                        // Render message text
-                        let text = document.createElement('p');
-                        text.classList.add('messageText');
-                        text.id = m.id;
-                        text.innerHTML = parseMessage(m.cleanContent, m, false);
-
-                        messageContainer.appendChild(text);
-                    }
-                    
-                    // Append embeds
-                    m.embeds.forEach(embed => {
-                        if (embed.thumbnail && embed.message.cleanContent.match(embed.thumbnail.url)) {
-                            let img = document.createElement("img");
-
-                            let newWidth = embed.thumbnail.width < 400 ? embed.thumbnail.width : 400;
-                            let newHeight = Math.floor(newWidth / embed.thumbnail.width * embed.thumbnail.height);
-
-                            img.src = `${embed.thumbnail.proxyURL}?width=${newWidth}&height=${newHeight}`;
-                            img.classList.add("previewImage");
-                            messageContainer.appendChild(img);
-                        } else {
-                            showEmbed(embed, messageContainer, m);
-                        }
-                    });
+                    // Generate and add the message
+                    let message = generateMsgHTML(m, previousMessage);
+                    document.getElementById('message-list').appendChild(message);
 
                     // Auto scroll with the message
                     // Some debug stuff \/
@@ -223,5 +167,15 @@ let load = token => {
                 }
             }
         }
+    });
+
+    // Runs when unloaded
+    bot.on('error', () => {
+        // Remove the server list when connection lost
+        while (document.getElementById('guild-list').firstChild) {
+            document.getElementById('guild-list').removeChild(document.getElementById('guild-list').firstChild);
+        }
+        
+        unloadAllScripts();
     });
 };

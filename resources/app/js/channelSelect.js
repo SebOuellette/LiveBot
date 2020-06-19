@@ -2,6 +2,15 @@ let channelSelect = (c, name) => {
     let messages = document.getElementById("message-list");
     let fetchSize = 100;
 
+    if (c.type == 'voice') {
+        selectedVoice = c;
+        return;
+    }
+
+    if (generatingMessages) {
+        return;
+    }
+
     // Stop typing in the current channel before switching
     if (selectedChan) {
         selectedChan.stopTyping(true);
@@ -10,6 +19,9 @@ let channelSelect = (c, name) => {
     selectedChanDiv = name;
     name.style.color = '#eee';
     messageCreate();
+
+    // Remove the notification class
+    name.classList.remove("newMsg");
 
     // Clear the messages
     while (messages.firstChild) {
@@ -34,102 +46,15 @@ let channelSelect = (c, name) => {
 
     // Create message
     async function messageCreate() {
+        generatingMessages = true;
         // Loop through messages
         let count = 0;
         await c.fetchMessages({limit: fetchSize})
             .then(msg => {
                 msg.map(mseg => mseg).reverse().forEach(m => {
-                    let bunch;
                     count++;
-                    if (count > 2 && count <= fetchSize) {
-                        let previousMessage = msg.map(mesg => mesg).reverse()[count-2];
-                        if(previousMessage.author.id == m.author.id){
-                            bunch = true;
-                            
-                            if (Math.floor(previousMessage.createdTimestamp/1000/60/60/24) != Math.floor(m.createdTimestamp/1000/60/60/24)) {
-                                bunch = false;
-                            }
-
-                        } else {
-                            bunch = false;
-                        }
-                    }
-                    
-                    // Create the messages
-                    let messageContainer;
-                    if (!bunch) {
-                        // Create message div
-                        div = document.createElement('div');
-                        div.id = 'messageCont';
-                        document.getElementById('message-list').appendChild(div);
-
-                        // Create user image
-                        let img = document.createElement('img');
-                        img.id = 'messageImg';
-                        img.src = m.author.displayAvatarURL;
-                        img.height = '40';
-                        img.width = '40';
-                        div.appendChild(img);
-
-                        messageContainer = document.createElement("div");
-                        messageContainer.classList.add(m.author.id);
-                        messageContainer.classList.add('inlineMsgCont');
-                        div.appendChild(messageContainer);
-                        
-                        // Create user's name
-                        let name = document.createElement('p');
-                        name.innerText = (m.member ? m.member.nickname : m.author.username) || m.author.username;
-                        name.id = 'messageUsername';
-
-                        try {
-                            let color = m.member.roles.sort((r1, r2) => r1.position - r2.position).map(p => p.color).length;
-                            let colors = m.member.roles.sort((r1, r2) => r1.position - r2.position).map(p => p.color);
-                            while (colors[color-1] == 0) {
-                                color -= 1;
-                            }
-                            let zeros = '0'.repeat(6-colors[color-1].toString(16).length);
-                            name.style.color = `#${zeros+colors[color-1].toString(16)}`;
-                        } catch (err) {
-                            name.style.color = '#fff';
-                        }
-                        messageContainer.appendChild(name);
-
-                        // Create timestamp
-                        let timestamp = document.createElement('p');
-                        timestamp.innerText = m.createdAt.toLocaleString('en-US', {day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit'});
-                        timestamp.classList.add("messageTimestamp");
-                        messageContainer.appendChild(timestamp);
-                    } else {
-                        messageContainer = document.getElementsByClassName(m.author.id);
-                        messageContainer = messageContainer[messageContainer.length - 1];
-                    }
-                    
-                    // Prepend message text
-                    if (m.cleanContent.length) {
-                        // Render message text
-                        let text = document.createElement('p');
-                        text.classList.add('messageText');
-                        text.id = m.id;
-                        text.innerHTML = parseMessage(m.cleanContent, m, false);
-
-                        messageContainer.appendChild(text);
-                    }
-                    
-                    // Append embeds
-                    m.embeds.forEach(embed => {
-                        if (embed.thumbnail && embed.message.cleanContent.match(embed.thumbnail.url)) {
-                            let img = document.createElement("img");
-
-                            let newWidth = embed.thumbnail.width < 400 ? embed.thumbnail.width : 400;
-                            let newHeight = Math.floor(newWidth / embed.thumbnail.width * embed.thumbnail.height);
-
-                            img.src = `${embed.thumbnail.proxyURL}?width=${newWidth}&height=${newHeight}`;
-                            img.classList.add("previewImage");
-                            messageContainer.appendChild(img);
-                        } else {
-                            showEmbed(embed, messageContainer, m);
-                        }
-                    });
+                    let message = generateMsgHTML(m, msg.map(mesg => mesg).reverse()[count-2], count, fetchSize);
+                    document.getElementById('message-list').appendChild(message);
                 });
             }
         );
@@ -142,5 +67,6 @@ let channelSelect = (c, name) => {
         document.getElementById("message-list").prepend(shell);
 
         messages.scrollTop = messages.scrollHeight;
+        generatingMessages = false;
     }
 }

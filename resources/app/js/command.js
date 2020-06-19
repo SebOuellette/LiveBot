@@ -9,6 +9,10 @@ let command = text => {
     img.id = 'messageImg';
     img.src = './resources/images/Barry.png';
     div.appendChild(img);
+
+    let inlineContainer = document.createElement('div');
+    inlineContainer.classList.add("inlineMsgCont");
+    div.appendChild(inlineContainer);
   
     let name = document.createElement('p');
     let username;
@@ -17,26 +21,24 @@ let command = text => {
     name.appendChild(username);
     name.id = 'messageUsername';
     name.style.color = `#999999`;
-    div.appendChild(name);
+    inlineContainer.appendChild(name);
   
     let text2 = document.createElement('p');
   
     console.log(text);
     if (text.split('\n').length > 1) {
         for(i=0;i<text.split('\n').length;i++) {
-            let content = document.createTextNode(text.split('\n')[i]);
-            text2.appendChild(content);
-            text2.id = 'messageText';
+            text2.innerHTML += parseMessage(text.split('\n')[i]);
+            text2.classList.add('messageText');
     
             let contentBreak = document.createElement('br');
             text2.appendChild(contentBreak);
         }
     } else {
-        let content = document.createTextNode(text);
-        text2.appendChild(content);
-        text2.id = 'messageText';
+        text2.innerHTML = parseMessage(text);
+        text2.classList.add('messageText');
     }
-    div.appendChild(text2);
+    inlineContainer.appendChild(text2);
     document.getElementById('message-list').scrollTop = document.getElementById('message-list').scrollHeight;
     document.getElementById('msgbox').value = '';
     barry = true;

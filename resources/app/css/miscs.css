@@ -1,0 +1,73 @@
+@font-face {
+    font-family: Whitney;
+    src: url("../fonts/whitney-medium.otf");
+    font-weight: 100;
+}
+
+/* Typing Indicator */
+#typingIndicator {
+    font-size: 14px;
+    color: white;
+    position: absolute;
+    z-index: 1000;
+    user-select: none;
+    margin: 0;
+    top: 0;
+    left: 50px;
+}
+
+#typingDots {
+    position: absolute;
+    display: none;
+}
+
+#typingDots.enabled {
+    display: block;
+}
+
+.bold {
+    font-family: Whitney;
+    font-weight: bold;
+}
+
+.typingDot {
+    height: 8px;
+    width: 8px;
+    background-color: #686a6e;
+    position: absolute;
+    top: -13px;
+    left: 15px;
+    border-radius: 50%;
+    animation: typing 2s infinite;
+}
+
+.dot1 {
+    animation-delay: 0s;
+}
+
+.dot2 {
+    left: 25px;
+    animation-delay: 0.2s;
+}
+
+.dot3 {
+    left: 35px;
+    animation-delay: 0.4s;
+}
+
+@keyframes typing {
+    0%, 20% {
+        background-color: #686a6e;
+        transform: scale(0.5);
+    }
+    50% {
+        transform: scale(1);
+        background-color: white;
+    }
+    80%, 100% {
+        background-color: #686a6e;
+        transform: scale(0.5);
+    }
+}
+
+/*  */

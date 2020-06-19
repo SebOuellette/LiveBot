@@ -1,11 +1,14 @@
 global.Discord = require('discord.js');
 const remote = require('electron').remote;
 const fs = require('fs');
+let jsonSettings = require("./json/settings.json");
 
 let selectedGuild;
 let selectedChan;
+let selectedVoice;
 let selectedChatDiv;
 let oldimg;
+let generatingMessages = false;
 let barry = false;
 
 // Create the app and attach event listeners
@@ -20,15 +23,30 @@ function create() {
             } else if (event.keyCode === 13) {
                 sendmsg();
             }
+        })
+
+    document.getElementById("msgbox")
+        .addEventListener("input", event => {
+            let rows = document.getElementById("msgbox").value.split('\n').length;
+            if (rows == 0)
+                rows++;
+            //document.getElementById("msgbox").rows = rows;
         });
 
 
     document.getElementById("tokenbox")
         .addEventListener("keydown", event => {
             if (event.keyCode === 13) {
+                unloadAllScripts();
                 setToken();
             }
         });
+    
+    // Call the settings meny builder
+    buildSettingsMenu(jsonSettings);
+
+    // Call the general click event listener script
+    addDocListener();
 
     load(localStorage.getItem('livebot-token'));
 }
