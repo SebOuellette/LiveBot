@@ -89,16 +89,22 @@ let channelSelect = (c, name) => {
                         img.width = '40';
                         div.appendChild(img);
 
+						// Inline message container
                         messageContainer = document.createElement("div");
                         messageContainer.classList.add(m.author.id);
                         messageContainer.classList.add('inlineMsgCont');
-                        div.appendChild(messageContainer);
+						div.appendChild(messageContainer);
+						
+						// Create the dark background
+						let darkBG = document.createElement('div');
+						
                         
                         // Create user's name
                         let name = document.createElement('p');
                         name.innerText = (m.member ? m.member.nickname : m.author.username) || m.author.username;
                         name.id = 'messageUsername';
-
+						
+						// Find the colour of their name
                         try {
                             let color = m.member.roles.sort((r1, r2) => r1.position - r2.position).map(p => p.color).length;
                             let colors = m.member.roles.sort((r1, r2) => r1.position - r2.position).map(p => p.color);

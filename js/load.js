@@ -86,7 +86,7 @@ let load = token => {
         if (selectedGuild && m.guild.id == selectedGuild.id) {
 
             let channel = document.getElementById(m.channel.id);
-            if (channel) {
+            if (channel && (!selectedChan || (selectedChan && selectedChan.id != m.channel.id))) {
                 channel.classList.add("newMsg");
             }
 
