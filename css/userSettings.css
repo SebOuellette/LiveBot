@@ -118,7 +118,7 @@
     width: 30vw;
     padding: 2.5vh 2.5vw;
     background-color: #202225;
-    z-index: 1;
+    z-index: 2;
     left: 300px;
     top: -44px;
     transition: left 1s;

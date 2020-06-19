@@ -167,3 +167,11 @@ a:hover {
     cursor: pointer;
     color: #dcddde;
 }
+
+.emoji {
+    height: 22px;
+}
+
+.emoji.big {
+    height: 50px;
+}

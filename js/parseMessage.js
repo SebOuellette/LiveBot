@@ -1,6 +1,6 @@
 let parseSend = (text) => {
     // The regex used for the emojis
-    let emojiRegex = /:\(|>:-\(|>=\(|>=-\(|:"\)|:-"\)|="\)|=-"\)|<\/3|<3|<3|♡|:-\/|=-\/|:'\(|:'-\(|:,\(|:,-\(|='\(|='-\(|=,\(|=,-\(|:\(|:-\(|=\(|=-\(|]:\(|]:-\(|]=\(|]=-\(|o:\)|O:\)|o:-\)|O:-\)|0:\)|0:-\)|o=\)|O=\)|o=-\)|O=-\)|0=\)|0=-\)|:'\)|:'-\)|:,\)|:,-\)|:'D|:'-D|:,D|:,-D|='\)|='-\)|=,\)|=,-\)|='D|='-D|=,D|=,-D|:\*|:-\*|=\*|=-\*|x-\)|X-\)|:o|:-o|:O|:-O|=o|=-o|=O|=-O|:@|:-@|=@|=-@|:D|:-D|=D|=-D|:\)|:-\)|=\)|=-\)|]:\)|]:-\)|]=\)|]=-\)|:,'\(|:,'-\(|;\(|;-\(|=,'\(|=,'-\(|:P|:-P|=P|=-P|8-\)|B-\)|,:\(|,:-\(|,=\(|,=-\(|,:\)|,:-\)|,=\)|,=-\)|:s|:-S|:z|:-Z|:\$|:-\$|=s|=-S|=z|=-Z|=\$|=-\$|;\)|;-\)|:\||=\|/ 
+    let emojiRegex = /:\(|>:-\(|>=\(|>=-\(|:"\)|:-"\)|="\)|=-"\)|<\/3|<3|<3|♡|:-\/|=-\/|:'\(|:'-\(|:,\(|:,-\(|='\(|='-\(|=,\(|=,-\(|:\(|:-\(|=\(|=-\(|]:\(|]:-\(|]=\(|]=-\(|o:\)|O:\)|o:-\)|O:-\)|0:\)|0:-\)|o=\)|O=\)|o=-\)|O=-\)|0=\)|0=-\)|:'\)|:'-\)|:,\)|:,-\)|:'D|:'-D|:,D|:,-D|='\)|='-\)|=,\)|=,-\)|='D|='-D|=,D|=,-D|:\*|:-\*|=\*|=-\*|x-\)|X-\)|:o|:-o|:O|:-O|=o|=-o|=O|=-O|:@|:-@|=@|=-@|:D|:-D|=D|=-D|:\)|:-\)|=\)|=-\)|]:\)|]:-\)|]=\)|]=-\)|:,'\(|:,'-\(|;\(|;-\(|=,'\(|=,'-\(|:P|:-P|=P|=-P|8-\)|B-\)|,:\(|,:-\(|,=\(|,=-\(|,:\)|,:-\)|,=\)|,=-\)|:s|:-S|:z|:-Z|:\$|:-\$|=s|=-S|=z|=-Z|=\$|=-\$|;\)|;-\)|:\||=\|/gm; 
     
     // Replace all the shortcuts with actual emojis
     text = text.replace(emojiRegex, (a) => {
@@ -29,20 +29,19 @@ let parseMessage = (text, msg = null, embed = false) => {
     textContent = textContent.replace(/\|\|(.*?)\|\|/gm, '<span class="spoilerBlock" onclick="discoverSpoiler(this)">$1</span>');
     textContent = textContent.replace(/~~(.*?)~~/gm, '<del>$1</del>');
 
-    let customEmoji = /&lt;(a):.+?:([0-9]+?)&gt;|&lt;:.+?:([0-9]+?)&gt;/gm
-    textContent = textContent.replace(customEmoji, (a, b, c, d) => {
-        if (b == "a") {
-            return `<img class="emoji" src="https://cdn.discordapp.com/emojis/${c}.gif?v=1"></img>`
-        } else if (d !== undefined){
-            return `<img class="emoji" src="https://cdn.discordapp.com/emojis/${d}.png?v=1"></img>`
-        }
-        return b
-    });
-
     // Match all emojis
-    if (!textContent.replace(/(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/g, "").length) {
-        textContent = `<span class="bigEmoji">${textContent}</span>`
+    if (!textContent.replace(/((\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])| |(&lt;a?:!?.+?:[0-9]{18}?&gt;))/g, "").length) {
+        textContent = `<span class="bigEmoji">${textContent}</span>`;
     }
+
+    // Render custom emojis
+    let customEmoji = /&lt;(a)?:!?(.+?):([0-9]{18}?)&gt;/gm
+    textContent = textContent.replace(customEmoji, (a, b, c, d) => {
+        if (d !== undefined) {
+            return `<img class="emoji" draggable="false" alt=":${c}:" src="https://cdn.discordapp.com/emojis/${d}.${b=='a'?'gif':'png'}?v=1"></img>`;
+        }
+        return b;
+    });
 
     // Format pings
     if (msg) {
