@@ -98,7 +98,6 @@ let load = token => {
     bot.on('messageDeleteBulk', (msgs) => {
         // Return if it's not the selected channel
         if(msgs.first().channel != selectedChan) return;
-        global.messages = msgs
         for(let m of msgs){
             let message = document.getElementById(m[1].id);
             // Check if you need to delete just the message or the whole message block
