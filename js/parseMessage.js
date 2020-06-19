@@ -14,10 +14,13 @@ let parseSend = (text) => {
 }
 
 let parseMessage = (text, msg = null, embed = false) => {
-    // Remove html in the message
-    let textContent = text.replace(/(<)([^>]+)(>)/gm, '&lt;$2&gt;');
+    // Remove html < and > in the message
+    let textContent = text
+                        .replace(/</g, '&lt;')
+                        .replace(/>/g, '&gt;');
 
     // General message parsing
+    // Match links
     textContent = textContent.replace(/https?:\/\/.+?(\/(.+?(\?.+?((?= )|$)))|(?= )|$)/mg, '<a href="$&" rel="noreferrer noopener" title="$&" target="_blank">$&</a>');
 
     // Add html tags for markup
