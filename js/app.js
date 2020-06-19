@@ -45,6 +45,9 @@ function create() {
     // Call the settings meny builder
     buildSettingsMenu(jsonSettings);
 
+    // Call the general click event listener script
+    addDocListener();
+
     load(localStorage.getItem('livebot-token'));
 }
 

@@ -41,7 +41,7 @@ let sendmsg = () => {
                             'Members - '+selectedChan.guild.memberCount,
                             'Channels - '+selectedChan.guild.channels.size,
                             'Roles - '+selectedChan.guild.roles.size,
-                            'Id - '+selectedChan.guild.id,
+                            'ID - '+selectedChan.guild.id,
                             'Owner - '+selectedChan.guild.owner.user.tag
                         ].join('\n');
                     command(serverinfo);

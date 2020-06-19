@@ -192,32 +192,32 @@ body {
     border-radius: 3px;
 }
 
-#messageCont {
+.messageCont {
     width: 100%;
     /* border-top: 1px solid #484B51; */
-    margin-top: 3px;
+    margin: 10px 0;
     min-height: 57px;
     overflow-y: hidden;
     overflow-x: auto;
     padding-bottom: -30px;
 }
 
-#messageCont::-webkit-scrollbar {
+.messageCont::-webkit-scrollbar {
     background-color: transparent;
     height: 6px;
 }
 
-#messageCont::-webkit-scrollbar-track {
+.messageCont::-webkit-scrollbar-track {
     background-color: transparent;
 }
 
-#messageCont::-webkit-scrollbar-thumb {
+.messageCont::-webkit-scrollbar-thumb {
     background-color: #25272B;
     border-radius: 3px;
 }
 
 .timeSeparated {
-	border-top: 1px solid #484B51;
+    border-top: 1px solid #484B51;
 }
 
 /* Apology for not being able to view messages */

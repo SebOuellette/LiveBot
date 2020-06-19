@@ -29,7 +29,7 @@
 }
 
 .categoryNameContainer {
-	display: block;
+    display: block;
 }
 
 .categoryText {
@@ -45,32 +45,32 @@
 }
 
 .categoryNameContainer{
-	cursor: pointer;
+    cursor: pointer;
 }
 
 .categoryNameContainer:hover .categoryText {
-	color: #B4B8BC;
+    color: #B4B8BC;
 }
 
 .categorySVG {
-	height: 10px;
-	position: relative;
+    height: 10px;
+    position: relative;
     top: 5px;
     margin-right: 8px;
-	transform: rotate(90deg);
-	transition-duration: 0.1s;
+    transform: rotate(90deg);
+    transition-duration: 0.1s;
 }
 
 .open .categorySVG {
-	transform: rotate(180deg);
+    transform: rotate(180deg);
 }
 
 .channelContainer {
-	display: none;
+    display: none;
 }
 
 .open .channelContainer {
-	display: block;
+    display: block;
 }
 
 .channel {

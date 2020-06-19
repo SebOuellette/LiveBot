@@ -315,7 +315,7 @@ function genDropDown(parent, options, defaultOpt = 0, group, optionObj) {
 }
 
 
-// 		Custom functions down here
+//     Custom functions down here
 // Set the status
 function setStatus(status) {
     console.log(status);

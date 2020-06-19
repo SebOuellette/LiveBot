@@ -65,44 +65,44 @@ let guildSelect = (g, img) => {
 
             if (c.type == 'category') {
                 let category = document.createElement('div');
-				category.classList.add("category");
-				category.classList.add("open");
-				category.id = c.id;
-				realParent.appendChild(category);
-				
-				// Container for the category svg and name
-				let nameCategory = document.createElement('div')
-				nameCategory.classList.add('categoryNameContainer');
-				category.appendChild(nameCategory);
-				
-				// Create the svg icon
-				let svg = document.createElement('img');
-				// svg.type = "image/svg+xml";
-				// svg.data
-				svg.src = './resources/icons/categoryArrow.svg';
-				svg.classList.add("categorySVG");
-				nameCategory.appendChild(svg);
+                category.classList.add("category");
+                category.classList.add("open");
+                category.id = c.id;
+                realParent.appendChild(category);
+                
+                // Container for the category svg and name
+                let nameCategory = document.createElement('div')
+                nameCategory.classList.add('categoryNameContainer');
+                category.appendChild(nameCategory);
+                
+                // Create the svg icon
+                let svg = document.createElement('img');
+                // svg.type = "image/svg+xml";
+                // svg.data
+                svg.src = './resources/icons/categoryArrow.svg';
+                svg.classList.add("categorySVG");
+                nameCategory.appendChild(svg);
 
-				// Create the category name
+                // Create the category name
                 let text = document.createElement("h5");
                 text.classList.add("categoryText");
                 text.innerText = format(c.name);
-				nameCategory.appendChild(text);
+                nameCategory.appendChild(text);
 
-				// Create the container for all the channels
-				let div = document.createElement('div');
-				div.classList.add('channelContainer');
-				category.appendChild(div);
+                // Create the container for all the channels
+                let div = document.createElement('div');
+                div.classList.add('channelContainer');
+                category.appendChild(div);
 
-				// Event listener for opening and closing
-				nameCategory.addEventListener("click", event => {
-					category.classList.toggle("open");
+                // Event listener for opening and closing
+                nameCategory.addEventListener("click", event => {
+                    category.classList.toggle("open");
                 });
 
-				
-				// Set the parent for the next added channels
+                
+                // Set the parent for the next added channels
                 parent = div;
-				categoryParent = c;
+                categoryParent = c;
             }
         });
 
@@ -139,7 +139,7 @@ let guildSelect = (g, img) => {
 
             // Finally, add it to the parent
             if (c.parentID)
-				document.getElementById(c.parentID).getElementsByTagName('div')[1].appendChild(div);
+                document.getElementById(c.parentID).getElementsByTagName('div')[1].appendChild(div);
             else
                 realParent.insertBefore(div, realParent.querySelector('.category'));
 

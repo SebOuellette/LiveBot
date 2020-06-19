@@ -46,50 +46,62 @@ a:hover {
     font-family: Whitney-light, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 16px;
     font-weight: 400;
-	padding: 2px 0 3px 0;
-	margin: 0;
+    padding: 2px 0 3px 0;
+    margin: 0;
     color: #dcddde;
     width: calc(100% - 40px);
     word-spacing: 2px;
+    position: relative;
+}
+
+.messageTimestamp + .messageText {
+    margin-top: -25px;
 }
 
 .messageBlock {
-	display: block;
-	position: relative;
-	width: 100%;
-    left: -90px;
-	padding-left: 90px;
-	border-radius: 3px;
+    display: block;
+    position: relative;
+    padding-left: 90px;
+    border-radius: 3px;
+}
+
+.messageBlock.firstmsg {
+    padding-top: 5px;
+    padding-bottom: 2px;
 }
 
 .messageBlock:hover {
-	background-color: #32353b;
-	z-index: 0;
+    background-color: #32353b;
+    z-index: 0;
 }
 
-#messageUsername {
+.messageUsername {
     user-select: none;
     cursor: default;
     display: inline-block;
-    margin-bottom: 3px;
+    margin: 3px 0;
+    left: -50px;
+    top: -26px;
+    position: relative;
 }
 
 .messageTimestamp {
     color: #72767d;
     font-size: 12px;
     display: inline-block;
-	margin-left: 10px;
-	margin-bottom: 3px;
+    margin: 3px 0;
+    top: -26px;
+    left: -35px;
+    position: relative;
 }
 
-#messageImg {
+.messageImg {
     height: 40px;
-	margin-top: 10px;
-	margin-left: 30px;
+    left: -60px;
     border-radius: 50%;
-	user-select: none;
-	z-index: 1;
-	position: relative;
+    user-select: none;
+    z-index: 1;
+    position: relative;
 }
 
 /* Code Block */
