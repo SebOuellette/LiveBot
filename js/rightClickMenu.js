@@ -4,6 +4,7 @@ function addDocListener() {
         e = e || window.event;
         let target = e.target || e.srcElement;
         
+        // X and Y position of the click
         let x = e.clientX;
         let y = e.clientY;
 
@@ -11,8 +12,13 @@ function addDocListener() {
             // Left click
         } else if (e.which == 3) { // Right click
             // Right click a message
-            if (target.classList.contains('messageBlock') || target.parentElement.classList.contains('messageBlock')) {
-                console.log("message");
+            if (target.parentElement.classList.contains('messageBlock')) {
+                target = target.parentElement;
+            }
+
+            // Checking otherwise
+            if (target.classList.contains('messageBlock')) {
+                console.log(target.querySelector('.messageText').innerHTML);
             }
         }
     })

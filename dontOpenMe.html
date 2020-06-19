@@ -109,7 +109,13 @@
                 </div>
 
                 <div id='sendmsg'>
-                <textarea type="text" name="message" value="" placeholder='Message' id='msgbox' class='messageText'  oninput='typing()' rows='1'></textarea>
+                    <div id='typingDots'>
+                        <div class='typingDot dot1'></div>
+                        <div class='typingDot dot2'></div>
+                        <div class='typingDot dot3'></div>
+                    </div>
+                    <p id="typingIndicator"></p>
+                    <textarea type="text" name="message" value="" placeholder='Message' id='msgbox' class='messageText'  oninput='typing()' rows='1'></textarea>
                 </div>
             </div>
 
@@ -117,7 +123,6 @@
                 <!--<input type='text' name='name' value='' placeholder='Username' id='usernameBox' class='optionBox'/>
                 <input type='button' name='invite' value='Generate Invite' id='inviteBtn' class='optionBox' onclick="options('invite','')"/>-->
             </div>
-            <div id="typingIndicator">
         </div>
         <script src="js/titlebar.js" charset="utf-8"></script>
     </body>

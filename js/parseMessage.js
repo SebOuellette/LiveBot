@@ -43,6 +43,12 @@ let parseMessage = (text, msg = null, embed = false) => {
         return b;
     });
 
+    // Render local emojis
+    let localEmoji = /:([^ \n]+?):/gm
+    textContent = textContent.replace(localEmoji, (a, b) => {
+        
+    });
+
     // Format pings
     if (msg) {
         textContent = formatPings(msg, textContent);
