@@ -15,7 +15,7 @@ let parseSend = (text) => {
 
 let parseMessage = (text, msg = null, embed = false) => {
     // Remove html < and > in the message
-    let textContent = text
+    let textContent = textContent
                         .replace(/</g, '&lt;')
                         .replace(/>/g, '&gt;');
 
