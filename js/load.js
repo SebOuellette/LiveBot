@@ -80,6 +80,45 @@ let load = token => {
         });
     });
 
+    // A message has been deleted
+    bot.on('messageDelete', (m) => {
+        // Return if it's not the selected channel
+        if(m.channel != selectedChan) return;
+        // Get the dom element from the message
+        let message = document.getElementById(m.id);
+
+        // Check if you need to delete just the message or the whole message block
+        if (message.parentNode.parentNode.children.length > 1) 
+            message.parentNode.parentNode.removeChild(message.parentNode);
+        else 
+            message.parentNode.parentNode.parentNode.removeChild(message.parentNode.parentNode);
+    });
+
+    // Multiple messages have been deleted
+    bot.on('messageDeleteBulk', (msgs) => {
+        // Return if it's not the selected channel
+        if(msgs.first().channel != selectedChan) return;
+        global.messages = msgs
+        for(let m of msgs){
+            let message = document.getElementById(m[1].id);
+            // Check if you need to delete just the message or the whole message block
+            if (message.parentNode.parentNode.children.length > 1) 
+                message.parentNode.parentNode.removeChild(message.parentNode);
+            else 
+                message.parentNode.parentNode.parentNode.removeChild(message.parentNode.parentNode);
+        }
+    });
+
+    // A message has been updated
+    bot.on('messageUpdate', (oldM, m) => {
+        // Return if it's not the selected channel
+        if(m.channel != selectedChan) return;
+        // Get the dom element from the message
+        let message = document.getElementById(m.id);
+        message.innerHTML = `${parseMessage(m.cleanContent)} <time class='edited'>(edited)</time>`;
+    });
+
+
     // New message recieved
     bot.on('message', (m) => {
         // If there is a channel selected

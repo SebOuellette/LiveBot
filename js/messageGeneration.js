@@ -99,6 +99,9 @@ function generateMsgHTML(m, previousMessage, count = -1, fetchSize = undefined) 
         text.id = m.id;
         text.innerHTML = parseMessage(m.cleanContent, m, false);
 
+        if(m.editedAt)
+            text.innerHTML += '<time class="edited"> (edited)</time>'
+
         darkBG.appendChild(text);
     }
     
