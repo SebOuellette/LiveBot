@@ -9,16 +9,21 @@ function addDocListener() {
         let y = e.clientY;
 
         if (e.which == 1) {
+            document.getElementById('rcMenu').classList.remove('open');
             // Left click
         } else if (e.which == 3) { // Right click
-            // Right click a message
-            if (target.parentElement.classList.contains('messageBlock')) {
+            // Get the message block containing the message
+            while (!target.classList.contains('messageBlock') && target != document.body) {
                 target = target.parentElement;
             }
 
             // Checking otherwise
             if (target.classList.contains('messageBlock')) {
                 console.log(target.querySelector('.messageText').innerHTML);
+                let rcMenu = document.getElementById('rcMenu');
+                rcMenu.classList.add('open');
+                rcMenu.style.left = `${x}px`;
+                rcMenu.style.top = `${y}px`;
             }
         }
     })
