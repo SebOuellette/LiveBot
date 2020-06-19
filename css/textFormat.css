@@ -1,8 +1,6 @@
 /* Message Container */
 .inlineMsgCont {
-    margin-left: 60px;
-    margin-top: -60px;
-    margin: -60px 0 20px 60px;
+    margin: -60px 0 20px 90px;
 }
 
 /* Emojis */
@@ -55,8 +53,18 @@ a:hover {
     word-spacing: 2px;
 }
 
-.messageText:hover {
-    background-color: #32353b;
+.messageBlock {
+	display: block;
+	position: relative;
+	width: 100%;
+    left: -90px;
+	padding-left: 90px;
+	border-radius: 3px;
+}
+
+.messageBlock:hover {
+	background-color: #32353b;
+	z-index: 0;
 }
 
 #messageUsername {
@@ -76,9 +84,12 @@ a:hover {
 
 #messageImg {
     height: 40px;
-    margin-top: 10px;
+	margin-top: 10px;
+	margin-left: 30px;
     border-radius: 50%;
-    user-select: none;
+	user-select: none;
+	z-index: 1;
+	position: relative;
 }
 
 /* Code Block */

@@ -193,9 +193,7 @@ body {
 }
 
 #messageCont {
-    width: calc(100% - 30px);
-    margin-left: auto;
-    margin-right: auto;
+    width: 100%;
     /* border-top: 1px solid #484B51; */
     margin-top: 3px;
     min-height: 57px;

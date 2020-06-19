@@ -139,7 +139,9 @@ let load = token => {
                         messageContainer = document.createElement("div");
                         messageContainer.classList.add(m.author.id);
                         messageContainer.classList.add('inlineMsgCont');
-                        div.appendChild(messageContainer);
+						div.appendChild(messageContainer);
+						
+						// Create div for name and first message
                         
                         // Create user's name
                         let name = document.createElement('p');

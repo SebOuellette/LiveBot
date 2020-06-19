@@ -68,7 +68,11 @@ let channelSelect = (c, name) => {
                         } else {
                             bunch = false;
                         }
-                    }
+					}
+					
+					// Create the div for the dark background
+					let darkBG = document.createElement('div');
+					darkBG.classList.add('messageBlock');
                     
                     // Create the messages
                     let messageContainer;
@@ -96,8 +100,7 @@ let channelSelect = (c, name) => {
 						div.appendChild(messageContainer);
 						
 						// Create the dark background
-						let darkBG = document.createElement('div');
-						
+						messageContainer.appendChild(darkBG);
                         
                         // Create user's name
                         let name = document.createElement('p');
@@ -116,16 +119,17 @@ let channelSelect = (c, name) => {
                         } catch (err) {
                             name.style.color = '#fff';
                         }
-                        messageContainer.appendChild(name);
+                        darkBG.appendChild(name);
 
                         // Create timestamp
                         let timestamp = document.createElement('p');
                         timestamp.innerText = m.createdAt.toLocaleString('en-US', {day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit'});
                         timestamp.classList.add("messageTimestamp");
-                        messageContainer.appendChild(timestamp);
+                        darkBG.appendChild(timestamp);
                     } else {
                         messageContainer = document.getElementsByClassName(m.author.id);
-                        messageContainer = messageContainer[messageContainer.length - 1];
+						messageContainer = messageContainer[messageContainer.length - 1];
+						messageContainer.appendChild(darkBG);
                     }
                     
                     // Prepend message text
@@ -136,7 +140,7 @@ let channelSelect = (c, name) => {
                         text.id = m.id;
                         text.innerHTML = parseMessage(m.cleanContent, m, false);
 
-                        messageContainer.appendChild(text);
+                        darkBG.appendChild(text);
                     }
                     
                     // Append embeds
@@ -149,9 +153,9 @@ let channelSelect = (c, name) => {
 
                             img.src = `${embed.thumbnail.proxyURL}?width=${newWidth}&height=${newHeight}`;
                             img.classList.add("previewImage");
-                            messageContainer.appendChild(img);
+                            darkBG.appendChild(img);
                         } else {
-                            showEmbed(embed, messageContainer, m);
+                            showEmbed(embed, darkBG, m);
                         }
                     });
                 });
