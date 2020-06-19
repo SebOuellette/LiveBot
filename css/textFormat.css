@@ -52,6 +52,19 @@ a:hover {
     width: calc(100% - 40px);
     word-spacing: 2px;
     position: relative;
+    right: 10px
+}
+
+.messageBoxText {
+    font-family: Whitney-light, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 2px 0 3px 0;
+    margin: 0;
+    color: #dcddde;
+    width: calc(100% - 40px);
+    word-spacing: 2px;
+    position: relative;
 }
 
 .messageTimestamp + .messageText {
@@ -174,4 +187,10 @@ a:hover {
 
 .emoji.big {
     height: 50px;
+}
+
+.edited {
+    font-size: 10px;
+    color: #72767d;
+    user-select: none;
 }
