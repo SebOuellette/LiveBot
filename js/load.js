@@ -86,12 +86,10 @@ let load = token => {
         if(m.channel != selectedChan) return;
         // Get the dom element from the message
         let message = document.getElementById(m.id);
+        let firstMessage = message.classList.contains('firstmsg');
 
-        // Check if you need to delete just the message or the whole message block
-        if (message.parentNode.parentNode.children.length > 1) 
-            message.parentNode.parentNode.removeChild(message.parentNode);
-        else 
-            message.parentNode.parentNode.parentNode.removeChild(message.parentNode.parentNode);
+        // Remove the message element
+        removeMessage(message, firstMessage);
     });
 
     // Multiple messages have been deleted
@@ -100,11 +98,10 @@ let load = token => {
         if(msgs.first().channel != selectedChan) return;
         for(let m of msgs){
             let message = document.getElementById(m[1].id);
-            // Check if you need to delete just the message or the whole message block
-            if (message.parentNode.parentNode.children.length > 1) 
-                message.parentNode.parentNode.removeChild(message.parentNode);
-            else 
-                message.parentNode.parentNode.parentNode.removeChild(message.parentNode.parentNode);
+            let firstMessage = message.classList.contains('firstmsg');
+
+            // Remove the message element
+            removeMessage(message, firstMessage);
         }
     });
 
@@ -113,7 +110,7 @@ let load = token => {
         // Return if it's not the selected channel or if the message wasn't edited
         if(m.channel != selectedChan || !m.editedAt) return;
         // Get the dom element from the message
-        let message = document.getElementById(m.id);
+        let message = document.getElementById(m.id).querySelector('.messageText');
         message.innerHTML = `${parseMessage(m.cleanContent)} <time class='edited'>(edited)</time>`;
     });
 
@@ -179,3 +176,29 @@ let load = token => {
         unloadAllScripts();
     });
 };
+
+
+function removeMessage(message, firstMessage) {
+    // Check if you need to delete just the message or the whole message block
+    if (message.parentNode.children.length > 1) {
+        if (firstMessage) {
+            let embed = message.querySelector('.embed');
+            let text = message.querySelector('.messageText');
+            let nextElement = message.nextElementSibling;
+            
+            if (embed)
+                message.removeChild(embed);
+            if (text)
+                message.removeChild(text);
+
+            message.innerHTML += nextElement.innerHTML;
+            message.id = nextElement.id;
+
+            message.parentElement.removeChild(nextElement);
+        } else {
+            message.parentElement.removeChild(message);
+        }
+    } else {
+        document.getElementById('message-list').removeChild(message.parentNode);
+    }
+}

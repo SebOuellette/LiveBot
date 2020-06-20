@@ -1,5 +1,5 @@
 let loadAllScripts = () => {
-    let files = fs.readdirSync('./scripts', );
+    let files = fs.readdirSync('./scripts');
 
     // Preoad all the scripts
     console.log('Loading scripts...');

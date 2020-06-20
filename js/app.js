@@ -17,11 +17,7 @@ function create() {
 
     document.getElementById("msgbox")
         .addEventListener("keydown", event => {
-            if (event.keyCode === 13 && event.shiftKey) {
-                // Add a new line in to the message box
-                document.getElementById("msgbox").innerHTML = document.getElementById("msgbox").innerHTML + newlineCode;
-            } else if (event.keyCode === 13) {
-                event.preventDefault();
+            if (event.keyCode === 13 && !event.shiftKey) {
                 sendmsg();
             }
         })

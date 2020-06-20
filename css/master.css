@@ -192,20 +192,6 @@ body {
     border-radius: 3px;
 }
 
-.messageCont::-webkit-scrollbar {
-    background-color: transparent;
-    height: 6px;
-}
-
-.messageCont::-webkit-scrollbar-track {
-    background-color: transparent;
-}
-
-.messageCont::-webkit-scrollbar-thumb {
-    background-color: #25272B;
-    border-radius: 3px;
-}
-
 .timeSeparated {
     border-top: 1px solid #484B51;
 }

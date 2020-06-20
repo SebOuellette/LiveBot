@@ -31,6 +31,7 @@ function generateMsgHTML(m, previousMessage, count = -1, fetchSize = undefined) 
     // Create the div for the dark background
     let darkBG = document.createElement('div');
     darkBG.classList.add('messageBlock');
+    darkBG.id = m.id;
     
     // Create the messages
     let div;
@@ -96,7 +97,6 @@ function generateMsgHTML(m, previousMessage, count = -1, fetchSize = undefined) 
         // Render message text
         let text = document.createElement('p');
         text.classList.add('messageText');
-        text.id = m.id;
         text.innerHTML = parseMessage(m.cleanContent, m, false);
 
         if(m.editedAt)

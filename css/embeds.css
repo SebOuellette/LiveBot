@@ -9,6 +9,10 @@
     max-width: 400px;
 }
 
+.messageTimestamp + .embed {
+    margin-top: -20px;
+}
+
 .embedLargeIcon {
     height: 90px;
     border-radius: 5px;

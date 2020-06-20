@@ -115,24 +115,23 @@ function createPopup(parent, jsonObj) {
         if (group.update) {
             let btn = document.createElement("button");
             btn.addEventListener("click", event => {
-                let allDropdowns = Array.from(btn.parentElement.querySelectorAll(".dropdown")).map(x => `'${x.firstElementChild.firstElementChild.innerText}'`);
+                let allDropdowns = Array.from(btn.parentElement.querySelectorAll(".dropdown")).map(x => `'${x.firstElementChild.firstElementChild.innerText.replace(/\\*'/g, "\\'")}'`);
 
                 let activityInput = 'null';
                 if (btn.parentElement.querySelector(".activityInput"))
-                    activityInput = `'${btn.parentElement.querySelector(".activityInput").value}'`;
+                    activityInput = `'${btn.parentElement.querySelector(".activityInput").value.replace(/\\*'/g, "\\'")}'`;
                 else 
                     activityInput = "null";
 
                 let streamURL = 'null';
                 if (btn.parentElement.querySelector(".streamURLInput"))
-                    streamURL = `'${btn.parentElement.querySelector(".streamURLInput").value}'`;
+                    streamURL = `'${btn.parentElement.querySelector(".streamURLInput").value.replace(/\\*'/g, "\\'")}'`;
 
                 let funcString = group.call
                     .replace("DROPDOWNS", `${allDropdowns}`)
                     .replace("ACTIVITYNAME", activityInput)
                     .replace("STREAMURL", streamURL);
 
-                //console.log(funcString);
                 eval(funcString);
             });
             btn.classList.add("settingsUpdateBtn");
@@ -247,7 +246,7 @@ function genDropDown(parent, options, defaultOpt = 0, group, optionObj) {
 
                 // Call the function only if there will not be an update button
                 if (!group.update) {
-                    eval(group.call.replace("DROPDOWNS", `'${option.innerText}'`));
+                    eval(group.call.replace("DROPDOWNS", `'${option.innerText.replace(/\\*'/g, "\\'")}'`));
                 }
 
                 // Remove all the other specials in this section first
@@ -316,11 +315,6 @@ function genDropDown(parent, options, defaultOpt = 0, group, optionObj) {
 
 
 //     Custom functions down here
-// Set the status
-function setStatus(status) {
-    console.log(status);
-}
-
 // Set the activity
 function setActivity(dropdowns, activityName, streamurl) {
     let status = dropdowns[0];
