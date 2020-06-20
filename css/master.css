@@ -192,16 +192,6 @@ body {
     border-radius: 3px;
 }
 
-.messageCont {
-    width: 100%;
-    /* border-top: 1px solid #484B51; */
-    padding: 10px 0;
-    min-height: 57px;
-    overflow-y: hidden;
-    overflow-x: auto;
-    padding-bottom: -30px;
-}
-
 .messageCont::-webkit-scrollbar {
     background-color: transparent;
     height: 6px;
