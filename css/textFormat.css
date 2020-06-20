@@ -46,7 +46,7 @@ a:hover {
     font-family: Whitney-light, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 16px;
     font-weight: 400;
-    padding: 0px 0 1px 0;
+    padding: 2px 0 3px 0;
     margin: 0;
     color: #dcddde;
     width: calc(100% - 40px);
@@ -57,11 +57,25 @@ a:hover {
 .messageCont {
     width: 100%;
     /* border-top: 1px solid #484B51; */
-    padding: 8px 0;
+    padding: 5px 0;
     min-height: 57px;
     overflow-y: hidden;
     overflow-x: auto;
     padding-bottom: -30px;
+}
+
+.messageCont::-webkit-scrollbar {
+    background-color: transparent;
+    height: 6px;
+}
+
+.messageCont::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.messageCont::-webkit-scrollbar-thumb {
+    background-color: #25272B;
+    border-radius: 3px;
 }
 
 .messageBoxText {
@@ -77,7 +91,7 @@ a:hover {
 }
 
 .messageTimestamp + .messageText {
-    margin-top: -27px;
+    margin-top: -26px;
 }
 
 .messageBlock {
