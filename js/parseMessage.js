@@ -15,9 +15,7 @@ let parseSend = (text) => {
 
 let parseMessage = (text, msg = null, embed = false) => {
     // Remove html < and > in the message
-    let textContent = text
-                        .replace(/</g, '&lt;')
-                        .replace(/>/g, '&gt;');
+    let textContent = text.replace(/<|>/gm, (s) => s == "<" ? '&lt;' : '&gt;');
 
     // General message parsing
     // Match links
