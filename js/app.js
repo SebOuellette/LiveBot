@@ -19,6 +19,8 @@ function create() {
         .addEventListener("keydown", event => {
             if (event.keyCode === 13 && !event.shiftKey) {
                 sendmsg();
+            } else if (event.keyCode === 13) {
+                event.preventDefault();
             }
         })
 
