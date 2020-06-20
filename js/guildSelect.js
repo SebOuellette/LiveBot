@@ -38,7 +38,7 @@ let guildSelect = (g, img) => {
 
     // Update guild profile name
     let name = g.name;
-    if (g.name.length <= 22)
+    if (g.name.length >= 22)
         name = name.substring(0, 19)+'...';
     document.getElementById('guildName').innerHTML = name;
 
