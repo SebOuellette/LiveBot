@@ -110,8 +110,8 @@ let load = token => {
 
     // A message has been updated
     bot.on('messageUpdate', (oldM, m) => {
-        // Return if it's not the selected channel
-        if(m.channel != selectedChan) return;
+        // Return if it's not the selected channel or if the message wasn't edited
+        if(m.channel != selectedChan || !m.editedAt) return;
         // Get the dom element from the message
         let message = document.getElementById(m.id);
         message.innerHTML = `${parseMessage(m.cleanContent)} <time class='edited'>(edited)</time>`;
