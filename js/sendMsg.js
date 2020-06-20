@@ -12,6 +12,7 @@ let helpMsg = [
 let sendmsg = () => {
     if (selectedChan) {
         let text = document.getElementById('msgbox').value;
+        if(!text.replace(/ |\n/gm, '')) return;
         // If the emoji isn't a gloabal emoji, treat it as one. 
         let customEmoji = /(<a?:)(!)?(.+?:[0-9]+?>)/gm
         text = text.replace(customEmoji, (a, b, c, d) => {

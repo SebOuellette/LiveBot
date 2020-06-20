@@ -21,6 +21,7 @@ function create() {
                 // Add a new line in to the message box
                 document.getElementById("msgbox").innerHTML = document.getElementById("msgbox").innerHTML + newlineCode;
             } else if (event.keyCode === 13) {
+                event.preventDefault();
                 sendmsg();
             }
         })
