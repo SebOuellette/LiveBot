@@ -1,5 +1,5 @@
 .embed {
-    margin: 0 0 7px 0;
+    margin: -24px 0 7px 0;
     background-color: #2f3136;
     padding: 15px 15px 10px 15px;
     border-radius: 5px;
@@ -7,6 +7,7 @@
     color: white;
     min-height: 90px;
     max-width: 400px;
+    margin-top: -24px;
 }
 
 .embedLargeIcon {
