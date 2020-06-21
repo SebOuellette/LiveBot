@@ -140,6 +140,11 @@ a:hover {
     position: relative;
 }
 
+.barryImg {
+    left: 30px;
+    top: 5px;
+}
+
 /* Code Block */
 .codeBlock {
     width: 100%;
