@@ -115,17 +115,17 @@ function createPopup(parent, jsonObj) {
         if (group.update) {
             let btn = document.createElement("button");
             btn.addEventListener("click", event => {
-                let allDropdowns = Array.from(btn.parentElement.querySelectorAll(".dropdown")).map(x => `'${x.firstElementChild.firstElementChild.innerText.replace(/\\*'/g, "\\'")}'`);
+                let allDropdowns = Array.from(btn.parentElement.querySelectorAll(".dropdown")).map(x => `'${x.firstElementChild.firstElementChild.innerText.replace(/\\|'/g, c => '\\' + c)}'`);
 
                 let activityInput = 'null';
                 if (btn.parentElement.querySelector(".activityInput"))
-                    activityInput = `'${btn.parentElement.querySelector(".activityInput").value.replace(/\\*'/g, "\\'")}'`;
+                    activityInput = `'${btn.parentElement.querySelector(".activityInput").value.replace(/\\|'/g, c => '\\' + c)}'`;
                 else 
                     activityInput = "null";
 
                 let streamURL = 'null';
                 if (btn.parentElement.querySelector(".streamURLInput"))
-                    streamURL = `'${btn.parentElement.querySelector(".streamURLInput").value.replace(/\\*'/g, "\\'")}'`;
+                    streamURL = `'${btn.parentElement.querySelector(".streamURLInput").value.replace(/\\|'/g, c => '\\' + c)}'`;
 
                 let funcString = group.call
                     .replace("DROPDOWNS", `${allDropdowns}`)
@@ -246,7 +246,7 @@ function genDropDown(parent, options, defaultOpt = 0, group, optionObj) {
 
                 // Call the function only if there will not be an update button
                 if (!group.update) {
-                    eval(group.call.replace("DROPDOWNS", `'${option.innerText.replace(/\\*'/g, "\\'")}'`));
+                    eval(group.call.replace("DROPDOWNS", `'${option.innerText.replace(/\\|/g, c => '\\' + c)}'`));
                 }
 
                 // Remove all the other specials in this section first
