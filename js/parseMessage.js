@@ -13,7 +13,7 @@ let parseSend = (text) => {
     return text;
 }
 
-let parseMessage = (text, msg = null, embed = false, ping = false) => {
+let parseMessage = (text, msg = null, embed = false, ping = false, embededLink) => {
     // Remove html <, > and & in the message
     let textContent = text.replace(/<|>|&/gm, (s) => s == "<" ? '&lt;' : s == '>' ? '&gt;' : '&amp;');
 
@@ -47,12 +47,19 @@ let parseMessage = (text, msg = null, embed = false, ping = false) => {
     // Format pings
     if (msg) {
         // Format pings in plain text
-        if(msg.mentions)
-            textContent = formatPings(msg, textContent);
+        // if(msg.mentions)
+        //     textContent = formatPings(msg, textContent);
         
         // Format pings in embeds
-        if (msg.embeds && ping)
+        if (ping || !embed){
             textContent = formatEmbedPings(msg, textContent, ping);
+            textContent = formatPings(msg, textContent);
+        }
+
+        if(embededLink){
+            // console.log(textContent)
+            textContent = textContent.replace(/(?:\[(.+?)\]\(([a-zA-Z0-9.:\/]+?)\))/gm, (a, b, c) => `<a title="${b}" href="${c}">${b}</a>`)
+        }
     }
 
     // Parse the emojis to SVGs
@@ -70,51 +77,78 @@ function formatPings(msg, text) {
     let keys = [];
 
     // Get all the mentions from users, roles and channels
-    if (msg.mentions.users) msg.mentions.users.keyArray().forEach(id => keys.push(id));
-    if (msg.mentions.roles) msg.mentions.roles.keyArray().forEach(id => keys.push(id));
-    if (msg.mentions.channels) msg.mentions.channels.keyArray().forEach(id => keys.push(id));
+    if (msg.mentions.users) msg.mentions.users.keyArray().forEach(id => keys.push([id, 'user']));
+    if (msg.mentions.roles) msg.mentions.roles.keyArray().forEach(id => keys.push([id, 'role']));
+    if (msg.mentions.channels) msg.mentions.channels.keyArray().forEach(id => keys.push([id, 'channel']));
 
     // Replace the ping with a span container
-    keys.forEach(id => {
-        let member = msg.guild.members.get(id);
-        let name = member ? member.displayName : bot.users.get(id) ?
-                   bot.users.get(id).username : msg.guild.channels.get(id) ?
-                   msg.guild.channels.get(id).name : msg.guild.roles.get(id).name;
+    keys.forEach(ping => {
+        let id = ping[0];
+        let type = ping[1];
 
-        let pingRegex = new RegExp(`@${name}`, 'g');
-        let channelRegex = new RegExp(`#${name}`, 'g');
+        let name = '';
+        if(type == 'user'){
+            let user = msg.guild.members.get(id);
+            name = user ? user.displayName : id;
+        }
+        else if (type == 'role'){
+            let role = msg.guild.roles.get(id);
+            name = role ? role.name : id;
+        }
+        else if (type == 'channel'){
+            let channel = msg.guild.channels.get(id);
+            name = channel ? channel.name : 'deleted-channel';
+        } else {
+            name = id;
+        }
 
-        textContent = textContent.replace(pingRegex, `<span id="${id}-ping" class="ping">\@${name}</span>`)
-                                 .replace(channelRegex, `<span id="${id}-pingChan" class="ping">\#${name}</span>`);
+        pingRegex = new RegExp(`(?:(<|>)?@!?(${name}))`, 'g');
+        channelRegex = new RegExp(`(?:(<|>)?#(${name}))`, 'g');
+        
+        textContent = textContent.replace(pingRegex, (a, b, c) => b == '<' || b == '>' ? a : `<span class="ping" ${id}">@${c}</span>`)
+                                 .replace(channelRegex, (a, b, c) => b == '<' || b == '>' ? a : `<span class="ping" ${id}">#${c}</span>`);
+
     });
-    console.log(keys)
     return textContent;
 }
 
 function formatEmbedPings(msg, text) {
     let textContent = text;
+    // console.log(text)
     let keys = [];
 
     // Replace user/role pings
-    if(text.replace(/&lt;@.+&gt;/gm, "") == "")
-        keys.push(text.replace(/&lt;@(.+)&gt;/gm, (a, id) => id).toString());
+    text.replace(/&lt;@(!?[0-9]+)&gt;/gm, (a, id) => keys.push(id));
 
     // Replace channel pings
-    if(text.replace(/&lt;#.+&gt;/gm, "") == "")
-        keys.push(text.replace(/&lt;#(.+)&gt;/gm, (a, id) => id).toString());
+    text.replace(/&lt;#(\d+)&gt;/gm, (a, id) => keys.push(id));
 
+    // console.log(keys)
     // Replace the ping with a span container
     keys.forEach(id => {
-        let member = msg.guild.members.get(id);
-        let name = member ? member.displayName : bot.users.get(id) ?
-                   bot.users.get(id).username : msg.guild.channels.get(id) ?
-                   msg.guild.channels.get(id).name : msg.guild.roles.get(id).name;
+        let name = '';
+        let chanName = '';
 
-        let pingRegex = new RegExp(`&lt;@${id}&gt;`, 'g');
+        let user = msg.guild.members.get(id);
+        name = user ? user.displayName : id;
+
+        let role = msg.guild.roles.get(id);
+        name = role ? role.name : id;
+
+        let channel = msg.guild.channels.get(id);
+        chanName = channel ? channel.name : 'deleted-channel';
+
+
+
+        // let pingRegex = new RegExp(`&lt;@${id}&gt;`, 'g');
+        // let channelRegex = new RegExp(`&lt;#${id}&gt;`, 'g');
+
+        let pingRegex = new RegExp(`(?:(<|>)?&lt;@!?(${id})&gt;)`, 'g');
+        // pingRegex = new RegExp(`(?:(<|>)?@!?(${name})(>)?)`, 'g');
         let channelRegex = new RegExp(`&lt;#${id}&gt;`, 'g');
 
-        textContent = textContent.replace(pingRegex, `<span id="${id}-ping" class="ping">\@${name}</span>`)
-                                 .replace(channelRegex, `<span id="${id}-pingChan" class="ping">\#${name}</span>`);
+        textContent = textContent.replace(pingRegex, (a, b, c) => b == '<' || b == '>' ? a :  `<span class="ping" ${id}">${name.startsWith('!') ? `&lt;@${c}&gt;` : '@'+c}</span>`)
+                                 .replace(channelRegex, chanName == 'deleted-channel' ? '#deleted-channel' : `<span class="ping ${id}">\#${chanName}</span>`);
     });
 
     return textContent;

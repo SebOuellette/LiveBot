@@ -52,7 +52,7 @@ let showEmbed = (embed, element, msg) => {
         let description = document.createElement("p");
         description.classList.add("embedDescription");
         description.classList.add("embedContent");
-        description.innerHTML = parseMessage(embed.description, msg, true, true);
+        description.innerHTML = parseMessage(embed.description, msg, true, true, true);
         embedCont.appendChild(description);
     }
 
@@ -71,7 +71,7 @@ let showEmbed = (embed, element, msg) => {
         let fieldValue = document.createElement("p");
         fieldValue.classList.add("fieldText");
         fieldValue.classList.add("embedContent");
-        fieldValue.innerHTML = parseMessage(field.value, msg, true, true);
+        fieldValue.innerHTML = parseMessage(field.value, msg, true, true, true);
         fieldCont.appendChild(fieldValue);
 
         if (field.inline) {
