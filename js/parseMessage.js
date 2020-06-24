@@ -46,19 +46,15 @@ let parseMessage = (text, msg = null, embed = false, ping = false, embededLink) 
 
     // Format pings
     if (msg) {
-        // Format pings in plain text
-        // if(msg.mentions)
-        //     textContent = formatPings(msg, textContent);
-        
+
         // Format pings in embeds
         if (ping || !embed){
             textContent = formatEmbedPings(msg, textContent, ping);
             textContent = formatPings(msg, textContent);
         }
-
+        // Format links in embeds
         if(embededLink){
-            // console.log(textContent)
-            textContent = textContent.replace(/(?:\[(.+?)\]\(([a-zA-Z0-9.:\/]+?)\))/gm, (a, b, c) => `<a title="${b}" href="${c}">${b}</a>`)
+            textContent = textContent.replace(/(?:\[(.+?)\]\(([a-zA-Z0-9.:\/]+?)\))/gm, (a, b, c) => `<a title="${b}" href="${c}">${b}</a>`);
         }
     }
 
@@ -87,6 +83,7 @@ function formatPings(msg, text) {
         let type = ping[1];
 
         let name = '';
+        let color = 0;
         if(type == 'user'){
             let user = msg.guild.members.get(id);
             name = user ? user.displayName : id;
@@ -94,6 +91,8 @@ function formatPings(msg, text) {
         else if (type == 'role'){
             let role = msg.guild.roles.get(id);
             name = role ? role.name : id;
+            color = role.color ? role.color.toString(16) : 0
+            color = color ? '#' + '0'.repeat(6 - color.length) + color : 0
         }
         else if (type == 'channel'){
             let channel = msg.guild.channels.get(id);
@@ -104,9 +103,8 @@ function formatPings(msg, text) {
 
         pingRegex = new RegExp(`(?:(<|>)?@!?(${name}))`, 'g');
         channelRegex = new RegExp(`(?:(<|>)?#(${name}))`, 'g');
-        
-        textContent = textContent.replace(pingRegex, (a, b, c) => b == '<' || b == '>' ? a : `<span class="ping" ${id}">@${c}</span>`)
-                                 .replace(channelRegex, (a, b, c) => b == '<' || b == '>' ? a : `<span class="ping" ${id}">#${c}</span>`);
+        textContent = textContent.replace(pingRegex, (a, b, c) => b == '<' || b == '>' ? a : `<span class="ping" ${id}" ${color ? `style="color: ${color}"` : ''}>@${c}</span>`)
+                                 .replace(channelRegex, (a, b, c) => b == '<' || b == '>' ? a : `<span class="ping ${id}">#${c}</span>`);
 
     });
     return textContent;
@@ -123,31 +121,29 @@ function formatEmbedPings(msg, text) {
     // Replace channel pings
     text.replace(/&lt;#(\d+)&gt;/gm, (a, id) => keys.push(id));
 
-    // console.log(keys)
     // Replace the ping with a span container
     keys.forEach(id => {
         let name = '';
         let chanName = '';
+        let color = 0;
 
-        let user = msg.guild.members.get(id);
+        let user = msg.guild.members.get(id.replace(/!/, ""));
         name = user ? user.displayName : id;
-
-        let role = msg.guild.roles.get(id);
-        name = role ? role.name : id;
+        
+        if(name == id){
+            let role = msg.guild.roles.get(id);
+            name = role ? role.name : id;
+            color = role ? role.color ? role.color.toString(16) : 0 : 0
+            color = color ? '#' + '0'.repeat(6 - color.length) + color : 0
+        }
 
         let channel = msg.guild.channels.get(id);
         chanName = channel ? channel.name : 'deleted-channel';
 
-
-
-        // let pingRegex = new RegExp(`&lt;@${id}&gt;`, 'g');
-        // let channelRegex = new RegExp(`&lt;#${id}&gt;`, 'g');
-
         let pingRegex = new RegExp(`(?:(<|>)?&lt;@!?(${id})&gt;)`, 'g');
-        // pingRegex = new RegExp(`(?:(<|>)?@!?(${name})(>)?)`, 'g');
         let channelRegex = new RegExp(`&lt;#${id}&gt;`, 'g');
-
-        textContent = textContent.replace(pingRegex, (a, b, c) => b == '<' || b == '>' ? a :  `<span class="ping" ${id}">${name.startsWith('!') ? `&lt;@${c}&gt;` : '@'+c}</span>`)
+        
+        textContent = textContent.replace(pingRegex, (a, b, c) => b == '<' || b == '>' ? a :  `<span class="ping" ${id}" ${color ? `style="color: ${color}"` : ''}>${name.startsWith('!') ? `&lt;@${c}&gt;` : '@'+name}</span>`)
                                  .replace(channelRegex, chanName == 'deleted-channel' ? '#deleted-channel' : `<span class="ping ${id}">\#${chanName}</span>`);
     });
 
