@@ -47,9 +47,9 @@ let addMemberList = guild => {
                         let username = document.createElement("p");
                         username.classList.add("mLUsername");
                         let name = m.nickname || m.user.username;
-                        if (name.length > 15) {
-                            name = `${name.substring(0, 15)}...`
-                        }
+                        // if (name.length > 15) {
+                        //     name = `${name.substring(0, 15)}...`
+                        // }
                         username.innerText = name;
                         username.style.color = m.displayHexColor || "#8E9297";
                         userDiv.appendChild(username);

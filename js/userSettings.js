@@ -1,11 +1,12 @@
-///  Methods available in json:
+///   Methods available in json:
 //   dropdown - special, options, default
 //   slider - default
 //   shortinput - placeholder
 //   longinput - placeholder
 //   image
-//   checkbox - defaults
-//   toggles - defaults
+//   checkbox - default, label, value
+//   toggles - default
+//   separator - label
 
 let toggleSettings = () => {
     let userCard = document.getElementById('userSettings');
@@ -102,10 +103,14 @@ function createPopup(parent, jsonObj) {
 
         // Check what kind of option should be added
         group.options.forEach(option => {
-            let params = [];
+            let params = [optionContainer];
 
             if (option.type == "dropdown") {
-                params = [optionContainer, option.options, option.default, group, option];
+                params = params.concat([option.options], option.default, group, option);
+            } else if (option.type == "shortinput") {
+                params = params.concat(false, option.placeholder, option.class);
+            } else if (option.type == "checkbox") {
+                params = params.concat(option)
             }
 
             addItem(option.type, ...params);
@@ -115,27 +120,32 @@ function createPopup(parent, jsonObj) {
         if (group.update) {
             let btn = document.createElement("button");
             btn.addEventListener("click", event => {
-                let allDropdowns = Array.from(btn.parentElement.querySelectorAll(".dropdown")).map(x => `'${x.firstElementChild.firstElementChild.innerText.replace(/\\|'/g, c => '\\' + c)}'`);
+                let allDropdowns = Array.from(btn.parentElement.querySelectorAll(".dropdown")).map(x => `'${x.firstElementChild.firstElementChild.innerText.replace(/\\*'/g, '\\\'')}'`);
 
                 let activityInput = 'null';
                 if (btn.parentElement.querySelector(".activityInput"))
-                    activityInput = `'${btn.parentElement.querySelector(".activityInput").value.replace(/\\|'/g, c => '\\' + c)}'`;
+                    activityInput = `'${btn.parentElement.querySelector(".activityInput").value.replace(/\\*'/g, '\\\'')}'`;
                 else 
                     activityInput = "null";
 
                 let streamURL = 'null';
                 if (btn.parentElement.querySelector(".streamURLInput"))
-                    streamURL = `'${btn.parentElement.querySelector(".streamURLInput").value.replace(/\\|'/g, c => '\\' + c)}'`;
+                    streamURL = `'${btn.parentElement.querySelector(".streamURLInput").value.replace(/\\*'/g, '\\\'')}'`;
+
+                let username = 'null';
+                if (btn.parentElement.querySelector(".newNameInput"))
+                    username = `'${btn.parentElement.querySelector(".newNameInput").value.replace(/\\*'/g, '\\\'')}'`
 
                 let funcString = group.call
                     .replace("DROPDOWNS", `${allDropdowns}`)
                     .replace("ACTIVITYNAME", activityInput)
-                    .replace("STREAMURL", streamURL);
+                    .replace("STREAMURL", streamURL)
+                    .replace("USERNAME", username);
 
                 eval(funcString);
             });
             btn.classList.add("settingsUpdateBtn");
-            btn.innerText = "Update";
+            btn.innerText = group.updateLabel || "Update";
             optionContainer.appendChild(btn);
         }
 
@@ -156,6 +166,8 @@ function addItem(method, ...args) {
         genDropDown(...args);
     } else if (method == "shortinput") {
         genShortInput(...args);
+    } else if (method == "checkbox") {
+        genCheckbox(...args);
     }
 }
 
@@ -175,15 +187,23 @@ function handleSpecials(item, group, option, parent) {
     }
 }
 
+// Checkbox stuff
+function genCheckbox(parent, label, type, value, defaultVal) {
+    let input = document.createElement("div")
+}
+
 // Shortinput box stuff
 function genShortInput(parent, special = false, placeholder, customClass, id) {
     let input = document.createElement("input");
     input.classList.add(customClass);
-    if (special)
-        input.classList.add('special');
     input.placeholder = placeholder;
 
-    parent.insertAdjacentElement('afterend', input);
+    if (special) {
+        input.classList.add('special');
+        parent.insertAdjacentElement('afterend', input);
+    } else {
+        parent.appendChild(input);
+    }
 }
 
 // Dropdown stuff
@@ -341,4 +361,17 @@ function setActivity(dropdowns, activityName, streamurl) {
             }, 
             status: status.toLowerCase()
         });
+}
+
+
+// Set the new username
+async function setUsername(name) {
+    try {
+        await bot.user.setUsername(name);
+        document.getElementById('userCardName').innerText = bot.user.username;
+        document.getElementsByClassName('newNameInput')[0].classList.remove('errorTextBox')
+    } catch (e) {
+        document.getElementsByClassName('newNameInput')[0].classList.add('errorTextBox')
+        console.error(e)
+    }
 }

@@ -55,7 +55,7 @@ let load = token => {
                 img = document.createElement('img');
 
                 let ico;
-                ico = g.iconURL;
+                ico = `https://cdn.discordapp.com/icons/${g.id}/${g.icon}.webp?size=64`;
                 img.src = ico;
 
                 img.alt = g.name;

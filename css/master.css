@@ -135,6 +135,10 @@ body {
     margin-top: 0;
     margin-bottom: 10px;
     color: #bbb;
+    width: calc(100% - 70px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 #guildImg {

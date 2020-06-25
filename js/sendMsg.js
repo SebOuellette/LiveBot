@@ -14,13 +14,13 @@ let sendmsg = () => {
         let text = document.getElementById('msgbox').value;
         if(!text.replace(/ |\n/gm, '')) return;
         // If the emoji isn't a gloabal emoji, treat it as one. 
-        let customEmoji = /(<a?:)(!)?(.+?:[0-9]+?>)/gm
-        text = text.replace(customEmoji, (a, b, c, d) => {
-            if (c != '!') {
-                return `${b}!${d}`; 
-            }
-            return a;
-        });
+        // let customEmoji = /(<a?:)(!)?(.+?:[0-9]+?>)/gm
+        // text = text.replace(customEmoji, (a, b, c, d) => {
+        //     if (c != '!') {
+        //         return `${b}!${d}`; 
+        //     }
+        //     return a;
+        // });
 
         if (text.substring(0,1) == '/') {
             let cmd = text.split(' ')[0].substring(1);

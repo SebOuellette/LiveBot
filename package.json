@@ -8,7 +8,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/SebOuellette/Discord-LiveBot.git"
+		"url": "git+https://github.com/SebOuellette/LiveBot.git"
 	},
 	"keywords": [
 		"discord",
@@ -18,9 +18,9 @@
 	"author": "SebOuellette",
 	"license": "Apache-2.0",
 	"bugs": {
-		"url": "https://github.com/SebOuellette/Discord-LiveBot/issues"
+		"url": "https://github.com/SebOuellette/LiveBot/issues"
 	},
-	"homepage": "https://github.com/SebOuellette/Discord-LiveBot#readme",
+	"homepage": "https://github.com/SebOuellette/LiveBot#readme",
 	"devDependencies": {},
 	"dependencies": {
 		"custom-electron-titlebar": "^3.2.1",

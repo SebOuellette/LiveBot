@@ -52,6 +52,7 @@ a:hover {
     width: calc(100% - 40px);
     word-spacing: 2px;
     position: relative;
+    overflow: hidden;
 }
 
 .messageCont {

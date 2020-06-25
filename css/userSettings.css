@@ -304,3 +304,7 @@
 .settingsPopup input::placeholder {
     color: #7a7c80;
 }
+
+input.errorTextBox {
+    border: 1px solid #fc5c65;
+}

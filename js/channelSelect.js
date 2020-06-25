@@ -20,6 +20,9 @@ let channelSelect = (c, name) => {
     name.style.color = '#eee';
     messageCreate();
 
+    // Set the message bar placeholder
+    document.getElementById('msgbox').placeholder = `Message #${c.name}`
+
     // Remove the notification class
     name.classList.remove("newMsg");
 

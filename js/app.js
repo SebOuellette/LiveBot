@@ -13,13 +13,10 @@ let barry = false;
 
 // Create the app and attach event listeners
 function create() {
-    let newlineCode = "&#13;&#10;";
-
     document.getElementById("msgbox")
         .addEventListener("keydown", event => {
             if (event.keyCode === 13 && !event.shiftKey) {
                 sendmsg();
-            } else if (event.keyCode === 13) {
                 event.preventDefault();
             }
         })
@@ -41,12 +38,13 @@ function create() {
             }
         });
     
-    // Call the settings meny builder
+    // Call the settings menu builder
     buildSettingsMenu(jsonSettings);
 
     // Call the general click event listener script
     addDocListener();
-
+    
+    // Load the bot with the token in storage
     load(localStorage.getItem('livebot-token'));
 }
 
@@ -57,6 +55,7 @@ function savetoken() {
     setToken();
 }
 
+// Alert that you are typing
 function typing() {
     if (selectedChan) {
         let isTyping = bot.user._typing.has(selectedChan.id);
@@ -74,6 +73,7 @@ function typing() {
     }
 }
 
+// Why has this code been in livbot this long????
 // Options on the right pane
 function options(type, content) {
     switch(type) {
@@ -83,7 +83,7 @@ function options(type, content) {
         break;
 
         case 'invite':
-            selectedChan.createInvite().then(invite => {command('Created invite for '+invite.guild.name+' \nhttps://discord.gg/'+invite.code);})
+            selectedChan.createInvite().then(invite => command('Created invite for '+invite.guild.name+' \nhttps://discord.gg/'+invite.code));
         break;
     }
 }
