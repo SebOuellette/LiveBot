@@ -5,7 +5,7 @@ function editMsg(target) {
 
     // Get the text in the message
     let elementText = textElement.innerHTML;
-    let text = selectedChan.messages.get(target.id).cleanContent;
+    let text = selectedChan.messages.cache.get(target.id).cleanContent;
 
     target.removeChild(textElement);
 
@@ -27,7 +27,7 @@ function editMsg(target) {
                     return a;
                 });
 
-                selectedChan.messages.get(target.id).edit(newText); 
+                selectedChan.messages.cache.get(target.id).edit(newText); 
 
                 // Remove the text field, replace with normal message
                 target.removeChild(textarea);  
@@ -53,7 +53,7 @@ function setRows(textarea) {
 
 function pinMsg(id) {
     try {
-        selectedChan.messages.get(id).pin();
+        selectedChan.messages.cache.get(id).pin();
     } catch (e) {
         console.log(e); 
     }
@@ -61,7 +61,7 @@ function pinMsg(id) {
 
 function deleteMsg(id) {
     try {
-        selectedChan.messages.get(id).delete();
+        selectedChan.messages.cache.get(id).delete();
     } catch (e) {
         console.log(e);
     }

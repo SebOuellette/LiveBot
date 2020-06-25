@@ -5,13 +5,13 @@ let addMemberList = guild => {
     listDiv.innerHTML = '';
 
     // Loop through roles
-    let roles = guild.roles
+    let roles = guild.roles.cache
         .map(r => r) // Convert to array
         .filter(r => r.hoist) // Check if it is a displayed role
         .sort((r1, r2) => r2.position - r1.position); // Sort by highest to lowest rank
 
     roles.forEach(r => { // Loop through
-            let memberCount = r.members.filter(m => (m.hoistRole && m.hoistRole.id == r.id && m.presence.status != 'offline')).size;
+            let memberCount = r.members.cache.filter(m => (m.hoistRole && m.hoistRole.id == r.id && m.presence.status != 'offline')).size;
 
             if (memberCount) {
                 // Role container
@@ -39,7 +39,7 @@ let addMemberList = guild => {
 
                         // Add the user icon
                         let icon = document.createElement("img");
-                        icon.src = m.user.avatarURL ? m.user.avatarURL.replace(/(size=)(\d+)/gi, "$164") : "resources/images/default.png";
+                        icon.src = m.user.avatarURL() ? m.user.avatarURL().replace(/(size=)(\d+)/gi, "$164") : "resources/images/default.png";
                         icon.classList.add('mLIcon');
                         userDiv.appendChild(icon);
 
@@ -57,7 +57,7 @@ let addMemberList = guild => {
             }
         });
 
-    let onlineCount = guild.members.filter(m => (m.presence.status != 'offline' && m.hoistRole == null)).size;
+    let onlineCount = guild.members.cache.filter(m => (m.presence.status != 'offline' && m.hoistRole == null)).size;
     if (onlineCount) {
         // Create offline label text
         let container = document.createElement("div");
@@ -71,7 +71,7 @@ let addMemberList = guild => {
         container.appendChild(name);
 
         // Show online users
-        guild.members
+        guild.members.cache
             .filter(m => m.presence.status != 'offline' && m.hoistRole == null)
             .sort((m1, m2) => m1.id - m2.id)
             .forEach(m => {
@@ -83,7 +83,7 @@ let addMemberList = guild => {
 
                 // Add the user icon
                 let icon = document.createElement("img");
-                icon.src = m.user.avatarURL ? m.user.avatarURL.replace(/(size=)(\d+)/gi, "$164") : "resources/images/default.png";
+                icon.src = m.user.avatarURL() ? m.user.avatarURL().replace(/(size=)(\d+)/gi, "$164") : "resources/images/default.png";
                 icon.classList.add('mLIcon');
                 userDiv.appendChild(icon);
 
@@ -99,7 +99,7 @@ let addMemberList = guild => {
     let offline = [];
 
     // Display the offline users
-    let offlineCount = guild.members.filter(m => (m.presence.status == 'offline')).size;
+    let offlineCount = guild.members.cache.filter(m => (m.presence.status == 'offline')).size;
     if (offlineCount) {
         // Create offline label text
         let container = document.createElement("div");
@@ -113,7 +113,7 @@ let addMemberList = guild => {
         container.appendChild(name);
 
         // Show offline users
-        guild.members
+        guild.members.cache
             .filter(m => m.presence.status == 'offline')
             .sort((m1, m2) => m1.id - m2.id)
             .forEach(m => {
@@ -127,7 +127,7 @@ let addMemberList = guild => {
 
                 // Add the user icon
                 let icon = document.createElement("img");
-                icon.src = m.user.avatarURL ? m.user.avatarURL.replace(/(size=)\d+?($| )/, '$164') : "resources/images/default.png";
+                icon.src = m.user.avatarURL() ? m.user.avatarURL().replace(/(size=)\d+?($| )/, '$164') : "resources/images/default.png";
                 icon.classList.add('mLIcon');
                 userDiv.appendChild(icon);
 
@@ -141,8 +141,8 @@ let addMemberList = guild => {
     }
 
     // Display the unsorted, online users
-    guild.fetchMembers().then(promiseGuild => {
-        let members = promiseGuild.members.array();
+    guild.members.fetch().then(members => {
+        members = members.array();
         // Display the other unshown users users
         let offlineCount = members.filter(m => (m.presence.status == 'offline' && !offline.includes(m.user.id))).length;
         if (offlineCount) {

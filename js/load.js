@@ -21,7 +21,7 @@ let load = token => {
         // Update the user card
         document.getElementById('userCardName').innerHTML = bot.user.username;
         document.getElementById('userCardDiscrim').innerHTML = `#${bot.user.discriminator}`;
-        document.getElementById('userCardIcon').src = `${bot.user.displayAvatarURL.replace(/(size=)\d+?($| )/, '$164')}`;
+        document.getElementById('userCardIcon').src = `${bot.user.displayAvatarURL().replace(/(size=)\d+?($| )/, '$164')}`;
 
         if (bot.user.bot) {
             document.getElementById('userCardBot').innerHTML = `BOT`;
@@ -37,10 +37,10 @@ let load = token => {
         document.getElementById('guild-list').appendChild(guildIndicator);
 
         // Loop through all the guilds and create the element for the icon
-        bot.guilds.forEach(g => {
+        bot.guilds.cache.forEach(g => {
             let img;
             // If there is no icon url for the server, create the letter icon
-            if (g.iconURL === null) {
+            if (g.iconURL() === null) {
                 img = document.createElement('div');
 
                 img.style.backgroundColor = '#2F3136';
@@ -133,7 +133,7 @@ let load = token => {
 
                 // Get last message in channel
                 async function fetchLast() {
-                    await m.channel.fetchMessages({ limit: 2 }).then(msg => {
+                    await m.channel.messages.fetch({ limit: 2 }).then(msg => {
                         previousMessage = msg.map(mseg => mseg)[1];
                     });
 

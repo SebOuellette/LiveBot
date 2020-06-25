@@ -74,7 +74,7 @@ function newOption(label, func, red = false, greyed, ...args) {
 
 // Build the menu for right clicking messages
 function buildMsgMenu(target) {
-    let message = selectedChan.messages.get(target.id);
+    let message = selectedChan.messages.cache.get(target.id);
     let menu = document.getElementById('rcMenu');
 
     // Check permissions

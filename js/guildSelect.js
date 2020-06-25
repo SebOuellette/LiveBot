@@ -34,7 +34,7 @@ let guildSelect = (g, img) => {
     document.getElementById('guildName').innerHTML = name;
 
     // Update guild profile image
-    let icon = g.iconURL;
+    let icon = g.iconURL();
     if (!icon) {
         icon = 'resources/images/default.png';
     }
@@ -49,7 +49,7 @@ let guildSelect = (g, img) => {
     let categoryParent;
 
     // Sort the channels and add them to the screen
-    g.channels.array()
+    g.channels.cache.array()
         .filter(c => c.type == 'category')
         .sort((c1, c2) => c1.position - c2.position)
         .forEach(c => {
@@ -97,7 +97,7 @@ let guildSelect = (g, img) => {
             }
         });
 
-    g.channels.array()
+    g.channels.cache.array()
         .map(c => {c.position = c.type == 'voice' ? c.position + g.channels.size : c.position; return c}) // Put voice channels after text channels
         .filter(c => c.type != 'category')
         .sort((c1, c2) => c1.position - c2.position)

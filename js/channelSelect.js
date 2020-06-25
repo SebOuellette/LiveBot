@@ -52,7 +52,7 @@ let channelSelect = (c, name) => {
         generatingMessages = true;
         // Loop through messages
         let count = 0;
-        await c.fetchMessages({limit: fetchSize})
+        await c.messages.fetch({limit: fetchSize})
             .then(msg => {
                 msg.map(mseg => mseg).reverse().forEach(m => {
                     count++;

@@ -57,7 +57,7 @@ function generateMsgHTML(m, previousMessage, count = -1, fetchSize = undefined) 
         // Create user image
         let img = document.createElement('img');
         img.classList.add('messageImg');
-        img.src = m.author.displayAvatarURL.replace(/(size=)\d+?($| )/, '$164');
+        img.src = m.author.displayAvatarURL().replace(/(size=)\d+?($| )/, '$164');
         img.height = '40';
         img.width = '40';
         darkBG.appendChild(img);
@@ -107,7 +107,7 @@ function generateMsgHTML(m, previousMessage, count = -1, fetchSize = undefined) 
     
     // Append embeds
     m.embeds.forEach(embed => {
-        if (embed.thumbnail && embed.message.cleanContent.match(embed.thumbnail.url)) {
+        if (embed.thumbnail && m.cleanContent.match(embed.thumbnail.url)) {
             let img = document.createElement("img");
 
             let newWidth = embed.thumbnail.width < 400 ? embed.thumbnail.width : 400;

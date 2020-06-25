@@ -85,17 +85,17 @@ function formatPings(msg, text) {
         let name = '';
         let color = 0;
         if(type == 'user'){
-            let user = msg.guild.members.get(id);
+            let user = msg.guild.members.cache.get(id);
             name = user ? user.displayName : id;
         }
         else if (type == 'role'){
-            let role = msg.guild.roles.get(id);
+            let role = msg.guild.roles.cache.get(id);
             name = role ? role.name : id;
             color = role.color ? role.color.toString(16) : 0
             color = color ? '#' + '0'.repeat(6 - color.length) + color : 0
         }
         else if (type == 'channel'){
-            let channel = msg.guild.channels.get(id);
+            let channel = msg.guild.channels.cache.get(id);
             name = channel ? channel.name : 'deleted-channel';
         } else {
             name = id;
@@ -127,17 +127,17 @@ function formatEmbedPings(msg, text) {
         let chanName = '';
         let color = 0;
 
-        let user = msg.guild.members.get(id.replace(/!/, ""));
+        let user = msg.guild.members.cache.get(id.replace(/!/, ""));
         name = user ? user.displayName : id;
         
         if(name == id){
-            let role = msg.guild.roles.get(id);
+            let role = msg.guild.roles.cache.get(id);
             name = role ? role.name : id;
             color = role ? role.color ? role.color.toString(16) : 0 : 0
             color = color ? '#' + '0'.repeat(6 - color.length) + color : 0
         }
 
-        let channel = msg.guild.channels.get(id);
+        let channel = msg.guild.channels.cache.get(id);
         chanName = channel ? channel.name : 'deleted-channel';
 
         let pingRegex = new RegExp(`(?:(<|>)?&lt;@!?(${id})&gt;)`, 'g');
