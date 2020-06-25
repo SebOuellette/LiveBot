@@ -1,5 +1,5 @@
 global.Discord = require('discord.js');
-const remote = require('electron').remote;
+const {remote, clipboard} = require('electron');
 const fs = require('fs');
 let jsonSettings = require("./json/settings.json");
 

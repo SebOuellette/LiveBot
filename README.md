@@ -38,4 +38,4 @@ The profile card is able to tell you the username, the avatar image, the discrim
 
 ### Guild card.
 The guild card gives a little more information than the basic discord 'name of the guild'. The guild card shows you the name of the guild, the guild icon, and how many users are in the guild. <br>
-<img src='https://i.imgur.com/vFAdjEr.png' style='border-radius: 10px;'>
+<img src='https://i.imgur.com/fkjXkCz.png' style='border-radius: 10px;'>

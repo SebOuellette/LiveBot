@@ -100,7 +100,7 @@
                     {
                         "name": "Generate Invite",
                         "description": "Here you can generate an invite for your bot. Just select the permissions you would like, then click the 'Copy' button to copy it to your clipboard!",
-                        "call": "generateInvite(CODE)",
+                        "call": "generateInvite(CODES)",
                         "update": true,
                         "updateLabel": "Copy",
                         "options": [
@@ -154,13 +154,13 @@
                                 "label": "Create Instant Invite",
                                 "type": "checkbox",
                                 "value": 1,
-                                "default": false
+                                "default": true
                             },
                             {   
                                 "label": "Change Nickname",
                                 "type": "checkbox",
                                 "value": 4000000,
-                                "default": false
+                                "default": true
                             },
                             {   
                                 "label": "Manage Nicknames",
@@ -180,21 +180,21 @@
                                 "value": 20000000,
                                 "default": false
                             },
+                            {   
+                                "label": "Read Messages / View Channels",
+                                "type": "checkbox",
+                                "value": 400,
+                                "default": true
+                            },
                             {
                                 "type": "separator",
                                 "label": "Text Permissions"
                             },
                             {   
-                                "label": "Read Messages",
-                                "type": "checkbox",
-                                "value": 400,
-                                "default": false
-                            },
-                            {   
                                 "label": "Send Messages",
                                 "type": "checkbox",
                                 "value": 800,
-                                "default": false
+                                "default": true
                             },
                             {   
                                 "label": "Send TTS Messages",
@@ -212,7 +212,7 @@
                                 "label": "Embed Links",
                                 "type": "checkbox",
                                 "value": 4000,
-                                "default": false
+                                "default": true
                             },
                             {   
                                 "label": "Attach Files",
@@ -224,7 +224,7 @@
                                 "label": "Read Message History",
                                 "type": "checkbox",
                                 "value": 10000,
-                                "default": false
+                                "default": true
                             },
                             {   
                                 "label": "Mention @everyone, @here, and All Roles",
@@ -236,29 +236,23 @@
                                 "label": "Use External Emojis",
                                 "type": "checkbox",
                                 "value": 40000,
-                                "default": false
+                                "default": true
                             },
                             {   
                                 "label": "Add Reactions",
                                 "type": "checkbox",
                                 "value": 40,
-                                "default": false
+                                "default": true
                             },
                             {
                                 "type": "separator",
                                 "label": "Voice Permissions"
                             },
                             {   
-                                "label": "View Channel",
-                                "type": "checkbox",
-                                "value": 400,
-                                "default": false
-                            },
-                            {   
                                 "label": "Connect",
                                 "type": "checkbox",
                                 "value": 100000,
-                                "default": false
+                                "default": true
                             },
                             {   
                                 "label": "Mute Members",
@@ -276,7 +270,7 @@
                                 "label": "Speak",
                                 "type": "checkbox",
                                 "value": 200000,
-                                "default": false
+                                "default": true
                             },
                             {   
                                 "label": "Deafen Members",
@@ -293,7 +287,7 @@
                             {   
                                 "label": "Priority Speaker",
                                 "type": "checkbox",
-                                "value": 256,
+                                "value": 100,
                                 "default": false
                             }
                         ]
