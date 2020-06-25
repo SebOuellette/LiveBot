@@ -24,6 +24,7 @@ let setToken = async () => {
         document.getElementById('guild-list').appendChild(div);
     
         bot.destroy();
+        await unloadAllScripts();
         load(document.getElementById('tokenbox').value);
         document.getElementById('tokenbox').style.borderColor = '#484B51';
     }catch(err){

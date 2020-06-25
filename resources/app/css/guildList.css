@@ -4,6 +4,7 @@
     transition-duration: 0.3s;
     user-select: none;
     border-radius: 50%;
+    margin-top: 5px;
 }
 
 .guild-icon.selectedGuild {

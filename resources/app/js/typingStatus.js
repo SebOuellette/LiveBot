@@ -6,7 +6,7 @@ function isTyping(member, typers) {
 
 function checkTyping() {
     let typers = [];
-    selectedChan.guild.members.forEach(member => { typers = isTyping(member, typers) });
+    selectedChan.guild.members.cache.forEach(member => { typers = isTyping(member, typers) });
     return typers;
 }
 

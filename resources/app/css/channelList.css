@@ -88,32 +88,12 @@ h5 {
     font-size: 16px;
 }
 
-/* #channelTextx {
-    width: calc(100% - 30px);
-    padding: 7px 0 7px 20px;
-    margin-top: 0;
-    margin-bottom: 0;
-    border-radius: 3px;
-} */
-
 .channelSVG {
     height: 20px;
     width: 20px;
     display: inline-box;
+    transform: translateY(-9px);
 }
-
-/* .channelSVG svg path {
-    color: #fc5c65;
-    fill: #fc5c65;
-} */
-
-/* #channelVoicex {
-    width: calc(100% - 30px);
-    padding: 7px 0 7px 20px;
-    margin-top: 0;
-    margin-bottom: 0;
-    border-radius: 3px;
-} */
 
 #channel-elements h5 {
     transform: translateY(-5px);
@@ -133,6 +113,14 @@ h5 {
 .channel:hover {
     background-color: #34373c;
     color: #B4B8BC;
+}
+
+/* Channel ... formatting */
+.channel h5 {
+    max-width: calc(100% - 30px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .selectedChan {

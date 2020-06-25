@@ -6,7 +6,8 @@ let command = text => {
     document.getElementById('message-list').appendChild(div);
   
     let img = document.createElement('img');
-    img.id = 'messageImg';
+    img.classList.add('messageImg');
+    img.classList.add('barryImg');
     img.src = './resources/images/Barry.png';
     div.appendChild(img);
 

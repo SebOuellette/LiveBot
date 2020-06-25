@@ -3,11 +3,64 @@
     width: 200px;
     background-color: #18191c;
     border-radius: 5px;
-    height: 200px;
     z-index: 100;
     display: none;
+    padding: 5px 0;
 }
 
 #rcMenu.open {
     display: block;
+}
+
+/* Options */
+.rcOption {
+    padding: 8px 20px;
+    margin: 0 8px;
+    color: #b9bbbe;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.rcOption:hover {
+    color: white !important;
+    background-color: #5c6fb1;
+}
+
+.rcOption.red {
+    color: #f04747;
+}
+
+.rcOption:hover.red {
+    background-color: #f04747;
+}
+
+.rcOption.greyed {
+    color: #b9bbbe !important;
+    cursor: default;
+    background-color: transparent !important;
+    opacity: 0.4;
+}
+
+/* Edit message textfield */
+.editTextarea::-webkit-scrollbar {
+    width: 0;
+}
+
+.editTextarea {
+    width: calc(100% - 50px);
+    display: block;
+    background-color: #484B51;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    outline: none;
+    color: white;
+    resize: none;
+    position: relative;
+    margin: 5px 0;
+}
+
+.firstmsg .editTextarea {
+    margin-top: -26px;
 }

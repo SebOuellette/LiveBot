@@ -20,6 +20,9 @@ let channelSelect = (c, name) => {
     name.style.color = '#eee';
     messageCreate();
 
+    // Set the message bar placeholder
+    document.getElementById('msgbox').placeholder = `Message #${c.name}`
+
     // Remove the notification class
     name.classList.remove("newMsg");
 
@@ -49,7 +52,7 @@ let channelSelect = (c, name) => {
         generatingMessages = true;
         // Loop through messages
         let count = 0;
-        await c.fetchMessages({limit: fetchSize})
+        await c.messages.fetch({limit: fetchSize})
             .then(msg => {
                 msg.map(mseg => mseg).reverse().forEach(m => {
                     count++;

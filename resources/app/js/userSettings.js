@@ -1,11 +1,12 @@
-///  Methods available in json:
+///   Methods available in json:
 //   dropdown - special, options, default
 //   slider - default
 //   shortinput - placeholder
 //   longinput - placeholder
 //   image
-//   checkbox - defaults
-//   toggles - defaults
+//   checkbox - default, label, value
+//   toggles - default
+//   separator - label
 
 let toggleSettings = () => {
     let userCard = document.getElementById('userSettings');
@@ -102,10 +103,16 @@ function createPopup(parent, jsonObj) {
 
         // Check what kind of option should be added
         group.options.forEach(option => {
-            let params = [];
+            let params = [optionContainer];
 
             if (option.type == "dropdown") {
-                params = [optionContainer, option.options, option.default, group, option];
+                params = params.concat([option.options], option.default, group, option);
+            } else if (option.type == "shortinput") {
+                params = params.concat(false, option.placeholder, option.class);
+            } else if (option.type == "checkbox") {
+                params = params.concat(option);
+            } else if (option.type == "separator") {
+                params = params.concat(option.label);
             }
 
             addItem(option.type, ...params);
@@ -115,28 +122,37 @@ function createPopup(parent, jsonObj) {
         if (group.update) {
             let btn = document.createElement("button");
             btn.addEventListener("click", event => {
-                let allDropdowns = Array.from(btn.parentElement.querySelectorAll(".dropdown")).map(x => `'${x.firstElementChild.firstElementChild.innerText}'`);
+                let allDropdowns = Array.from(btn.parentElement.querySelectorAll(".dropdown")).map(x => `'${x.firstElementChild.firstElementChild.innerText.replace(/\\*'/g, '\\\'')}'`);
 
-                let activityInput = 'null';
+                let activityInput = '\'\'';
                 if (btn.parentElement.querySelector(".activityInput"))
-                    activityInput = `'${btn.parentElement.querySelector(".activityInput").value}'`;
+                    activityInput = `'${btn.parentElement.querySelector(".activityInput").value.replace(/\\*'/g, '\\\'')}'`;
                 else 
-                    activityInput = "null";
+                    activityInput = "\'\'";
 
-                let streamURL = 'null';
+                let streamURL = '\'\'';
                 if (btn.parentElement.querySelector(".streamURLInput"))
-                    streamURL = `'${btn.parentElement.querySelector(".streamURLInput").value}'`;
+                    streamURL = `'${btn.parentElement.querySelector(".streamURLInput").value.replace(/\\*'/g, '\\\'')}'`;
+
+                let username = '\'\'';
+                if (btn.parentElement.querySelector(".newNameInput"))
+                    username = `'${btn.parentElement.querySelector(".newNameInput").value.replace(/\\*'/g, '\\\'')}'`
+
+                let codes = [];
+                if (btn.parentElement.querySelector('.checkbox'))
+                    codes = Array.from(btn.parentElement.querySelectorAll('.checkbox.toggled')).map(e => parseInt(e.id, 16));
 
                 let funcString = group.call
                     .replace("DROPDOWNS", `${allDropdowns}`)
                     .replace("ACTIVITYNAME", activityInput)
-                    .replace("STREAMURL", streamURL);
+                    .replace("STREAMURL", streamURL)
+                    .replace("USERNAME", username)
+                    .replace("CODES", `[${codes.join(',')}]`);
 
-                //console.log(funcString);
                 eval(funcString);
             });
             btn.classList.add("settingsUpdateBtn");
-            btn.innerText = "Update";
+            btn.innerText = group.updateLabel || "Update";
             optionContainer.appendChild(btn);
         }
 
@@ -157,6 +173,10 @@ function addItem(method, ...args) {
         genDropDown(...args);
     } else if (method == "shortinput") {
         genShortInput(...args);
+    } else if (method == "checkbox") {
+        genCheckbox(...args);
+    } else if (method == "separator") {
+        genSeparator(...args);
     }
 }
 
@@ -176,15 +196,51 @@ function handleSpecials(item, group, option, parent) {
     }
 }
 
+// Separator generation
+function genSeparator(parent, label) {
+    let text = document.createElement('p');
+    text.innerText = label;
+    text.classList.add('settingsSeparator');
+    parent.appendChild(text);
+}
+
+// Checkbox stuff
+function genCheckbox(parent, option) {
+    let container = document.createElement("div");
+    container.classList.add('checkBoxContainer');
+    parent.appendChild(container);
+
+    // Create label
+    let label = document.createElement('span');
+    label.innerText = option.label;
+    container.appendChild(label);
+
+    // Create the actual checkbox
+    let checkbox = document.createElement('div');
+    checkbox.classList.add('checkbox');
+    if (option.default)
+        checkbox.classList.add('toggled');
+    checkbox.id = option.value;
+    container.appendChild(checkbox);
+
+    // Event listener
+    container.addEventListener('click', e => {
+        checkbox.classList.toggle('toggled');
+    })
+}
+
 // Shortinput box stuff
 function genShortInput(parent, special = false, placeholder, customClass, id) {
     let input = document.createElement("input");
     input.classList.add(customClass);
-    if (special)
-        input.classList.add('special');
     input.placeholder = placeholder;
 
-    parent.insertAdjacentElement('afterend', input);
+    if (special) {
+        input.classList.add('special');
+        parent.insertAdjacentElement('afterend', input);
+    } else {
+        parent.appendChild(input);
+    }
 }
 
 // Dropdown stuff
@@ -247,7 +303,7 @@ function genDropDown(parent, options, defaultOpt = 0, group, optionObj) {
 
                 // Call the function only if there will not be an update button
                 if (!group.update) {
-                    eval(group.call.replace("DROPDOWNS", `'${option.innerText}'`));
+                    eval(group.call.replace("DROPDOWNS", `'${option.innerText.replace(/\\|/g, c => '\\' + c)}'`));
                 }
 
                 // Remove all the other specials in this section first
@@ -316,11 +372,6 @@ function genDropDown(parent, options, defaultOpt = 0, group, optionObj) {
 
 
 //     Custom functions down here
-// Set the status
-function setStatus(status) {
-    console.log(status);
-}
-
 // Set the activity
 function setActivity(dropdowns, activityName, streamurl) {
     let status = dropdowns[0];
@@ -332,7 +383,7 @@ function setActivity(dropdowns, activityName, streamurl) {
 
     if (activity == "Streaming")
         bot.user.setPresence({ 
-            game: { 
+            activity: { 
                 name: activityName, 
                 type: activity.toUpperCase(), 
                 url: streamurl 
@@ -341,10 +392,31 @@ function setActivity(dropdowns, activityName, streamurl) {
         });
     else
         bot.user.setPresence({ 
-            game: { 
+            activity: { 
                 name: activityName, 
                 type: activity.toUpperCase()
             }, 
             status: status.toLowerCase()
         });
+}
+
+// Set the new username
+async function setUsername(name) {
+    try {
+        await bot.user.setUsername(name);
+        document.getElementById('userCardName').innerText = bot.user.username;
+        document.getElementsByClassName('newNameInput')[0].classList.remove('errorTextBox')
+    } catch (e) {
+        document.getElementsByClassName('newNameInput')[0].classList.add('errorTextBox')
+        console.error(e)
+    }
+}
+
+// Generate the invite code
+function generateInvite(items) {
+    let sum = items
+        .reduce((a, b) => a + b);
+    let invite = `Copied to Clipboard: https://discordapp.com/oauth2/authorize?client_id=${bot.user.id}&scope=bot&permissions=${sum}`;
+    console.log(invite);
+    clipboard.writeText(invite);
 }

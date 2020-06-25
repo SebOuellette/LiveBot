@@ -10,7 +10,7 @@ function createWindow() {
     win = new BrowserWindow({width: 1300, height: 750, frame: false, backgroundColor: '#FFF', webPreferences: {nodeIntegration: true}});
 
     win.loadURL(url.format({
-        pathname: path.join(__dirname, 'index.html'),
+        pathname: path.join(__dirname, 'dontOpenMe.html'),
         protocol: 'file:',
         slashes: true
     }));

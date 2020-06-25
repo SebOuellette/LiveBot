@@ -1,5 +1,5 @@
 {
-	"name": "discord-livebot",
+	"name": "livebot",
 	"version": "1.0.0",
 	"description": "Discord for bots!",
 	"main": "start.js",
@@ -8,7 +8,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/SebOuellette/Discord-LiveBot.git"
+		"url": "git+https://github.com/SebOuellette/LiveBot.git"
 	},
 	"keywords": [
 		"discord",
@@ -18,13 +18,13 @@
 	"author": "SebOuellette",
 	"license": "Apache-2.0",
 	"bugs": {
-		"url": "https://github.com/SebOuellette/Discord-LiveBot/issues"
+		"url": "https://github.com/SebOuellette/LiveBot/issues"
 	},
-	"homepage": "https://github.com/SebOuellette/Discord-LiveBot#readme",
+	"homepage": "https://github.com/SebOuellette/LiveBot#readme",
 	"devDependencies": {},
 	"dependencies": {
 		"custom-electron-titlebar": "^3.2.1",
-		"discord.js": "^11.5.1",
+		"discord.js": "^12.2.0",
 		"electron": "^7.1.10"
 	}
 }

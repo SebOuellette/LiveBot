@@ -68,6 +68,10 @@
     padding: 0;
     display: inline-block;
     transform: translateY(-9px);
+    text-overflow: ellipsis;
+    max-width: calc(100% - 40px);
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 #offlineUsersTransparent {

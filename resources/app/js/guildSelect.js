@@ -1,10 +1,3 @@
-function format(text) {
-    if (text.length >= 25) {
-        return `${text.substring(0, 25)}...`;
-    }
-    return text;
-}
-
 // Selecting new guild
 let guildSelect = (g, img) => {
     // Update the selected guild
@@ -38,12 +31,10 @@ let guildSelect = (g, img) => {
 
     // Update guild profile name
     let name = g.name;
-    if (g.name.length <= 22)
-        name = name.substring(0, 19)+'...';
     document.getElementById('guildName').innerHTML = name;
 
     // Update guild profile image
-    let icon = g.iconURL;
+    let icon = g.iconURL();
     if (!icon) {
         icon = 'resources/images/default.png';
     }
@@ -58,7 +49,7 @@ let guildSelect = (g, img) => {
     let categoryParent;
 
     // Sort the channels and add them to the screen
-    g.channels.array()
+    g.channels.cache.array()
         .filter(c => c.type == 'category')
         .sort((c1, c2) => c1.position - c2.position)
         .forEach(c => {
@@ -86,7 +77,7 @@ let guildSelect = (g, img) => {
                 // Create the category name
                 let text = document.createElement("h5");
                 text.classList.add("categoryText");
-                text.innerText = format(c.name);
+                text.innerText = c.name;
                 nameCategory.appendChild(text);
 
                 // Create the container for all the channels
@@ -106,9 +97,10 @@ let guildSelect = (g, img) => {
             }
         });
 
-    g.channels.array()
+    g.channels.cache.array()
+        .map(c => {c.rawPosition = c.type == 'voice' ? c.rawPosition + g.channels.cache.size : c.rawPosition; return c}) // Put voice channels after text channels
         .filter(c => c.type != 'category')
-        .sort((c1, c2) => c1.position - c2.position)
+        .sort((c1, c2) => c1.rawPosition - c2.rawPosition)
         .forEach(c => {
             // At this point, the channel is either text or voice
             let div = document.createElement("div");
@@ -134,7 +126,7 @@ let guildSelect = (g, img) => {
             // Add the text
             let channelName = document.createElement('h5');
             channelName.classList.add('viewableText');
-            channelName.innerText = format(c.name);
+            channelName.innerText = c.name;
             div.appendChild(channelName);
 
             // Finally, add it to the parent
