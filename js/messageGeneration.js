@@ -69,7 +69,18 @@ function generateMsgHTML(m, previousMessage, count = -1, fetchSize = undefined) 
         
         // Find the colour of their name
         if (m.member && m.member.roles._roles.size > 1) {
-            let color = m.member.roles.highest.hexColor;
+            let color;
+            
+            if (m.member.roles.hoist) {
+                // If the user has a hoisted role, use that colour
+                color = m.member.roles.hoist.hexColor;
+            } else {
+                // Otherwise just use the colour of their highest role
+                color = m.member.roles.highest.hexColor;
+                // If the colour is black, the role doesn't have a colour, and it should display white
+                if (color == '#000000')
+                    color = '#fff';
+            }
             name.style.color = color;
         } else {
             name.style.color = '#fff'

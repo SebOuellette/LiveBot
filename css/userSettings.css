@@ -314,6 +314,7 @@ input.errorTextBox {
     padding: 10px;
     cursor: pointer;
     border-radius: 5px;
+    user-select: none;
 }
 
 .checkBoxContainer:hover {
@@ -328,11 +329,35 @@ input.errorTextBox {
     cursor: pointer;
     position: relative;
     margin: -18px 0 0 auto;
+    transition-duration: 0.1s;
 }
 
 .checkbox.toggled {
     background-color: #7289da;
     border-color: #7289da;
+    animation: checkBounce 0.1s;
+}
+
+.checkbox img {
+    height: 15px;
+    width: 15px;
+    opacity: 0;
+}
+
+.checkbox.toggled img {
+    opacity: 1;
+}
+
+@keyframes checkBounce {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-4px);
+    }
+    100% {
+        transform: translateY(0);
+    }
 }
 
 /* Separator */

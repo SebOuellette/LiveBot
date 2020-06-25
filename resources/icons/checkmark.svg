@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
+   id="svg8"
+   version="1.1"
+   viewBox="0 0 277.28333 277.28334"
+   height="1048"
+   width="1048">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     inkscape:window-maximized="0"
+     inkscape:window-y="18"
+     inkscape:window-x="0"
+     inkscape:window-height="967"
+     inkscape:window-width="1264"
+     units="px"
+     showgrid="false"
+     inkscape:document-rotation="0"
+     inkscape:current-layer="layer1"
+     inkscape:document-units="mm"
+     inkscape:cy="524.84435"
+     inkscape:cx="511.2448"
+     inkscape:zoom="0.7"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="Layer 1">
+    <path
+       d="m 242.21005,28.772275 c -1.84394,0 -3.68789,0.722893 -5.10081,2.169415 L 89.941634,181.6084 45.766249,136.38269 l -0.01693,0.0178 -2.959371,-3.02974 c -1.614772,-1.65316 -3.72221,-2.47947 -5.82958,-2.47947 -2.107368,0 -4.214804,0.82631 -5.829579,2.47947 L 7.4483405,157.6163 c -3.2295459,3.30634 -3.2295476,8.63004 0,11.93637 l 51.9262415,53.16085 c 0.09624,0.11096 0.195486,0.22054 0.299374,0.3269 l 25.139467,25.73771 c 2.661869,2.72515 6.853135,2.8821 9.692552,0.47325 0.486241,-0.32135 0.947765,-0.699 1.374334,-1.13571 l 23.682451,-24.24553 c 0.38648,-0.39567 0.72568,-0.82075 1.01966,-1.26728 L 272.45084,67.12359 c 2.82586,-2.893046 2.82586,-7.55115 0,-10.444197 L 247.31087,30.94169 c -1.41292,-1.446522 -3.25686,-2.169415 -5.10082,-2.169415 z"
+       style="fill:#202225;stroke:#202225;stroke-width:0.00585197;stroke-linecap:round;stroke-linejoin:round;paint-order:fill markers stroke"
+       id="rect14" />
+  </g>
+</svg>
