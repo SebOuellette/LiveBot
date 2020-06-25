@@ -114,7 +114,7 @@
 
 .settingsPopup {
     position: relative;
-    max-height: 65vh;
+    max-height: calc(65vh - 100px);
     width: 30vw;
     padding: 2.5vh 2.5vw;
     background-color: #202225;
@@ -127,6 +127,7 @@
     overflow-y: scroll;
     user-select: text;
     overflow: none;
+    padding-bottom: 140px
 }
 
 .settingsPopup::-webkit-scrollbar {

@@ -124,17 +124,17 @@ function createPopup(parent, jsonObj) {
             btn.addEventListener("click", event => {
                 let allDropdowns = Array.from(btn.parentElement.querySelectorAll(".dropdown")).map(x => `'${x.firstElementChild.firstElementChild.innerText.replace(/\\*'/g, '\\\'')}'`);
 
-                let activityInput = 'null';
+                let activityInput = '\'\'';
                 if (btn.parentElement.querySelector(".activityInput"))
                     activityInput = `'${btn.parentElement.querySelector(".activityInput").value.replace(/\\*'/g, '\\\'')}'`;
                 else 
-                    activityInput = "null";
+                    activityInput = "\'\'";
 
-                let streamURL = 'null';
+                let streamURL = '\'\'';
                 if (btn.parentElement.querySelector(".streamURLInput"))
                     streamURL = `'${btn.parentElement.querySelector(".streamURLInput").value.replace(/\\*'/g, '\\\'')}'`;
 
-                let username = 'null';
+                let username = '\'\'';
                 if (btn.parentElement.querySelector(".newNameInput"))
                     username = `'${btn.parentElement.querySelector(".newNameInput").value.replace(/\\*'/g, '\\\'')}'`
 
@@ -383,7 +383,7 @@ function setActivity(dropdowns, activityName, streamurl) {
 
     if (activity == "Streaming")
         bot.user.setPresence({ 
-            game: { 
+            activity: { 
                 name: activityName, 
                 type: activity.toUpperCase(), 
                 url: streamurl 
@@ -392,7 +392,7 @@ function setActivity(dropdowns, activityName, streamurl) {
         });
     else
         bot.user.setPresence({ 
-            game: { 
+            activity: { 
                 name: activityName, 
                 type: activity.toUpperCase()
             }, 
