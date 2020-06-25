@@ -98,9 +98,9 @@ let guildSelect = (g, img) => {
         });
 
     g.channels.cache.array()
-        .map(c => {c.position = c.type == 'voice' ? c.position + g.channels.size : c.position; return c}) // Put voice channels after text channels
+        .map(c => {c.rawPosition = c.type == 'voice' ? c.rawPosition + g.channels.cache.size : c.rawPosition; return c}) // Put voice channels after text channels
         .filter(c => c.type != 'category')
-        .sort((c1, c2) => c1.position - c2.position)
+        .sort((c1, c2) => c1.rawPosition - c2.rawPosition)
         .forEach(c => {
             // At this point, the channel is either text or voice
             let div = document.createElement("div");

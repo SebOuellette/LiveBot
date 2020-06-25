@@ -68,17 +68,13 @@ function generateMsgHTML(m, previousMessage, count = -1, fetchSize = undefined) 
         name.classList.add('messageUsername');
         
         // Find the colour of their name
-        try {
-            let color = m.member.roles.sort((r1, r2) => r1.position - r2.position).map(p => p.color).length;
-            let colors = m.member.roles.sort((r1, r2) => r1.position - r2.position).map(p => p.color);
-            while (colors[color-1] == 0) {
-                color -= 1;
-            }
-            let zeros = '0'.repeat(6-colors[color-1].toString(16).length);
-            name.style.color = `#${zeros+colors[color-1].toString(16)}`;
-        } catch (err) {
-            name.style.color = '#fff';
+        if (m.member && m.member.roles._roles.size > 1) {
+            let color = m.member.roles.highest.hexColor;
+            name.style.color = color;
+        } else {
+            name.style.color = '#fff'
         }
+
         darkBG.appendChild(name);
 
         // Create timestamp
