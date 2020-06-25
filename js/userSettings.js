@@ -110,7 +110,9 @@ function createPopup(parent, jsonObj) {
             } else if (option.type == "shortinput") {
                 params = params.concat(false, option.placeholder, option.class);
             } else if (option.type == "checkbox") {
-                params = params.concat(option)
+                params = params.concat(option);
+            } else if (option.type == "separator") {
+                params = params.concat(option.label);
             }
 
             addItem(option.type, ...params);
@@ -136,11 +138,16 @@ function createPopup(parent, jsonObj) {
                 if (btn.parentElement.querySelector(".newNameInput"))
                     username = `'${btn.parentElement.querySelector(".newNameInput").value.replace(/\\*'/g, '\\\'')}'`
 
+                let codes = [];
+                if (btn.parentElement.querySelector('.checkbox'))
+                    codes = Array.from(btn.parentElement.querySelectorAll('.checkbox.toggled')).map(e => parseInt(e.id, 16));
+
                 let funcString = group.call
                     .replace("DROPDOWNS", `${allDropdowns}`)
                     .replace("ACTIVITYNAME", activityInput)
                     .replace("STREAMURL", streamURL)
-                    .replace("USERNAME", username);
+                    .replace("USERNAME", username)
+                    .replace("CODES", `[${codes.join(',')}]`);
 
                 eval(funcString);
             });
@@ -168,6 +175,8 @@ function addItem(method, ...args) {
         genShortInput(...args);
     } else if (method == "checkbox") {
         genCheckbox(...args);
+    } else if (method == "separator") {
+        genSeparator(...args);
     }
 }
 
@@ -187,9 +196,37 @@ function handleSpecials(item, group, option, parent) {
     }
 }
 
+// Separator generation
+function genSeparator(parent, label) {
+    let text = document.createElement('p');
+    text.innerText = label;
+    text.classList.add('settingsSeparator');
+    parent.appendChild(text);
+}
+
 // Checkbox stuff
-function genCheckbox(parent, label, type, value, defaultVal) {
-    let input = document.createElement("div")
+function genCheckbox(parent, option) {
+    let container = document.createElement("div");
+    container.classList.add('checkBoxContainer');
+    parent.appendChild(container);
+
+    // Create label
+    let label = document.createElement('span');
+    label.innerText = option.label;
+    container.appendChild(label);
+
+    // Create the actual checkbox
+    let checkbox = document.createElement('div');
+    checkbox.classList.add('checkbox');
+    if (option.default)
+        checkbox.classList.add('toggled');
+    checkbox.id = option.value;
+    container.appendChild(checkbox);
+
+    // Event listener
+    container.addEventListener('click', e => {
+        checkbox.classList.toggle('toggled');
+    })
 }
 
 // Shortinput box stuff
@@ -363,7 +400,6 @@ function setActivity(dropdowns, activityName, streamurl) {
         });
 }
 
-
 // Set the new username
 async function setUsername(name) {
     try {
@@ -374,4 +410,13 @@ async function setUsername(name) {
         document.getElementsByClassName('newNameInput')[0].classList.add('errorTextBox')
         console.error(e)
     }
+}
+
+// Generate the invite code
+function generateInvite(items) {
+    let sum = items
+        .reduce((a, b) => a + b);
+    let invite = `Copied to Clipboard: https://discordapp.com/oauth2/authorize?client_id=${bot.user.id}&scope=bot&permissions=${sum}`;
+    console.log(invite);
+    clipboard.writeText(invite);
 }

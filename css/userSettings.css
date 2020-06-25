@@ -127,7 +127,6 @@
     overflow-y: scroll;
     user-select: text;
     overflow: none;
-    padding-bottom: 180px;
 }
 
 .settingsPopup::-webkit-scrollbar {
@@ -306,5 +305,37 @@
 }
 
 input.errorTextBox {
-    border: 1px solid #fc5c65;
+    border: 1px solid #fc5c65 !important;
+}
+
+/* Checkbox */
+.checkBoxContainer {
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.checkBoxContainer:hover {
+    background-color: #2a2c31;
+}
+
+.checkbox {
+    height: 15px;
+    width: 15px;
+    border: 2px solid #888888;
+    border-radius: 2px;
+    cursor: pointer;
+    position: relative;
+    margin: -18px 0 0 auto;
+}
+
+.checkbox.toggled {
+    background-color: #7289da;
+    border-color: #7289da;
+}
+
+/* Separator */
+.settingsSeparator {
+    margin: 20px 0 0 0 !important;
+    color: #b3b2b2 !important;
 }
