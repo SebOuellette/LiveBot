@@ -29,7 +29,7 @@ let showEmbed = (embed, element, msg) => {
         if (embed.author.iconURL) {
             let authorImage = document.createElement("img");
             authorImage.classList.add("embedAuthorImg");
-            authorImage.src = embed.author.iconURL();
+            authorImage.src = embed.author.iconURL;
             authorContainer.appendChild(authorImage);
         }
 

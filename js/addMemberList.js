@@ -11,7 +11,7 @@ let addMemberList = guild => {
         .sort((r1, r2) => r2.position - r1.position); // Sort by highest to lowest rank
 
     roles.forEach(r => { // Loop through
-            let memberCount = r.members.cache.filter(m => (m.hoistRole && m.hoistRole.id == r.id && m.presence.status != 'offline')).size;
+            let memberCount = r.members.filter(m => (m.hoistRole && m.hoistRole.id == r.id && m.presence.status != 'offline')).size;
 
             if (memberCount) {
                 // Role container
@@ -171,7 +171,7 @@ let addMemberList = guild => {
 
                     // Add the user icon
                     let icon = document.createElement("img");
-                    icon.src = m.user.avatarURL ? m.user.avatarURL.replace(/(size=)\d+?($| )/, '$164') : "resources/images/default.png";
+                    icon.src = m.user.avatarURL() ? m.user.avatarURL().replace(/(size=)\d+?($| )/, '$164') : "resources/images/default.png";
                     icon.classList.add('mLIcon');
                     userDiv.appendChild(icon);
 
