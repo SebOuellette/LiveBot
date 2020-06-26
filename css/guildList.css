@@ -53,3 +53,52 @@
     transition-duration: 0.2s;
 }
 
+.guildIconDiv {
+    color: transparent;
+    width: 81px;
+    cursor: default;
+    display: flex;
+    transition-duration: 0.3s !important;
+}
+
+.guildIconDiv .guild-icon {
+    order: -1;
+}
+
+.guildNameContainer {
+    color: transparent;
+    height: 26px;
+    margin: 12px 0 0 70px;
+    z-index: 1;
+    display: block;
+    position: fixed;
+    border-radius: 5px;
+    background-color: transparent;
+    transition-duration: 0.3s !important;
+}
+
+.guildNameContainer::before {
+    left: -20px;
+    margin: 3px 0 0 0px;
+    border: 10px solid transparent;
+    content: ' ';
+    position: absolute;
+    border-right-color: transparent;
+    transition-duration: 0.3s !important;
+}
+
+.guildName {
+    color: inherit;
+    margin: 3px 4px 0;
+    display: inherit;
+    position: fixed;
+}
+
+.guild-icon:hover + .guildNameContainer::before {
+    border-right-color: black;
+}
+
+.guild-icon:hover + .guildNameContainer{
+    color: white;
+    background-color: #000000;
+}
