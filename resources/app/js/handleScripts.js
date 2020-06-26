@@ -24,14 +24,14 @@ let loadAllScripts = () => {
 };
 
 let unloadAllScripts = () => {
-    let files = fs.readdirSync('./resouces/app/scripts', );
+    let files = fs.readdirSync('./resources/app/scripts');
 
     // Stop and unload all the scripts
     console.log('Stopping scripts...');
     files.forEach(file => {
         if (file.endsWith(".js") && file != "template.js" && require.cache[require.resolve(`./scripts/${file}`)]) {
             try {
-                require.cache[require.resolve(`./${file}`)].exports.stop();
+                require.cache[require.resolve(`./scripts/${file}`)].exports.stop();
 
                 console.log(`%c  ${file} stopped!`, 'color:Red');
             } catch (e) {
