@@ -28,15 +28,6 @@ function create() {
                 rows++;
             //document.getElementById("msgbox").rows = rows;
         });
-
-
-    document.getElementById("tokenbox")
-        .addEventListener("keydown", event => {
-            if (event.keyCode === 13) {
-                unloadAllScripts();
-                setToken();
-            }
-        });
     
     // Call the settings menu builder
     buildSettingsMenu(jsonSettings);
@@ -46,13 +37,6 @@ function create() {
     
     // Load the bot with the token in storage
     load(localStorage.getItem('livebot-token'));
-}
-
-// Save the token to localstorage
-// Will be upgraded to database eventually
-function savetoken() {
-    localStorage.setItem('livebot-token', document.getElementById('tokenbox').value);
-    setToken();
 }
 
 // Alert that you are typing

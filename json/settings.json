@@ -98,6 +98,21 @@
                         ]
                     },
                     {
+                        "name": "Change Token",
+                        "description": "Here you can log into a different bot account, and choose if you want to set it as your default. To just log in temporarily, paste your token, then press enter. To save as your default, click the 'Save as Default' button below.",
+                        "call": "saveToken(TOKEN)",
+                        "update": true,
+                        "updateLabel": "Save as Default",
+                        "options": [
+                            {
+                                "type": "shortinput",
+                                "placeholder": "Input the token here",
+                                "class": "tokenbox",
+                                "id": "tokenbox"
+                            }
+                        ]
+                    },
+                    {
                         "name": "Generate Invite",
                         "description": "Here you can generate an invite for your bot. Just select the permissions you would like, then click the 'Copy' button to copy it to your clipboard!",
                         "call": "generateInvite(CODES)",
@@ -181,7 +196,7 @@
                                 "default": false
                             },
                             {   
-                                "label": "Read Messages / View Channels",
+                                "label": "View Channels",
                                 "type": "checkbox",
                                 "value": 400,
                                 "default": true

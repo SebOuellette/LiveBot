@@ -292,13 +292,13 @@
     background-color: #313339;
     margin-top: 5px;
     outline: none;
-    border: 1px solid #313339;
+    border: 1px solid #313339 !important;
     color: #aeb0b3;
     border-radius: 3px;
 }
 
 .settingsPopup input:focus {
-    border: 1px solid black;
+    border: 1px solid black !important;
 }
 
 .settingsPopup input::placeholder {

@@ -19,7 +19,13 @@ let parseMessage = (text, msg = null, embed = false, ping = false, embededLink) 
 
     // General message parsing
     // Match links
-    textContent = textContent.replace(/https?:\/\/.+?(\/(.+?(\?.+?((?= )|$)))|(?= )|$)/mg, '<a href="$&" rel="noreferrer noopener" title="$&" target="_blank">$&</a>');
+    textContent = textContent.replace(/https?:\/\/((?:\w|.)+?)(\/|(?= ))(?:[\w\.!@#$%^&*]+\/?)*(?:\?.*?(?=[>)}\]:; ]|$))?/mg, (a, b, c) => {
+        let endl = '';
+        //console.log()
+        if (c != '/')
+            endl = '/';
+        return `<a href="${a}" rel="noreferrer noopener" title="${a}" target="_blank">${a}${endl}</a>`;
+    });
 
     // Add html tags for markup
     textContent = textContent.replace(/\*\*(.*?)\*\*/gm, '<strong>$1</strong>');
@@ -54,7 +60,10 @@ let parseMessage = (text, msg = null, embed = false, ping = false, embededLink) 
         }
         // Format links in embeds
         if(embededLink){
-            textContent = textContent.replace(/(?:\[(.+?)\]\(([a-zA-Z0-9.:\/]+?)\))/gm, (a, b, c) => `<a title="${b}" href="${c}">${b}</a>`);
+            textContent = textContent.replace(/(?:\[(.+?)\]\(([a-zA-Z0-9.:\/]+?)\))/gm, (a, b, c) => {
+                
+                return `<a title="${b}" href="${c}">${b}</a>`
+            });
         }
     }
 
