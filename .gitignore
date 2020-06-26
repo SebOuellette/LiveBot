@@ -1,9 +1,0 @@
-# Obviously
-node_modules
-
-# Some other files that don't need to be uploaded to github
-package-lock.json
-*.log
-
-# Ignoring my custom scripts
-testScript.js
