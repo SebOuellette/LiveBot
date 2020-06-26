@@ -16,7 +16,7 @@ let loadAllScripts = () => {
     console.log("Starting scripts...");
     files.forEach(file => {
         if (file.endsWith(".js") && file != "template.js") {
-            require.cache[require.resolve(`./resources/app/scripts/${file}`)].exports.start();
+            require.cache[require.resolve(`./scripts/${file}`)].exports.start();
 
             console.log(`%c  ${file} started!`, 'color:Green');
         }
@@ -31,7 +31,7 @@ let unloadAllScripts = () => {
     files.forEach(file => {
         if (file.endsWith(".js") && file != "template.js" && require.cache[require.resolve(`./scripts/${file}`)]) {
             try {
-                require.cache[require.resolve(`./resources/app/scripts/${file}`)].exports.stop();
+                require.cache[require.resolve(`./${file}`)].exports.stop();
 
                 console.log(`%c  ${file} stopped!`, 'color:Red');
             } catch (e) {
@@ -39,7 +39,7 @@ let unloadAllScripts = () => {
                 console.error(e);
             }
 
-            delete require.cache[require.resolve(`./resources/app/scripts/${file}`)];
+            delete require.cache[require.resolve(`./scripts/${file}`)];
             console.log(`%c  ${file} unloaded!`, 'color:Red');
         }
     });
@@ -52,7 +52,7 @@ let getData = () => {
 
     files.forEach(file => {
         if (file.endsWith(".js") && file != "template.js") {
-            object[file] = require.cache[require.resolve(`./resources/app/scripts/${file}`)].exports.info;
+            object[file] = require.cache[require.resolve(`./scripts/${file}`)].exports.info;
             object[file].file = file;
         }
     });
