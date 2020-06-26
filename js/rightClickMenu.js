@@ -1,4 +1,12 @@
 function addDocListener() {
+    document.addEventListener('keydown', e => {
+        // When ESC is pressed
+        if(e.keyCode == 27){
+            // Safe check so there is only one DOM to edit messages
+            checkEditDoms()
+        }
+    })
+
     document.addEventListener("mousedown", e => {
         // Set the target and whatnot
         e = e || window.event;
@@ -10,9 +18,8 @@ function addDocListener() {
 
         document.getElementById('rcMenu').innerHTML = '';
 
-        if (e.which == 1) {
+        if (e.which == 1) {// Left click
             document.getElementById('rcMenu').classList.remove('open');
-            // Left click
         } else if (e.which == 3) { // Right click
             // Get the message block containing the message
             while (!target.classList.contains('messageBlock') && target != document.body) {
@@ -72,6 +79,12 @@ function newOption(label, func, red = false, greyed, ...args) {
     return item;
 }
 
+function newBreak(){
+    let item = document.createElement('hr')
+    item.classList.add('rcBreak')
+    return item
+}
+
 // Build the menu for right clicking messages
 function buildMsgMenu(target) {
     let message = selectedChan.messages.cache.get(target.id);
@@ -79,7 +92,7 @@ function buildMsgMenu(target) {
 
     // Check permissions
     let editGreyed = message.author.id == bot.user.id ? false : true;
-    let pollGreyed = selectedChan.members.get(bot.user.id).hasPermission('MANAGE_MESSAGES') ? false : true;
+    let pinGreyed = selectedChan.members.get(bot.user.id).hasPermission('MANAGE_MESSAGES') ? false : true;
     let deleteGreyed = message.author.id == bot.user.id ? false : selectedChan.members.get(bot.user.id).hasPermission('MANAGE_MESSAGES') ? false : true;
     
     // Edit option
@@ -87,10 +100,21 @@ function buildMsgMenu(target) {
     menu.appendChild(editOption);
 
     // Pin option
-    let pinOption = newOption('Pin Message', pinMsg, false, pollGreyed, target.id);
+    let pinOption = newOption(message.pinned ? 'Unpin Message' : 'Pin Message', pinMsg, false, pinGreyed, target.id, !message.pinned);
     menu.appendChild(pinOption);
 
     // Delete option
     let deleteOption = newOption('Delete Message', deleteMsg, true, deleteGreyed, target.id);
     menu.appendChild(deleteOption);
+    
+    // A break to separate the text to make it look nicer
+    menu.append(newBreak())
+
+    // Copy message link option
+    let copyLinkOption = newOption('Copy Message Link', copyMessageLink, false, deleteGreyed, target.id, message);
+    menu.appendChild(copyLinkOption);
+
+    // Copy message ID option
+    let copyIDOption = newOption('Copy Message ID', copyMessageID, false, deleteGreyed, target.id);
+    menu.appendChild(copyIDOption);
 }

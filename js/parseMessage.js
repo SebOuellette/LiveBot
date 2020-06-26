@@ -101,9 +101,9 @@ function formatPings(msg, text) {
             name = id;
         }
 
-        pingRegex = new RegExp(`(?:(<|>)?@!?(${name.replace(/\[/, '\\[').replace(/\]/, '\\]')}))`, 'g');
-        console.log(name)
-        channelRegex = new RegExp(`(?:(<|>)?#(${name.replace(/\[/, '\\[').replace(/\]/, '\\]')}))`, 'g');
+        name = name.replace(/(\[|\]|\(|\)|\\)/gm, a => '\\' + a)
+        pingRegex = new RegExp(`(?:(<|>)?@!?(${name}))`, 'g');
+        channelRegex = new RegExp(`(?:(<|>)?#(${name}))`, 'g');
         textContent = textContent.replace(pingRegex, (a, b, c) => b == '<' || b == '>' ? a : `<span class="ping" ${id}" ${color ? `style="color: ${color}"` : ''}>@${c}</span>`)
                                  .replace(channelRegex, (a, b, c) => b == '<' || b == '>' ? a : `<span class="ping ${id}">#${c}</span>`);
 
