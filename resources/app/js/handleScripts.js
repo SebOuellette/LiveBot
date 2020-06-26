@@ -24,7 +24,7 @@ let loadAllScripts = () => {
 };
 
 let unloadAllScripts = () => {
-    let files = fs.readdirSync('./scripts', );
+    let files = fs.readdirSync('./resouces/app/scripts', );
 
     // Stop and unload all the scripts
     console.log('Stopping scripts...');
