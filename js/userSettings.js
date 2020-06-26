@@ -108,13 +108,12 @@ function createPopup(parent, jsonObj) {
             if (option.type == "dropdown") {
                 params = params.concat([option.options], option.default, group, option);
             } else if (option.type == "shortinput") {
-                params = params.concat(false, option.placeholder, option.class);
+                params = params.concat(false, option.placeholder, option.class, option.id);
             } else if (option.type == "checkbox") {
                 params = params.concat(option);
             } else if (option.type == "separator") {
                 params = params.concat(option.label);
             }
-
             addItem(option.type, ...params);
         });
 
@@ -142,12 +141,17 @@ function createPopup(parent, jsonObj) {
                 if (btn.parentElement.querySelector('.checkbox'))
                     codes = Array.from(btn.parentElement.querySelectorAll('.checkbox.toggled')).map(e => parseInt(e.id, 16));
 
+                let token = '\'\'';
+                if (btn.parentElement.querySelector('.tokenbox'))
+                    token = `'${btn.parentElement.querySelector('.tokenbox').value.replace(/\\*'/g, '\\\'')}'`
+
                 let funcString = group.call
                     .replace("DROPDOWNS", `${allDropdowns}`)
                     .replace("ACTIVITYNAME", activityInput)
                     .replace("STREAMURL", streamURL)
                     .replace("USERNAME", username)
-                    .replace("CODES", `[${codes.join(',')}]`);
+                    .replace("CODES", `[${codes.join(',')}]`)
+                    .replace("TOKEN", token);
 
                 eval(funcString);
             });
@@ -235,10 +239,28 @@ function genCheckbox(parent, option) {
     })
 }
 
+// Generate the token box
+function genTokenBox(parent, placeholder, customClass) {
+    // This is basically just a shortinput, but modified to have an id, event listener, etc
+
+    // Create the short input
+    genShortInput()
+    
+    document.getElementById("tokenbox")
+        .addEventListener("keydown", event => {
+            if (event.keyCode === 13) {
+                unloadAllScripts();
+                setToken();
+            }
+        });
+}
+
 // Shortinput box stuff
-function genShortInput(parent, special = false, placeholder, customClass, id) {
+function genShortInput(parent, special = false, placeholder, customClass, id = undefined) {
     let input = document.createElement("input");
     input.classList.add(customClass);
+    if (id != undefined && !special)
+        input.id = id;
     input.placeholder = placeholder;
 
     if (special) {
@@ -246,6 +268,14 @@ function genShortInput(parent, special = false, placeholder, customClass, id) {
         parent.insertAdjacentElement('afterend', input);
     } else {
         parent.appendChild(input);
+    }
+
+    // Create the token event listeners
+    if (id == 'tokenbox') {
+        input.addEventListener("keydown", event => {
+                if (event.keyCode === 13)
+                    setToken(input.value);
+            });
     }
 }
 

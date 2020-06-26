@@ -170,11 +170,11 @@ body {
 /* Message List */
 #message-list {
     background-color: #36393E;
-    height: calc(100vh - 157px);
+    height: calc(100vh - 89px);
     border-bottom: 1px solid #484B51;
     width: calc(100vw - 518px);
     position: absolute;
-    margin-top: calc(-100vh + 128px);
+    margin-top: calc(-100vh + 60px);
     margin-left: 310px;
     overflow-y: auto;
     font-family: Whitney-light, "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -239,35 +239,6 @@ body {
     outline: none;
     color: white;
     resize: none;
-}
-
-#settoken {
-    margin-left: 310px;
-    width: calc(100vw - 318px);
-    background-color: #36393E;
-    position: absolute;
-    margin-top: calc(-100vh + 48px);
-    height: 49px;
-    border-bottom: 1px solid #484B51;
-    padding-top: 30px;
-    margin-bottom: 5px;
-}
-
-#tokenbox {
-    display: block;
-    width: calc(100% - 90px);
-    border: none;
-    background-color: #484B51;
-    color: white;
-    padding: 8px;
-    border-radius: 5px;
-    outline: none;
-    border: 2px solid #484B51;
-}
-
-#tokenspace {
-    display: block;
-    margin-left: 10px;
 }
 
 #savebtn {

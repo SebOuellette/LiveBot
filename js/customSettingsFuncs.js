@@ -40,8 +40,13 @@ async function setUsername(name) {
 
 // Generate the invite code
 function generateInvite(items) {
-    let sum = items
-        .reduce((a, b) => a + b);
+    let sum;
+    if (items.length) {
+        sum = items
+            .reduce((a, b) => a + b);
+    } else {
+        sum = 0;
+    }
     let invite = `Copied to Clipboard: https://discordapp.com/oauth2/authorize?client_id=${bot.user.id}&scope=bot&permissions=${sum}`;
     console.log(invite);
     clipboard.writeText(invite);
