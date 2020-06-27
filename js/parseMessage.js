@@ -10,6 +10,13 @@ let parseSend = (text) => {
         return a;
     });
 
+    text = text.replace(/:(.*):/gm, (a, b) => {
+
+        let shortcut = idToUni[b];
+        if (shortcut) return shortcut;
+        return a;
+    });
+
     return text;
 }
 

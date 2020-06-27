@@ -1,3 +1,5 @@
+// -------- MESSAGE MENU --------
+
 // Used for removing the edit message DOM and replacing it with the original
 let editDOM = (target, textarea, elementText) => {
     // Remove the text field, replace with normal message
@@ -54,6 +56,7 @@ function editMsg(target) {
                     }
                     return a;
                 });
+                newText = parseSend(newText);
 
                 selectedChan.messages.cache.get(target.id).edit(newText); 
                 
@@ -95,4 +98,19 @@ function copyMessageLink(id, msg) {
 
 function copyMessageID(id) {
     clipboard.writeText(id);
+}
+
+// -------- USER MENU --------
+
+function mentionUser(id){
+    let msgBox = document.getElementById('msgbox')
+    msgBox.value += `<@${id}>`
+}
+
+function copyUserID(id){
+    clipboard.writeText(id);
+}
+
+function copyAvatarLink(member){
+    clipboard.writeText(member.user.avatar.startsWith('a_') ? member.user.displayAvatarURL().replace('.webp', '.gif') : member.user.displayAvatarURL());
 }

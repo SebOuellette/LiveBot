@@ -3,7 +3,7 @@ function addDocListener() {
         // When ESC is pressed
         if(e.keyCode == 27){
             // Safe check so there is only one DOM to edit messages
-            checkEditDoms()
+            checkEditDoms();
         }
     })
 
@@ -16,23 +16,26 @@ function addDocListener() {
         let x = e.clientX;
         let y = e.clientY;
 
-        document.getElementById('rcMenu').innerHTML = '';
-
-        if (e.which == 1) {// Left click
-            document.getElementById('rcMenu').classList.remove('open');
+        let rcMenu = document.getElementById('rcMenu');
+        rcMenu.innerHTML = '';
+        if (e.which == 1) { // Left click
+            rcMenu.classList.remove('open');
         } else if (e.which == 3) { // Right click
+            if (e.target.classList.contains('rcOption') || e.target.parentElement.classList.contains('rcOption')) return rcMenu.classList.remove('open');
             // Get the message block containing the message
-            while (!target.classList.contains('messageBlock') && target != document.body) {
+            while (!target.classList.contains('messageBlock') && !target.classList.contains('mLUserDiv') && target != document.body) {
                 target = target.parentElement;
             }
 
             // Checking otherwise
-            if (target.classList.contains('messageBlock')) {
-                let rcMenu = document.getElementById('rcMenu');
+            if (target.classList.contains('messageBlock') || target.classList.contains('mLUserDiv')) {
                 rcMenu.classList.add('open');
 
-                // First build the menu so we can use the height
-                buildMsgMenu(target, rcMenu);
+                // Check what the menu is for and then build the menu so we can use the height
+                if(target.classList.contains('messageBlock'))
+                    buildMsgMenu(target, rcMenu);
+                else if(target.classList.contains('mLUserDiv'))
+                    buildUserMenu(target, rcMenu)
 
                 // How far away from the bottom it will appear, in px
                 let menuOffset = 10;
@@ -45,9 +48,11 @@ function addDocListener() {
 
                 rcMenu.style.left = `${x}px`;
                 rcMenu.style.top = `${y}px`;
-            } else {
-                document.getElementById('rcMenu').classList.remove('open');
+            } else { 
+                rcMenu.classList.remove('open');
             }
+        } else {
+            rcMenu.classList.remove('open');
         }
     })
 }
@@ -111,10 +116,29 @@ function buildMsgMenu(target) {
     menu.append(newBreak())
 
     // Copy message link option
-    let copyLinkOption = newOption('Copy Message Link', copyMessageLink, false, deleteGreyed, target.id, message);
+    let copyLinkOption = newOption('Copy Message Link', copyMessageLink, false, false, target.id, message);
     menu.appendChild(copyLinkOption);
 
     // Copy message ID option
-    let copyIDOption = newOption('Copy Message ID', copyMessageID, false, deleteGreyed, target.id);
+    let copyIDOption = newOption('Copy Message ID', copyMessageID, false, false, target.id);
     menu.appendChild(copyIDOption);
+}
+
+// Build the user menu for right clicking users
+function buildUserMenu(target) {
+    let member = selectedGuild.members.cache.get(target.id);
+    let menu = document.getElementById('rcMenu');
+    
+    // Mention option
+    let mentionOption = newOption('Mention', mentionUser, false, false, target.id);
+    menu.appendChild(mentionOption);
+
+    // Copy user ID option
+    let copyIDOption = newOption('Copy ID', copyUserID, false, false, target.id);
+    menu.appendChild(copyIDOption);
+
+    // Copy avatar link option
+    let copyAvatarLinkOption = newOption('Copy Avatar Link', copyAvatarLink, false, false, member);
+    menu.appendChild(copyAvatarLinkOption);
+
 }

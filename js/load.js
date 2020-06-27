@@ -76,31 +76,31 @@ let load = token => {
             };
             
             // Creating the container for the icon
-            let guildIcon = document.createElement('div')
+            let guildIcon = document.createElement('div');
             // Creating the container for the guilds name
-            let guildNameContainer = document.createElement('div')
+            let guildNameContainer = document.createElement('div');
             // Creating the text element which will display the name
-            let guildName = document.createElement('p')
+            let guildName = document.createElement('p');
 
             // Adding classes to elements
             guildNameContainer.classList.add('guildNameContainer');
             guildName.classList.add('guildName');
-            guildIcon.classList.add('guildIconDiv')
+            guildIcon.classList.add('guildIconDiv');
 
             // Setting the name
             guildName.innerText = g.name;
             // Appending the name to the name container
-            guildNameContainer.appendChild(guildName)
+            guildNameContainer.appendChild(guildName);
             // Appending the image and the container in reverse order
             // so it could be manipulated with in css
-            guildIcon.appendChild(img)
-            guildIcon.appendChild(guildNameContainer)
+            guildIcon.appendChild(img);
+            guildIcon.appendChild(guildNameContainer);
 
             // Add image to the list of guilds
             document.getElementById('guild-list').appendChild(guildIcon);
 
             // Changing the width of the name container so it fits the text
-            guildNameContainer.style.width = guildName.getBoundingClientRect().width + 8 + 'px'
+            guildNameContainer.style.width = guildName.getBoundingClientRect().width + 8 + 'px';
         });
     });
 

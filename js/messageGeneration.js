@@ -56,8 +56,9 @@ function generateMsgHTML(m, previousMessage, count = -1, fetchSize = undefined) 
 
         // Create user image
         let img = document.createElement('img');
+        let userImg = m.author.avatar.startsWith('a_') ? m.author.displayAvatarURL().replace('.webp', '.gif') : m.author.displayAvatarURL();
         img.classList.add('messageImg');
-        img.src = m.author.displayAvatarURL().replace(/(size=)\d+?($| )/, '$164');
+        img.src = userImg.replace(/(size=)\d+?($| )/, '$164');
         img.height = '40';
         img.width = '40';
         darkBG.appendChild(img);
@@ -107,7 +108,7 @@ function generateMsgHTML(m, previousMessage, count = -1, fetchSize = undefined) 
         text.innerHTML = parseMessage(m.cleanContent, m, false);
 
         if(m.editedAt)
-            text.innerHTML += '<time class="edited"> (edited)</time>'
+            text.innerHTML += '<time class="edited"> (edited)</time>';
 
         darkBG.appendChild(text);
     }
