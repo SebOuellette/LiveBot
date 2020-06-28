@@ -65,18 +65,6 @@
     order: -1;
 }
 
-.guildNameContainer {
-    color: transparent;
-    height: 26px;
-    margin: 12px 0 0 70px;
-    z-index: 1;
-    display: block;
-    position: fixed;
-    border-radius: 5px;
-    background-color: transparent;
-    transition-duration: 0.3s !important;
-}
-
 .guildNameContainer::before {
     left: -19.8px;
     margin: 3px 0 0 0px;
@@ -84,6 +72,18 @@
     content: ' ';
     position: absolute;
     border-right-color: transparent;
+    transition-duration: 0.3s !important;
+}
+
+.guildNameContainer {
+    color: transparent;
+    height: 26px;
+    margin: 12px 0 0 70px;
+    z-index: 1;
+    visibility: hidden;
+    position: fixed;
+    border-radius: 5px;
+    background-color: transparent;
     transition-duration: 0.3s !important;
 }
 
@@ -95,10 +95,12 @@
 }
 
 .guild-icon:hover + .guildNameContainer::before {
+    display: block;
     border-right-color: black;
 }
 
 .guild-icon:hover + .guildNameContainer{
     color: white;
-    background-color: #000000;
+    visibility: visible;
+    background-color: black;
 }

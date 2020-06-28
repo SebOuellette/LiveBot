@@ -39,6 +39,7 @@ a:hover {
 /* Image Previews */
 .previewImage {
     margin-bottom: 10px;
+    height: auto;
 }
 
 /* Message Text */

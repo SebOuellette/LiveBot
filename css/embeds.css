@@ -6,7 +6,7 @@
     border-left: 5px solid;
     color: white;
     min-height: 50px;
-    max-width: 400px;
+    max-width: 512px;
 }
 
 .messageTimestamp + .embed {
@@ -17,6 +17,18 @@
     height: 90px;
     border-radius: 5px;
     float: right;
+}
+
+.embedSmallIcon {
+    height: 40px;
+    border-radius: 5px;
+    float: right;
+}
+
+.embedArticleLargeIcon {
+    height: 212px;
+    padding: 15px 0px 0px;
+    border-radius: 5px;
 }
 
 /*Author*/
@@ -43,6 +55,8 @@
 /*Title section*/
 .embedTitle {
     margin: 0;
+    font-size: 17px;
+    font-weight: bold;
 }
 
 .embedDescription {
@@ -51,7 +65,12 @@
 
 .embedContent {
     color: #aaa;
-    font-size: 14px;
+    font-size: 15px;
+}
+
+.embedProvierName{
+    margin: 5px 0 5px 0;
+    font-size: 13px;
 }
 
 /*Fields*/

@@ -1,9 +1,26 @@
+const { RichEmbed } = require("discord.js");
+
 let showEmbed = (embed, element, msg) => {
-    // Embed container
+    let type = embed.type;
+    if(['rich', 'link'].includes(type)){
+        showRichEmbed(embed, msg, element, type);
+    } else if (['article'].includes(type)){
+        showArticleEmbed(embed, msg, element);
+    } else if (['image'].includes(type)){
+        showImageEmbed(embed, msg, element);
+    } else if (['gifv', 'video'].includes(type)){
+        showVideoEmbed(embed, msg, element);
+    } else {
+        showRichEmbed(embed, msg, element);
+    }
+}
+
+let showRichEmbed = (embed, msg, element, type) => { 
     let embedCont = document.createElement("div");
-    embedCont.classList.add("embed");
     element.appendChild(embedCont);
-    
+
+    embedCont.classList.add("embed");
+
     if (embed.color) {
         let color = embed.color.toString(16);
         color = "0".repeat(6 - color.length) + color;
@@ -12,16 +29,24 @@ let showEmbed = (embed, element, msg) => {
         
     }
 
-    // Large Icon
+    // Large or small icon
     if (embed.thumbnail) {
-        let largeIcon = document.createElement("img");
-        largeIcon.classList.add("embedLargeIcon");
-        largeIcon.src = embed.thumbnail.url;
-        embedCont.appendChild(largeIcon);
+        if (type == 'embed'){
+            let largeIcon = document.createElement("img");
+            largeIcon.classList.add("embedLargeIcon");
+            largeIcon.src = embed.thumbnail.url;
+            embedCont.appendChild(largeIcon);
+        } else {
+            let largeIcon = document.createElement("img");
+            largeIcon.classList.add("embedSmallIcon");
+            largeIcon.src = embed.thumbnail.url;
+            embedCont.appendChild(largeIcon);
+        }
+
     }
 
     // Embed author information
-    if (embed.author != null) {
+    if (embed.author) {
         let authorContainer = document.createElement("div");
         authorContainer.classList.add("embedAuthor");
         embedCont.appendChild(authorContainer);
@@ -40,19 +65,36 @@ let showEmbed = (embed, element, msg) => {
         authorContainer.appendChild(authorName);
     }
 
+    if(embed.provider){
+        let provider = document.createElement("p");
+        provider.classList.add('embedContent');
+        provider.classList.add("embedProvierName");
+        provider.innerHTML = parseMessage(embed.provider.name, msg, true);
+        embedCont.appendChild(provider);
+    }
+
     // Title section
     if (embed.title) {
-        let title = document.createElement("p");
-        title.classList.add("embedTitle");
-        title.innerHTML = parseMessage(embed.title, msg, true);
-        embedCont.appendChild(title);
+        if(!embed.url){
+            let title = document.createElement("p");
+            title.classList.add("embedTitle");
+            title.innerHTML = parseMessage(embed.title, msg, true);
+            embedCont.appendChild(title);
+        } else {
+            let title = document.createElement("a");
+            title.classList.add("embedTitle");
+            title.href = embed.url;
+            title.innerHTML = parseMessage(embed.title, msg, true);
+            embedCont.appendChild(title);
+        }
     }
 
     if (embed.description) {
         let description = document.createElement("p");
+        let text = parseMessage(embed.description, msg, true, true, true);
         description.classList.add("embedDescription");
         description.classList.add("embedContent");
-        description.innerHTML = parseMessage(embed.description, msg, true, true, true);
+        description.innerHTML = text
         embedCont.appendChild(description);
     }
 
@@ -69,9 +111,10 @@ let showEmbed = (embed, element, msg) => {
         fieldCont.appendChild(fieldTitle);
 
         let fieldValue = document.createElement("p");
+        let text = parseMessage(field.value, msg, true, true, true);
         fieldValue.classList.add("fieldText");
         fieldValue.classList.add("embedContent");
-        fieldValue.innerHTML = parseMessage(field.value, msg, true, true, true);
+        fieldValue.innerHTML = text
         fieldCont.appendChild(fieldValue);
 
         if (field.inline) {
@@ -98,4 +141,80 @@ let showEmbed = (embed, element, msg) => {
         footText.innerHTML = parseMessage(embed.footer.text,  msg, true);
         footCont.appendChild(footText);
     }
+}
+
+let showArticleEmbed = (embed, msg, element) => { 
+    let embedCont = document.createElement("div");
+    element.appendChild(embedCont);
+    
+    embedCont.classList.add("embed");
+
+    if(embed.provider){
+        let provider = document.createElement("p");
+        provider.classList.add('embedContent');
+        provider.classList.add("embedProvierName");
+        provider.innerHTML = parseMessage(embed.provider.name, msg, true);
+        embedCont.appendChild(provider);
+    }
+
+    // Title section
+    if (embed.title) {
+        let title = document.createElement("a");
+        title.classList.add("embedTitle");
+        title.href = embed.url;
+        title.innerHTML = parseMessage(embed.title, msg, true);
+        embedCont.appendChild(title);
+    }
+
+    if (embed.description) {
+        let description = document.createElement("p");
+        description.classList.add("embedDescription");
+        description.classList.add("embedContent");
+        description.innerHTML = parseMessage(embed.description, msg, true, true, true);
+        embedCont.appendChild(description);
+    }
+
+    // Large Icon
+    if (embed.thumbnail) {
+        let largeIcon = document.createElement("img");
+        largeIcon.classList.add("embedArticleLargeIcon");
+        largeIcon.src = embed.thumbnail.url;
+        embedCont.appendChild(largeIcon);
+    }
+}
+
+
+let showImageEmbed = (embed, msg, element) => { 
+    let img = document.createElement("img");
+
+    let newWidth = embed.thumbnail.width < 400 ? embed.thumbnail.width : 400;
+    let newHeight = Math.floor(newWidth / embed.thumbnail.width * embed.thumbnail.height);
+
+    img.src = `${embed.thumbnail.proxyURL}?width=${newWidth}&height=${newHeight}`;
+    img.classList.add("previewImage");
+
+    element.appendChild(img);
+}
+
+let showVideoEmbed = (embed, msg, element) => { 
+    let video = document.createElement("video");
+
+    let newHeight = embed.video.height < 300 ? embed.video.height : 400;
+
+    video.style.height = newHeight + 'px';
+    video.style.width = 'auto';
+
+    let url = embed.video.proxyURL ? embed.video.url : embed.video.url;
+    video.src = url;
+    video.classList.add("previewImage");
+    
+    video.onclick = e => {
+        video.paused ? video.play() : video.pause();
+    }
+
+    video.onended = e => {
+        video.currentTime = 0;
+    }
+
+    element.appendChild(video);
 }

@@ -56,9 +56,19 @@ function generateMsgHTML(m, previousMessage, count = -1, fetchSize = undefined) 
 
         // Create user image
         let img = document.createElement('img');
-        let userImg = m.author.avatar.startsWith('a_') ? m.author.displayAvatarURL().replace('.webp', '.gif') : m.author.displayAvatarURL();
+        let userImg = m.author.displayAvatarURL().replace(/(size=)\d+?($| )/, '$128');
+        if (m.author.avatar && m.author.avatar.startsWith('a_')){
+            let userGif = m.author.displayAvatarURL().replace('.webp', '.gif').replace(/(size=)\d+?($| )/, '$128');
+            img.src = userGif;
+            darkBG.onmouseenter = e => {
+                img.src = userGif;
+            };
+            darkBG.onmouseleave = e => {
+                img.src = userImg;
+            };
+        }
         img.classList.add('messageImg');
-        img.src = userImg.replace(/(size=)\d+?($| )/, '$164');
+        img.src = userImg;
         img.height = '40';
         img.width = '40';
         darkBG.appendChild(img);
@@ -115,18 +125,7 @@ function generateMsgHTML(m, previousMessage, count = -1, fetchSize = undefined) 
     
     // Append embeds
     m.embeds.forEach(embed => {
-        if (embed.thumbnail && m.cleanContent.match(embed.thumbnail.url)) {
-            let img = document.createElement("img");
-
-            let newWidth = embed.thumbnail.width < 400 ? embed.thumbnail.width : 400;
-            let newHeight = Math.floor(newWidth / embed.thumbnail.width * embed.thumbnail.height);
-
-            img.src = `${embed.thumbnail.proxyURL}?width=${newWidth}&height=${newHeight}`;
-            img.classList.add("previewImage");
-            darkBG.appendChild(img);
-        } else {
-            showEmbed(embed, darkBG, m);
-        }
+        showEmbed(embed, darkBG, m);
     });
     return div;
 }
