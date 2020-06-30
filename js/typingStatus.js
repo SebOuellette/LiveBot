@@ -1,21 +1,10 @@
-function isTyping(member, typers) {
-    if (member.user.typingIn(selectedChan) && member.user != bot.user)
-        typers.push(member.nickname ? member.nickname : member.displayName);
-    return typers;
-}
-
-function checkTyping() {
-    let typers = [];
-    selectedChan.guild.members.cache.forEach(member => { typers = isTyping(member, typers) });
-    return typers;
-}
-
 function typingStatus() {
     if (!selectedChan) return;
 
     let indicator = document.getElementById('typingIndicator');
     indicator.innerHTML = '';
-    let users = checkTyping();
+    let users = [];
+    selectedChan._typing.forEach(e => users.push(selectedChan.members.get(e.user.id).displayName))
     let length = users.length;
     let text = "";
 
@@ -42,6 +31,10 @@ function typingStatus() {
     indicator.appendChild(boldTextElement);
 
     indicator.innerHTML += endText;
+    if(selectedChan._typing.size)
+        // Needs a set timer so it doesn't create 1000 timers at a time
+        // The timings can be found in each users typing variable and checking by the smallest is the best bet
+        setTimeout(typingStatus, 200)
 }
 
-setInterval(typingStatus, 1000);
+// setInterval(typingStatus, 1000);

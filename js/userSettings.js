@@ -8,6 +8,35 @@
 //   toggles - default
 //   separator - label
 
+let settings = {
+    token: localStorage.getItem('livebot-token'),
+    options: {
+        settingsOpened: false
+    },
+    functions: {
+        getGroup: (groupName) => {
+            let element = Array.from(document.getElementsByClassName('settingLabel')).find(e => e.innerText == groupName).parentElement
+            let groups = ['Presence', 'User', 'Scripts', 'Servers']
+            let group = jsonSettings[0]["groups"][groups.indexOf(groupName)];
+            return [element, group]
+        },
+        openSettings: (groupName) => {
+            if (!settings.options.settingsOpened) {
+                toggleSettings();
+                let [element, group] = settings.functions.getGroup(groupName)
+                setTimeout(() => {openPopup(element, group)}, 600);
+            }
+        },
+        closeSettings: (groupName) => {
+            if (settings.options.settingsOpened) {
+                let [element, group] = settings.functions.getGroup(groupName)
+                setTimeout(() => {openPopup(element, group)}, 700);
+                toggleSettings();
+            }
+        }
+    }
+}
+
 let toggleSettings = () => {
     let userCard = document.getElementById('userSettings');
     if (userCard.classList.length) {
@@ -20,7 +49,25 @@ let toggleSettings = () => {
         userPullOutIcon.classList.toggle('userSettingsFlipOff');
     }
     userPullOutIcon.classList.toggle('userSettingsFlip');
+    settings.options.settingsOpened = !settings.options.settingsOpened;
 };
+
+// A function to open the popup so it can be used outside of the click event
+// I could have just made it click the element but this is more elegant imo
+function openPopup(category, group){
+    Array.from(document.getElementsByClassName("optionCategory")).forEach(category2 => {
+        if (category != category2) {
+            category2.classList.remove("toggledOn");
+        }
+    });
+
+    category.classList.toggle("toggledOn");
+    if (category.classList.contains("toggledOn")) {
+        createPopup(category.parentElement,  group);
+    } else {
+        category.parentElement.querySelector(".settingsPopup").remove();
+    }
+}
 
 // Building main settings menu
 function buildSettingsMenu(jsonObj) {
@@ -50,22 +97,11 @@ function buildSettingsMenu(jsonObj) {
             span.innerText = group.name;
             category.appendChild(span);
 
-            // Add the on click event listener
-            category.addEventListener("click", event => {
-    
-                Array.from(document.getElementsByClassName("optionCategory")).forEach(category2 => {
-                    if (category != category2) {
-                        category2.classList.remove("toggledOn");
-                    }
-                });
-    
-                category.classList.toggle("toggledOn");
-                if (category.classList.contains("toggledOn")) {
-                    createPopup(category.parentElement,  group);
-                } else {
-                    category.parentElement.querySelector(".settingsPopup").remove();
-                }
-            });
+            // Add the onclick event listener
+            category.onclick = () => {
+                // Open the popup menu
+                openPopup(category, group)
+            };
 
         })
     })

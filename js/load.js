@@ -1,22 +1,21 @@
+// This part isn't needed, I don't know why it's here...
+// const { remote } = require("electron");
 
 // Load a new token
 let load = token => {
     // Login to the bot profile
-    global.bot = new Discord.Client();
-    bot.login(token);
+    global.bot = new Discord.Client({});
+    bot.login(token).catch(err => {
+        loginErrors(token ? err : 'EMPTY-TOKEN')
+    }).then(settings.token = token);
 
     bot.on('ready', () => {
-        
+
         // Load and start all the scripts
         loadAllScripts();
 
         // Log the status of the bot
-        try {
-            console.log(`Logged in as ${bot.user.tag}`);
-        } catch (err) {
-            console.log('Invalid Token');
-            return;
-        }
+        console.log(`Logged in as ${bot.user.tag}`);
 
         // Update the user card
         document.getElementById('userCardName').innerHTML = bot.user.username;
@@ -103,6 +102,12 @@ let load = token => {
             guildNameContainer.style.width = guildName.getBoundingClientRect().width + 8 + 'px';
         });
     });
+
+    // A user has started typing
+    bot.on('typingStart', (e) => {
+        if(e != selectedChan) return;
+        typingStatus();
+    })    
 
     // A message has been deleted
     bot.on('messageDelete', (m) => {
@@ -196,7 +201,6 @@ let load = token => {
         while (document.getElementById('guild-list').firstChild) {
             document.getElementById('guild-list').removeChild(document.getElementById('guild-list').firstChild);
         }
-        
         unloadAllScripts();
     });
 };

@@ -20,6 +20,9 @@ let channelSelect = (c, name) => {
     name.style.color = '#eee';
     messageCreate();
 
+    // Refresh the typing indicator
+    typingStatus()
+
     // Set the message bar placeholder
     document.getElementById('msgbox').placeholder = `Message #${c.name}`
 

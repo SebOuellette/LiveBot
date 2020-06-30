@@ -11,6 +11,32 @@ let oldimg;
 let generatingMessages = false;
 let barry = false;
 
+// Disable the security warning from electron
+process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = true;
+
+// Custom error messages
+function loginErrors(err){
+    let code = err.code ? err.code : err;
+    switch(code){
+        case('NO-TOKEN'):
+            console.error('There is no token stored');
+            settings.functions.openSettings('User');
+            break;
+        case('EMPTY-TOKEN'):
+            console.error('The token is empty');
+            break;
+        case('TOKEN_INVALID'):
+            console.error('Invalid Token');
+            break;
+        case('SHARDING_REQUIRED'):
+            console.error('Sharding is not a feature yet');
+            break;
+        default:
+            console.error(`Error code: ${err.code}\n${err}`);
+            break;
+    }
+}
+
 // Create the app and attach event listeners
 function create() {
     document.getElementById("msgbox")
@@ -34,9 +60,12 @@ function create() {
 
     // Call the general click event listener script
     addDocListener();
-    
-    // Load the bot with the token in storage
-    load(localStorage.getItem('livebot-token'));
+
+    // Load the bot with the token in storage or throw an error if there isn't any
+    if(settings.token)
+        load(settings.token);
+    else
+        loginErrors('NO-TOKEN')
 }
 
 // Alert that you are typing

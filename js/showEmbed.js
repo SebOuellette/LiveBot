@@ -1,5 +1,85 @@
 const { RichEmbed } = require("discord.js");
 
+/*
+This is the embed type chooser
+First it gets the order the embed is supposed to be in and then it reads the values
+Values:
+0 - Is this important to make an embed, if not then it's most likely an image or a video
+1 - What class is supposed to be used on here if any
+*/
+
+
+let fileTypes = {
+    'image': ['png', 'jpeg', 'jpg', 'webp'],
+    'video': ['mp4', 'webm', 'mov', 'gif', 'gifv'],
+    'audio': ['mp3', 'wav', 'flac', 'ogg']
+}
+
+let embedTypes = {
+    'rich': {
+        'color': [true],
+        'thumbnail': [true],
+        'author': [true],
+        'provider': [true],
+        'title': [true],
+        'description': [true],
+        'fields': [true],
+        'image': [true],
+        'footer': [true],
+        'url': [true],
+        'video': [true]
+    },
+    'image': {
+        'author': [false],
+        'color': [false],
+        'description': [false],
+        'fields': [false],
+        'footer': [false],
+        'image': [false],
+        'provider': [false],
+        'thumbnail': [false],
+        'timestamp': [false],
+        'title': [false]
+    },
+    'video': {
+        'provider': [false],
+        'author': [false],
+        'title': [false],
+        'description': [false],
+        'thumbnail': [false],
+        'video': [false]
+    },
+    'gifv': {
+        'provider': [false],
+        'author': [false],
+        'title': [false],
+        'description': [false],
+        'thumbnail': [false],
+        'video': [false]
+    },
+    'article': {
+        'color': [true],
+        'provider': [true],
+        'author': [true],
+        'title': [true],
+        'description': [true],
+        'thumbnail': [true],
+    },
+    'link': {
+        'color': [true],
+        'thumbnail': [true],
+        'author': [false],
+        'provider': [true],
+        'title': [true],
+        'description': [true],
+        'fields': [true],
+        'image': [false],
+        'footer': [true],
+        'url': [false],
+        'video': [true]
+    }
+}
+
 let showEmbed = (embed, element, msg) => {
     let type = embed.type;
     if(['rich', 'link'].includes(type)){
