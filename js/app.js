@@ -42,8 +42,8 @@ function create() {
     document.getElementById("msgbox")
         .addEventListener("keydown", event => {
             if (event.keyCode === 13 && !event.shiftKey) {
-                sendmsg();
                 event.preventDefault();
+                sendmsg();
             }
         })
 
@@ -70,19 +70,14 @@ function create() {
 
 // Alert that you are typing
 function typing() {
-    if (selectedChan) {
-        let isTyping = bot.user._typing.has(selectedChan.id);
-
-        // Handle start and stop typing
-        if (document.getElementById("msgbox").value.length > 0 && !isTyping) {
-            
-            // Text box is not empty, start typing
-            selectedChan.startTyping();
-        } else if (document.getElementById("msgbox").value.length == 0 && isTyping) {
-
-            // Text box is empty, stop typing
-            selectedChan.stopTyping(true);
-        }
+    if(!selectedChan || !document.getElementById("msgbox").value) return;
+    selectedChan.startTyping(1);
+    let channels = bot.user._typing.keys()
+    let channel = channels.next();
+    while(!channel.done){
+        if(channel.done || !channel.value) return
+        typingTimer.typingTimeout[1](channel.value)
+        channel = channels.next(); 
     }
 }
 
