@@ -36,72 +36,16 @@ let load = token => {
         document.getElementById('guild-list').appendChild(guildIndicator);
 
         // Loop through all the guilds and create the element for the icon
-        bot.guilds.cache.forEach(g => {
-            let img;
-            // If there is no icon url for the server, create the letter icon
-            if (g.iconURL() === null) {
-                img = document.createElement('div');
-
-                img.style.backgroundColor = '#2F3136';
-                img.style.marginBottom = '4px';
-
-                let abrev = document.createElement('p');
-                abrev.id = 'guildAbrev';
-                abrev.appendChild(document.createTextNode(g.nameAcronym));
-                img.appendChild(abrev);
-            } else {
-                // The guild has an icon, create the image
-                img = document.createElement('img');
-
-                let ico;
-                ico = `https://cdn.discordapp.com/icons/${g.id}/${g.icon}.webp?size=64`;
-                img.src = ico;
-
-                img.alt = g.name;
-                img.height = '40';
-                img.width = '40';
-            }
-
-            // Styling for both image and letter icons
-            img.style.height = '40px';
-            img.style.width = '40px';
-            img.classList.add("guild-icon");
-            img.id = g.id;
-
-            // Add the events for the guild icons
-            img.onclick = () => {
-                guildSelect(g, img);
-                selectedGuild = g;
-            };
-            
-            // Creating the container for the icon
-            let guildIcon = document.createElement('div');
-            // Creating the container for the guilds name
-            let guildNameContainer = document.createElement('div');
-            // Creating the text element which will display the name
-            let guildName = document.createElement('p');
-
-            // Adding classes to elements
-            guildNameContainer.classList.add('guildNameContainer');
-            guildName.classList.add('guildName');
-            guildIcon.classList.add('guildIconDiv');
-
-            // Setting the name
-            guildName.innerText = g.name;
-            // Appending the name to the name container
-            guildNameContainer.appendChild(guildName);
-            // Appending the image and the container in reverse order
-            // so it could be manipulated with in css
-            guildIcon.appendChild(img);
-            guildIcon.appendChild(guildNameContainer);
-
-            // Add image to the list of guilds
-            document.getElementById('guild-list').appendChild(guildIcon);
-
-            // Changing the width of the name container so it fits the text
-            guildNameContainer.style.width = guildName.getBoundingClientRect().width + 8 + 'px';
-        });
+        addGuilds();
     });
+
+    bot.on('guildCreate', (e) => {
+        addGuilds();
+    })
+
+    bot.on('guildDelete', (g) => {
+        removeGuild(g);
+    })  
 
     // A user has started typing
     bot.on('typingStart', (e) => {
