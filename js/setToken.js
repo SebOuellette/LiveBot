@@ -40,7 +40,6 @@ async function setToken(token) {
         document.getElementById('tokenbox').style.borderColor = '#313339';
     } catch (err) {
         // Check if they have the user settings panel open. If not, show the token popup
-        console.error(err)
         document.getElementById('tokenbox').style.borderColor = '#f00';
         // Set the error to true so it doesn't save the token
         error = true
