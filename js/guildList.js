@@ -92,9 +92,15 @@ function removeGuild(g){
     if (!guild) return;
     // Get the guilds respected element
     let guildElement = guild[1];
-    // If the guild is selected then remove hide the guild indicator
-    if(guildElement.firstChild.classList.contains('selectedGuild'))
+    // If the guild is selected then hide the guild indicator and set all the needed variables to undefined
+    if(g.id == selectedGuild.id){
         document.getElementById('guildIndicator').style.display = 'none';
+        selectedGuild = undefined;
+        if (selectedChan.guild.deleted){
+            selectedChan = undefined;
+            selectedChatDiv = undefined;
+        }
+    }
     // Remove the guild element from the guild list
     guildElement.parentElement.removeChild(guildElement);
     // Remove the guild out of the cache
