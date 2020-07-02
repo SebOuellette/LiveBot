@@ -127,15 +127,17 @@ function buildMsgMenu(target) {
 
 // Build the user menu for right clicking users
 function buildUserMenu(target) {
-    let member = selectedGuild.members.cache.get(target.id);
+    let guild = !!target.id
+    let id = target.id ? target.id : target.parentElement.parentElement.classList[1]
+    let member = guild ? selectedGuild.members.cache.get(id) : selectedChan.guild.members.cache.get(id);
     let menu = document.getElementById('rcMenu');
     
     // Mention option
-    let mentionOption = newOption('Mention', mentionUser, false, false, target.id);
+    let mentionOption = newOption('Mention', mentionUser, false, false, id);
     menu.appendChild(mentionOption);
 
     // Copy user ID option
-    let copyIDOption = newOption('Copy ID', copyUserID, false, false, target.id);
+    let copyIDOption = newOption('Copy ID', copyUserID, false, false, id);
     menu.appendChild(copyIDOption);
 
     // Copy avatar link option
