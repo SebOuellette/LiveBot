@@ -14,27 +14,20 @@ let barry = false;
 // Disable the security warning from electron
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = true;
 
-// Custom error messages
-function loginErrors(err){
-    let code = err.code ? err.code : err;
-    switch(code){
-        case('NO-TOKEN'):
-            console.error('There is no token stored');
-            settings.functions.openSettings('User');
-            break;
-        case('EMPTY-TOKEN'):
-            console.error('The token is empty');
-            break;
-        case('TOKEN_INVALID'):
-            console.error('Invalid Token');
-            break;
-        case('SHARDING_REQUIRED'):
-            console.error('Sharding is not a feature yet');
-            break;
-        default:
-            console.error(`Error code: ${err.code}\n${err}`);
-            break;
-    }
+// Animations used in javascript if they can't be used in css
+let animations = {
+    flashRed: [
+        {borderColor: '#313339'},
+        {borderColor: '#A00'},
+        {borderColor: '#F00'},
+        {borderColor: '#A00'},
+        {borderColor: '#313339'}
+    ],
+    flashTextRed: [
+        {color: '#B4B8BC'},
+        {color: '#F00'},
+        {color: '#B4B8BC'}
+    ]
 }
 
 // Create the app and attach event listeners
@@ -65,7 +58,7 @@ function create() {
     if(settings.token)
         load(settings.token);
     else
-        loginErrors('NO-TOKEN')
+        errorHandler('NO-TOKEN')
 }
 
 // Alert that you are typing

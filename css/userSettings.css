@@ -335,7 +335,7 @@ input.errorTextBox {
 .checkbox.toggled {
     background-color: #7289da;
     border-color: #7289da;
-    animation: checkBounce 0.1s;
+    animation: checkBounce 0.3s;
 }
 
 .checkbox img {

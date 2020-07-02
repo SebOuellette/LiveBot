@@ -2,8 +2,12 @@ async function setToken(token) {
     let client = new Discord.Client();
     let error = false;
     try {
+        if(!token.replace(/ /, '').length){
+            errorHandler('EMPTY-TOKEN');
+            throw('EMPTY-TOKEN')
+        }
         await client.login(token).catch(err => {
-            loginErrors(token ? err : 'EMPTY-TOKEN')
+            errorHandler(err)
             throw (err)
         });
         client.destroy();
@@ -39,8 +43,10 @@ async function setToken(token) {
         load(token);
         document.getElementById('tokenbox').style.borderColor = '#313339';
     } catch (err) {
-        // Check if they have the user settings panel open. If not, show the token popup
-        document.getElementById('tokenbox').style.borderColor = '#f00';
+        // Flash red if the token is incorrect
+        let tokenBox = document.getElementById('tokenbox');
+        tokenBox.animate(animations.flashRed);
+
         // Set the error to true so it doesn't save the token
         error = true
     }

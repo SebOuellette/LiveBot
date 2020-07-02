@@ -5,8 +5,12 @@
 let load = token => {
     // Login to the bot profile
     global.bot = new Discord.Client({});
+    if(!token.replace(/ /, '').length){
+        errorHandler('EMPTY-TOKEN');
+        return
+    }
     bot.login(token).catch(err => {
-        loginErrors(token ? err : 'EMPTY-TOKEN')
+        errorHandler(err)
     }).then(settings.token = token);
 
     bot.on('ready', () => {

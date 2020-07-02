@@ -101,7 +101,7 @@ function generateMsgHTML(m, previousMessage, count = -1, fetchSize = undefined) 
 
         // Create timestamp
         let timestamp = document.createElement('p');
-        timestamp.innerText = m.createdAt.toLocaleString('en-US', {day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit'});
+        timestamp.innerText = ' ' + m.createdAt.toLocaleString('en-US', {day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit'});
         timestamp.classList.add("messageTimestamp");
         darkBG.appendChild(timestamp);
     } else {

@@ -17,6 +17,10 @@ p {
     white-space: pre-wrap;
 }
 
+img{
+    -webkit-user-drag: none;
+}
+
 body {
     background-color: #202225;
     font-family: Whitney-light, "Helvetica Neue", Helvetica, Arial, sans-serif;

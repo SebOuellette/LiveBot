@@ -26,7 +26,7 @@ let parseMessage = (text, msg = null, embed = false, ping = false, embededLink) 
 
     // General message parsing
     // Match links
-    textContent = textContent.replace(/https?:\/\/((?:\w|.)+?)(?=\/|(?= )|$)(?:[\w\.!@#$%^&*\-\/]+?)*(?:\?.*?(?=[>)}\]:; ]|$))?/mg, (a, b, c) => {
+    textContent = textContent.replace(/https?:\/\/((?:\w|.)+?)(?=\/|(?= )|[>)}\]:; ]|$)(?:[\w\.!@#$%^&*\-\/]+?)*(?:\?.*?(?=[>)}\]:; ]|$))?/mg, (a, b, c) => {
         let endl = '';
         if (!a.endsWith('/'))
             endl = '/';

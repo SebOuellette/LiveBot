@@ -64,7 +64,7 @@ function addGuilds() {
         guildIcon.appendChild(guildNameContainer);
 
         // Add image to the list of guilds
-        if(lastGuild == null || lastGuild.parentElement.lastElementChild == lastGuild){
+        if(lastGuild == null || lastGuild.parentElement && lastGuild.parentElement.lastElementChild == lastGuild){
             // Append the guild to the last spot
             document.getElementById('guild-list').appendChild(guildIcon);
             cachedGuilds.push([g.id, guildIcon]);

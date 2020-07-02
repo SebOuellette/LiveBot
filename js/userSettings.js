@@ -11,7 +11,7 @@
 let settings = {
     token: localStorage.getItem('livebot-token'),
     options: {
-        settingsOpened: false
+        settingsOpened: false,
     },
     functions: {
         getGroup: (groupName) => {
@@ -29,15 +29,24 @@ let settings = {
         },
         closeSettings: (groupName) => {
             if (settings.options.settingsOpened) {
-                let [element, group] = settings.functions.getGroup(groupName)
-                setTimeout(() => {openPopup(element, group)}, 700);
                 toggleSettings();
             }
+        },
+        closePopups: () => {
+            // Remove all popups
+            let items = document.getElementById("optionGroups").parentElement.querySelectorAll(".settingsPopup");
+            items.forEach(item => {
+                if(!item.parentElement) return;
+                item.parentElement.removeChild(item);
+            });
         }
     }
 }
 
 let toggleSettings = () => {
+    if(settings.options.settingsOpened){
+        settings.functions.closePopups();
+    }
     let userCard = document.getElementById('userSettings');
     if (userCard.classList.length) {
         userCard.classList.toggle('userSettingsToggleOff');
@@ -100,7 +109,10 @@ function buildSettingsMenu(jsonObj) {
             // Add the onclick event listener
             category.onclick = () => {
                 // Open the popup menu
-                openPopup(category, group)
+                if(group.settings)
+                    openPopup(category, group)
+                else // If it's still in developement then don't open the menu but flash red
+                    category.animate(animations.flashTextRed, {duration: 350});
             };
 
         })
@@ -110,10 +122,7 @@ function buildSettingsMenu(jsonObj) {
 // Building popup menu
 function createPopup(parent, jsonObj) {
     // Remove all other popups before continuing
-    let items = parent.parentElement.querySelectorAll(".settingsPopup");
-    items.forEach(item => {
-        item.parentElement.removeChild(item);
-    });
+    settings.functions.closePopups();
 
     let popupContainer = document.createElement("div");
     popupContainer.classList.add("settingsPopup");

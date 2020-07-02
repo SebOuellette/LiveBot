@@ -288,6 +288,14 @@ let showVideoEmbed = (embed, msg, element) => {
     video.src = url;
     video.classList.add("previewImage");
     
+    video.onmouseenter = e => {
+        video.setAttribute('controls', 'true');
+    }
+
+    video.onmouseleave = e => {
+        video.removeAttribute('controls');
+    }
+    
     video.onclick = e => {
         video.paused ? video.play() : video.pause();
     }
