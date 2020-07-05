@@ -2,6 +2,8 @@
 let cachedGuilds = [];
 
 function addGuilds() {
+    // Check if the guild is available first, if it's not then remove it
+    if(!g.available) return;
     // Get the first guild in the list if there is any
     let lastGuild = cachedGuilds.length ? cachedGuilds[0][1] : null;
     bot.guilds.cache.forEach(g => {
@@ -88,7 +90,7 @@ function addGuilds() {
 function removeGuild(g){
     // Find the guild in the cache
     let guild = cachedGuilds.find(e => e[0] == g.id);
-    // If the guild ins't in the cache then cancel the rest
+    // If the guild isn't in the cache then cancel the rest
     if (!guild) return;
     // Get the guilds respected element
     let guildElement = guild[1];

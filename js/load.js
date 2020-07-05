@@ -43,7 +43,12 @@ let load = token => {
         addGuilds();
     });
 
-    bot.on('guildCreate', (e) => {
+    bot.on('guildUnavailable', (g) => {
+        if(g.available) return;
+        removeGuild(g);
+    })
+
+    bot.on('guildCreate', (g) => {
         addGuilds();
     })
 
@@ -52,8 +57,8 @@ let load = token => {
     })  
 
     // A user has started typing
-    bot.on('typingStart', (e) => {
-        if(e != selectedChan) return;
+    bot.on('typingStart', (c) => {
+        if(c != selectedChan) return;
         typingStatus();
     })    
 
