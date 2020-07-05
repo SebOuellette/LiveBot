@@ -2,11 +2,11 @@
 let cachedGuilds = [];
 
 function addGuilds() {
-    // Check if the guild is available first, if it's not then remove it
-    if(!g.available) return;
     // Get the first guild in the list if there is any
     let lastGuild = cachedGuilds.length ? cachedGuilds[0][1] : null;
     bot.guilds.cache.forEach(g => {
+        // Check if the guild is available first, if it's not then remove it
+        if(!g.available) return;
         let img;
         // If there is no icon url for the server, create the letter icon
         if (g.iconURL() === null) {
