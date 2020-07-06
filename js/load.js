@@ -45,6 +45,7 @@ let load = token => {
 
     bot.on('guildUnavailable', (g) => {
         if(g.available) return;
+        console.error(`Guild ${g.name} went offline`)
         removeGuild(g);
     })
 

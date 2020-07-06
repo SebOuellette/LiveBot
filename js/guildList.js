@@ -1,12 +1,15 @@
 // Guilds that are in the guild list
 let cachedGuilds = [];
 
-function addGuilds() {
+async function addGuilds() {
     // Get the first guild in the list if there is any
     let lastGuild = cachedGuilds.length ? cachedGuilds[0][1] : null;
     bot.guilds.cache.forEach(g => {
         // Check if the guild is available first, if it's not then remove it
-        if(!g.available) return;
+        if(!g.available) {
+            await g.fetch()
+        }
+        if(!g.available) {`Guild ${g.name} seems to be offline`}
         let img;
         // If there is no icon url for the server, create the letter icon
         if (g.iconURL() === null) {
