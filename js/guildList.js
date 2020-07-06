@@ -4,7 +4,7 @@ let cachedGuilds = [];
 async function addGuilds() {
     // Get the first guild in the list if there is any
     let lastGuild = cachedGuilds.length ? cachedGuilds[0][1] : null;
-    bot.guilds.cache.forEach(g => {
+    await bot.guilds.cache.forEach(async g => {
         // Check if the guild is available first, if it's not then remove it
         if(!g.available) {
             await g.fetch()
