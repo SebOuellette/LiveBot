@@ -17,43 +17,44 @@ function addDocListener() {
         let y = e.clientY;
 
         let rcMenu = document.getElementById('rcMenu');
-        rcMenu.innerHTML = '';
         if (e.which == 1) { // Left click
             rcMenu.classList.remove('open');
         } else if (e.which == 3) { // Right click
+            // Clear the menu (It's only needed here because you only open it when you right click)
+            rcMenu.innerHTML = '';
+
             if (e.target.classList.contains('rcOption') || e.target.parentElement.classList.contains('rcOption')) return rcMenu.classList.remove('open');
             // Get the message block containing the message
-            while (!target.classList.contains('messageBlock') && !target.classList.contains('mLUserDiv') && target != document.body) {
+            let domElements = ['messageBlock', 'mLUserDiv', 'messageUsername', 'messageImg']
+            while (!domElements.some(r=> target.classList.contains(r)) && target != document.body) {
                 target = target.parentElement;
             }
+            // Check if the target is the body and if it is then return
+            if(target == document.body) return rcMenu.classList.remove('open');
 
-            // Checking otherwise
-            if (target.classList.contains('messageBlock') || target.classList.contains('mLUserDiv')) {
-                rcMenu.classList.add('open');
+            // If it's not body then continue and open the menu
+            rcMenu.classList.add('open');
 
-                // Check what the menu is for and then build the menu so we can use the height
-                if(target.classList.contains('messageBlock'))
-                    buildMsgMenu(target, rcMenu);
-                else if(target.classList.contains('mLUserDiv'))
-                    buildUserMenu(target, rcMenu)
+            // Check what the menu is for and then build the menu so we can use the height
+            if(target.classList.contains('messageBlock'))
+                buildMsgMenu(target, rcMenu);
+            else if(domElements.some(r=> target.classList.contains(r)))
+                buildUserMenu(target, rcMenu);
 
-                // How far away from the bottom it will appear, in px
-                let menuOffset = 10;
+            // How far away from the bottom it will appear, in px
+            let menuOffset = 10;
 
-                // Check if the menu is overflowing
-                if (y + rcMenu.clientHeight > window.innerHeight)
-                    y = window.innerHeight - rcMenu.clientHeight - menuOffset;
-                if (x + rcMenu.clientWidth > window.innerWidth)
-                    x = window.innerWidth - rcMenu.clientWidth - menuOffset;
+            // Check if the menu is overflowing
+            if (y + rcMenu.clientHeight > window.innerHeight)
+                y = window.innerHeight - rcMenu.clientHeight - menuOffset;
+            if (x + rcMenu.clientWidth > window.innerWidth)
+                x = window.innerWidth - rcMenu.clientWidth - menuOffset;
 
-                rcMenu.style.left = `${x}px`;
-                rcMenu.style.top = `${y}px`;
-            } else { 
-                rcMenu.classList.remove('open');
-            }
-        } else {
+            rcMenu.style.left = `${x}px`;
+            rcMenu.style.top = `${y}px`;
+        } else if (e.which == 2) {} // Check if it's middle click since you don't need to remove it if it is
+        else
             rcMenu.classList.remove('open');
-        }
     })
 }
 
@@ -126,15 +127,17 @@ function buildMsgMenu(target) {
 
 // Build the user menu for right clicking users
 function buildUserMenu(target) {
-    let member = selectedGuild.members.cache.get(target.id);
+    let guild = !!target.id
+    let id = target.id ? target.id : target.parentElement.parentElement.classList[1]
+    let member = guild ? selectedGuild.members.cache.get(id) : selectedChan.guild.members.cache.get(id);
     let menu = document.getElementById('rcMenu');
     
     // Mention option
-    let mentionOption = newOption('Mention', mentionUser, false, false, target.id);
+    let mentionOption = newOption('Mention', mentionUser, false, false, id);
     menu.appendChild(mentionOption);
 
     // Copy user ID option
-    let copyIDOption = newOption('Copy ID', copyUserID, false, false, target.id);
+    let copyIDOption = newOption('Copy ID', copyUserID, false, false, id);
     menu.appendChild(copyIDOption);
 
     // Copy avatar link option

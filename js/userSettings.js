@@ -8,7 +8,45 @@
 //   toggles - default
 //   separator - label
 
+let settings = {
+    token: localStorage.getItem('livebot-token'),
+    options: {
+        settingsOpened: false,
+    },
+    functions: {
+        getGroup: (groupName) => {
+            let element = Array.from(document.getElementsByClassName('settingLabel')).find(e => e.innerText == groupName).parentElement
+            let groups = ['Presence', 'User', 'Scripts', 'Servers']
+            let group = jsonSettings[0]["groups"][groups.indexOf(groupName)];
+            return [element, group]
+        },
+        openSettings: (groupName) => {
+            if (!settings.options.settingsOpened) {
+                toggleSettings();
+                let [element, group] = settings.functions.getGroup(groupName)
+                setTimeout(() => {openPopup(element, group)}, 600);
+            }
+        },
+        closeSettings: (groupName) => {
+            if (settings.options.settingsOpened) {
+                toggleSettings();
+            }
+        },
+        closePopups: () => {
+            // Remove all popups
+            let items = document.getElementById("optionGroups").parentElement.querySelectorAll(".settingsPopup");
+            items.forEach(item => {
+                if(!item.parentElement) return;
+                item.parentElement.removeChild(item);
+            });
+        }
+    }
+}
+
 let toggleSettings = () => {
+    if(settings.options.settingsOpened){
+        settings.functions.closePopups();
+    }
     let userCard = document.getElementById('userSettings');
     if (userCard.classList.length) {
         userCard.classList.toggle('userSettingsToggleOff');
@@ -20,7 +58,25 @@ let toggleSettings = () => {
         userPullOutIcon.classList.toggle('userSettingsFlipOff');
     }
     userPullOutIcon.classList.toggle('userSettingsFlip');
+    settings.options.settingsOpened = !settings.options.settingsOpened;
 };
+
+// A function to open the popup so it can be used outside of the click event
+// I could have just made it click the element but this is more elegant imo
+function openPopup(category, group){
+    Array.from(document.getElementsByClassName("optionCategory")).forEach(category2 => {
+        if (category != category2) {
+            category2.classList.remove("toggledOn");
+        }
+    });
+
+    category.classList.toggle("toggledOn");
+    if (category.classList.contains("toggledOn")) {
+        createPopup(category.parentElement,  group);
+    } else {
+        category.parentElement.querySelector(".settingsPopup").remove();
+    }
+}
 
 // Building main settings menu
 function buildSettingsMenu(jsonObj) {
@@ -50,22 +106,14 @@ function buildSettingsMenu(jsonObj) {
             span.innerText = group.name;
             category.appendChild(span);
 
-            // Add the on click event listener
-            category.addEventListener("click", event => {
-    
-                Array.from(document.getElementsByClassName("optionCategory")).forEach(category2 => {
-                    if (category != category2) {
-                        category2.classList.remove("toggledOn");
-                    }
-                });
-    
-                category.classList.toggle("toggledOn");
-                if (category.classList.contains("toggledOn")) {
-                    createPopup(category.parentElement,  group);
-                } else {
-                    category.parentElement.querySelector(".settingsPopup").remove();
-                }
-            });
+            // Add the onclick event listener
+            category.onclick = () => {
+                // Open the popup menu
+                if(group.settings)
+                    openPopup(category, group)
+                else // If it's still in developement then don't open the menu but flash red
+                    category.animate(animations.flashTextRed, {duration: 350});
+            };
 
         })
     })
@@ -74,10 +122,7 @@ function buildSettingsMenu(jsonObj) {
 // Building popup menu
 function createPopup(parent, jsonObj) {
     // Remove all other popups before continuing
-    let items = parent.parentElement.querySelectorAll(".settingsPopup");
-    items.forEach(item => {
-        item.parentElement.removeChild(item);
-    });
+    settings.functions.closePopups();
 
     let popupContainer = document.createElement("div");
     popupContainer.classList.add("settingsPopup");

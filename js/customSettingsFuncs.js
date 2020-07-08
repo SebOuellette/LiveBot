@@ -29,12 +29,17 @@ function setActivity(dropdowns, activityName, streamurl) {
 // Set the new username
 async function setUsername(name) {
     try {
-        await bot.user.setUsername(name);
+        if(!name.replace(/ |#/, '').length){
+            errorHandler('EMPTY-NAME');
+            throw('EMPTY-NAME')
+        }
+        await bot.user.setUsername(name).catch(err => {
+            errorHandler(err)
+            throw (err)
+        });
         document.getElementById('userCardName').innerText = bot.user.username;
-        document.getElementsByClassName('newNameInput')[0].classList.remove('errorTextBox')
-    } catch (e) {
-        document.getElementsByClassName('newNameInput')[0].classList.add('errorTextBox')
-        console.error(e)
+    } catch (err) {
+        document.getElementsByClassName('newNameInput')[0].animate(animations.flashRed, {duration: 500});
     }
 }
 

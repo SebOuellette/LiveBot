@@ -11,14 +11,13 @@ let channelSelect = (c, name) => {
         return;
     }
 
-    // Stop typing in the current channel before switching
-    if (selectedChan) {
-        selectedChan.stopTyping(true);
-    }
     selectedChan = c;
     selectedChanDiv = name;
     name.style.color = '#eee';
     messageCreate();
+
+    // Refresh the typing indicator
+    typingStatus(true)
 
     // Set the message bar placeholder
     document.getElementById('msgbox').placeholder = `Message #${c.name}`

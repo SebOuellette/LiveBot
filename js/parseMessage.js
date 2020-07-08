@@ -26,7 +26,7 @@ let parseMessage = (text, msg = null, embed = false, ping = false, embededLink) 
 
     // General message parsing
     // Match links
-    textContent = textContent.replace(/https?:\/\/((?:\w|.)+?)(?=\/|(?= )|$)(?:[\w\.!@#$%^&*\-\/]+?)*(?:\?.*?(?=[>)}\]:; ]|$))?/mg, (a, b, c) => {
+    textContent = textContent.replace(/https?:\/\/((?:\w|.)+?)(?=\/|(?= )|[>)}\]:; ]|$)(?:[\w\.!@#$%^&*\-\/]+?)*(?:\?.*?(?=[>)}\]:; ]|$))?/mg, (a, b, c) => {
         let endl = '';
         if (!a.endsWith('/'))
             endl = '/';
@@ -116,8 +116,8 @@ function formatPings(msg, text) {
         }
 
         name = name.replace(/(\[|\]|\(|\)|\\)/gm, a => '\\' + a)
-        pingRegex = new RegExp(`(?:(<|>)?@!?(${name}))`, 'g');
-        channelRegex = new RegExp(`(?:(<|>)?#(${name}))`, 'g');
+        let pingRegex = new RegExp(`(?:(<|>)?@!?(${name}))`, 'g');
+        let channelRegex = new RegExp(`(?:(<|>)?#(${name}))`, 'g');
         textContent = textContent.replace(pingRegex, (a, b, c) => b == '<' || b == '>' ? a : `<span class="ping" ${id}" ${color ? `style="color: ${color}"` : ''}>@${c}</span>`)
                                  .replace(channelRegex, (a, b, c) => b == '<' || b == '>' ? a : `<span class="ping ${id}">#${c}</span>`);
 

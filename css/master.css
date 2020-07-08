@@ -9,12 +9,25 @@
     src: url("../fonts/whitney-light.otf");
     font-weight: 100;
 }
+
+div > *{
+    user-select: text;
+}
+
+div {
+    user-select: none;
+}
+
 /* Some text styling */
 p {
     font-size: 16px;
     overflow-wrap: break-word;
     word-wrap: break-word;
     white-space: pre-wrap;
+}
+
+img{
+    -webkit-user-drag: none;
 }
 
 body {

@@ -81,17 +81,14 @@ function generateMsgHTML(m, previousMessage, count = -1, fetchSize = undefined) 
         // Find the colour of their name
         if (m.member && m.member.roles._roles.size > 1) {
             let color;
-            
-            if (m.member.roles.hoist) {
-                // If the user has a hoisted role, use that colour
-                color = m.member.roles.hoist.hexColor;
-            } else {
-                // Otherwise just use the colour of their highest role
-                color = m.member.roles.highest.hexColor;
-                // If the colour is black, the role doesn't have a colour, and it should display white
-                if (color == '#000000')
-                    color = '#fff';
-            }
+
+            // Use the heighest role for their color (Since the hoist role is just the one that displays, not the one that determines the color)
+            color = m.member.roles.highest.hexColor;
+
+            // If the colour is black, the role doesn't have a colour, and it should display white
+            if (color == '#000000')
+                color = '#fff';
+
             name.style.color = color;
         } else {
             name.style.color = '#fff'
@@ -101,7 +98,7 @@ function generateMsgHTML(m, previousMessage, count = -1, fetchSize = undefined) 
 
         // Create timestamp
         let timestamp = document.createElement('p');
-        timestamp.innerText = m.createdAt.toLocaleString('en-US', {day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit'});
+        timestamp.innerText = ' ' + m.createdAt.toLocaleString('en-US', {day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit'});
         timestamp.classList.add("messageTimestamp");
         darkBG.appendChild(timestamp);
     } else {
