@@ -40,6 +40,8 @@ function generateMsgHTML(m, previousMessage, count = -1, fetchSize = undefined) 
         div = document.createElement('div');
         div.classList.add('messageCont');
         div.classList.add(m.author.id);
+        if(m.channel.type == 'dm')
+        div.classList.add('dms');
         if (timebunch) {
             div.classList.add('timeSeparated');
         }

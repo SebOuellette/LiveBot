@@ -46,10 +46,10 @@ let typingTimer = {
 
 function typingStatus(override = false) {
     if (!selectedChan) return;
-
+    let dms = selectedChan.type == 'dm';
     let indicator = document.getElementById('typingIndicator');
     let users = [];
-    selectedChan._typing.forEach(e => users.push(selectedChan.members.get(e.user.id)))
+    selectedChan._typing.forEach(e => users.push(dms ? bot.users.cache.get(e.user.id) : selectedChan.members.get(e.user.id)))
     let text = "";
 
     let self = users.find(member => member.user == bot.user);
@@ -65,10 +65,11 @@ function typingStatus(override = false) {
     }
 
     for (let user in users) {
+        let name = dms ? users[user].username : users[user].displayName
         if (user != length - 1)
-            text += users[user].displayName + ", ";
+            text += name + ", ";
         else
-            text += users[user].displayName;
+            text += name;
     }
 
 

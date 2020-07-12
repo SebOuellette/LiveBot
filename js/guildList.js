@@ -103,7 +103,7 @@ function removeGuild(g){
         selectedGuild = undefined;
     }
     // If the channel is deleted then remove it from the variable
-    if (selectedChan && selectedChan.guild.deleted){
+    if (selectedChan && selectedChan.guild.deleted && !selectedChan.type == dm){
         selectedChan = undefined;
         selectedChatDiv = undefined;
     }

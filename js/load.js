@@ -91,7 +91,7 @@ let load = token => {
     // A message has been updated
     bot.on('messageUpdate', (oldM, m) => {
         // Return if it's not the selected channel or if the message wasn't edited
-        if(m.channel != selectedChan || !m.editedAt) return;
+        if(m.channel ? m.channel : m.dmChannel != selectedChan || !m.editedAt) return;
         // Get the dom element from the message
         let message = document.getElementById(m.id).querySelector('.messageText');
         message.innerHTML = `${parseMessage(m.cleanContent)} <time class='edited'>(edited)</time>`;
@@ -100,8 +100,17 @@ let load = token => {
 
     // New message recieved
     bot.on('message', (m) => {
+        if (selectedChan && selectedChan.type == 'dm') {
+
+            // If the message was sent to the selected channel
+            if (selectedChan && m.channel.id == selectedChan.id) {
+                //document.getElementById('message-list').removeChild(document.getElementById('message-list').firstChild);
+                let previousMessage;
+                fetchLast(previousMessage);
+            }
+        }
         // If there is a channel selected
-        if (selectedGuild && m.guild.id == selectedGuild.id) {
+        else if (selectedGuild && m.guild.id == selectedGuild.id) {
 
             let channel = document.getElementById(m.channel.id);
             if (channel && (!selectedChan || (selectedChan && selectedChan.id != m.channel.id))) {
@@ -112,39 +121,39 @@ let load = token => {
             if (selectedChan && m.channel.id == selectedChan.id) {
                 //document.getElementById('message-list').removeChild(document.getElementById('message-list').firstChild);
                 let previousMessage;
-                fetchLast();
+                fetchLast(previousMessage);
+            }
+        }
 
-                // Get last message in channel
-                async function fetchLast() {
-                    await m.channel.messages.fetch({ limit: 2 }).then(msg => {
-                        previousMessage = msg.map(mseg => mseg)[1];
-                    });
+        // Get last message in channel
+        async function fetchLast(previousMessage) {
+            await m.channel.messages.fetch({ limit: 2 }).then(msg => {
+                previousMessage = msg.map(mseg => mseg)[1];
+            });
 
-                    let scroll = false;
-                    if (document.getElementById('message-list').scrollHeight - Math.floor(document.getElementById('message-list').scrollTop) == document.getElementById('message-list').clientHeight) {
-                        scroll = true;
-                    }
+            let scroll = false;
+            if (document.getElementById('message-list').scrollHeight - Math.floor(document.getElementById('message-list').scrollTop) == document.getElementById('message-list').clientHeight) {
+                scroll = true;
+            }
 
-                    if (barry) {
-                        bunch = false;
-                        barry = false;
-                    }
+            if (barry) {
+                bunch = false;
+                barry = false;
+            }
 
-                    // Generate and add the message
-                    let message = generateMsgHTML(m, previousMessage);
-                    document.getElementById('message-list').appendChild(message);
+            // Generate and add the message
+            let message = generateMsgHTML(m, previousMessage);
+            document.getElementById('message-list').appendChild(message);
 
-                    // Auto scroll with the message
-                    // Some debug stuff \/
-                    // console.log("Client height: " + document.getElementById('message-list').clientHeight);
-                    // console.log("Message list top: " + document.getElementById('message-list').scrollTop);
-                    // console.log("Message list scrolled: " + document.getElementById('message-list').scrollHeight);
-                    // console.log("Total Height: " + (document.getElementById('message-list').scrollHeight - Math.floor(document.getElementById('message-list').scrollTop)));
-                    if (scroll == true) {
-                        document.getElementById('message-list').scrollTop = document.getElementById('message-list').scrollHeight;
-                        scroll = false;
-                    }
-                }
+            // Auto scroll with the message
+            // Some debug stuff \/
+            // console.log("Client height: " + document.getElementById('message-list').clientHeight);
+            // console.log("Message list top: " + document.getElementById('message-list').scrollTop);
+            // console.log("Message list scrolled: " + document.getElementById('message-list').scrollHeight);
+            // console.log("Total Height: " + (document.getElementById('message-list').scrollHeight - Math.floor(document.getElementById('message-list').scrollTop)));
+            if (scroll == true) {
+                document.getElementById('message-list').scrollTop = document.getElementById('message-list').scrollHeight;
+                scroll = false;
             }
         }
     });

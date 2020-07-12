@@ -1,3 +1,5 @@
+const { User } = require("discord.js");
+
 function addDocListener() {
     document.addEventListener('keydown', e => {
         // When ESC is pressed
@@ -7,7 +9,7 @@ function addDocListener() {
         }
     })
 
-    document.addEventListener("mousedown", e => {
+    document.addEventListener("mousedown", async e => {
         // Set the target and whatnot
         e = e || window.event;
         let target = e.target || e.srcElement;
@@ -32,14 +34,19 @@ function addDocListener() {
             // Check if the target is the body and if it is then return
             if(target == document.body) return rcMenu.classList.remove('open');
 
-            // If it's not body then continue and open the menu
-            rcMenu.classList.add('open');
-
+            // Variable to keep track of if the menu should be opened
+            let open;
             // Check what the menu is for and then build the menu so we can use the height
             if(target.classList.contains('messageBlock'))
-                buildMsgMenu(target, rcMenu);
+                open = await buildMsgMenu(target, rcMenu);
             else if(domElements.some(r=> target.classList.contains(r)))
-                buildUserMenu(target, rcMenu);
+                open = await buildUserMenu(target, rcMenu);
+
+            // Check if it should be opened and if it shoudn't close it just in case
+            if(!open) return rcMenu.classList.remove('open');
+
+            // Open the menu if it's ready
+            rcMenu.classList.add('open');
 
             // How far away from the bottom it will appear, in px
             let menuOffset = 10;
@@ -98,8 +105,8 @@ function buildMsgMenu(target) {
 
     // Check permissions
     let editGreyed = message.author.id == bot.user.id ? false : true;
-    let pinGreyed = selectedChan.members.get(bot.user.id).hasPermission('MANAGE_MESSAGES') ? false : true;
-    let deleteGreyed = message.author.id == bot.user.id ? false : selectedChan.members.get(bot.user.id).hasPermission('MANAGE_MESSAGES') ? false : true;
+    let pinGreyed = selectedChan.members ? selectedChan.members.get(bot.user.id).hasPermission('MANAGE_MESSAGES') ? false : true : false;
+    let deleteGreyed = message.author.id == bot.user.id ? false : selectedChan.members ? selectedChan.members.get(bot.user.id).hasPermission('MANAGE_MESSAGES') ? false : true : true;
     
     // Edit option
     let editOption = newOption('Edit Message', editMsg, false, editGreyed, target);
@@ -123,15 +130,34 @@ function buildMsgMenu(target) {
     // Copy message ID option
     let copyIDOption = newOption('Copy Message ID', copyMessageID, false, false, target.id);
     menu.appendChild(copyIDOption);
+
+    return true;
 }
 
 // Build the user menu for right clicking users
 function buildUserMenu(target) {
     let guild = !!target.id
+    let dm = target.parentElement.parentElement.classList.contains('dms')
     let id = target.id ? target.id : target.parentElement.parentElement.classList[1]
-    let member = guild ? selectedGuild.members.cache.get(id) : selectedChan.guild.members.cache.get(id);
+    let member = guild ? selectedGuild.members.cache.get(id) : !dm ? selectedChan.guild.members.cache.get(id) : bot.users.cache.get(id);
+    if (!member) return false;
     let menu = document.getElementById('rcMenu');
     
+    // Check if it's not dm's
+    console.log(dm)
+    if(!dm){
+        // Get the user rather than the member
+        let user = member.user ? member.user : member;
+        // Check if the user isn't a bot and that it's not you (Just in case there's ever user support)
+        if(!user.bot && bot.user != user) {
+            // DM option
+            let dmOption = newOption('Message', dmUser, false, false, user);
+            menu.appendChild(dmOption);
+            // A break to separate the text to make it look nicer
+            menu.append(newBreak());
+        }
+    }
+
     // Mention option
     let mentionOption = newOption('Mention', mentionUser, false, false, id);
     menu.appendChild(mentionOption);
@@ -143,5 +169,7 @@ function buildUserMenu(target) {
     // Copy avatar link option
     let copyAvatarLinkOption = newOption('Copy Avatar Link', copyAvatarLink, false, false, member);
     menu.appendChild(copyAvatarLinkOption);
+
+    return true;
 
 }

@@ -102,6 +102,10 @@ function copyMessageID(id) {
 
 // -------- USER MENU --------
 
+function dmUser(user){
+    dmChannelSelect(user)
+}
+
 function mentionUser(id){
     let msgBox = document.getElementById('msgbox')
     msgBox.value += `<@${id}>`

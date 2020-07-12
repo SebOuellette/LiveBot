@@ -23,7 +23,6 @@ let parseSend = (text) => {
 let parseMessage = (text, msg = null, embed = false, ping = false, embededLink) => {
     // Remove html <, > and & in the message
     let textContent = text.replace(/<|>|&/gm, (s) => s == "<" ? '&lt;' : s == '>' ? '&gt;' : '&amp');
-
     // General message parsing
     // Match links
     textContent = textContent.replace(/https?:\/\/((?:\w|.)+?)(?=\/|(?= )|[>)}\]:; ]|$)(?:[\w\.!@#$%^&*\-\/]+?)*(?:\?.*?(?=[>)}\]:; ]|$))?/mg, (a, b, c) => {
@@ -34,13 +33,15 @@ let parseMessage = (text, msg = null, embed = false, ping = false, embededLink) 
     });
 
     // Add html tags for markup
-    textContent = textContent.replace(/\*\*(.*?)\*\*/gm, '<strong>$1</strong>');
-    textContent = textContent.replace(/__(.*?)__/gm, '<u>$1</u>');
-    textContent = textContent.replace(/\*(.*?)\*/gm, '<i>$1</i>');
-    textContent = textContent.replace(/```([^\n]+)\n(.*?)(?=```)```/gs, `<div class="codeBlock${embed ? " codeBlockEmbed" : ""} $1">$2</div>`);
-    textContent = textContent.replace(/`(.*?)`/gm, '<span class="inlineCodeBlock">$1</span>');
-    textContent = textContent.replace(/\|\|(.*?)\|\|/gm, '<span class="spoilerBlock" onclick="discoverSpoiler(this)">$1</span>');
-    textContent = textContent.replace(/~~(.*?)~~/gm, '<del>$1</del>');
+    textContent = textContent.replace(/(?<!\\)\*\*\*(.*?)(?<!\\)\*\*\*/gm, '<strong><i>$1<i></strong>');
+    textContent = textContent.replace(/(?<!\\)\*\*(.*?)(?<!\\)\*\*/gm, '<strong>$1</strong>');
+    textContent = textContent.replace(/(?<!\\)__(.*?)(?<!\\)__/gm, '<u>$1</u>');
+    textContent = textContent.replace(/(?<!\\)_(.*?)(?<!\\)_/gm, '<i>$1</i>');
+    textContent = textContent.replace(/(?<!\\)\*(.*?)(?<!\\)\*/gm, '<i>$1</i>');
+    textContent = textContent.replace(/(?<!\\)\`\`\`([^\n]+)?\n(.*?)(?:\n)?(?=\`\`\`)\`\`\`/gs, `<div class="codeBlock${embed ? " codeBlockEmbed" : ""} $1">$2</div>`);
+    textContent = textContent.replace(/(?<!\\)`(.*?)`/gm, '<span class="inlineCodeBlock">$1</span>');
+    textContent = textContent.replace(/(?<!\\)\|\|(.*?)\|\|(?<!\\)/gm, '<span class="spoilerBlock" onclick="discoverSpoiler(this)">$1</span>');
+    textContent = textContent.replace(/(?<!\\)\~(.*?)(?<!\\)\~/gm, '<del>$1</del>');
 
     // Match all emojis
     if (!textContent.replace(/((\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])| |(&lt;a?:!?.+?:[0-9]{18}?&gt;))/g, "").length) {
@@ -61,8 +62,9 @@ let parseMessage = (text, msg = null, embed = false, ping = false, embededLink) 
 
         // Format pings in embeds
         if (ping || !embed){
-            textContent = formatEmbedPings(msg, textContent, ping);
-            textContent = formatPings(msg, textContent);
+            let dms = selectedChan.type == 'dm';
+            textContent = formatEmbedPings(msg, textContent, dms);
+            textContent = formatPings(msg, textContent, dms);
         }
         // Format links in embeds
         if(embededLink){
@@ -82,7 +84,7 @@ function discoverSpoiler(spoiler) {
 };
 
 // Ping formatting
-function formatPings(msg, text) {
+function formatPings(msg, text, dms) {
     let textContent = text;
     let keys = [];
 
@@ -99,16 +101,16 @@ function formatPings(msg, text) {
         let name = '';
         let color = 0;
         if(type == 'user'){
-            let user = msg.guild.members.cache.get(id);
-            name = user ? user.displayName : id;
+            let user = dms ? bot.users.cache.get(id) : msg.guild.members.cache.get(id);
+            name = user ? user.displayName ? user.displayName : user.username : id;
         }
-        else if (type == 'role'){
+        else if (type == 'role' && !dms){
             let role = msg.guild.roles.cache.get(id);
             name = role ? role.name : id;
             color = role.color ? role.color.toString(16) : 0
             color = color ? '#' + '0'.repeat(6 - color.length) + color : 0
         }
-        else if (type == 'channel'){
+        else if (type == 'channel' && !dms){
             let channel = msg.guild.channels.cache.get(id);
             name = channel ? channel.name : 'deleted-channel';
         } else {
@@ -119,13 +121,15 @@ function formatPings(msg, text) {
         let pingRegex = new RegExp(`(?:(<|>)?@!?(${name}))`, 'g');
         let channelRegex = new RegExp(`(?:(<|>)?#(${name}))`, 'g');
         textContent = textContent.replace(pingRegex, (a, b, c) => b == '<' || b == '>' ? a : `<span class="ping" ${id}" ${color ? `style="color: ${color}"` : ''}>@${c}</span>`)
-                                 .replace(channelRegex, (a, b, c) => b == '<' || b == '>' ? a : `<span class="ping ${id}">#${c}</span>`);
+        if(!dms){
+            textContent = textContent.replace(channelRegex, (a, b, c) => b == '<' || b == '>' ? a : `<span class="ping ${id}">#${c}</span>`);
+        }
 
     });
     return textContent;
 }
 
-function formatEmbedPings(msg, text) {
+function formatEmbedPings(msg, text, dms) {
     let textContent = text;
     // console.log(text)
     let keys = [];
@@ -142,24 +146,26 @@ function formatEmbedPings(msg, text) {
         let chanName = '';
         let color = 0;
 
-        let user = msg.guild.members.cache.get(id.replace(/!/, ""));
-        name = user ? user.displayName : id;
+        let user = dms ? bot.users.cache.get(id.replace(/!/, "")) : msg.guild.members.cache.get(id.replace(/!/, ""));
+        name = user ? user.displayName ? user.displayName : user.username : id;
         
-        if(name == id){
+        if(name == id && !dms){
             let role = msg.guild.roles.cache.get(id);
             name = role ? role.name : id;
             color = role ? role.color ? role.color.toString(16) : 0 : 0
             color = color ? '#' + '0'.repeat(6 - color.length) + color : 0
         }
-
-        let channel = msg.guild.channels.cache.get(id);
+        let channel;
+        if(!dms)
+            channel = msg.guild.channels.cache.get(id);
         chanName = channel ? channel.name : 'deleted-channel';
 
         let pingRegex = new RegExp(`(?:(<|>)?&lt;@!?(${id})&gt;)`, 'g');
         let channelRegex = new RegExp(`&lt;#${id}&gt;`, 'g');
         
         textContent = textContent.replace(pingRegex, (a, b, c) => b == '<' || b == '>' ? a :  `<span class="ping" ${id}" ${color ? `style="color: ${color}"` : ''}>${name.startsWith('!') ? `&lt;@${c}&gt;` : '@'+name}</span>`)
-                                 .replace(channelRegex, chanName == 'deleted-channel' ? '#deleted-channel' : `<span class="ping ${id}">\#${chanName}</span>`);
+        if(!dms)
+            textContent = textContent.replace(channelRegex, chanName == 'deleted-channel' ? '#deleted-channel' : `<span class="ping ${id}">\#${chanName}</span>`);
     });
 
     return textContent;
