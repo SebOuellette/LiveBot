@@ -116,5 +116,6 @@ function copyUserID(id){
 }
 
 function copyAvatarLink(member){
-    clipboard.writeText(member.user.avatar.startsWith('a_') ? member.user.displayAvatarURL().replace('.webp', '.gif') : member.user.displayAvatarURL());
+    member = member.user ? member.user : member;
+    clipboard.writeText( member.avatar ? member.avatar.startsWith('a_') ? member.displayAvatarURL().replace('.webp', '.gif') : member.displayAvatarURL() : member.displayAvatarURL());
 }

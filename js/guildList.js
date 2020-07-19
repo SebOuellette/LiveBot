@@ -71,11 +71,11 @@ async function addGuilds() {
         // Add image to the list of guilds
         if(lastGuild == null || lastGuild.parentElement && lastGuild.parentElement.lastElementChild == lastGuild){
             // Append the guild to the last spot
-            document.getElementById('guild-list').appendChild(guildIcon);
+            document.getElementById('guildContainer').appendChild(guildIcon);
             cachedGuilds.push([g.id, guildIcon]);
         } else if (!cachedGuilds.find(e => e[0] == g.id)) {
             // Insert the guild in the respectful place
-            document.getElementById('guild-list').insertBefore(guildIcon, lastGuild.nextSibling);
+            document.getElementById('guildContainer').insertBefore(guildIcon, lastGuild.nextSibling);
             cachedGuilds.push([g.id, guildIcon]);
         }
         // Check if the guild is in the cache just in case
@@ -85,7 +85,7 @@ async function addGuilds() {
         }
 
         // Changing the width of the name container so it fits the text
-        guildNameContainer.style.width = guildName.getBoundingClientRect().width + 8 + 'px';
+        guildNameContainer.style.width = guildName.getBoundingClientRect().width + 10 + 'px';
     });
 }
 

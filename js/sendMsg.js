@@ -70,7 +70,7 @@ let sendmsg = () => {
         } else {
             // Make a new message with the sent text
             text = parseSend(text)
-            selectedChan.send(text);
+            selectedChan.send(text).catch(errorHandler);
             setTimeout(() => {
                 document.getElementById('msgbox').value = '';
                 selectedChan.stopTyping(true);

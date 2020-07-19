@@ -7,6 +7,7 @@
     <script src="js/app.js" charset="utf-8"></script>
     <script src="js/load.js" charset="utf-8"></script>
     <script src="js/guildList.js" charset="utf-8"></script>
+    <script src="js/dmList.js" charset="utf-8"></script>
     <script src="js/guildSelect.js" charset="utf-8"></script>
     <script src="js/channelSelect.js" charset="utf-8"></script>
     <script src="js/command.js" charset="utf-8"></script>
@@ -14,6 +15,7 @@
     <script src="js/sendMsg.js" charset="utf-8"></script>
     <script src="js/userSettings.js" charset="utf-8"></script>
     <script src="js/handleScripts.js" charset="utf-8"></script>
+    <script src="js/handleThemes.js" charset="utf-8"></script>
     <script src="js/rightClickMenu.js" charset="utf-8"></script>
     <script src="js/parseMessage.js" charset="utf-8"></script>
     <script src="js/showEmbed.js" charset="utf-8"></script>
@@ -33,6 +35,7 @@
     <link rel="stylesheet" href="css/userSettings.css">
     <link rel="stylesheet" href="css/textFormat.css">
     <link rel="stylesheet" href="css/channelList.css">
+    <link rel="stylesheet" href="css/dmList.css">
     <link rel="stylesheet" href="css/guildList.css">
     <link rel="stylesheet" href="css/miscs.css">
     <link rel="stylesheet" href="css/rcMenu.css">
@@ -44,7 +47,15 @@
         </div>
 
         <div id='main'>
-        <div id='guild-list'></div>
+        <div id='guild-list'>
+            <div class="guildIconDiv" onclick="dmList()">
+                <img id="Home" height="40" width="40" class="guild-icon" src="resources/icons/logo.svg">
+                <div class="guildNameContainer" style="width: 51px;">
+                    <p class="guildName">Home</p>
+                </div>
+            </div>
+            <hr class="homeBreak">
+        </div>
 
         <div id='serverName'>
             <h5 id='guildName'>Livebot</h5>

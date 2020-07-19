@@ -132,9 +132,9 @@ body {
 
 #serverName {
     height: 40px;
-    width: 270px;
+    width: 260px;
     background-color: grey;
-    margin: 0px 0 10px 50px;
+    margin: 0px 0 0px 50px;
     background-color: #2f3136;
     font-family: Whitney, "Helvetica Neue", Helvetica, Arial, sans-serif;
     position: absolute;

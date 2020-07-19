@@ -1,3 +1,10 @@
+.homeBreak {
+    border: none;
+    margin: 9px 8px 8px 7px;
+    padding: 2px 0 0 0;
+    background-color: #72767d;
+}
+
 .guild-icon {
     border-radius: 50%;
     margin-left: 10px;

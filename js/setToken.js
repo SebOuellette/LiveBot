@@ -1,6 +1,7 @@
 async function setToken(token) {
     let client = new Discord.Client();
     let error = false;
+    if(global.bot && bot.token == token) {errorHandler('SAME-TOKEN'); return 'SAME-TOKEN'}
     try {
         if(!token.replace(/ /, '').length){
             errorHandler('EMPTY-TOKEN');
@@ -18,10 +19,10 @@ async function setToken(token) {
             channels.removeChild(channels.firstChild);
         }
 
-        // Clear the list of the guilds
-        let guilds = document.getElementById('guild-list');
-        while (guilds.firstChild) {
-            guilds.removeChild(guilds.firstChild);
+        // Delete the list of the guilds
+        let guildContainer = document.getElementById('guildContainer');
+        if(guildContainer.parentElement){
+            guildContainer.parentElement.removeChild(guildContainer);
         }
 
         // Clear the message list
@@ -30,18 +31,18 @@ async function setToken(token) {
             messages.removeChild(messages.firstChild);
         }
 
-        // Create the guild indicator
-        div = document.createElement('div');
-        div.id = 'guildIndicator';
-        document.getElementById('guild-list').appendChild(div);
+        let memberList = document.getElementById('memberBar');
+        memberList.innerHTML = '';
 
         // Stop the current bot, unload scritps, and then load into the new token
         if(global.bot !== undefined){
             bot.destroy();
         }
         await unloadAllScripts();
+        unloadThemes()
         load(token);
         document.getElementById('tokenbox').style.borderColor = '#313339';
+        cachedGuilds = []
     } catch (err) {
         // Flash red if the token is incorrect
         let tokenBox = document.getElementById('tokenbox');

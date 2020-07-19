@@ -87,6 +87,8 @@ let dmChannelSelect = async (u, name = 'test') => {
     if (generatingMessages) {
         return;
     }
+    if(!u.openDM)
+        u.openDM = true;
 
     if(selectedChatDiv){
         selectedChatDiv.classList.remove('selectedChan')

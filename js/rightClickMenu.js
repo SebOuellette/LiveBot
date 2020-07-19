@@ -27,7 +27,7 @@ function addDocListener() {
 
             if (e.target.classList.contains('rcOption') || e.target.parentElement.classList.contains('rcOption')) return rcMenu.classList.remove('open');
             // Get the message block containing the message
-            let domElements = ['messageBlock', 'mLUserDiv', 'messageUsername', 'messageImg']
+            let domElements = ['messageBlock', 'mLUserDiv', 'messageUsername', 'messageImg', 'dmChannel']
             while (!domElements.some(r=> target.classList.contains(r)) && target != document.body) {
                 target = target.parentElement;
             }
@@ -139,12 +139,17 @@ function buildUserMenu(target) {
     let guild = !!target.id
     let dm = target.parentElement.parentElement.classList.contains('dms')
     let id = target.id ? target.id : target.parentElement.parentElement.classList[1]
+
+    if(target.classList.contains('dmChannel')){
+        guild = false;
+        dm = true;
+    }
+
     let member = guild ? selectedGuild.members.cache.get(id) : !dm ? selectedChan.guild.members.cache.get(id) : bot.users.cache.get(id);
     if (!member) return false;
     let menu = document.getElementById('rcMenu');
     
     // Check if it's not dm's
-    console.log(dm)
     if(!dm){
         // Get the user rather than the member
         let user = member.user ? member.user : member;

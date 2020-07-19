@@ -13,6 +13,8 @@ let barry = false;
 
 // Disable the security warning from electron
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = true;
+// Display that livebot has started
+console.log('LiveBot started');
 
 // Animations used in javascript if they can't be used in css
 let animations = {

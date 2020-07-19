@@ -18,8 +18,14 @@ let load = token => {
         // Load and start all the scripts
         loadAllScripts();
 
+        // Load all the themes
+        loadThemes()
+
         // Log the status of the bot
         console.log(`Logged in as ${bot.user.tag}`);
+
+        // Set all users to closed dms just so the code works for the future
+        updateUsers(true)
 
         // Update the user card
         document.getElementById('userCardName').innerHTML = bot.user.username;
@@ -35,9 +41,18 @@ let load = token => {
         }
         
         // Create the guild indicator
-        let guildIndicator = document.createElement('div');
+        guildIndicator = document.createElement('div');
         guildIndicator.id = 'guildIndicator';
-        document.getElementById('guild-list').appendChild(guildIndicator);
+
+        // Create a guild container
+        guildContainer = document.createElement('div')
+        guildContainer.id = 'guildContainer';
+
+        // Apply the guild indicator in the container
+        guildContainer.appendChild(guildIndicator);
+
+        // Apply the guild container to the guild list
+        document.getElementById('guild-list').appendChild(guildContainer);
 
         // Loop through all the guilds and create the element for the icon
         addGuilds();
@@ -50,10 +65,12 @@ let load = token => {
     })
 
     bot.on('guildCreate', (g) => {
+        updateUsers(true);
         addGuilds();
     })
 
     bot.on('guildDelete', (g) => {
+        updateUsers(true);
         removeGuild(g);
     })  
 
@@ -100,6 +117,8 @@ let load = token => {
 
     // New message recieved
     bot.on('message', (m) => {
+        (m.channel.type == 'dm')
+            m.author.received = true;
         if (selectedChan && selectedChan.type == 'dm') {
 
             // If the message was sent to the selected channel
@@ -158,13 +177,26 @@ let load = token => {
         }
     });
 
+    // Runs when a user joins a server
+    bot.on('guildmemberAdd', m => {
+        updateUsers(false, m);
+    })
+
+    // Runs when a user leaves a server
+    bot.on('guildmemberRemove', m => {
+        updateUsers(false, m, true);
+    })
+
     // Runs when unloaded
     bot.on('error', () => {
         // Remove the server list when connection lost
         while (document.getElementById('guild-list').firstChild) {
             document.getElementById('guild-list').removeChild(document.getElementById('guild-list').firstChild);
         }
+        // Unload and stop all the scripts
         unloadAllScripts();
+        // Unload all the themes
+        unloadThemes()
     });
 };
 
