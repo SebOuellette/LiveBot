@@ -3,50 +3,50 @@ function mutualGuilds(u, g, remove){
     if(!u.mutualGuilds){
         u.mutualGuilds = new Discord.Collection();
         bot.guilds.cache.forEach(g => {
-            let inGuild = g.members.cache.get(u.id)
+            if(!g.available) return;
+            let inGuild = g.members.cache.get(u.id);
             if (inGuild && !u.mutualGuilds.get(u.id)){
-                u.mutualGuilds.set(g.id, g)
+                u.mutualGuilds.set(g.id, g);
             } else if (!inGuild && u.mutualGuilds.get(u.id)){
-                u.mutualGuilds.delete(g.id)
+                u.mutualGuilds.delete(g.id);
             }
         })
         return;
     }
+
     let mutualGuild = u.mutualGuilds.get(g.id)
-    if(remove && mutualGuild){
-        u.mutualGuilds.delete(g.id)
-    } else if (!remove && !mutualGuild) {
-        u.mutualGuilds.set(g.id, g)
-    }
+
+    if(remove && mutualGuild)
+        u.mutualGuilds.delete(g.id);
+    else if (!remove && !mutualGuild)
+        u.mutualGuilds.set(g.id, g);
 }
 
 function updateUsers(bunch, m = undefined, remove = false){
     if(bunch || !m){
         bot.users.cache.forEach(u => {
             u.openDM != true && u.openDM != false ? u.openDM = false : undefined;
-            u.mutualGuilds ? undefined : mutualGuilds(u)
+            u.mutualGuilds ? undefined : mutualGuilds(u);
             u.received ? true : false;
         });
         return;
     }
 
-    if(user.openDM == undefined)
-        user.openDM = false;
+    if(m.user.openDM == undefined)
+        m.user.openDM = false;
 
-    if(m){
-        mutualGuilds(u.user, m.guild, remove)
-    }
+    if(m)
+        mutualGuilds(m.user, m.guild, remove);
 }
 
 function updateUserDM(c, u){
-    if(c.type != 'dm' || u.bot) return
-    if(selectedChan == c) return u.received = false
+    if(c.type != 'dm' || u.bot) return;
+    if(selectedChan == c) return u.received = false;
     u.received = true;
 }
 
 function dmList(){
-
-    // If the guild is selected then hide the guild indicator
+    // If a guild is selected then hide the guild indicator
     if(selectedGuild){
         document.getElementById('guildIndicator').style.display = 'none';
         selectedGuild = undefined;
@@ -117,14 +117,14 @@ function dmList(){
     // Note: You can't message bots with a bot account, only users
     bot.users.cache.array() // Map the users
     .filter(u => u.mutualGuilds && u.mutualGuilds.size && !u.bot)
-    .sort((u1, u2) => u1.username - u2.username)
+    .sort((u1, u2) => u1.username.localeCompare(u2.username))
     .forEach(u => {
         // Get the element for the user
-        let [open, received, other] = categories
+        let [open, received, other] = categories;
 
         // Create the dm channel
         let div = document.createElement("div");
-        div.classList.add('dmChannel')
+        div.classList.add('dmChannel');
         div.id = u.id;
 
         // Create the image for the user if they have one, otherwise use discords default and animate it on hover
@@ -166,7 +166,7 @@ function dmList(){
 
             if (id != u.id) {
                 div.classList.add("selectedChan");
-                dmChannelSelect(u, div)
+                dmChannelSelect(u, div);
             }
         })
 

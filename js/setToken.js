@@ -1,14 +1,11 @@
 async function setToken(token) {
     let client = new Discord.Client();
-    let error = false;
+    let error = [false, 'none'];
     if(global.bot && bot.token == token) {errorHandler('SAME-TOKEN'); return 'SAME-TOKEN'}
     try {
-        if(!token.replace(/ /, '').length){
-            errorHandler('EMPTY-TOKEN');
+        if(!token.replace(/ /, '').length)
             throw('EMPTY-TOKEN')
-        }
         await client.login(token).catch(err => {
-            errorHandler(err)
             throw (err)
         });
         client.destroy();
@@ -21,7 +18,7 @@ async function setToken(token) {
 
         // Delete the list of the guilds
         let guildContainer = document.getElementById('guildContainer');
-        if(guildContainer.parentElement){
+        if(guildContainer && guildContainer.parentElement){
             guildContainer.parentElement.removeChild(guildContainer);
         }
 
@@ -39,7 +36,7 @@ async function setToken(token) {
             bot.destroy();
         }
         await unloadAllScripts();
-        unloadThemes()
+        await unloadThemes()
         load(token);
         document.getElementById('tokenbox').style.borderColor = '#313339';
         cachedGuilds = []
@@ -49,7 +46,8 @@ async function setToken(token) {
         tokenBox.animate(animations.flashRed);
 
         // Set the error to true so it doesn't save the token
-        error = true
+        error[0] = true
+        error[1] = err
     }
     document.getElementById('tokenbox').value = '';
     // Return if there's been an error or not
@@ -60,9 +58,11 @@ async function setToken(token) {
 // Will be upgraded to database eventually
 async function saveToken(token) {
     let error = await setToken(token)
-    if(!error){
+    if(!error[0]){
         settings.token = token;
         localStorage.setItem('livebot-token', token);
-    } else 
-       console.warn(`The token won't be saved since there was an error`) 
+    } else {
+        errorHandler(error[1])
+        console.warn(`The token won't be saved since there was an error`) 
+    }
 }

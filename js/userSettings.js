@@ -74,7 +74,9 @@ function openPopup(category, group){
     if (category.classList.contains("toggledOn")) {
         createPopup(category.parentElement,  group);
     } else {
-        category.parentElement.querySelector(".settingsPopup").remove();
+        let settingsPopout = category.parentElement.querySelector(".settingsPopup")
+        if(settingsPopout)
+            settingsPopout.remove();
     }
 }
 

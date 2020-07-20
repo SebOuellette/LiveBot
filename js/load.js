@@ -178,12 +178,12 @@ let load = token => {
     });
 
     // Runs when a user joins a server
-    bot.on('guildmemberAdd', m => {
+    bot.on('guildMemberAdd', m => {
         updateUsers(false, m);
     })
 
     // Runs when a user leaves a server
-    bot.on('guildmemberRemove', m => {
+    bot.on('guildMemberRemove', m => {
         updateUsers(false, m, true);
     })
 
