@@ -22,6 +22,7 @@
     display: inline-block;
     margin: 0 !important;
     padding: 7px 0 7px 10px;
+    width: 170px;
 }
 
 .dmChannel:hover {

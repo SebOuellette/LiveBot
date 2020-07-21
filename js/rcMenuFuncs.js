@@ -7,7 +7,7 @@ let editDOM = (target, textarea, elementText) => {
 
     let newMsgElement = document.createElement('p');
     newMsgElement.classList.add('messageText');
-    newMsgElement.innerHTML = elementText;
+    newMsgElement.innerText = elementText;
     target.appendChild(newMsgElement);
 }
 

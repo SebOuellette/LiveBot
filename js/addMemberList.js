@@ -1,4 +1,4 @@
-let addMemberList = guild => {
+function addMemberList(guild) {
     let listDiv = document.getElementById("memberBar");
 
     // Clear members list
@@ -32,15 +32,20 @@ let addMemberList = guild => {
                 .filter(m => (m.roles.hoist && m.roles.hoist.id == r.id && m.presence.status != 'offline'))
                 .sort((m1, m2) => m1.id - m2.id)
                 .forEach(m => {
+                    // Create the outer div
+                    let outerDiv = document.createElement('div');
+                    outerDiv.classList.add('mLOuterDiv');
+                    container.appendChild(outerDiv)
+
                     // Make the div for the user
                     let userDiv = document.createElement("div");
                     userDiv.id = m.id;
                     userDiv.classList.add('mLUserDiv');
-                    container.appendChild(userDiv);
+                    outerDiv.appendChild(userDiv);
 
                     // Add the user icon
                     let icon = document.createElement("img");
-                    icon.src = m.user.avatarURL() ? m.user.avatarURL().replace(/(size=)(\d+)/gi, "$164") : "resources/images/default.png";
+                    icon.src = m.user.displayAvatarURL().replace(/(size=)(\d+)/gi, "$164");
                     icon.classList.add('mLIcon');
                     userDiv.appendChild(icon);
 
@@ -76,15 +81,20 @@ let addMemberList = guild => {
             .filter(m => m.presence.status != 'offline' && m.roles.hoist == null)
             .sort((m1, m2) => m1.id - m2.id)
             .forEach(m => {
+                // Create the outer div
+                let outerDiv = document.createElement('div');
+                outerDiv.classList.add('mLOuterDiv');
+                container.appendChild(outerDiv);
+
                 // Make the div for the user
                 let userDiv = document.createElement("div");
                 userDiv.id = m.id;
                 userDiv.classList.add('mLUserDiv');
-                container.appendChild(userDiv);
+                outerDiv.appendChild(userDiv);
 
                 // Add the user icon
                 let icon = document.createElement("img");
-                icon.src = m.user.avatarURL() ? m.user.avatarURL().replace(/(size=)(\d+)/gi, "$164") : "resources/images/default.png";
+                icon.src = m.user.displayAvatarURL().replace(/(size=)(\d+)/gi, "$164");
                 icon.classList.add('mLIcon');
                 userDiv.appendChild(icon);
 
@@ -119,16 +129,21 @@ let addMemberList = guild => {
             .sort((m1, m2) => m1.id - m2.id)
             .forEach(m => {
                 offline.push(m.user.id);
+                let outerDiv = document.createElement('div');
+                outerDiv.classList.add('mLOuterDiv');
+                outerDiv.classList.add('mLOuterDivOffline');
+                container.appendChild(outerDiv);
+
                 // Make the div for the user
                 let userDiv = document.createElement("div");
                 userDiv.id = m.id;
                 userDiv.classList.add('mLUserDivOffline');
                 userDiv.classList.add('mLUserDiv');
-                container.appendChild(userDiv);
+                outerDiv.appendChild(userDiv);
 
                 // Add the user icon
                 let icon = document.createElement("img");
-                icon.src = m.user.avatarURL() ? m.user.avatarURL().replace(/(size=)\d+?($| )/, '$164') : "resources/images/default.png";
+                icon.src = m.user.displayAvatarURL().replace(/(size=)\d+?($| )/, '$164');
                 icon.classList.add('mLIcon');
                 userDiv.appendChild(icon);
 
@@ -163,16 +178,22 @@ let addMemberList = guild => {
                 .filter(m => m.presence.status == 'offline' && !offline.includes(m.user.id))
                 .sort((m1, m2) => m1.id - m2.id)
                 .forEach(m => {
+                    // Create outer div
+                    let outerDiv = document.createElement('div');
+                    outerDiv.classList.add('mLOuterDiv');
+                    outerDiv.classList.add('mLOuterDivOffline');
+                    container.appendChild(outerDiv);
+
                     // Make the div for the user
                     let userDiv = document.createElement("div");
                     userDiv.id = m.id;
                     userDiv.classList.add('mLUserDivOffline');
                     userDiv.classList.add('mLUserDiv');
-                    container.appendChild(userDiv);
+                    outerDiv.appendChild(userDiv);
 
                     // Add the user icon
                     let icon = document.createElement("img");
-                    icon.src = m.user.avatarURL() ? m.user.avatarURL().replace(/(size=)\d+?($| )/, '$164') : "resources/images/default.png";
+                    icon.src = m.user.displayAvatarURL().replace(/(size=)\d+?($| )/, '$164');
                     icon.classList.add('mLIcon');
                     userDiv.appendChild(icon);
 

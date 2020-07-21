@@ -98,7 +98,7 @@
                         ]
                     },
                     {
-                        "name": "Change Token",
+                        "name": "Switch Token",
                         "description": "Here you can log into a different bot account, and choose if you want to set it as your default. To just log in temporarily, paste your token, then press enter. To save as your default, click the 'Save as Default' button below.",
                         "call": "saveToken(TOKEN)",
                         "update": true,

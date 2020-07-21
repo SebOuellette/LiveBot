@@ -86,12 +86,24 @@
     color: transparent;
     height: 26px;
     margin: 12px 0 0 70px;
+    padding: 0 5px;
     z-index: 1;
     visibility: hidden;
     position: fixed;
     border-radius: 5px;
     background-color: transparent;
-    transition-duration: 0.3s !important;
+    transition-duration: 0.1s !important;
+}
+
+.guildNameContainer::before {
+    left: -10px;
+    top: 4px;
+    margin: 3px 0 0 0px;
+    border: 6px solid transparent;
+    content: ' ';
+    position: absolute;
+    border-right-color: transparent;
+    transition-duration: 0.1s !important;
 }
 
 .guildName {

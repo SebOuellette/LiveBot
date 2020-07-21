@@ -20,14 +20,33 @@ function addDocListener() {
 
         let rcMenu = document.getElementById('rcMenu');
         if (e.which == 1) { // Left click
+            // Close the right click menus
             rcMenu.classList.remove('open');
+
+            // Find if a distant child of certain parent
+            let domElements = ['mLOuterDiv', 'memberMenu']
+            while (!domElements.some(r=> target.classList.contains(r)) && target != document.body) {
+                target = target.parentElement;
+            }
+            if (!target.classList.contains(domElements[1])) {
+                let element = document.getElementsByClassName('memberMenu')[0];
+                if (element) element.parentElement.removeChild(element);
+            }
+            if (target == document.body) return;
+
+            // Build the member menu
+            if (target.classList.contains(domElements[0])) {
+                buildMemberMenu(target);
+            }
+
         } else if (e.which == 3) { // Right click
             // Clear the menu (It's only needed here because you only open it when you right click)
             rcMenu.innerHTML = '';
 
             if (e.target.classList.contains('rcOption') || e.target.parentElement.classList.contains('rcOption')) return rcMenu.classList.remove('open');
             // Get the message block containing the message
-            let domElements = ['messageBlock', 'mLUserDiv', 'messageUsername', 'messageImg', 'dmChannel']
+            let domElements = ['messageBlock', 'mLUserDiv', 'messageUsername', 'messageImg', 'dmChannel'];
+            // Find if a distant child of certain parent
             while (!domElements.some(r=> target.classList.contains(r)) && target != document.body) {
                 target = target.parentElement;
             }
@@ -37,9 +56,9 @@ function addDocListener() {
             // Variable to keep track of if the menu should be opened
             let open;
             // Check what the menu is for and then build the menu so we can use the height
-            if(target.classList.contains('messageBlock'))
+            if(target.classList.contains(domElements[0]))
                 open = await buildMsgMenu(target, rcMenu);
-            else if(domElements.some(r=> target.classList.contains(r)))
+            else if(domElements.splice(1).some(r=> target.classList.contains(r)))
                 open = await buildUserMenu(target, rcMenu);
 
             // Check if it should be opened and if it shoudn't close it just in case
@@ -55,7 +74,7 @@ function addDocListener() {
             if (y + rcMenu.clientHeight > window.innerHeight)
                 y = window.innerHeight - rcMenu.clientHeight - menuOffset;
             if (x + rcMenu.clientWidth > window.innerWidth)
-                x = window.innerWidth - rcMenu.clientWidth - menuOffset;
+                x = x - rcMenu.clientWidth;
 
             rcMenu.style.left = `${x}px`;
             rcMenu.style.top = `${y}px`;
