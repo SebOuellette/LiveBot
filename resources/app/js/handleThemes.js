@@ -2,7 +2,7 @@ let loadedThemes = []
 
 function loadThemes() {
     // Set the directory of the themes
-    let dir = './themes/'
+    let dir = './resources/app/themes/'
 
     // Get all the files in the themes folder
     let files = fs.readdirSync(dir);
