@@ -7,7 +7,7 @@ const pack = require('./package.json');
 let win;
 
 function createWindow() {
-    win = new BrowserWindow({width: 1300, height: 750, frame: false, backgroundColor: '#FFF', webPreferences: {nodeIntegration: true}});
+    win = new BrowserWindow({width: 1300, height: 750, frame: false, backgroundColor: '#FFF', webPreferences: {nodeIntegration: true}, icon: __dirname + '/resources/icons/logo.png'});
 
     win.loadURL(url.format({
         pathname: path.join(__dirname, 'dontOpenMe.html'),

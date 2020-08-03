@@ -11,13 +11,34 @@ let oldimg;
 let generatingMessages = false;
 let barry = false;
 
+// Disable the security warning from electron
+process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = true;
+// Display that livebot has started
+console.log('LiveBot started');
+
+// Animations used in javascript if they can't be used in css
+let animations = {
+    flashRed: [
+        {borderColor: '#313339'},
+        {borderColor: '#A00'},
+        {borderColor: '#F00'},
+        {borderColor: '#A00'},
+        {borderColor: '#313339'}
+    ],
+    flashTextRed: [
+        {color: '#B4B8BC'},
+        {color: '#F00'},
+        {color: '#B4B8BC'}
+    ]
+}
+
 // Create the app and attach event listeners
 function create() {
     document.getElementById("msgbox")
         .addEventListener("keydown", event => {
             if (event.keyCode === 13 && !event.shiftKey) {
-                sendmsg();
                 event.preventDefault();
+                sendmsg();
             }
         })
 
@@ -28,48 +49,30 @@ function create() {
                 rows++;
             //document.getElementById("msgbox").rows = rows;
         });
-
-
-    document.getElementById("tokenbox")
-        .addEventListener("keydown", event => {
-            if (event.keyCode === 13) {
-                unloadAllScripts();
-                setToken();
-            }
-        });
     
     // Call the settings menu builder
     buildSettingsMenu(jsonSettings);
 
     // Call the general click event listener script
     addDocListener();
-    
-    // Load the bot with the token in storage
-    load(localStorage.getItem('livebot-token'));
-}
 
-// Save the token to localstorage
-// Will be upgraded to database eventually
-function savetoken() {
-    localStorage.setItem('livebot-token', document.getElementById('tokenbox').value);
-    setToken();
+    // Load the bot with the token in storage or throw an error if there isn't any
+    if(settings.token)
+        load(settings.token);
+    else
+        errorHandler('NO-TOKEN')
 }
 
 // Alert that you are typing
 function typing() {
-    if (selectedChan) {
-        let isTyping = bot.user._typing.has(selectedChan.id);
-
-        // Handle start and stop typing
-        if (document.getElementById("msgbox").value.length > 0 && !isTyping) {
-            
-            // Text box is not empty, start typing
-            selectedChan.startTyping();
-        } else if (document.getElementById("msgbox").value.length == 0 && isTyping) {
-
-            // Text box is empty, stop typing
-            selectedChan.stopTyping(true);
-        }
+    if(!selectedChan || !document.getElementById("msgbox").value) return;
+    selectedChan.startTyping(1);
+    let channels = bot.user._typing.keys()
+    let channel = channels.next();
+    while(!channel.done){
+        if(channel.done || !channel.value) return
+        typingTimer.typingTimeout[1](channel.value)
+        channel = channels.next(); 
     }
 }
 

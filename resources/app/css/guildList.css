@@ -1,3 +1,10 @@
+.homeBreak {
+    border: none;
+    margin: 9px 8px 8px 7px;
+    padding: 2px 0 0 0;
+    background-color: #72767d;
+}
+
 .guild-icon {
     border-radius: 50%;
     margin-left: 10px;
@@ -53,3 +60,66 @@
     transition-duration: 0.2s;
 }
 
+.guildIconDiv {
+    color: transparent;
+    width: 81px;
+    cursor: default;
+    display: flex;
+    transition-duration: 0.3s !important;
+}
+
+.guildIconDiv .guild-icon {
+    order: -1;
+}
+
+.guildNameContainer::before {
+    left: -19.8px;
+    margin: 3px 0 0 0px;
+    border: 10px solid transparent;
+    content: ' ';
+    position: absolute;
+    border-right-color: transparent;
+    transition-duration: 0.3s !important;
+}
+
+.guildNameContainer {
+    color: transparent;
+    height: 26px;
+    margin: 12px 0 0 70px;
+    padding: 0 5px;
+    z-index: 1;
+    visibility: hidden;
+    position: fixed;
+    border-radius: 5px;
+    background-color: transparent;
+    transition-duration: 0.1s !important;
+}
+
+.guildNameContainer::before {
+    left: -10px;
+    top: 4px;
+    margin: 3px 0 0 0px;
+    border: 6px solid transparent;
+    content: ' ';
+    position: absolute;
+    border-right-color: transparent;
+    transition-duration: 0.1s !important;
+}
+
+.guildName {
+    color: inherit;
+    margin: 3px 4px 0;
+    display: inherit;
+    position: fixed;
+}
+
+.guild-icon:hover + .guildNameContainer::before {
+    display: block;
+    border-right-color: black;
+}
+
+.guild-icon:hover + .guildNameContainer{
+    color: white;
+    visibility: visible;
+    background-color: black;
+}

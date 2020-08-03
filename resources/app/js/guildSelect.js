@@ -7,7 +7,7 @@ let guildSelect = (g, img) => {
     img.classList.add('selectedGuild');
 
     // this should be done another way
-    document.getElementById('guildIndicator').style.marginTop = `${img.offsetTop - 2}px`;
+    document.getElementById('guildIndicator').style.marginTop = `${img.offsetTop - 69}px`;
     document.getElementById('guildIndicator').style.display = "block";
 
     oldimg = img;

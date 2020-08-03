@@ -40,6 +40,8 @@ function generateMsgHTML(m, previousMessage, count = -1, fetchSize = undefined) 
         div = document.createElement('div');
         div.classList.add('messageCont');
         div.classList.add(m.author.id);
+        if(m.channel.type == 'dm')
+        div.classList.add('dms');
         if (timebunch) {
             div.classList.add('timeSeparated');
         }
@@ -56,8 +58,19 @@ function generateMsgHTML(m, previousMessage, count = -1, fetchSize = undefined) 
 
         // Create user image
         let img = document.createElement('img');
+        let userImg = m.author.displayAvatarURL().replace(/(size=)\d+?($| )/, '$128');
+        if (m.author.avatar && m.author.avatar.startsWith('a_')){
+            let userGif = m.author.displayAvatarURL().replace('.webp', '.gif').replace(/(size=)\d+?($| )/, '$128');
+            img.src = userGif;
+            darkBG.onmouseenter = e => {
+                img.src = userGif;
+            };
+            darkBG.onmouseleave = e => {
+                img.src = userImg;
+            };
+        }
         img.classList.add('messageImg');
-        img.src = m.author.displayAvatarURL().replace(/(size=)\d+?($| )/, '$164');
+        img.src = userImg;
         img.height = '40';
         img.width = '40';
         darkBG.appendChild(img);
@@ -69,7 +82,12 @@ function generateMsgHTML(m, previousMessage, count = -1, fetchSize = undefined) 
         
         // Find the colour of their name
         if (m.member && m.member.roles._roles.size > 1) {
-            let color = m.member.roles.highest.hexColor;
+            let color;
+
+            // Use the heighest role for their color (Since the hoist role is just the one that displays, not the one that determines the color)
+            // Display the role as white if it's black
+            color = m.member.roles.highest.displayHexColor || "#fff";
+
             name.style.color = color;
         } else {
             name.style.color = '#fff'
@@ -79,7 +97,7 @@ function generateMsgHTML(m, previousMessage, count = -1, fetchSize = undefined) 
 
         // Create timestamp
         let timestamp = document.createElement('p');
-        timestamp.innerText = m.createdAt.toLocaleString('en-US', {day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit'});
+        timestamp.innerText = ' ' + m.createdAt.toLocaleString('en-US', {day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit'});
         timestamp.classList.add("messageTimestamp");
         darkBG.appendChild(timestamp);
     } else {
@@ -96,25 +114,14 @@ function generateMsgHTML(m, previousMessage, count = -1, fetchSize = undefined) 
         text.innerHTML = parseMessage(m.cleanContent, m, false);
 
         if(m.editedAt)
-            text.innerHTML += '<time class="edited"> (edited)</time>'
+            text.innerHTML += '<time class="edited"> (edited)</time>';
 
         darkBG.appendChild(text);
     }
     
     // Append embeds
     m.embeds.forEach(embed => {
-        if (embed.thumbnail && m.cleanContent.match(embed.thumbnail.url)) {
-            let img = document.createElement("img");
-
-            let newWidth = embed.thumbnail.width < 400 ? embed.thumbnail.width : 400;
-            let newHeight = Math.floor(newWidth / embed.thumbnail.width * embed.thumbnail.height);
-
-            img.src = `${embed.thumbnail.proxyURL}?width=${newWidth}&height=${newHeight}`;
-            img.classList.add("previewImage");
-            darkBG.appendChild(img);
-        } else {
-            showEmbed(embed, darkBG, m);
-        }
+        showEmbed(embed, darkBG, m);
     });
     return div;
 }
