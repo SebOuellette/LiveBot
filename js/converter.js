@@ -1,504 +1,505 @@
 // This is for converting the :emojis: to actual unicode emojis
 
-let shortcuts = [{
-    face: ">:(",
-    id: "angry"
-},
-{
-    face: ">:-(",
-    id: "angry"
-},
-{
-    face: ">=(",
-    id: "angry"
-},
-{
-    face: ">=-(",
-    id: "angry"
-},
-{
-    face: ":\")",
-    id: "blush"
-},
-{
-    face: ":-\")",
-    id: "blush"
-},
-{
-    face: "=\")",
-    id: "blush"
-},
-{
-    face: "=-\")",
-    id: "blush"
-},
-{
-    face: "</3",
-    id: "broken_heart"
-},
-{
-    face: "<3",
-    id: "heart"
-},
-{
-    face: "<3",
-    id: "heart"
-},
-{
-    face: "♡",
-    id: "heart"
-},
-{
-    face: ":-/",
-    id: "confused"
-},
-{
-    face: "=-/",
-    id: "confused"
-},
-{
+let shortcuts = [
+  {
+    face: '>:(',
+    id: 'angry',
+  },
+  {
+    face: '>:-(',
+    id: 'angry',
+  },
+  {
+    face: '>=(',
+    id: 'angry',
+  },
+  {
+    face: '>=-(',
+    id: 'angry',
+  },
+  {
+    face: ':")',
+    id: 'blush',
+  },
+  {
+    face: ':-")',
+    id: 'blush',
+  },
+  {
+    face: '=")',
+    id: 'blush',
+  },
+  {
+    face: '=-")',
+    id: 'blush',
+  },
+  {
+    face: '</3',
+    id: 'broken_heart',
+  },
+  {
+    face: '<3',
+    id: 'heart',
+  },
+  {
+    face: '<3',
+    id: 'heart',
+  },
+  {
+    face: '♡',
+    id: 'heart',
+  },
+  {
+    face: ':-/',
+    id: 'confused',
+  },
+  {
+    face: '=-/',
+    id: 'confused',
+  },
+  {
     face: ":'(",
-    id: "cry"
-},
-{
+    id: 'cry',
+  },
+  {
     face: ":'-(",
-    id: "cry"
-},
-{
-    face: ":,(",
-    id: "cry"
-},
-{
-    face: ":,-(",
-    id: "cry"
-},
-{
+    id: 'cry',
+  },
+  {
+    face: ':,(',
+    id: 'cry',
+  },
+  {
+    face: ':,-(',
+    id: 'cry',
+  },
+  {
     face: "='(",
-    id: "cry"
-},
-{
+    id: 'cry',
+  },
+  {
     face: "='-(",
-    id: "cry"
-},
-{
-    face: "=,(",
-    id: "cry"
-},
-{
-    face: "=,-(",
-    id: "cry"
-},
-{
-    face: ":(",
-    id: "frowning"
-},
-{
-    face: ":-(",
-    id: "frowning"
-},
-{
-    face: "=(",
-    id: "frowning"
-},
-{
-    face: "=-(",
-    id: "frowning"
-},
-{
-    face: "]:(",
-    id: "imp"
-},
-{
-    face: "]:-(",
-    id: "imp"
-},
-{
-    face: "]=(",
-    id: "imp"
-},
-{
-    face: "]=-(",
-    id: "imp"
-},
-{
-    face: "o:)",
-    id: "innocent"
-},
-{
-    face: "O:)",
-    id: "innocent"
-},
-{
-    face: "o:-)",
-    id: "innocent"
-},
-{
-    face: "O:-)",
-    id: "innocent"
-},
-{
-    face: "0:)",
-    id: "innocent"
-},
-{
-    face: "0:-)",
-    id: "innocent"
-},
-{
-    face: "o=)",
-    id: "innocent"
-},
-{
-    face: "O=)",
-    id: "innocent"
-},
-{
-    face: "o=-)",
-    id: "innocent"
-},
-{
-    face: "O=-)",
-    id: "innocent"
-},
-{
-    face: "0=)",
-    id: "innocent"
-},
-{
-    face: "0=-)",
-    id: "innocent"
-},
-{
+    id: 'cry',
+  },
+  {
+    face: '=,(',
+    id: 'cry',
+  },
+  {
+    face: '=,-(',
+    id: 'cry',
+  },
+  {
+    face: ':(',
+    id: 'frowning',
+  },
+  {
+    face: ':-(',
+    id: 'frowning',
+  },
+  {
+    face: '=(',
+    id: 'frowning',
+  },
+  {
+    face: '=-(',
+    id: 'frowning',
+  },
+  {
+    face: ']:(',
+    id: 'imp',
+  },
+  {
+    face: ']:-(',
+    id: 'imp',
+  },
+  {
+    face: ']=(',
+    id: 'imp',
+  },
+  {
+    face: ']=-(',
+    id: 'imp',
+  },
+  {
+    face: 'o:)',
+    id: 'innocent',
+  },
+  {
+    face: 'O:)',
+    id: 'innocent',
+  },
+  {
+    face: 'o:-)',
+    id: 'innocent',
+  },
+  {
+    face: 'O:-)',
+    id: 'innocent',
+  },
+  {
+    face: '0:)',
+    id: 'innocent',
+  },
+  {
+    face: '0:-)',
+    id: 'innocent',
+  },
+  {
+    face: 'o=)',
+    id: 'innocent',
+  },
+  {
+    face: 'O=)',
+    id: 'innocent',
+  },
+  {
+    face: 'o=-)',
+    id: 'innocent',
+  },
+  {
+    face: 'O=-)',
+    id: 'innocent',
+  },
+  {
+    face: '0=)',
+    id: 'innocent',
+  },
+  {
+    face: '0=-)',
+    id: 'innocent',
+  },
+  {
     face: ":')",
-    id: "joy"
-},
-{
+    id: 'joy',
+  },
+  {
     face: ":'-)",
-    id: "joy"
-},
-{
-    face: ":,)",
-    id: "joy"
-},
-{
-    face: ":,-)",
-    id: "joy"
-},
-{
+    id: 'joy',
+  },
+  {
+    face: ':,)',
+    id: 'joy',
+  },
+  {
+    face: ':,-)',
+    id: 'joy',
+  },
+  {
     face: ":'D",
-    id: "joy"
-},
-{
+    id: 'joy',
+  },
+  {
     face: ":'-D",
-    id: "joy"
-},
-{
-    face: ":,D",
-    id: "joy"
-},
-{
-    face: ":,-D",
-    id: "joy"
-},
-{
+    id: 'joy',
+  },
+  {
+    face: ':,D',
+    id: 'joy',
+  },
+  {
+    face: ':,-D',
+    id: 'joy',
+  },
+  {
     face: "=')",
-    id: "joy"
-},
-{
+    id: 'joy',
+  },
+  {
     face: "='-)",
-    id: "joy"
-},
-{
-    face: "=,)",
-    id: "joy"
-},
-{
-    face: "=,-)",
-    id: "joy"
-},
-{
+    id: 'joy',
+  },
+  {
+    face: '=,)',
+    id: 'joy',
+  },
+  {
+    face: '=,-)',
+    id: 'joy',
+  },
+  {
     face: "='D",
-    id: "joy"
-},
-{
+    id: 'joy',
+  },
+  {
     face: "='-D",
-    id: "joy"
-},
-{
-    face: "=,D",
-    id: "joy"
-},
-{
-    face: "=,-D",
-    id: "joy"
-},
-{
-    face: ":*",
-    id: "kissing"
-},
-{
-    face: ":-*",
-    id: "kissing"
-},
-{
-    face: "=*",
-    id: "kissing"
-},
-{
-    face: "=-*",
-    id: "kissing"
-},
-{
-    face: "x-)",
-    id: "laughing"
-},
-{
-    face: "X-)",
-    id: "laughing"
-},
-{
-    face: ":o",
-    id: "open_mouth"
-},
-{
-    face: ":-o",
-    id: "open_mouth"
-},
-{
-    face: ":O",
-    id: "open_mouth"
-},
-{
-    face: ":-O",
-    id: "open_mouth"
-},
-{
-    face: "=o",
-    id: "open_mouth"
-},
-{
-    face: "=-o",
-    id: "open_mouth"
-},
-{
-    face: "=O",
-    id: "open_mouth"
-},
-{
-    face: "=-O",
-    id: "open_mouth"
-},
-{
-    face: ":@",
-    id: "rage"
-},
-{
-    face: ":-@",
-    id: "rage"
-},
-{
-    face: "=@",
-    id: "rage"
-},
-{
-    face: "=-@",
-    id: "rage"
-},
-{
-    face: ":D",
-    id: "smile"
-},
-{
-    face: ":-D",
-    id: "smile"
-},
-{
-    face: "=D",
-    id: "smile"
-},
-{
-    face: "=-D",
-    id: "smile"
-},
-{
-    face: ":)",
-    id: "slight_smile"
-},
-{
-    face: ":-)",
-    id: "slight_smile"
-},
-{
-    face: "=)",
-    id: "slight_smile"
-},
-{
-    face: "=-)",
-    id: "slight_smile"
-},
-{
-    face: "]:)",
-    id: "smiling_imp"
-},
-{
-    face: "]:-)",
-    id: "smiling_imp"
-},
-{
-    face: "]=)",
-    id: "smiling_imp"
-},
-{
-    face: "]=-)",
-    id: "smiling_imp"
-},
-{
+    id: 'joy',
+  },
+  {
+    face: '=,D',
+    id: 'joy',
+  },
+  {
+    face: '=,-D',
+    id: 'joy',
+  },
+  {
+    face: ':*',
+    id: 'kissing',
+  },
+  {
+    face: ':-*',
+    id: 'kissing',
+  },
+  {
+    face: '=*',
+    id: 'kissing',
+  },
+  {
+    face: '=-*',
+    id: 'kissing',
+  },
+  {
+    face: 'x-)',
+    id: 'laughing',
+  },
+  {
+    face: 'X-)',
+    id: 'laughing',
+  },
+  {
+    face: ':o',
+    id: 'open_mouth',
+  },
+  {
+    face: ':-o',
+    id: 'open_mouth',
+  },
+  {
+    face: ':O',
+    id: 'open_mouth',
+  },
+  {
+    face: ':-O',
+    id: 'open_mouth',
+  },
+  {
+    face: '=o',
+    id: 'open_mouth',
+  },
+  {
+    face: '=-o',
+    id: 'open_mouth',
+  },
+  {
+    face: '=O',
+    id: 'open_mouth',
+  },
+  {
+    face: '=-O',
+    id: 'open_mouth',
+  },
+  {
+    face: ':@',
+    id: 'rage',
+  },
+  {
+    face: ':-@',
+    id: 'rage',
+  },
+  {
+    face: '=@',
+    id: 'rage',
+  },
+  {
+    face: '=-@',
+    id: 'rage',
+  },
+  {
+    face: ':D',
+    id: 'smile',
+  },
+  {
+    face: ':-D',
+    id: 'smile',
+  },
+  {
+    face: '=D',
+    id: 'smile',
+  },
+  {
+    face: '=-D',
+    id: 'smile',
+  },
+  {
+    face: ':)',
+    id: 'slight_smile',
+  },
+  {
+    face: ':-)',
+    id: 'slight_smile',
+  },
+  {
+    face: '=)',
+    id: 'slight_smile',
+  },
+  {
+    face: '=-)',
+    id: 'slight_smile',
+  },
+  {
+    face: ']:)',
+    id: 'smiling_imp',
+  },
+  {
+    face: ']:-)',
+    id: 'smiling_imp',
+  },
+  {
+    face: ']=)',
+    id: 'smiling_imp',
+  },
+  {
+    face: ']=-)',
+    id: 'smiling_imp',
+  },
+  {
     face: ":,'(",
-    id: "sob"
-},
-{
+    id: 'sob',
+  },
+  {
     face: ":,'-(",
-    id: "sob"
-},
-{
-    face: ";(",
-    id: "sob"
-},
-{
-    face: ";-(",
-    id: "sob"
-},
-{
+    id: 'sob',
+  },
+  {
+    face: ';(',
+    id: 'sob',
+  },
+  {
+    face: ';-(',
+    id: 'sob',
+  },
+  {
     face: "=,'(",
-    id: "sob"
-},
-{
+    id: 'sob',
+  },
+  {
     face: "=,'-(",
-    id: "sob"
-},
-{
-    face: ":P",
-    id: "stuck_out_tongue"
-},
-{
-    face: ":-P",
-    id: "stuck_out_tongue"
-},
-{
-    face: "=P",
-    id: "stuck_out_tongue"
-},
-{
-    face: "=-P",
-    id: "stuck_out_tongue"
-},
-{
-    face: "8-)",
-    id: "sunglasses"
-},
-{
-    face: "B-)",
-    id: "sunglasses"
-},
-{
-    face: ",:(",
-    id: "sweat"
-},
-{
-    face: ",:-(",
-    id: "sweat"
-},
-{
-    face: ",=(",
-    id: "sweat"
-},
-{
-    face: ",=-(",
-    id: "sweat"
-},
-{
-    face: ",:)",
-    id: "sweat_smile"
-},
-{
-    face: ",:-)",
-    id: "sweat_smile"
-},
-{
-    face: ",=)",
-    id: "sweat_smile"
-},
-{
-    face: ",=-)",
-    id: "sweat_smile"
-},
-{
-    face: ":s",
-    id: "unamused"
-},
-{
-    face: ":-S",
-    id: "unamused"
-},
-{
-    face: ":z",
-    id: "unamused"
-},
-{
-    face: ":-Z",
-    id: "unamused"
-},
-{
-    face: ":$",
-    id: "unamused"
-},
-{
-    face: ":-$",
-    id: "unamused"
-},
-{
-    face: "=s",
-    id: "unamused"
-},
-{
-    face: "=-S",
-    id: "unamused"
-},
-{
-    face: "=z",
-    id: "unamused"
-},
-{
-    face: "=-Z",
-    id: "unamused"
-},
-{
-    face: "=$",
-    id: "unamused"
-},
-{
-    face: "=-$",
-    id: "unamused"
-},
-{
-    face: ";)",
-    id: "wink"
-},
-{
-    face: ";-)",
-    id: "wink"
-},
-{
-    face: ":|",
-    id: "neutral_face"
-},
-{
-    face: "=|",
-    id: "neutral_face"
-},
+    id: 'sob',
+  },
+  {
+    face: ':P',
+    id: 'stuck_out_tongue',
+  },
+  {
+    face: ':-P',
+    id: 'stuck_out_tongue',
+  },
+  {
+    face: '=P',
+    id: 'stuck_out_tongue',
+  },
+  {
+    face: '=-P',
+    id: 'stuck_out_tongue',
+  },
+  {
+    face: '8-)',
+    id: 'sunglasses',
+  },
+  {
+    face: 'B-)',
+    id: 'sunglasses',
+  },
+  {
+    face: ',:(',
+    id: 'sweat',
+  },
+  {
+    face: ',:-(',
+    id: 'sweat',
+  },
+  {
+    face: ',=(',
+    id: 'sweat',
+  },
+  {
+    face: ',=-(',
+    id: 'sweat',
+  },
+  {
+    face: ',:)',
+    id: 'sweat_smile',
+  },
+  {
+    face: ',:-)',
+    id: 'sweat_smile',
+  },
+  {
+    face: ',=)',
+    id: 'sweat_smile',
+  },
+  {
+    face: ',=-)',
+    id: 'sweat_smile',
+  },
+  {
+    face: ':s',
+    id: 'unamused',
+  },
+  {
+    face: ':-S',
+    id: 'unamused',
+  },
+  {
+    face: ':z',
+    id: 'unamused',
+  },
+  {
+    face: ':-Z',
+    id: 'unamused',
+  },
+  {
+    face: ':$',
+    id: 'unamused',
+  },
+  {
+    face: ':-$',
+    id: 'unamused',
+  },
+  {
+    face: '=s',
+    id: 'unamused',
+  },
+  {
+    face: '=-S',
+    id: 'unamused',
+  },
+  {
+    face: '=z',
+    id: 'unamused',
+  },
+  {
+    face: '=-Z',
+    id: 'unamused',
+  },
+  {
+    face: '=$',
+    id: 'unamused',
+  },
+  {
+    face: '=-$',
+    id: 'unamused',
+  },
+  {
+    face: ';)',
+    id: 'wink',
+  },
+  {
+    face: ';-)',
+    id: 'wink',
+  },
+  {
+    face: ':|',
+    id: 'neutral_face',
+  },
+  {
+    face: '=|',
+    id: 'neutral_face',
+  },
 ];
 
-const idToUni = {  
+const idToUni = {
   grinning: '😀',
   smiley: '😃',
   smile: '😄',
@@ -618,7 +619,7 @@ const idToUni = {
   gift_heart: '💝',
   sparkling_heart: '💖',
   heart_pulse: '💗',
-  heartbeat: '💓',  // Here
+  heartbeat: '💓', // Here
   revolving_hearts: '💞',
   two_hearts: '💕',
   heart_decoration: '💟',
@@ -3436,7 +3437,7 @@ const uniToId = {
   '🔣': 'input_symbols',
   '🔤': 'input_latin_letters',
   '🆚': 'button',
-  'ℹ': 'information',
+  ℹ: 'information',
   'Ⓜ': 'circled',
   '🈁': 'apanese_here_button',
   '🈂': 'apanese_service_charge_button',

@@ -2,226 +2,242 @@
 // const { remote } = require("electron");
 
 // Load a new token
-let load = token => {
-    // Login to the bot profile
-    global.bot = new Discord.Client({});
-    if(!token.replace(/ /, '').length){
-        errorHandler('EMPTY-TOKEN');
-        return
+let load = (token) => {
+  // Login to the bot profile
+  global.bot = new Discord.Client({});
+  if (!token.replace(/ /, '').length) {
+    errorHandler('EMPTY-TOKEN');
+    return;
+  }
+  bot
+    .login(token)
+    .catch((err) => {
+      errorHandler(err);
+    })
+    .then((settings.token = token));
+
+  bot.on('ready', () => {
+    // Load and start all the scripts
+    loadAllScripts();
+
+    // Load all the themes
+    loadThemes();
+
+    // Log the status of the bot
+    console.log(`Logged in as ${bot.user.tag}`);
+
+    // Set all users to closed dms just so the code works for the future
+    updateUsers(true);
+
+    // Update the user card
+    document.getElementById('userCardName').innerHTML = bot.user.username;
+    document.getElementById(
+      'userCardDiscrim'
+    ).innerHTML = `#${bot.user.discriminator}`;
+    document.getElementById(
+      'userCardIcon'
+    ).src = `${bot.user
+      .displayAvatarURL()
+      .replace(/(size=)\d+?($| )/, '$164')}`;
+
+    if (bot.user.bot) {
+      document.getElementById('userCardBot').innerHTML = `BOT`;
+      document.getElementById('userCardBot').style.marginLeft = `8px`;
+    } else {
+      document.getElementById('userCardBot').innerHTML = `USER`;
+      document.getElementById('userCardBot').style.marginLeft = `5px`;
     }
-    bot.login(token).catch(err => {
-        errorHandler(err)
-    }).then(settings.token = token);
 
-    bot.on('ready', () => {
+    // Create the guild indicator
+    guildIndicator = document.createElement('div');
+    guildIndicator.id = 'guildIndicator';
 
-        // Load and start all the scripts
-        loadAllScripts();
+    // Create a guild container
+    guildContainer = document.createElement('div');
+    guildContainer.id = 'guildContainer';
 
-        // Load all the themes
-        loadThemes()
+    // Apply the guild indicator in the container
+    guildContainer.appendChild(guildIndicator);
 
-        // Log the status of the bot
-        console.log(`Logged in as ${bot.user.tag}`);
+    // Apply the guild container to the guild list
+    document.getElementById('guild-list').appendChild(guildContainer);
 
-        // Set all users to closed dms just so the code works for the future
-        updateUsers(true)
+    // Loop through all the guilds and create the element for the icon
+    addGuilds();
+  });
 
-        // Update the user card
-        document.getElementById('userCardName').innerHTML = bot.user.username;
-        document.getElementById('userCardDiscrim').innerHTML = `#${bot.user.discriminator}`;
-        document.getElementById('userCardIcon').src = `${bot.user.displayAvatarURL().replace(/(size=)\d+?($| )/, '$164')}`;
+  bot.on('guildUnavailable', (g) => {
+    if (g.available) return;
+    console.error(`Guild ${g.name} went offline`);
+    removeGuild(g);
+  });
 
-        if (bot.user.bot) {
-            document.getElementById('userCardBot').innerHTML = `BOT`;
-            document.getElementById('userCardBot').style.marginLeft = `8px`;
-        } else {
-            document.getElementById('userCardBot').innerHTML = `USER`;
-            document.getElementById('userCardBot').style.marginLeft = `5px`;
-        }
-        
-        // Create the guild indicator
-        guildIndicator = document.createElement('div');
-        guildIndicator.id = 'guildIndicator';
+  bot.on('guildCreate', (g) => {
+    updateUsers(true);
+    addGuilds();
+  });
 
-        // Create a guild container
-        guildContainer = document.createElement('div')
-        guildContainer.id = 'guildContainer';
+  bot.on('guildDelete', (g) => {
+    updateUsers(true);
+    removeGuild(g);
+  });
 
-        // Apply the guild indicator in the container
-        guildContainer.appendChild(guildIndicator);
+  // A user has started typing
+  bot.on('typingStart', (c) => {
+    if (c != selectedChan) return;
+    typingStatus();
+  });
 
-        // Apply the guild container to the guild list
-        document.getElementById('guild-list').appendChild(guildContainer);
+  // A message has been deleted
+  bot.on('messageDelete', (m) => {
+    // Return if it's not the selected channel
+    if (m.channel != selectedChan) return;
+    // Get the dom element from the message
+    let message = document.getElementById(m.id);
+    let firstMessage = message.classList.contains('firstmsg');
 
-        // Loop through all the guilds and create the element for the icon
-        addGuilds();
-    });
+    // Remove the message element
+    removeMessage(message, firstMessage);
+  });
 
-    bot.on('guildUnavailable', (g) => {
-        if(g.available) return;
-        console.error(`Guild ${g.name} went offline`)
-        removeGuild(g);
-    })
+  // Multiple messages have been deleted
+  bot.on('messageDeleteBulk', (msgs) => {
+    // Return if it's not the selected channel
+    if (msgs.first().channel != selectedChan) return;
+    for (let m of msgs) {
+      let message = document.getElementById(m[1].id);
+      let firstMessage = message.classList.contains('firstmsg');
 
-    bot.on('guildCreate', (g) => {
-        updateUsers(true);
-        addGuilds();
-    })
+      // Remove the message element
+      removeMessage(message, firstMessage);
+    }
+  });
 
-    bot.on('guildDelete', (g) => {
-        updateUsers(true);
-        removeGuild(g);
-    })  
+  // A message has been updated
+  bot.on('messageUpdate', (oldM, m) => {
+    // Return if it's not the selected channel or if the message wasn't edited
+    if (m.channel ? m.channel : m.dmChannel != selectedChan || !m.editedAt)
+      return;
+    // Get the dom element from the message
+    let message = document.getElementById(m.id).querySelector('.messageText');
+    message.innerHTML = `${parseMessage(
+      m.cleanContent
+    )} <time class='edited'>(edited)</time>`;
+  });
 
-    // A user has started typing
-    bot.on('typingStart', (c) => {
-        if(c != selectedChan) return;
-        typingStatus();
-    })    
+  // New message recieved
+  bot.on('message', (m) => {
+    m.channel.type == 'dm';
+    m.author.received = true;
+    if (selectedChan && selectedChan.type == 'dm') {
+      // If the message was sent to the selected channel
+      if (selectedChan && m.channel.id == selectedChan.id) {
+        // document.getElementById('message-list').removeChild(document.getElementById('message-list').firstChild);
+        let previousMessage;
+        fetchLast(previousMessage);
+      }
+    }
+    // If there is a channel selected
+    else if (selectedGuild && m.guild.id == selectedGuild.id) {
+      let channel = document.getElementById(m.channel.id);
+      if (
+        channel &&
+        (!selectedChan || (selectedChan && selectedChan.id != m.channel.id))
+      ) {
+        channel.classList.add('newMsg');
+      }
 
-    // A message has been deleted
-    bot.on('messageDelete', (m) => {
-        // Return if it's not the selected channel
-        if(m.channel != selectedChan) return;
-        // Get the dom element from the message
-        let message = document.getElementById(m.id);
-        let firstMessage = message.classList.contains('firstmsg');
+      // If the message was sent to the selected channel
+      if (selectedChan && m.channel.id == selectedChan.id) {
+        // document.getElementById('message-list').removeChild(document.getElementById('message-list').firstChild);
+        let previousMessage;
+        fetchLast(previousMessage);
+      }
+    }
 
-        // Remove the message element
-        removeMessage(message, firstMessage);
-    });
+    // Get last message in channel
+    async function fetchLast(previousMessage) {
+      await m.channel.messages.fetch({ limit: 2 }).then((msg) => {
+        previousMessage = msg.map((mseg) => mseg)[1];
+      });
 
-    // Multiple messages have been deleted
-    bot.on('messageDeleteBulk', (msgs) => {
-        // Return if it's not the selected channel
-        if(msgs.first().channel != selectedChan) return;
-        for(let m of msgs){
-            let message = document.getElementById(m[1].id);
-            let firstMessage = message.classList.contains('firstmsg');
+      let scroll = false;
+      if (
+        document.getElementById('message-list').scrollHeight -
+          Math.floor(document.getElementById('message-list').scrollTop) ==
+        document.getElementById('message-list').clientHeight
+      ) {
+        scroll = true;
+      }
 
-            // Remove the message element
-            removeMessage(message, firstMessage);
-        }
-    });
+      if (barry) {
+        bunch = false;
+        barry = false;
+      }
 
-    // A message has been updated
-    bot.on('messageUpdate', (oldM, m) => {
-        // Return if it's not the selected channel or if the message wasn't edited
-        if(m.channel ? m.channel : m.dmChannel != selectedChan || !m.editedAt) return;
-        // Get the dom element from the message
-        let message = document.getElementById(m.id).querySelector('.messageText');
-        message.innerHTML = `${parseMessage(m.cleanContent)} <time class='edited'>(edited)</time>`;
-    });
+      // Generate and add the message
+      let message = generateMsgHTML(m, previousMessage);
+      document.getElementById('message-list').appendChild(message);
 
+      // Auto scroll with the message
+      // Some debug stuff \/
+      // console.log("Client height: " + document.getElementById('message-list').clientHeight);
+      // console.log("Message list top: " + document.getElementById('message-list').scrollTop);
+      // console.log("Message list scrolled: " + document.getElementById('message-list').scrollHeight);
+      // console.log("Total Height: " + (document.getElementById('message-list').scrollHeight - Math.floor(document.getElementById('message-list').scrollTop)));
+      if (scroll == true) {
+        document.getElementById(
+          'message-list'
+        ).scrollTop = document.getElementById('message-list').scrollHeight;
+        scroll = false;
+      }
+    }
+  });
 
-    // New message recieved
-    bot.on('message', (m) => {
-        (m.channel.type == 'dm')
-            m.author.received = true;
-        if (selectedChan && selectedChan.type == 'dm') {
+  // Runs when a user joins a server
+  bot.on('guildMemberAdd', (m) => {
+    updateUsers(false, m);
+  });
 
-            // If the message was sent to the selected channel
-            if (selectedChan && m.channel.id == selectedChan.id) {
-                //document.getElementById('message-list').removeChild(document.getElementById('message-list').firstChild);
-                let previousMessage;
-                fetchLast(previousMessage);
-            }
-        }
-        // If there is a channel selected
-        else if (selectedGuild && m.guild.id == selectedGuild.id) {
+  // Runs when a user leaves a server
+  bot.on('guildMemberRemove', (m) => {
+    updateUsers(false, m, true);
+  });
 
-            let channel = document.getElementById(m.channel.id);
-            if (channel && (!selectedChan || (selectedChan && selectedChan.id != m.channel.id))) {
-                channel.classList.add("newMsg");
-            }
-
-            // If the message was sent to the selected channel
-            if (selectedChan && m.channel.id == selectedChan.id) {
-                //document.getElementById('message-list').removeChild(document.getElementById('message-list').firstChild);
-                let previousMessage;
-                fetchLast(previousMessage);
-            }
-        }
-
-        // Get last message in channel
-        async function fetchLast(previousMessage) {
-            await m.channel.messages.fetch({ limit: 2 }).then(msg => {
-                previousMessage = msg.map(mseg => mseg)[1];
-            });
-
-            let scroll = false;
-            if (document.getElementById('message-list').scrollHeight - Math.floor(document.getElementById('message-list').scrollTop) == document.getElementById('message-list').clientHeight) {
-                scroll = true;
-            }
-
-            if (barry) {
-                bunch = false;
-                barry = false;
-            }
-
-            // Generate and add the message
-            let message = generateMsgHTML(m, previousMessage);
-            document.getElementById('message-list').appendChild(message);
-
-            // Auto scroll with the message
-            // Some debug stuff \/
-            // console.log("Client height: " + document.getElementById('message-list').clientHeight);
-            // console.log("Message list top: " + document.getElementById('message-list').scrollTop);
-            // console.log("Message list scrolled: " + document.getElementById('message-list').scrollHeight);
-            // console.log("Total Height: " + (document.getElementById('message-list').scrollHeight - Math.floor(document.getElementById('message-list').scrollTop)));
-            if (scroll == true) {
-                document.getElementById('message-list').scrollTop = document.getElementById('message-list').scrollHeight;
-                scroll = false;
-            }
-        }
-    });
-
-    // Runs when a user joins a server
-    bot.on('guildMemberAdd', m => {
-        updateUsers(false, m);
-    })
-
-    // Runs when a user leaves a server
-    bot.on('guildMemberRemove', m => {
-        updateUsers(false, m, true);
-    })
-
-    // Runs when unloaded
-    bot.on('error', () => {
-        // Remove the server list when connection lost
-        while (document.getElementById('guild-list').firstChild) {
-            document.getElementById('guild-list').removeChild(document.getElementById('guild-list').firstChild);
-        }
-        // Unload and stop all the scripts
-        unloadAllScripts();
-        // Unload all the themes
-        unloadThemes()
-    });
+  // Runs when unloaded
+  bot.on('error', () => {
+    // Remove the server list when connection lost
+    while (document.getElementById('guild-list').firstChild) {
+      document
+        .getElementById('guild-list')
+        .removeChild(document.getElementById('guild-list').firstChild);
+    }
+    // Unload and stop all the scripts
+    unloadAllScripts();
+    // Unload all the themes
+    unloadThemes();
+  });
 };
 
-
 function removeMessage(message, firstMessage) {
-    // Check if you need to delete just the message or the whole message block
-    if (message.parentNode.children.length > 1) {
-        if (firstMessage) {
-            let embed = message.querySelector('.embed');
-            let text = message.querySelector('.messageText');
-            let nextElement = message.nextElementSibling;
-            
-            if (embed)
-                message.removeChild(embed);
-            if (text)
-                message.removeChild(text);
+  // Check if you need to delete just the message or the whole message block
+  if (message.parentNode.children.length > 1) {
+    if (firstMessage) {
+      let embed = message.querySelector('.embed');
+      let text = message.querySelector('.messageText');
+      let nextElement = message.nextElementSibling;
 
-            message.innerHTML += nextElement.innerHTML;
-            message.id = nextElement.id;
+      if (embed) message.removeChild(embed);
+      if (text) message.removeChild(text);
 
-            message.parentElement.removeChild(nextElement);
-        } else {
-            message.parentElement.removeChild(message);
-        }
+      message.innerHTML += nextElement.innerHTML;
+      message.id = nextElement.id;
+
+      message.parentElement.removeChild(nextElement);
     } else {
-        document.getElementById('message-list').removeChild(message.parentNode);
+      message.parentElement.removeChild(message);
     }
+  } else {
+    document.getElementById('message-list').removeChild(message.parentNode);
+  }
 }

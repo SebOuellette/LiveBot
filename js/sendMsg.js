@@ -1,81 +1,83 @@
 let helpMsg = [
-        'Here is a list of available commands. \n',
-        '`/help` - Lists all commands.',
-        '`/shrug` - Prepends ¯\\_(ツ)_/¯ to your message.',
-        '`/tableflip` - Prepends (╯°□°）╯︵ ┻━┻ to your message.',
-        '`/ping` - Check the hearbeat to discord.',
-        '`/server` - Get some info about the server.',
-        '`/eval` - Execute a command.'
-    ].join('\n')
-  
-// Commands  
-let sendmsg = () => {
-    if (selectedChan) {
-        let text = document.getElementById('msgbox').value;
-        if(!text.replace(/ |\n| /gm, '')) return;
-        // If the emoji isn't a gloabal emoji, treat it as one. 
-        // let customEmoji = /(<a?:)(!)?(.+?:[0-9]+?>)/gm
-        // text = text.replace(customEmoji, (a, b, c, d) => {
-        //     if (c != '!') {
-        //         return `${b}!${d}`; 
-        //     }
-        //     return a;
-        // });
+  'Here is a list of available commands. \n',
+  '`/help` - Lists all commands.',
+  '`/shrug` - Prepends ¯\\_(ツ)_/¯ to your message.',
+  '`/tableflip` - Prepends (╯°□°）╯︵ ┻━┻ to your message.',
+  '`/ping` - Check the hearbeat to discord.',
+  '`/server` - Get some info about the server.',
+  '`/eval` - Execute a command.',
+].join('\n');
 
-        if (text.substring(0,1) == '/') {
-            let cmd = text.split(' ')[0].substring(1);
-            let msg = text.split(' ').splice(1).join(' ');
-            
-            switch (cmd) {
-                case 'help':
-                    command(helpMsg);
-                break;
-        
-                case 'shrug':
-                    selectedChan.send('¯\\_(ツ)_/¯ '+msg);
-                    document.getElementById('msgbox').value = '';
-                break;
-        
-                case 'tableflip':
-                    selectedChan.send('(╯°□°）╯︵ ┻━┻ '+msg);
-                    document.getElementById('msgbox').value = '';
-                break;
-        
-                case 'ping':
-                    command('🏓 | Pong! The heartbeat is '+Math.round(bot.ping)+'ms.');
-                break;
-        
-                case 'server':
-                    let serverinfo = [
-                            'Here is some info about '+selectedChan.guild.name+'. \n',
-                            'Members - '+selectedChan.guild.memberCount,
-                            'Channels - '+selectedChan.guild.channels.size,
-                            'Roles - '+selectedChan.guild.roles.size,
-                            'ID - '+selectedChan.guild.id,
-                            'Owner - '+selectedChan.guild.owner.user.tag
-                        ].join('\n');
-                    command(serverinfo);
-                break;
-        
-                case 'eval':
-                    try {
-                        command(`📥 Eval \n ${msg} \n\n 📤 Output \n ${eval(msg)}`);
-                    } catch (err) {
-                        command(`📥 Eval \n ${msg} \n\n 📤 Output \n ${err}`);
-                    }
-                    document.getElementById('msgbox').value = '';
-                break;
-            }
-            selectedChan.stopTyping(true);
-        } else {
-            // Make a new message with the sent text
-            text = parseSend(text)
-            selectedChan.send(text).catch(errorHandler);
-            setTimeout(() => {
-                document.getElementById('msgbox').value = '';
-                selectedChan.stopTyping(true);
-            },1);
-        }
+// Commands
+let sendmsg = () => {
+  if (selectedChan) {
+    let text = document.getElementById('msgbox').value;
+    if (!text.replace(/ |\n| /gm, '')) return;
+    // If the emoji isn't a gloabal emoji, treat it as one.
+    // let customEmoji = /(<a?:)(!)?(.+?:[0-9]+?>)/gm;
+    // text = text.replace(customEmoji, (a, b, c, d) => {
+    //   if (c != '!') {
+    //     return `${b}!${d}`;
+    //   }
+    //   return a;
+    // });
+
+    if (text.substring(0, 1) == '/') {
+      let cmd = text.split(' ')[0].substring(1);
+      let msg = text.split(' ').splice(1).join(' ');
+
+      switch (cmd) {
+        case 'help':
+          command(helpMsg);
+          break;
+
+        case 'shrug':
+          selectedChan.send('¯\\_(ツ)_/¯ ' + msg);
+          document.getElementById('msgbox').value = '';
+          break;
+
+        case 'tableflip':
+          selectedChan.send('(╯°□°）╯︵ ┻━┻ ' + msg);
+          document.getElementById('msgbox').value = '';
+          break;
+
+        case 'ping':
+          command(
+            '🏓 | Pong! The heartbeat is ' + Math.round(bot.ws.ping) + 'ms.'
+          );
+          break;
+
+        case 'server':
+          let serverinfo = [
+            'Here is some info about ' + selectedChan.guild.name + '. \n',
+            'Members - ' + selectedChan.guild.memberCount,
+            'Channels - ' + selectedChan.guild.channels.cache.size,
+            'Roles - ' + selectedChan.guild.roles.cache.size,
+            'ID - ' + selectedChan.guild.id,
+            'Owner - ' + selectedChan.guild.owner.user.tag,
+          ].join('\n');
+          command(serverinfo);
+          break;
+
+        case 'eval':
+          try {
+            command(`📥 Eval \n ${msg} \n\n 📤 Output \n ${eval(msg)}`);
+          } catch (err) {
+            command(`📥 Eval \n ${msg} \n\n 📤 Output \n ${err}`);
+          }
+          document.getElementById('msgbox').value = '';
+          break;
+      }
+      selectedChan.stopTyping(true);
+    } else {
+      // Make a new message with the sent text
+      text = parseSend(text);
+      selectedChan.send(text).catch(errorHandler);
+      setTimeout(() => {
+        document.getElementById('msgbox').value = '';
+        selectedChan.stopTyping(true);
+      }, 1);
     }
-    return false;
+  }
+  return false;
 };
