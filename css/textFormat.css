@@ -50,7 +50,7 @@ a:hover {
     padding: 3px 0 3px 0;
     margin: 0;
     color: #dcddde;
-    width: calc(100% - 40px);
+    margin-right: 20px;
     word-spacing: 2px;
     position: relative;
     overflow: hidden;
@@ -99,7 +99,7 @@ a:hover {
 .messageBlock {
     display: block;
     position: relative;
-    padding-left: 90px;
+    padding-left: 80px;
     border-radius: 3px;
 }
 
