@@ -121,6 +121,7 @@ a:hover {
     left: -40px;
     top: -26px;
     position: relative;
+    font-weight: bold;
 }
 
 .messageUsername:hover {
