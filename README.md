@@ -3,7 +3,7 @@
 ## Livebot can no longer be used for user accounts. It can now only be used for bots. This is due to the recent update to discord.js v12.2.0
 An app that allows you to be inside a bot!
 
-At the moment, livebot is still in beta. Installation instructions can be found below.
+At the moment, Livebot is still in beta. Installation instructions can be found below.
 
 ## Discord
 If you would like to get the latest information on the project, talk with the developers, post suggestions, get help, etc... join the official Livebot [Discord server!](https://discord.gg/TMUc8Bs)
@@ -17,7 +17,7 @@ Livebot had been built so that the style and flow is similar to discord, and whi
 ## How to install
 ### Manual (Necessary for Mac and Linux)
 Before following any installation steps, make sure you [install nodejs](https://nodejs.org/en/).
-To install livebot, just download as a zip file, which you can do by pressing the green button above. Once you have downloaded and extracted the zip file, go into the directory with a command prompt or shell window. In the shell window, enter the command `npm install`. Make sure that the terminal window is running as administrator. Once this process is finished - it may take some time - type `npm test`. The livebot window will open and you're ready to go! Just paste your token in the bar at the top, press save, and that bot will be loaded into each time you open the app automatically!
+To install Livebot, just download as a zip file, which you can do by pressing the green button above. Once you have downloaded and extracted the zip file, go into the directory with a command prompt or shell window. In the shell window, enter the command `npm install`. Make sure that the terminal window is running as administrator. Once this process is finished - it may take some time - type `npm test`. The Livebot window will open and you're ready to go! Just paste your token in the bar at the top, press save, and that bot will be loaded into each time you open the app automatically!
 ### Easy (Windows Only)
 If you would like to just download and open an exe file, switch to the `executable` branch, then just download that zip file. If you don't know how to switch, click the dropdown menu just above the file list, and to the left.
 
@@ -29,7 +29,7 @@ The token changer used to be at the top of the main screen, but has moved to the
 </br>
 
 ### Barry!
-Barry is the livebot version of discord's Clyde. Except Barry has some fun commands! Just use the prefix `/`. Only you can see what barry says, so don't worry about interfering with any conversations. <br>
+Barry is the Livebot version of discord's Clyde. Except Barry has some fun commands! Just use the prefix `/`. Only you can see what barry says, so don't worry about interfering with any conversations. <br>
 <img src='https://i.imgur.com/PGInuit.png' style='border-radius: 10px;'>
 
 ### Profile card.
