@@ -86,7 +86,7 @@ function generateMsgHTML(m, previousMessage, count = -1, fetchSize = undefined) 
 
             // Use the heighest role for their color (Since the hoist role is just the one that displays, not the one that determines the color)
             // Display the role as white if it's black
-            color = m.member.roles.highest.displayHexColor || "#fff";
+            color = m.member.displayHexColor;
 
             name.style.color = color;
         } else {
