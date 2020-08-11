@@ -40,11 +40,6 @@ body {
     height: 20px !important;
 }
 
-.window-icon-bg {
-    height: 20px !important;
-    margin-top: 5px;
-}
-
 .container-after-titlebar {
     left: 8px !important;
     top: 30px !important;
