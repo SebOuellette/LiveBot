@@ -152,3 +152,6 @@ h5 {
 .blocked:hover h5 {
     opacity: 1;
 }
+
+#channel-elements {
+    margin-right: 5px;
