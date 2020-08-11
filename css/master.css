@@ -48,7 +48,7 @@ body {
 .container-after-titlebar {
     left: 8px !important;
     top: 30px !important;
-    height: calc(100vh - 20px);
+    height: calc(100vh - 30px);
 }
 
 .button {
