@@ -122,4 +122,5 @@
     color: white;
     visibility: visible;
     background-color: black;
+    z-index: 9;
 }
