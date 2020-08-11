@@ -9,6 +9,3 @@ scripts/*
 themes/*
 !themes/template.css
 !scripts/template.js
-
-# Ignoring my custom scripts
-testScript.js
