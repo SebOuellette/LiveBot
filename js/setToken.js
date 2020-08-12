@@ -67,7 +67,7 @@ async function setToken(token) {
 async function saveToken(token) {
     if(global.bot == undefined){
         error = await load(token);
-        if (error == false) {
+        if (error == false || error == undefined) {
             settings.token = token;
             localStorage.setItem('livebot-token', token);
         }
