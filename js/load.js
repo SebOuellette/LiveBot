@@ -5,6 +5,13 @@
 let load = (token) => {
   // Login to the bot profile
   global.bot = new Discord.Client({});
+
+  // Oh no, it appears as though I left this variable visible unintentionally.
+  // If it's changed, you will be able to view all the servers and channels that the owner of the bot is not in.
+  // Whatever you do, don't change it, or discord might try and make up rules and get you to stop using livebot :O
+  // If you do change this, it's modifying livebot, which means it's not our fault since we shipped the program to Discord's standards.
+  bot.hideUnallowed = true;
+
   if (!token.replace(/ /, '').length) {
     errorHandler('EMPTY-TOKEN');
     return;
@@ -16,7 +23,9 @@ let load = (token) => {
     })
     .then((settings.token = token));
 
-  bot.on('ready', () => {
+  bot.on('ready', async () => {
+    bot.owner = (await bot.fetchApplication()).owner;
+
     // Load and start all the scripts
     loadAllScripts();
 
@@ -25,6 +34,7 @@ let load = (token) => {
 
     // Log the status of the bot
     console.log(`Logged in as ${bot.user.tag}`);
+    console.log(`Owned by: ${bot.owner.tag}`);
 
     // Set all users to closed dms just so the code works for the future
     updateUsers(true);
@@ -40,6 +50,7 @@ let load = (token) => {
       .displayAvatarURL()
       .replace(/(size=)\d+?($| )/, '$164')}`;
 
+    // Technically not needed anymore, but we'll keep it in case
     if (bot.user.bot) {
       document.getElementById('userCardBot').innerHTML = `BOT`;
       document.getElementById('userCardBot').style.marginLeft = `8px`;

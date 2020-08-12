@@ -5,6 +5,7 @@ const url = require('url');
 const pack = require('./package.json');
 
 let win;
+
 function createWindow() {
   win = new BrowserWindow({
     width: 1300,

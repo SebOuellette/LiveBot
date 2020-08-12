@@ -4,98 +4,102 @@ let cachedGuilds = [];
 async function addGuilds() {
   // Get the first guild in the list if there is any
   let lastGuild = cachedGuilds.length ? cachedGuilds[0][1] : null;
-  await bot.guilds.cache.forEach(async (g) => {
-    // Check if the guild is available first, if it's not then remove it
-    if (!g.available) {
-      await g.fetch();
-    }
-    if (!g.available) {
-      `Guild ${g.name} seems to be offline`;
-    }
-    let img;
-    // If there is no icon url for the server, create the letter icon
-    if (g.iconURL() === null) {
-      img = document.createElement('div');
 
-      img.style.backgroundColor = '#2F3136';
-      img.style.marginBottom = '4px';
+  await bot.guilds.cache
+    .filter((g) => (bot.hideUnallowed ? g.members.cache.get(bot.owner.id) : g))
+    .forEach(async (g) => {
+      // Check if the guild is available first, if it's not then remove it
+      if (!g.available) {
+        await g.fetch();
+      }
+      if (!g.available) {
+        console.log(`Guild ${g.name} seems to be offline`);
+      }
+      let img;
 
-      let abrev = document.createElement('p');
-      abrev.id = 'guildAbrev';
-      abrev.appendChild(document.createTextNode(g.nameAcronym));
-      img.appendChild(abrev);
-    } else {
-      // The guild has an icon, create the image
-      img = document.createElement('img');
+      // If there is no icon url for the server, create the letter icon
+      if (g.iconURL() === null) {
+        img = document.createElement('div');
 
-      let ico;
-      ico = `https://cdn.discordapp.com/icons/${g.id}/${g.icon}.webp?size=64`;
-      img.src = ico;
+        img.style.backgroundColor = '#2F3136';
+        img.style.marginBottom = '4px';
 
-      img.alt = g.name;
-      img.height = '40';
-      img.width = '40';
-    }
+        let abrev = document.createElement('p');
+        abrev.id = 'guildAbrev';
+        abrev.appendChild(document.createTextNode(g.nameAcronym));
+        img.appendChild(abrev);
+      } else {
+        // The guild has an icon, create the image
+        img = document.createElement('img');
 
-    // Styling for both image and letter icons
-    img.style.height = '40px';
-    img.style.width = '40px';
-    img.classList.add('guild-icon');
-    img.id = g.id;
+        let ico;
+        ico = `https://cdn.discordapp.com/icons/${g.id}/${g.icon}.webp?size=64`;
+        img.src = ico;
 
-    // Add the events for the guild icons
-    img.onclick = () => {
-      guildSelect(g, img);
-      selectedGuild = g;
-    };
+        img.alt = g.name;
+        img.height = '40';
+        img.width = '40';
+      }
 
-    // Creating the container for the icon
-    let guildIcon = document.createElement('div');
-    // Creating the container for the guilds name
-    let guildNameContainer = document.createElement('div');
-    // Creating the text element which will display the name
-    let guildName = document.createElement('p');
+      // Styling for both image and letter icons
+      img.style.height = '40px';
+      img.style.width = '40px';
+      img.classList.add('guild-icon');
+      img.id = g.id;
 
-    // Adding classes to elements
-    guildNameContainer.classList.add('guildNameContainer');
-    guildName.classList.add('guildName');
-    guildIcon.classList.add('guildIconDiv');
+      // Add the events for the guild icons
+      img.onclick = () => {
+        guildSelect(g, img);
+        selectedGuild = g;
+      };
 
-    // Setting the name
-    guildName.innerText = g.name;
-    // Appending the name to the name container
-    guildNameContainer.appendChild(guildName);
-    // Appending the image and the container in reverse order
-    // so it could be manipulated with in css
-    guildIcon.appendChild(img);
-    guildIcon.appendChild(guildNameContainer);
+      // Creating the container for the icon
+      let guildIcon = document.createElement('div');
+      // Creating the container for the guilds name
+      let guildNameContainer = document.createElement('div');
+      // Creating the text element which will display the name
+      let guildName = document.createElement('p');
 
-    // Add image to the list of guilds
-    if (
-      lastGuild == null ||
-      (lastGuild.parentElement &&
-        lastGuild.parentElement.lastElementChild == lastGuild)
-    ) {
-      // Append the guild to the last spot
-      document.getElementById('guildContainer').appendChild(guildIcon);
-      cachedGuilds.push([g.id, guildIcon]);
-    } else if (!cachedGuilds.find((e) => e[0] == g.id)) {
-      // Insert the guild in the respectful place
-      document
-        .getElementById('guildContainer')
-        .insertBefore(guildIcon, lastGuild.nextSibling);
-      cachedGuilds.push([g.id, guildIcon]);
-    }
-    // Check if the guild is in the cache just in case
-    if (cachedGuilds.find((e) => e[0] == g.id)) {
-      // Get this guild out of the cache and store it
-      lastGuild = cachedGuilds.find((e) => e[0] == g.id)[1];
-    }
+      // Adding classes to elements
+      guildNameContainer.classList.add('guildNameContainer');
+      guildName.classList.add('guildName');
+      guildIcon.classList.add('guildIconDiv');
 
-    // Changing the width of the name container so it fits the text
-    guildNameContainer.style.width =
-      guildName.getBoundingClientRect().width + 10 + 'px';
-  });
+      // Setting the name
+      guildName.innerText = g.name;
+      // Appending the name to the name container
+      guildNameContainer.appendChild(guildName);
+      // Appending the image and the container in reverse order
+      // so it could be manipulated with in css
+      guildIcon.appendChild(img);
+      guildIcon.appendChild(guildNameContainer);
+
+      // Add image to the list of guilds
+      if (
+        lastGuild == null ||
+        (lastGuild.parentElement &&
+          lastGuild.parentElement.lastElementChild == lastGuild)
+      ) {
+        // Append the guild to the last spot
+        document.getElementById('guildContainer').appendChild(guildIcon);
+        cachedGuilds.push([g.id, guildIcon]);
+      } else if (!cachedGuilds.find((e) => e[0] == g.id)) {
+        // Insert the guild in the respectful place
+        document
+          .getElementById('guildContainer')
+          .insertBefore(guildIcon, lastGuild.nextSibling);
+        cachedGuilds.push([g.id, guildIcon]);
+      }
+      // Check if the guild is in the cache just in case
+      if (cachedGuilds.find((e) => e[0] == g.id)) {
+        // Get this guild out of the cache and store it
+        lastGuild = cachedGuilds.find((e) => e[0] == g.id)[1];
+      }
+
+      // Changing the width of the name container so it fits the text
+      guildNameContainer.style.width =
+        guildName.getBoundingClientRect().width + 10 + 'px';
+    });
 }
 
 // Remove the guild

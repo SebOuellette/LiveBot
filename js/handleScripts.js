@@ -24,15 +24,10 @@ let loadAllScripts = () => {
   files.forEach((file) => {
     if (file.endsWith('.js')) {
       try {
-        if (
-          !require.cache[require.resolve(`./scripts/${file}`)]
-            .exports.start
-        )
+        if (!require.cache[require.resolve(`./scripts/${file}`)].exports.start)
           throw { message: '.exports.start is not a function' };
         console.log(`%c  ${file} started!`, 'color:Green');
-        require.cache[
-          require.resolve(`./scripts/${file}`)
-        ].exports.start();
+        require.cache[require.resolve(`./scripts/${file}`)].exports.start();
       } catch (err) {
         // If it's missing the start function then display a short error and say which plugin it is
         if (err.message.includes('.exports.start is not a function'))
@@ -55,15 +50,10 @@ let unloadAllScripts = () => {
       require.cache[require.resolve(`./scripts/${file}`)]
     ) {
       try {
-        if (
-          !require.cache[require.resolve(`./scripts/${file}`)]
-            .exports.stop
-        )
+        if (!require.cache[require.resolve(`./scripts/${file}`)].exports.stop)
           throw { message: '.exports.stop is not a function' };
         console.log(`%c  ${file} stopped!`, 'color:Red');
-        require.cache[
-          require.resolve(`./scripts/${file}`)
-        ].exports.stop();
+        require.cache[require.resolve(`./scripts/${file}`)].exports.stop();
       } catch (err) {
         // If it's missing the start function then display a short error and say which plugin it is
         if (err.message.includes('.exports.stop is not a function'))
@@ -85,9 +75,7 @@ let getData = () => {
   files.forEach((file) => {
     if (file.endsWith('.js') && file != 'template.js') {
       object[file] =
-        require.cache[
-          require.resolve(`./scripts/${file}`)
-        ].exports.info;
+        require.cache[require.resolve(`./scripts/${file}`)].exports.info;
       object[file].file = file;
     }
   });
