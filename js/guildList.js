@@ -12,7 +12,7 @@ async function addGuilds() {
         if(!g.available) {
             await g.fetch()
         }
-        if(!g.available) {console.log(`Guild ${g.name} seems to be offline`)}
+        if(!g.available) {errorHandler('SERVER_OFFLINE')}
         let img;
 
 
@@ -92,6 +92,15 @@ async function addGuilds() {
         // Changing the width of the name container so it fits the text
         guildNameContainer.style.width = guildName.getBoundingClientRect().width + 10 + 'px';
     });
+
+    // Done loading, hide the splash screen
+    console.log('Livebot ready');
+    setLoadingPerc(1);
+    document.getElementById('splashLoading').style.opacity = '0';
+    setTimeout(() => document.getElementById('percentageText').style.opacity = '0', 2000);
+    setTimeout(() => document.getElementById('loadingBar').style.opacity = '0', 2000);
+    setTimeout(() => document.getElementById('splashScreen').style.opacity = '0', 3000);
+    setTimeout(() => document.getElementById('splashScreen').style.visibility = 'hidden', 3500);
 }
 
 // Remove the guild

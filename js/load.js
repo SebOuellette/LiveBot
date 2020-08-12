@@ -2,7 +2,7 @@
 // const { remote } = require("electron");
 
 // Load a new token
-let load = token => {
+let load = async token => {
     // Login to the bot profile
     global.bot = new Discord.Client({});
 
@@ -14,58 +14,95 @@ let load = token => {
 
     if(!token.replace(/ /, '').length){
         errorHandler('EMPTY-TOKEN');
-        return
+        return true;
     }
-    bot.login(token).catch(err => {
+
+    let error = false;
+    error = await bot.login(token).catch(err => {
         errorHandler(err)
-    }).then(settings.token = token);
+        error = true;
+    }).then(() => {
+        setLoadingPerc(0.05);
+        settings.token = token;
+        return error;
+    });
+    if (error == true) {
+        setLoadingPerc(-1);
+        return true;
+    }
 
     bot.on('ready', async () => {
-        bot.owner = (await bot.fetchApplication()).owner;
+        // Update the loading bar
 
-        // Load and start all the scripts
-        loadAllScripts();
+        async function continueLoad() {
+            // Load and start all the scripts
+            setLoadingPerc(0.5);
+            await loadAllScripts();
 
-        // Load all the themes
-        loadThemes();
+            // Load all the themes
+            setLoadingPerc(0.55);
+            await loadThemes();
 
-        // Log the status of the bot
-        console.log(`Logged in as ${bot.user.tag}`);
-        console.log(`Owned by: ${bot.owner.tag}`);
+            // Log the status of the bot
+            console.log(`Logged in as ${bot.user.tag}`);
+            console.log(`Owned by: ${bot.owner.tag}`);
 
-        // Set all users to closed dms just so the code works for the future
-        updateUsers(true);
+            // Set all users to closed dms just so the code works for the future
+            setLoadingPerc(0.6);
+            await updateUsers(true);
 
-        // Update the user card
-        document.getElementById('userCardName').innerHTML = bot.user.username;
-        document.getElementById('userCardDiscrim').innerHTML = `#${bot.user.discriminator}`;
-        document.getElementById('userCardIcon').src = `${bot.user.displayAvatarURL().replace(/(size=)\d+?($| )/, '$164')}`;
+            // Loading guilds and stuff
+            setLoadingPerc(0.8);
 
-        // Technically not needed anymore, but we'll keep it in case
-        if (bot.user.bot) {
-            document.getElementById('userCardBot').innerHTML = `BOT`;
-            document.getElementById('userCardBot').style.marginLeft = `8px`;
-        } else {
-            document.getElementById('userCardBot').innerHTML = `USER`;
-            document.getElementById('userCardBot').style.marginLeft = `5px`;
+            // Update the user card
+            document.getElementById('userCardName').innerHTML = bot.user.username;
+            document.getElementById('userCardDiscrim').innerHTML = `#${bot.user.discriminator}`;
+            document.getElementById('userCardIcon').src = `${bot.user.displayAvatarURL().replace(/(size=)\d+?($| )/, '$164')}`;
+
+            // Technically not needed anymore, but we'll keep it in case
+            if (bot.user.bot) {
+                document.getElementById('userCardBot').innerHTML = `BOT`;
+                document.getElementById('userCardBot').style.marginLeft = `8px`;
+            } else {
+                document.getElementById('userCardBot').innerHTML = `USER`;
+                document.getElementById('userCardBot').style.marginLeft = `5px`;
+            }
+            
+            // Create the guild indicator
+            guildIndicator = document.createElement('div');
+            guildIndicator.id = 'guildIndicator';
+
+            // Create a guild container
+            guildContainer = document.createElement('div')
+            guildContainer.id = 'guildContainer';
+
+            // Apply the guild indicator in the container
+            guildContainer.appendChild(guildIndicator);
+
+            // Apply the guild container to the guild list
+            document.getElementById('guild-list').appendChild(guildContainer);
+
+            // Loop through all the guilds and create the element for the icon
+            await addGuilds();
         }
-        
-        // Create the guild indicator
-        guildIndicator = document.createElement('div');
-        guildIndicator.id = 'guildIndicator';
 
-        // Create a guild container
-        guildContainer = document.createElement('div')
-        guildContainer.id = 'guildContainer';
+        setLoadingPerc(0.4);
+        let owner = (await bot.fetchApplication()).owner;
 
-        // Apply the guild indicator in the container
-        guildContainer.appendChild(guildIndicator);
-
-        // Apply the guild container to the guild list
-        document.getElementById('guild-list').appendChild(guildContainer);
-
-        // Loop through all the guilds and create the element for the icon
-        addGuilds();
+        // Check if the owner of the bot is a team
+        if (owner.ownerID) {
+            bot.team = owner.members.map(x => x);
+            let id = localStorage.getItem(`${bot.user.id}-teamUser`);
+            if (id) {
+                bot.owner = bot.team.filter(x => x.user.id == id)[0].user;
+                continueLoad();
+            } else {
+                buildTeamMemberCards(continueLoad);
+            }
+        } else {
+            bot.owner = owner;
+            continueLoad();
+        }
     });
 
     bot.on('guildUnavailable', (g) => {
@@ -234,4 +271,43 @@ function removeMessage(message, firstMessage) {
     } else {
         document.getElementById('message-list').removeChild(message.parentNode);
     }
+}
+
+function setLoadingPerc(num) {
+    // Num possibilities
+    switch (num) {
+        case 0:
+            document.getElementById('percentageText').innerText = "Fetching token";
+            break;
+        case 0.05:
+            document.getElementById('percentageText').innerText = "Logging into the bot";
+            break;
+		case 0.1:
+            document.getElementById('percentageText').innerText = "Getting the bot ready";
+            break;
+		case 0.4:
+            document.getElementById('percentageText').innerText = "Getting the owner of the bot";
+            break;
+        case 0.5:
+            document.getElementById('percentageText').innerText = "Loading scripts";
+            break;
+        case 0.55:
+            document.getElementById('percentageText').innerText = "Loading themes";
+            break;
+		case 0.6:
+            document.getElementById('percentageText').innerText = "Setting up direct messages";
+            break;
+        case 0.8:
+            document.getElementById('percentageText').innerText = "Loading servers";
+            break;
+		case 1:
+            document.getElementById('percentageText').innerText = "All done!";
+            break;
+        default:
+            document.getElementById('percentageText').innerText = "There was an error while logging in the bot";
+            num = 0;
+            break;
+    }
+
+    document.getElementById('loadingComplete').style.width = `${num * 100}%`;
 }

@@ -24,13 +24,14 @@ function discordApiErrors(code, err){
 function customErrors(code, err){
     switch(code){
         case('NO-TOKEN'):
+            setLoadingPerc(-1);
             console.error('There is no token stored');
-            settings.functions.openSettings('User');
             break;
         case('SAME-TOKEN'):
             console.error('The token is the same so it won\'t be switched');
             break;
         case('EMPTY-TOKEN'):
+            setLoadingPerc(-1);
             console.error('The token is empty');
             break;
         case('TOKEN_INVALID'):
@@ -41,6 +42,9 @@ function customErrors(code, err){
             break;
         case('EMPTY-NAME'):
             console.error('Username is empty or contains invalid characters')
+            break;
+        case('SERVER_OFFLINE'):
+            console.error('Guild seems to be offline');
             break;
         case('DiscordAPIError: Cannot send messages to this user'):
             console.error('The user has either blocked you or has ')

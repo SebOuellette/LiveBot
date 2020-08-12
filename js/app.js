@@ -57,10 +57,13 @@ function create() {
     addDocListener();
 
     // Load the bot with the token in storage or throw an error if there isn't any
+    setLoadingPerc(0);
     if(settings.token)
         load(settings.token);
-    else
-        errorHandler('NO-TOKEN')
+    else {
+        buildSplashToken();
+        //errorHandler('NO-TOKEN');
+    }
 }
 
 // Alert that you are typing
