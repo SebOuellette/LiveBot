@@ -43,16 +43,8 @@ async function setToken(token) {
         await unloadAllScripts();
         await unloadThemes();
         load(token);
-        try {
-            document.getElementById('tokenbox').style.borderColor = '#313339';
-        } catch (e) { }
         cachedGuilds = []
     } catch (err) {
-        // Flash red if the token is incorrect
-        let tokenBox = document.getElementById('tokenbox');
-        try {
-            tokenBox.animate(animations.flashRed);
-        } catch (e) { }
 
         // Set the error to true so it doesn't save the token
         error[0] = true;

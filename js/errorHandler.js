@@ -25,9 +25,19 @@ function customErrors(code, err){
     switch(code){
         case('NO-TOKEN'):
             setLoadingPerc(-1);
+            // Flash red if the token is incorrect
+            Array.from(document.getElementsByClassName('tokenbox')).forEach(box => {
+                console.log(box);
+                box.animate(animations.flashRed, 400);
+            });
             console.error('There is no token stored');
             break;
         case('SAME-TOKEN'):
+            // Flash red if the token is incorrect
+            Array.from(document.getElementsByClassName('tokenbox')).forEach(box => {
+                console.log(box);
+                box.animate(animations.flashRed, 400);
+            });
             console.error('The token is the same so it won\'t be switched');
             break;
         case('EMPTY-TOKEN'):
@@ -45,9 +55,6 @@ function customErrors(code, err){
             break;
         case('SERVER_OFFLINE'):
             console.error('Guild seems to be offline');
-            break;
-        case('DiscordAPIError: Cannot send messages to this user'):
-            console.error('The user has either blocked you or has ')
             break;
         default:
             console.error(`Error code: ${err.code}\n${err}`);
