@@ -96,11 +96,7 @@ async function addGuilds() {
     // Done loading, hide the splash screen
     console.log('Livebot ready');
     setLoadingPerc(1);
-    document.getElementById('splashLoading').style.opacity = '0';
-    setTimeout(() => document.getElementById('percentageText').style.opacity = '0', 2000);
-    setTimeout(() => document.getElementById('loadingBar').style.opacity = '0', 2000);
-    setTimeout(() => document.getElementById('splashScreen').style.opacity = '0', 3000);
-    setTimeout(() => document.getElementById('splashScreen').style.visibility = 'hidden', 3500);
+    hideSplashScreen();
 }
 
 // Remove the guild

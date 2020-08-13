@@ -76,8 +76,7 @@ function buildSplashToken() {
     // Create the token input field
     let input = document.createElement('input');
     input.classList.add('splashScreenToken');
-    input.type = "text";
-    input.id = 'tokenbox';
+    input.type = "password";
     input.placeholder = "Input your token";
     container.appendChild(input);
 

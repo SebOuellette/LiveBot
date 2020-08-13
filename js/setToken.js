@@ -1,16 +1,20 @@
 async function setToken(token) {
     let client = new Discord.Client();
     let error = [false, 'none'];
-    if(global.bot && bot.token == token) {errorHandler('SAME-TOKEN'); return 'SAME-TOKEN'}
+    if (global.bot && bot.token == token) { errorHandler('SAME-TOKEN'); return 'SAME-TOKEN' }
     try {
         setLoadingPerc(0.05);
-        if(!token.replace(/ /, '').length)
-            throw('EMPTY-TOKEN')
+        if (!token.replace(/ /, '').length){
+            setLoadingPerc(-1);
+            throw ('EMPTY-TOKEN')
+        }
         await client.login(token).catch(err => {
+            setLoadingPerc(-1);
             throw (err)
         });
         client.destroy();
-
+        
+        setLoadingPerc(0.1); // Refreshing the everything
         // Clear the list of channels
         let channels = document.getElementById('channel-elements');
         while (channels.firstChild) {
@@ -19,7 +23,7 @@ async function setToken(token) {
 
         // Delete the list of the guilds
         let guildContainer = document.getElementById('guildContainer');
-        if(guildContainer && guildContainer.parentElement){
+        if (guildContainer && guildContainer.parentElement) {
             guildContainer.parentElement.removeChild(guildContainer);
         }
 
@@ -33,30 +37,30 @@ async function setToken(token) {
         memberList.innerHTML = '';
 
         // Stop the current bot, unload scritps, and then load into the new token
-        if(global.bot !== undefined){
+        if (global.bot !== undefined) {
             bot.destroy();
         }
         await unloadAllScripts();
-        await unloadThemes()
+        await unloadThemes();
         load(token);
-        try{
+        try {
             document.getElementById('tokenbox').style.borderColor = '#313339';
-        }catch(e){}
+        } catch (e) { }
         cachedGuilds = []
     } catch (err) {
         // Flash red if the token is incorrect
         let tokenBox = document.getElementById('tokenbox');
         try {
             tokenBox.animate(animations.flashRed);
-        } catch (e) {}
+        } catch (e) { }
 
         // Set the error to true so it doesn't save the token
-        error[0] = true
-        error[1] = err
+        error[0] = true;
+        error[1] = err;
     }
     try {
         document.getElementById('tokenbox').value = '';
-    } catch(e) {}
+    } catch (e) { }
     // Return if there's been an error or not
 
     return error;
@@ -65,7 +69,7 @@ async function setToken(token) {
 // Save the token to localstorage
 // Will be upgraded to database eventually
 async function saveToken(token) {
-    if(global.bot == undefined){
+    if (global.bot == undefined) {
         error = await load(token);
         if (error == false || error == undefined) {
             settings.token = token;
@@ -75,13 +79,13 @@ async function saveToken(token) {
         return error;
     } else {
         let error = await setToken(token)
-        if(!error[0]){
+        if (!error[0]) {
             settings.token = token;
             localStorage.setItem('livebot-token', token);
             return false;
         } else {
             errorHandler(error[1])
-            console.warn(`The token won't be saved since there was an error`) 
+            console.warn(`The token won't be saved since there was an error`)
             return true;
         }
     }

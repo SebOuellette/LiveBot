@@ -22,7 +22,7 @@ let load = async token => {
         errorHandler(err)
         error = true;
     }).then(() => {
-        setLoadingPerc(0.05);
+        setLoadingPerc(0.15);
         settings.token = token;
         return error;
     });
@@ -280,9 +280,15 @@ function setLoadingPerc(num) {
             document.getElementById('percentageText').innerText = "Fetching token";
             break;
         case 0.05:
+            document.getElementById('percentageText').innerText = "Checking if token is correct";
+            break;
+        case 0.1:
+            document.getElementById('percentageText').innerText = "Refreshing the servers";
+            break;
+        case 0.15:
             document.getElementById('percentageText').innerText = "Logging into the bot";
             break;
-		case 0.1:
+		case 0.2:
             document.getElementById('percentageText').innerText = "Getting the bot ready";
             break;
 		case 0.4:
