@@ -32,10 +32,10 @@ The token changer used to be at the top of the main screen, but has moved to the
 Barry is the Livebot version of discord's Clyde. Except Barry has some fun commands! Just use the prefix `/`. Only you can see what barry says, so don't worry about interfering with any conversations. <br>
 <img src='https://i.imgur.com/PGInuit.png' style='border-radius: 10px;'>
 
-### Profile card.
+### Profile card
 The profile card is able to tell you the username, the avatar image, the discriminator, and something discord does not have. The profile card will tell you if the account you are signed into is a bot or a user. This can be handy if you are not quite sure. <br>
 <img src='https://i.imgur.com/tQ2tsSr.png' style='border-radius: 10px;'>
 
-### Guild card.
+### Guild card
 The guild card gives a little more information than the basic discord 'name of the guild'. The guild card shows you the name of the guild, the guild icon, and how many users are in the guild. <br>
 <img src='https://i.imgur.com/fkjXkCz.png' style='border-radius: 10px;'>
