@@ -82,7 +82,7 @@ body {
 
 #main {
     position: fixed;
-    height: calc(100vh - 20px);
+    height: calc(100vh - 30px);
 }
 
 /* User card */
