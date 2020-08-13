@@ -33,7 +33,7 @@ Barry is the Livebot version of discord's Clyde. Except Barry has some fun comma
 <img src='https://i.imgur.com/PGInuit.png' style='border-radius: 10px;'>
 
 ### Profile card
-The profile card is able to tell you the username, the avatar image, the discriminator, and something discord does not have. The profile card will tell you if the account you are signed into is a bot or a user. This can be handy if you are not quite sure. <br>
+The profile card is able to tell you the username, the avatar image, the discriminator, and whether you are logged in to a bot or a user. <br>
 <img src='https://i.imgur.com/tQ2tsSr.png' style='border-radius: 10px;'>
 
 ### Guild card
