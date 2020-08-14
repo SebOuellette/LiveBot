@@ -20,38 +20,41 @@ function discordApiErrors(code, err){
     }
 }
 
+function tokenError(){
+    // Flash red if the token is incorrect
+    Array.from(document.getElementsByClassName('tokenbox')).forEach(box => {
+        box.animate(animations.flashRed, 400);
+        box.value = '';
+    });
+}
+
 // Errors that are catched by discord.js and converted to custom errors
 function customErrors(code, err){
     switch(code){
         case('NO-TOKEN'):
             setLoadingPerc(-1);
-            // Flash red if the token is incorrect
-            Array.from(document.getElementsByClassName('tokenbox')).forEach(box => {
-                console.log(box);
-                box.animate(animations.flashRed, 400);
-            });
             console.error('There is no token stored');
+            tokenError();
             break;
         case('SAME-TOKEN'):
-            // Flash red if the token is incorrect
-            Array.from(document.getElementsByClassName('tokenbox')).forEach(box => {
-                console.log(box);
-                box.animate(animations.flashRed, 400);
-            });
             console.error('The token is the same so it won\'t be switched');
+            tokenError();
             break;
         case('EMPTY-TOKEN'):
             setLoadingPerc(-1);
             console.error('The token is empty');
+            tokenError();
             break;
         case('TOKEN_INVALID'):
             console.error('Invalid Token');
+            tokenError();
             break;
         case('SHARDING_REQUIRED'):
             console.error('Sharding is not a feature yet');
+            tokenError();
             break;
         case('EMPTY-NAME'):
-            console.error('Username is empty or contains invalid characters')
+            console.error('Username is empty or contains invalid characters');
             break;
         case('SERVER_OFFLINE'):
             console.error('Guild seems to be offline');

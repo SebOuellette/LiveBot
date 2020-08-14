@@ -10,7 +10,7 @@ let load = async token => {
     // If it's changed, you will be able to view all the servers and channels that the owner of the bot is not in.
     // Whatever you do, don't change it, or discord might try and make up rules and get you to stop using livebot :O
     // If you do change this, it's modifying livebot, which means it's not our fault since we shipped the program to Discord's standards.
-    bot.hideUnallowed = true;
+    bot.hideUnallowed = true; // Should be true by default
 
     if(!token.replace(/ /, '').length){
         errorHandler('EMPTY-TOKEN');
@@ -245,6 +245,8 @@ let load = async token => {
         // Unload all the themes
         unloadThemes()
     });
+
+    return false;
 };
 
 
