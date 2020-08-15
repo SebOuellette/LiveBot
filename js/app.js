@@ -64,7 +64,6 @@ async function create() {
             buildSplashToken();
         }
     } else {
-        console.log('here?');
         buildSplashToken();
         //errorHandler('NO-TOKEN');
     }
