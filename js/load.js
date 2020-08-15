@@ -244,7 +244,7 @@ let load = async token => {
         unloadThemes()
     });
     return error;
-;
+}
 
 
 function removeMessage(message, firstMessage) {

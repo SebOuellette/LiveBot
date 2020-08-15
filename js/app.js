@@ -60,7 +60,7 @@ async function create() {
     setLoadingPerc(0);
     if(settings.token) {
         var error = await load(settings.token);
-        if (error) {
+        if (error[0]) {
             buildSplashToken();
         }
     } else {
