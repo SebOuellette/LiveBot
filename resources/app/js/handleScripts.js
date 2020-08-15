@@ -14,7 +14,7 @@ let loadAllScripts = () => {
         if (file.endsWith(".js") && file != "template.js") {
             delete require.cache[require.resolve(`./resources/app/scripts/${file}`)];
 
-            require('./scripts/' + file);
+            require('./resources/app/scripts/' + file);
             console.log(`%c  ${file} loaded!`, 'color:Green');
         }
     });
@@ -64,7 +64,7 @@ let unloadAllScripts = () => {
 let getData = () => {
     let object = {}
 
-    let files = fs.readdirSync('./scripts', );
+    let files = fs.readdirSync('./resources/app/scripts', );
 
     files.forEach(file => {
         if (file.endsWith(".js") && file != "template.js") {

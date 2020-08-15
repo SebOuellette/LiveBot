@@ -287,20 +287,20 @@ function genCheckbox(parent, option) {
 }
 
 // Generate the token box
-function genTokenBox(parent, placeholder, customClass) {
-    // This is basically just a shortinput, but modified to have an id, event listener, etc
+// function genTokenBox(parent, placeholder, customClass) {
+//     // This is basically just a shortinput, but modified to have an id, event listener, etc
 
-    // Create the short input
-    genShortInput()
+//     // Create the short input
+//     genShortInput()
     
-    document.getElementById("tokenbox")
-        .addEventListener("keydown", event => {
-            if (event.keyCode === 13) {
-                unloadAllScripts();
-                setToken();
-            }
-        });
-}
+//     document.getElementById("tokenbox")
+//         .addEventListener("keydown", event => {
+//             if (event.keyCode === 13) {
+//                 unloadAllScripts();
+//                 setToken();
+//             }
+//         });
+// }
 
 // Shortinput box stuff
 function genShortInput(parent, special = false, placeholder, customClass, id = undefined) {
@@ -319,9 +319,10 @@ function genShortInput(parent, special = false, placeholder, customClass, id = u
 
     // Create the token event listeners
     if (id == 'tokenbox') {
+        input.type = "password";
         input.addEventListener("keydown", event => {
                 if (event.keyCode === 13)
-                    setToken(input.value);
+                    showSplashScreen(input.value);
             });
     }
 }

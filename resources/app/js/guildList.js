@@ -4,13 +4,18 @@ let cachedGuilds = [];
 async function addGuilds() {
     // Get the first guild in the list if there is any
     let lastGuild = cachedGuilds.length ? cachedGuilds[0][1] : null;
-    await bot.guilds.cache.forEach(async g => {
+
+    await bot.guilds.cache
+        .filter(g => bot.hideUnallowed ? g.members.cache.get(bot.owner.id) : g)
+        .forEach(async g => {
         // Check if the guild is available first, if it's not then remove it
         if(!g.available) {
             await g.fetch()
         }
-        if(!g.available) {`Guild ${g.name} seems to be offline`}
+        if(!g.available) {errorHandler('SERVER_OFFLINE')}
         let img;
+
+
         // If there is no icon url for the server, create the letter icon
         if (g.iconURL() === null) {
             img = document.createElement('div');
@@ -87,6 +92,11 @@ async function addGuilds() {
         // Changing the width of the name container so it fits the text
         guildNameContainer.style.width = guildName.getBoundingClientRect().width + 10 + 'px';
     });
+
+    // Done loading, hide the splash screen
+    console.log('Livebot ready');
+    setLoadingPerc(1);
+    hideSplashScreen();
 }
 
 // Remove the guild

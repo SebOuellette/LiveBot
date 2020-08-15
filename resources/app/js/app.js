@@ -33,7 +33,7 @@ let animations = {
 }
 
 // Create the app and attach event listeners
-function create() {
+async function create() {
     document.getElementById("msgbox")
         .addEventListener("keydown", event => {
             if (event.keyCode === 13 && !event.shiftKey) {
@@ -57,10 +57,16 @@ function create() {
     addDocListener();
 
     // Load the bot with the token in storage or throw an error if there isn't any
-    if(settings.token)
-        load(settings.token);
-    else
-        errorHandler('NO-TOKEN')
+    setLoadingPerc(0);
+    if(settings.token) {
+        var error = await load(settings.token);
+        if (error[0]) {
+            buildSplashToken();
+        }
+    } else {
+        buildSplashToken();
+        //errorHandler('NO-TOKEN');
+    }
 }
 
 // Alert that you are typing

@@ -1,0 +1,283 @@
+@font-face {
+    font-family: UniSans;
+    src: url(../resources/fonts/UniSans-Heavy.ttf);
+}
+
+#splashScreen {
+    width: 100vw;
+    height: 100vh;
+    background-color: #202225;
+    position: fixed;
+    z-index: 1000;
+    display: block;
+    margin: 0 0 0 -8px;
+    transition-duration: 0.5s;
+    text-align: center;
+}
+
+#splashScreen h1 {
+    margin-top: 50px;
+    font-family: UniSans;
+    color: white;
+    font-stretch: expanded;
+    font-size: 70px;
+    width: 100%;
+    user-select: none;
+}
+
+/* Loading Circles */
+#splashLoading {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: calc(50vh - 300px);
+    width: 200px;
+    height: 120px;
+    transition-duration: 0.5s;
+}
+
+.loadingCircle {
+    height: 12px;
+    width: 12px;
+    margin: 6px 6px 6px 16px;
+    border-radius: 50%;
+    background-color: #36393f;
+    transform: translateY(100px);
+    display: inline-block;
+    animation-name: loading;
+    animation-iteration-count: infinite;
+    animation-duration: 2s;
+    animation-delay: 0s;
+}
+
+#c1 {
+    animation-delay: 0ms;
+}
+
+#c2 {
+    animation-delay: 0.2s;
+}
+
+#c3 {
+    animation-delay: 0.4s;
+}
+
+#c4 { /* boom */
+    animation-delay: 0.6s;
+}
+
+#c5 {
+    animation-delay: 0.8s;
+}
+
+@keyframes loading {
+    0% {
+        height: 12px;
+        width: 12px;
+        margin: 6px 6px 6px 16px;
+        transform: translateY(100px);
+        background-color: #2f3136;
+    }
+    20% {
+        height: 24px;
+        width: 24px;
+        margin: 0 0 0 10px;
+        transform: translateY(0px);
+        background-color: #fff;
+    }
+    45% {
+        height: 12px;
+        width: 12px;
+        margin: 6px 6px 6px 16px;
+        transform: translateY(100px);
+        background-color: #2f3136;
+    }
+    60% {
+        height: 13,9px;
+        width: 13,9px;
+        margin: 5,1px 5,1px 5,1px 15,1px;
+        transform: translateY(52px);
+        background-color: #aaa;
+    }
+    80% {
+        height: 12px;
+        width: 12px;
+        margin: 6px 6px 6px 16px;
+        transform: translateY(100px);
+        background-color: #2f3136;
+    }
+}
+
+/* Loading Bar */
+#loadingBar {
+    height: 20px;
+    width: 50vw;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    transition-duration: 0.5s;
+}
+
+#loadingIncomplete {
+    width: 100%;
+    height: 10px;
+    background-color: #403e41;
+    position: relative;
+    border-radius: 5px;
+}
+
+#loadingComplete {
+    height: 100%;
+    width: 0;
+    top: -15px;
+    background-color: #2f3136;
+    position: relative;
+    transition-duration: 500ms;
+    border-radius: 5px;
+}
+
+/* Loading text */
+#percentageText{
+    color:white;
+    user-select: none;
+}
+
+/* Team members */
+#selectMember {
+    height: calc(100vh - 301px - calc(50vh - 300px) - 115px);
+    margin-top: 50px;
+    overflow-y: auto;
+}
+
+#selectMember::-webkit-scrollbar {
+    background-color: transparent;
+    width: 6px;
+}
+
+#selectMember::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+#selectMember::-webkit-scrollbar-thumb {
+    background-color: #36393f;
+    border-radius: 3px;
+}
+
+.teamMember {
+    width: 250px;
+    height: 280px;
+    background-color: #36393f;
+    display: inline-block;
+    margin: 0 10px 20px 10px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.userArea {
+    height: 200px;
+    background-color: #18191c;
+}
+
+.teamMemberIcon {
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    margin-top: 20px;
+}
+
+.teamMemberTag {
+    display: block;
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+.teamMemberName {
+    max-width: 180px;
+    text-overflow: ellipsis;
+    color: white;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.teamMemberDisc {
+    color: #777;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.teamMemberButton {
+    display: inline-block;
+    height: 50px;
+    width: calc(45% - 10px);
+    margin: 0 4px;
+    background-color: #28292c;
+    text-align: center;
+    margin-top: 10px;
+    border-radius: 5px;
+    padding: 5px;
+    vertical-align: middle;
+    cursor: pointer;
+    transition-duration: 0.2s;
+}
+
+.teamMemberButton:hover {
+    background-color: #222325;
+    border-radius: 3px;
+}
+
+.teamMemberButton span {
+    display: block;
+    color: white;
+    font-size: 18px;
+    user-select: none;
+    height: 100%;
+    padding: 2px;
+}
+
+.oneline {
+    line-height: 2.4;
+}
+
+/* Token styling */
+.splashTokenContainer {
+    width: 50vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.splashScreenToken {
+    background-color: #40444b;
+    padding: 10px;
+    outline: none;
+    border-radius: 3px;
+    color: white;
+    display: block;
+    width: 100%;
+    margin-left: -10px;
+    font-size: 17px;
+    border: 2px solid #40444b;
+}
+
+.tokenAddButton {
+    display: inline-block;
+    height: 25px;
+    width: 40%;
+    margin: 0 20px;
+    background-color: #28292c;
+    text-align: center;
+    margin-top: 10px;
+    border-radius: 5px;
+    padding: 5px;
+    vertical-align: middle;
+    cursor: pointer;
+    transition-duration: 0.2s;
+    color: white;
+    font-size: 17px;
+}
+
+.tokenAddButton:hover {
+    background-color: #222325;
+    border-radius: 3px;
+}
