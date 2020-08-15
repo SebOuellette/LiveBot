@@ -243,9 +243,8 @@ let load = async token => {
         // Unload all the themes
         unloadThemes()
     });
-
     return error;
-};
+;
 
 
 function removeMessage(message, firstMessage) {
