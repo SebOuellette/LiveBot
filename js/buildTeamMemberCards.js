@@ -102,25 +102,29 @@ function buildSplashToken() {
     // Event listeners
     oneTimeButton.addEventListener('click', async () => {
         let token = input.value;
-        let error = false;
-        if(global.bot == undefined)
-            error = await load(token)
-        else
-            error = (await setToken(token))[0];
+        let error = [false, 'none'];
 
-        if (!error) {
+        if (global.bot === undefined)
+            error = await load(token);
+        else
+            error = await setToken(token);
+
+        if (!error[0]) {
             document.getElementById('selectMember').removeChild(container);
+            setLoadingPerc(0);
         } else {
+            errorHandler(error[1])
             setLoadingPerc(-1);
         }
     });
     defaultButton.addEventListener('click', async () => {
         let token = input.value;
         let error = await saveToken(token);
-        if (!error) {
+        if (!error[0]) {
             document.getElementById('selectMember').removeChild(container);
             setLoadingPerc(0.05);
         } else {
+            errorHandler(error[1])
             setLoadingPerc(-1);
         }
     });

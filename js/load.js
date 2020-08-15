@@ -10,28 +10,26 @@ let load = async token => {
     // If it's changed, you will be able to view all the servers and channels that the owner of the bot is not in.
     // Whatever you do, don't change it, or discord might try and make up rules and get you to stop using livebot :O
     // If you do change this, it's modifying livebot, which means it's not our fault since we shipped the program to Discord's standards.
-    bot.hideUnallowed = true;
+    bot.hideUnallowed = true; // Should be true by default
 
-    if(!token.replace(/ /, '').length){
-        errorHandler('EMPTY-TOKEN');
-        return true;
+    let error = [false, 'none'];
+
+    if (!token.replace(/ /, '').length) {
+        return [true, 'EMPTY-TOKEN'];
     }
 
-    let error = false;
-    error = await bot.login(token).catch(err => {
-        errorHandler(err)
-        error = true;
+    await bot.login(token).catch(err => {
+        error = [true, err];
     }).then(() => {
         setLoadingPerc(0.15);
         settings.token = token;
-        return error;
     });
-    if (error == true) {
+    if (error[0]) {
         setLoadingPerc(-1);
-        return true;
+        return error;
     }
 
-    bot.on('ready', async () => {
+    bot.on('ready', async() => {
         // Update the loading bar
 
         async function continueLoad() {
@@ -67,7 +65,7 @@ let load = async token => {
                 document.getElementById('userCardBot').innerHTML = `USER`;
                 document.getElementById('userCardBot').style.marginLeft = `5px`;
             }
-            
+
             // Create the guild indicator
             guildIndicator = document.createElement('div');
             guildIndicator.id = 'guildIndicator';
@@ -106,7 +104,7 @@ let load = async token => {
     });
 
     bot.on('guildUnavailable', (g) => {
-        if(g.available) return;
+        if (g.available) return;
         console.error(`Guild ${g.name} went offline`)
         removeGuild(g);
     })
@@ -119,18 +117,18 @@ let load = async token => {
     bot.on('guildDelete', (g) => {
         updateUsers(true);
         removeGuild(g);
-    })  
+    })
 
     // A user has started typing
     bot.on('typingStart', (c) => {
-        if(c != selectedChan) return;
+        if (c != selectedChan) return;
         typingStatus();
-    })    
+    })
 
     // A message has been deleted
     bot.on('messageDelete', (m) => {
         // Return if it's not the selected channel
-        if(m.channel != selectedChan) return;
+        if (m.channel != selectedChan) return;
         // Get the dom element from the message
         let message = document.getElementById(m.id);
         let firstMessage = message.classList.contains('firstmsg');
@@ -142,8 +140,8 @@ let load = async token => {
     // Multiple messages have been deleted
     bot.on('messageDeleteBulk', (msgs) => {
         // Return if it's not the selected channel
-        if(msgs.first().channel != selectedChan) return;
-        for(let m of msgs){
+        if (msgs.first().channel != selectedChan) return;
+        for (let m of msgs) {
             let message = document.getElementById(m[1].id);
             let firstMessage = message.classList.contains('firstmsg');
 
@@ -155,7 +153,7 @@ let load = async token => {
     // A message has been updated
     bot.on('messageUpdate', (oldM, m) => {
         // Return if it's not the selected channel or if the message wasn't edited
-        if(m.channel ? m.channel : m.dmChannel != selectedChan || !m.editedAt) return;
+        if (m.channel ? m.channel : m.dmChannel != selectedChan || !m.editedAt) return;
         // Get the dom element from the message
         let message = document.getElementById(m.id).querySelector('.messageText');
         message.innerHTML = `${parseMessage(m.cleanContent)} <time class='edited'>(edited)</time>`;
@@ -165,7 +163,7 @@ let load = async token => {
     // New message recieved
     bot.on('message', m => {
         (m.channel.type == 'dm')
-            m.author.received = true;
+        m.author.received = true;
         if (selectedChan && selectedChan.type == 'dm') {
 
             // If the message was sent to the selected channel
@@ -245,6 +243,8 @@ let load = async token => {
         // Unload all the themes
         unloadThemes()
     });
+
+    return error;
 };
 
 
@@ -255,7 +255,7 @@ function removeMessage(message, firstMessage) {
             let embed = message.querySelector('.embed');
             let text = message.querySelector('.messageText');
             let nextElement = message.nextElementSibling;
-            
+
             if (embed)
                 message.removeChild(embed);
             if (text)
@@ -279,6 +279,9 @@ function setLoadingPerc(num) {
         case 0:
             document.getElementById('percentageText').innerText = "Fetching token";
             break;
+        case 0.01:
+            document.getElementById('percentageText').innerText = "Please enter your token";
+            break;
         case 0.05:
             document.getElementById('percentageText').innerText = "Checking if token is correct";
             break;
@@ -288,10 +291,10 @@ function setLoadingPerc(num) {
         case 0.15:
             document.getElementById('percentageText').innerText = "Logging into the bot";
             break;
-		case 0.2:
+        case 0.2:
             document.getElementById('percentageText').innerText = "Getting the bot ready";
             break;
-		case 0.4:
+        case 0.4:
             document.getElementById('percentageText').innerText = "Getting the owner of the bot";
             break;
         case 0.5:
@@ -300,13 +303,13 @@ function setLoadingPerc(num) {
         case 0.55:
             document.getElementById('percentageText').innerText = "Loading themes";
             break;
-		case 0.6:
+        case 0.6:
             document.getElementById('percentageText').innerText = "Setting up direct messages";
             break;
         case 0.8:
             document.getElementById('percentageText').innerText = "Loading servers";
             break;
-		case 1:
+        case 1:
             document.getElementById('percentageText').innerText = "All done!";
             break;
         default:

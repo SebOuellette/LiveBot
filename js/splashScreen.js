@@ -20,8 +20,11 @@ function hideSplashScreen() {
 async function showSplashScreen(token = undefined) {
     if(!token) return;
 
-    let error = (await setToken(token))[0];
+    let error = (await setToken(token));
 
-    if (!error)
+    if (!error[0])
         document.getElementById('splashScreen').style.visibility = 'visible';
+    else {
+        errorHandler(error[1]);
+    }
 }

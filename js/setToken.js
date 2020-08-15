@@ -1,7 +1,7 @@
 async function setToken(token) {
     let client = new Discord.Client();
     let error = [false, 'none'];
-    if (global.bot && bot.token == token) { errorHandler('SAME-TOKEN'); return 'SAME-TOKEN' }
+    if (global.bot && bot.token == token) { return [true, 'SAME-TOKEN'] }
     try {
         setLoadingPerc(0.05);
         if (!token.replace(/ /, '').length){
@@ -50,9 +50,6 @@ async function setToken(token) {
         error[0] = true;
         error[1] = err;
     }
-    try {
-        document.getElementById('tokenbox').value = '';
-    } catch (e) { }
     // Return if there's been an error or not
 
     return error;
@@ -61,24 +58,19 @@ async function setToken(token) {
 // Save the token to localstorage
 // Will be upgraded to database eventually
 async function saveToken(token) {
-    if (global.bot == undefined) {
+    let error = [false, 'none'];
+    if (global.bot === undefined)
         error = await load(token);
-        if (error == false || error == undefined) {
-            settings.token = token;
-            localStorage.setItem('livebot-token', token);
-        }
+    else
+        error = await setToken(token);
 
+    if (!error[0]) {
+        settings.token = token;
+        localStorage.setItem('livebot-token', token);
         return error;
     } else {
-        let error = await setToken(token)
-        if (!error[0]) {
-            settings.token = token;
-            localStorage.setItem('livebot-token', token);
-            return false;
-        } else {
-            errorHandler(error[1])
-            console.warn(`The token won't be saved since there was an error`)
-            return true;
-        }
+        console.warn(`The token won't be saved since there was an error`)
+        return error;
     }
+    
 }
