@@ -3,6 +3,7 @@ let loadedThemes = []
 function loadThemes() {
     // Set the directory of the themes
     let dir = './resources/app/themes/'
+	let dir2 = './themes/'
 
     // Get all the files in the themes folder
     let files = fs.readdirSync(dir);
@@ -12,8 +13,8 @@ function loadThemes() {
         files.splice(files.indexOf('template.css'), 1);
 
     // Don't bother loading if there is nothing
-    if(!files.length) return;
-    
+    if (!files.length) return;
+
     console.log('Loading themes...');
 
     files.forEach(file => {
@@ -22,7 +23,7 @@ function loadThemes() {
         let script = document.createElement('link');
         script.id = file
         script.rel = 'stylesheet';
-        script.href = dir+file;
+        script.href = dir2 + file;
 
         loadedThemes.push([script, file]);
 

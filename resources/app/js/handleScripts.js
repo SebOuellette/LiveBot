@@ -12,9 +12,9 @@ let loadAllScripts = () => {
     console.log('Loading scripts...');
     files.forEach(file => {
         if (file.endsWith(".js") && file != "template.js") {
-            delete require.cache[require.resolve(`./resources/app/scripts/${file}`)];
+            delete require.cache[require.resolve(`./scripts/${file}`)];
 
-            require('./resources/app/scripts/' + file);
+            require('./scripts/' + file);
             console.log(`%c  ${file} loaded!`, 'color:Green');
         }
     });
@@ -24,9 +24,9 @@ let loadAllScripts = () => {
     files.forEach(file => {
         if (file.endsWith(".js")) {
             try {
-                if(!require.cache[require.resolve(`./resources/app/scripts/${file}`)].exports.start) throw({message: '.exports.start is not a function'})
+                if(!require.cache[require.resolve(`./scripts/${file}`)].exports.start) throw({message: '.exports.start is not a function'})
                 console.log(`%c  ${file} started!`, 'color:Green');
-                require.cache[require.resolve(`./resources/app/scripts/${file}`)].exports.start();
+                require.cache[require.resolve(`./scripts/${file}`)].exports.start();
             } catch (err) {
                 // If it's missing the start function then display a short error and say which plugin it is
                 if (err.message.includes('.exports.start is not a function'))
@@ -43,11 +43,11 @@ let unloadAllScripts = () => {
     // Stop and unload all the scripts
     console.log('Stopping scripts...');
     files.forEach(file => {
-        if (file.endsWith(".js") && file != "template.js" && require.cache[require.resolve(`./resources/app/scripts/${file}`)]) {
+        if (file.endsWith(".js") && file != "template.js" && require.cache[require.resolve(`./scripts/${file}`)]) {
             try {
-                if(!require.cache[require.resolve(`./resources/app/scripts/${file}`)].exports.stop) throw({message: '.exports.stop is not a function'})
+                if(!require.cache[require.resolve(`./scripts/${file}`)].exports.stop) throw({message: '.exports.stop is not a function'})
                 console.log(`%c  ${file} stopped!`, 'color:Red');
-                require.cache[require.resolve(`./resources/app/scripts/${file}`)].exports.stop();
+                require.cache[require.resolve(`./scripts/${file}`)].exports.stop();
             } catch (err) {
                 // If it's missing the start function then display a short error and say which plugin it is
                 if (err.message.includes('.exports.stop is not a function'))
@@ -55,7 +55,7 @@ let unloadAllScripts = () => {
                 console.log(`%c   ${file} was unable to stop\n${err}`, 'color:Red')
             }
 
-            delete require.cache[require.resolve(`./resources/app/scripts/${file}`)];
+            delete require.cache[require.resolve(`./scripts/${file}`)];
             console.log(`%c  ${file} unloaded!`, 'color:Red');
         }
     });
