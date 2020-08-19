@@ -39,6 +39,7 @@ a:hover {
 /* Image Previews */
 .previewImage {
     margin-bottom: 10px;
+    height: auto;
 }
 
 /* Message Text */
@@ -113,13 +114,17 @@ a:hover {
 }
 
 .messageUsername {
-    user-select: none;
+    -webkit-user-drag: none;
     cursor: default;
     display: inline-block;
     margin: 3px 0;
     left: -40px;
     top: -26px;
     position: relative;
+}
+
+.messageUsername:hover {
+    text-decoration: underline;
 }
 
 .messageTimestamp {
@@ -144,6 +149,7 @@ a:hover {
 .barryImg {
     left: 30px;
     top: 5px;
+    user-select: none;
 }
 
 /* Code Block */
@@ -153,7 +159,7 @@ a:hover {
     border: 1px solid #202225;
     border-radius: 3px;
     padding: 5px;
-    font-family: monospace;
+    font-family: monospace !important;
     font-size: 14px;
     color: #b9bbbe;
 }

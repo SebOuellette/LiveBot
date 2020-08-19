@@ -1,7 +1,7 @@
 #memberBar {
-    height: calc(100vh - 100px);
+    height: calc(100vh - 40px);
     width: 201px;
-    margin-top: calc(-100vh + 128px);
+    margin-top: calc(-100vh + 60px);
     margin-left: calc(100vw - 209px);
     background-color: #2F3136;
     overflow-y: auto;

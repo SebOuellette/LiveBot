@@ -1,0 +1,48 @@
+.dmChannel {
+    user-select: none;
+    margin: 2px 0 0 -5px;
+    padding: 5px 20px;
+    cursor: pointer;
+    border-radius: 3px;
+    height: 25px;
+}
+
+.dmChannelImage {
+    height: 25;
+    width: 25;
+    border-radius: 50%;
+    user-select: none;
+    position: relative;
+    margin-bottom: 6px;
+}
+
+#dmChannel-elements h5 {
+    transform: translateY(-5px);
+    display: inline-block;
+    margin: 0 !important;
+    padding: 7px 0 7px 10px;
+    width: 170px;
+}
+
+.dmChannel:hover {
+    background-color: #34373c;
+    color: #B4B8BC;
+}
+
+/* Channel ... formatting */
+.dmChannel h5 {
+    max-width: calc(100% - 40px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    user-select: none;
+}
+
+.selectedChan {
+    background-color: #393c43 !important;
+    color: white !important;
+}
+
+.dmChannel.newMsg {
+    color: white !important;
+}

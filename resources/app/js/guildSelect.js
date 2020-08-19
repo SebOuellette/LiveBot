@@ -7,7 +7,7 @@ let guildSelect = (g, img) => {
     img.classList.add('selectedGuild');
 
     // this should be done another way
-    document.getElementById('guildIndicator').style.marginTop = `${img.offsetTop - 2}px`;
+    document.getElementById('guildIndicator').style.marginTop = `${img.offsetTop - 69}px`;
     document.getElementById('guildIndicator').style.display = "block";
 
     oldimg = img;
@@ -110,7 +110,7 @@ let guildSelect = (g, img) => {
 
             // check if user can access the channel
             let blocked = false;
-            if (!c.permissionsFor(g.me).has("VIEW_CHANNEL")) {
+            if (!c.permissionsFor(g.me).has("VIEW_CHANNEL") || (bot.hideUnallowed && !c.permissionsFor(g.members.cache.get(bot.owner.id)).has("VIEW_CHANNEL"))) {
                 blocked = true;
                 div.classList.add("blocked");
             }

@@ -12,7 +12,7 @@ let helpMsg = [
 let sendmsg = () => {
     if (selectedChan) {
         let text = document.getElementById('msgbox').value;
-        if(!text.replace(/ |\n/gm, '')) return;
+        if(!text.replace(/ |\n| /gm, '')) return;
         // If the emoji isn't a gloabal emoji, treat it as one. 
         // let customEmoji = /(<a?:)(!)?(.+?:[0-9]+?>)/gm
         // text = text.replace(customEmoji, (a, b, c, d) => {
@@ -70,7 +70,7 @@ let sendmsg = () => {
         } else {
             // Make a new message with the sent text
             text = parseSend(text)
-            selectedChan.send(text);
+            selectedChan.send(text).catch(errorHandler);
             setTimeout(() => {
                 document.getElementById('msgbox').value = '';
                 selectedChan.stopTyping(true);
