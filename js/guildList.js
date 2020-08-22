@@ -33,6 +33,16 @@ async function addGuilds() {
 
             let ico;
             ico = `https://cdn.discordapp.com/icons/${g.id}/${g.icon}.webp?size=64`;
+
+            // Check if the icon is animated and add the animation on hover or remove it
+            if (g.icon.startsWith('a_')){
+                ico.onmouseenter = () => {
+                    img.src = ico.replace('.webp', 'gif');
+                }
+                ico.onmouseleave = () => {
+                    img.src = ico;
+                }
+            }
             img.src = ico;
 
             img.alt = g.name;
@@ -48,8 +58,8 @@ async function addGuilds() {
 
         // Add the events for the guild icons
         img.onclick = () => {
+            settings.lastGuild = g.id;
             guildSelect(g, img);
-            selectedGuild = g;
         };
         
         // Creating the container for the icon
@@ -91,12 +101,18 @@ async function addGuilds() {
 
         // Changing the width of the name container so it fits the text
         guildNameContainer.style.width = guildName.getBoundingClientRect().width + 10 + 'px';
+
+        // Load the guild while starting up if it was the last guild stored
+        // Doing it at the end so the indicator doesn't end up on the top
+        if(g.id == settings.lastGuild){
+            guildSelect(g, img);
+        }
     });
 
-    // Done loading, hide the splash screen
-    console.log('Livebot ready');
-    setLoadingPerc(1);
-    hideSplashScreen();
+    // Done loading.
+    if(settings.options.splash){
+        setLoadingPerc(1);
+    }
 }
 
 // Remove the guild
@@ -111,9 +127,25 @@ function removeGuild(g){
     if(selectedGuild && g.id == selectedGuild.id){
         document.getElementById('guildIndicator').style.display = 'none';
         selectedGuild = undefined;
+
+         // Clear the list of channels
+         let channels = document.getElementById('channel-elements');
+         while (channels.firstChild) {
+             channels.removeChild(channels.firstChild);
+         }
+ 
+         // Clear the message list
+         let messages = document.getElementById('message-list');
+         while (messages.firstChild) {
+             messages.removeChild(messages.firstChild);
+         }
+ 
+         // Clear the member list
+         let memberList = document.getElementById('memberBar');
+         memberList.innerHTML = '';
     }
     // If the channel is deleted then remove it from the variable
-    if (selectedChan && selectedChan.guild.deleted && !selectedChan.type == dm){
+    if (selectedChan && selectedChan.type != 'dm' && (selectedChan.guild.deleted || !selectedChan.guild.available)){
         selectedChan = undefined;
         selectedChatDiv = undefined;
     }

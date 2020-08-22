@@ -8,6 +8,7 @@
     cursor: default;
     overflow: hidden;
     text-align: center;
+    z-index: 1;
 }
 .memberMenuUserDiv {
     width: 100%;

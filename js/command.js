@@ -1,4 +1,4 @@
-let command = text => {
+let command = (text, del = NaN) => {
     let div = document.createElement('div');
     div.id = 'messageCont';
     div.classList.add('barryCommand');
@@ -43,4 +43,6 @@ let command = text => {
     document.getElementById('message-list').scrollTop = document.getElementById('message-list').scrollHeight;
     document.getElementById('msgbox').value = '';
     barry = true;
+    if(del && del > 1)
+        setTimeout(() => {document.getElementById('message-list').removeChild(div)}, del)
   }

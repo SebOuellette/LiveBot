@@ -4,12 +4,11 @@ async function setToken(token) {
     if (global.bot && bot.token == token) { return [true, 'SAME-TOKEN'] }
     try {
         setLoadingPerc(0.05);
-        if (!token.replace(/ /, '').length){
-            setLoadingPerc(-1);
-            throw ('EMPTY-TOKEN')
+        error = await validateToken(token)
+        if (error[0]){
+            throw (error[1])
         }
         await client.login(token).catch(err => {
-            setLoadingPerc(-1);
             throw (err)
         });
         client.destroy();
@@ -33,6 +32,7 @@ async function setToken(token) {
             messages.removeChild(messages.firstChild);
         }
 
+        // Clear the member list
         let memberList = document.getElementById('memberBar');
         memberList.innerHTML = '';
 
@@ -55,8 +55,6 @@ async function setToken(token) {
     return error;
 }
 
-// Save the token to localstorage
-// Will be upgraded to database eventually
 async function saveToken(token) {
     let error = [false, 'none'];
     if (global.bot === undefined)
@@ -65,12 +63,39 @@ async function saveToken(token) {
         error = await setToken(token);
 
     if (!error[0]) {
-        settings.token = token;
-        localStorage.setItem('livebot-token', token);
+        // Set the default token
+        settings.defaultToken = token;
         return error;
     } else {
         console.warn(`The token won't be saved since there was an error`)
         return error;
     }
     
+}
+
+async function validateToken(token = ''){
+    if(token.length == 0)
+        return [true, 'EMPTY-TOKEN']
+
+    if(token.replace('.', '').length < 58)
+        return [true, 'TOKEN-SHORT'];
+
+    if(token.replace('.', '').length > 58)
+        return [true, 'TOKEN-LONG'];
+
+    let invalidChars = [' ', '\t', '\r', '\n']
+    if(token.split('').filter(c => invalidChars.includes(c)).length > 0)
+        return [true, 'TOKEN-WHITESPACE'];
+
+    if(token.replace(/\w|-|_|\./gm, '').length > 0)
+        return [true, 'INVALID-TOKEN-CHARACTERS'];
+
+    let tA = token.split('.');
+    if (tA.length < 3 || tA.length > 3)
+        return [true, 'INVALID-TOKEN-FORMAT'];
+    tA[0] = tA[0].length; tA[1] = tA[1].length; tA[2] = tA[2].length;
+    if(tA[0] < 24 || tA[0] > 24 || tA[1] < 6 || tA[1] > 6 || tA[2] < 27 || tA[2] > 27)
+        return [true, 'INVALID-TOKEN-FORMAT'];
+
+    return [false, 'none']
 }

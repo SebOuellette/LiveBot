@@ -8,30 +8,28 @@ let load = async token => {
 
     // Oh no, it appears as though I left this variable visible unintentionally. 
     // If it's changed, you will be able to view all the servers and channels that the owner of the bot is not in.
-    // Whatever you do, don't change it, or discord might try and make up rules and get you to stop using livebot :O
-    // If you do change this, it's modifying livebot, which means it's not our fault since we shipped the program to Discord's standards.
+    // Whatever you do, don't change it, or discord might try and make up rules and get you to stop using LiveBot :O
+    // If you do change this, it's modifying LiveBot, which means it's not our fault since we shipped the program to Discord's standards.
     bot.hideUnallowed = true; // Should be true by default
 
     let error = [false, 'none'];
-
-    if (!token.replace(/ /, '').length) {
-        return [true, 'EMPTY-TOKEN'];
+    error = await validateToken(token)
+    if (error[0]) {
+        return error;
     }
 
     await bot.login(token).catch(err => {
         error = [true, err];
     }).then(() => {
         setLoadingPerc(0.15);
-        settings.token = token;
     });
     if (error[0]) {
-        setLoadingPerc(-1);
         return error;
     }
 
     bot.on('ready', async() => {
+        
         // Update the loading bar
-
         async function continueLoad() {
             // Load and start all the scripts
             setLoadingPerc(0.5);
@@ -90,7 +88,7 @@ let load = async token => {
         // Check if the owner of the bot is a team
         if (owner.ownerID) {
             bot.team = owner.members.map(x => x);
-            let id = localStorage.getItem(`${bot.user.id}-teamUser`);
+            let id = settings.tokenSettings.teamUser
             if (id) {
                 bot.owner = bot.team.filter(x => x.user.id == id)[0].user;
                 continueLoad();
@@ -107,23 +105,23 @@ let load = async token => {
         if (g.available) return;
         console.error(`Guild ${g.name} went offline`)
         removeGuild(g);
-    })
+    });
 
     bot.on('guildCreate', (g) => {
         updateUsers(true);
         addGuilds();
-    })
+    });
 
     bot.on('guildDelete', (g) => {
         updateUsers(true);
         removeGuild(g);
-    })
+    });
 
     // A user has started typing
     bot.on('typingStart', (c) => {
         if (c != selectedChan) return;
         typingStatus();
-    })
+    });
 
     // A message has been deleted
     bot.on('messageDelete', (m) => {
@@ -153,7 +151,7 @@ let load = async token => {
     // A message has been updated
     bot.on('messageUpdate', (oldM, m) => {
         // Return if it's not the selected channel or if the message wasn't edited
-        if (m.channel ? m.channel : m.dmChannel != selectedChan || !m.editedAt) return;
+        if (m.channel != selectedChan || oldM.content == m.content) return;
         // Get the dom element from the message
         let message = document.getElementById(m.id).querySelector('.messageText');
         message.innerHTML = `${parseMessage(m.cleanContent)} <time class='edited'>(edited)</time>`;
@@ -162,8 +160,9 @@ let load = async token => {
 
     // New message recieved
     bot.on('message', m => {
-        (m.channel.type == 'dm')
-        m.author.received = true;
+        typingStatus(false, m);
+        if (m.channel.type == 'dm')
+            m.author.received = true;
         if (selectedChan && selectedChan.type == 'dm') {
 
             // If the message was sent to the selected channel
@@ -172,21 +171,22 @@ let load = async token => {
                 let previousMessage;
                 fetchLast(previousMessage);
             }
+            return;
         }
-        // If there is a channel selected
+        // If there is a channel selected in the current guild
         else if (selectedGuild && m.guild.id == selectedGuild.id) {
 
             let channel = document.getElementById(m.channel.id);
             if (channel && (!selectedChan || (selectedChan && selectedChan.id != m.channel.id))) {
                 channel.classList.add("newMsg");
             }
+        }
 
-            // If the message was sent to the selected channel
-            if (selectedChan && m.channel.id == selectedChan.id) {
-                //document.getElementById('message-list').removeChild(document.getElementById('message-list').firstChild);
-                let previousMessage;
-                fetchLast(previousMessage);
-            }
+        // If the message was sent to the selected channel
+        if (selectedChan && m.channel.id == selectedChan.id) {
+            //document.getElementById('message-list').removeChild(document.getElementById('message-list').firstChild);
+            let previousMessage;
+            fetchLast(previousMessage);
         }
 
         // Get last message in channel
@@ -224,13 +224,21 @@ let load = async token => {
 
     // Runs when a user joins a server
     bot.on('guildMemberAdd', m => {
+        // Update the member count when a member joins
+        if(selectedGuild && selectedGuild == m.guild){
+            document.getElementById('members-count').innerText = selectedGuild.memberCount;
+        }
         updateUsers(false, m);
-    })
+    });
 
     // Runs when a user leaves a server
     bot.on('guildMemberRemove', m => {
+        // Update the member count when a member leaves
+        if(selectedGuild && selectedGuild == m.guild){
+            document.getElementById('members-count').innerText = selectedGuild.memberCount;
+        }
         updateUsers(false, m, true);
-    })
+    });
 
     // Runs when unloaded
     bot.on('error', () => {
@@ -245,7 +253,6 @@ let load = async token => {
     });
     return error;
 }
-
 
 function removeMessage(message, firstMessage) {
     // Check if you need to delete just the message or the whole message block
@@ -272,7 +279,14 @@ function removeMessage(message, firstMessage) {
     }
 }
 
-function setLoadingPerc(num) {
+function setLoadingPerc(num, text = '') {
+    if(text.length){
+        document.getElementById('percentageText').innerText = text;
+        if(num < 0)
+            num = 0;
+        document.getElementById('loadingComplete').style.width = `${num * 100}%`;
+        return;
+    }
     // Num possibilities
     switch (num) {
         case 0:
@@ -282,7 +296,7 @@ function setLoadingPerc(num) {
             document.getElementById('percentageText').innerText = "Please enter your token";
             break;
         case 0.05:
-            document.getElementById('percentageText').innerText = "Checking if token is correct";
+            document.getElementById('percentageText').innerText = "Checking if the token is correct";
             break;
         case 0.1:
             document.getElementById('percentageText').innerText = "Refreshing the servers";
@@ -310,6 +324,8 @@ function setLoadingPerc(num) {
             break;
         case 1:
             document.getElementById('percentageText').innerText = "All done!";
+            console.log('LiveBot started')
+            hideSplashScreen();
             break;
         default:
             document.getElementById('percentageText').innerText = "There was an error while logging in the bot";

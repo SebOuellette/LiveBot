@@ -1,4 +1,7 @@
 function hideSplashScreen() {
+    if (!settings.options.splash) return
+
+    settings.options.splash = false;
     document.getElementById('splashLoading').style.opacity = '0';
     setTimeout(() => document.getElementById('percentageText').style.opacity = '0', 2000);
     setTimeout(() => document.getElementById('loadingBar').style.opacity = '0', 2000);
@@ -17,14 +20,20 @@ function hideSplashScreen() {
 }
 
 
-async function showSplashScreen(token = undefined) {
-    if(!token) return;
+async function showSplashScreen(token = undefined, save = false) {
+    if (settings.options.splash) return
 
-    let error = (await setToken(token));
+    if (!token) return;
+    let error;
+    if (save)
+        error = await saveToken(token);
+    else
+        error = await setToken(token);
 
-    if (!error[0])
+    if (!error[0]) {
+        settings.options.splash = true;
         document.getElementById('splashScreen').style.visibility = 'visible';
-    else {
+    } else {
         errorHandler(error[1]);
     }
 }

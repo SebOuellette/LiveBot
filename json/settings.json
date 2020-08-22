@@ -7,7 +7,7 @@
                 "settings": [
                     {
                         "name": "Activity, Status & Message",
-                        "description": "Here you can set the activity status for your bot. By default livebot does not have an activity set, but you can change that here. This may take a while to update, especially if it is changed often.",
+                        "description": "Here you can set the activity status for your bot. By default LiveBot does not have an activity set, but you can change that here. This may take a while to update, especially if it is changed often.",
                         "call": "setActivity([DROPDOWNS], ACTIVITYNAME, STREAMURL)",
                         "update": true,
                         "options": [
@@ -100,7 +100,7 @@
                     {
                         "name": "Switch Token",
                         "description": "Here you can log into a different bot account, and choose if you want to set it as your default. To just log in temporarily, paste your token, then press enter. To save as your default, click the 'Save as Default' button below.",
-                        "call": "showSplashScreen(TOKEN)",
+                        "call": "showSplashScreen(TOKEN, true)",
                         "update": true,
                         "updateLabel": "Save as Default",
                         "options": [

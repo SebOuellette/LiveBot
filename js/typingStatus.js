@@ -1,50 +1,48 @@
 let typingTimer = { 
     indicator:
-    [
-        null, // Current timer
-        func = () => { // Function
+    {
+        timer: null, // Current timer
+        func: function(){ // Function
             typingStatus(false)
         },
-        check = (time, size) => {
-            let [timer, func] = typingTimer.indicator;
-            if(timer == null && size){
-                timer = setInterval(func, time);
-                typingTimer.indicator[0] = timer;
-            } else if (!size && timer != null) {
-                clearInterval(timer);
-                typingTimer.indicator[0] = null;
+        check: function(time, size){
+            if(this.timer == null && size){
+                this.timer = setInterval(this.func, time);
+            } else if (!size && this.timer != null) {
+                clearInterval(this.timer);
+                this.timer = null;                
             }
         }
-    ],
+    },
     typingTimeout:
-    [
-        {}, // Current timers
-        check = (id) => {
-            if(id in typingTimer.typingTimeout[0]) {
-                typingTimer.typingTimeout[0][id]['timeout'] = bot.user._typing.get(id).count;
+    {
+        timers: {}, // Current timers
+        check: function(id) {
+            if(id in this.timers) {
+                this.timers[id]['timeout'] = bot.user._typing.get(id).count;
                 return
-            };
+            }
 
             let timeout = bot.user._typing.get(id).count;
             let channel = bot.channels.cache.find(e => e.id == id);
 
             if(!channel) return;
 
-            let interval = setInterval(() => {typingTimer.typingTimeout[2](id, channel)}, 1000);
-            typingTimer.typingTimeout[0][id] = {timeout, interval};
+            let interval = setInterval(() => {this.decrease(id, channel)}, 1000);
+            this.timers[id] = {timeout, interval};
         },
-        decrease = (id, channel) => {
+        decrease: function(id, channel){
             channel.stopTyping();
-            typingTimer.typingTimeout[0][id]['timeout']--;
-            if(typingTimer.typingTimeout[0][id]['timeout'] < 0){
-                clearInterval(typingTimer.typingTimeout[0][id]['interval']);
-                delete(typingTimer.typingTimeout[0][id]);
+            this.timers[id]['timeout']--;
+            if(this.timers[id]['timeout'] < 0){
+                clearInterval(this.timers[id]['interval']);
+                delete this.timers[id];
             }
         }
-    ]
+    }
 }
 
-function typingStatus(override = false) {
+function typingStatus(override = false, m = undefined) {
     if (!selectedChan) return;
     let dms = selectedChan.type == 'dm';
     let indicator = document.getElementById('typingIndicator');
@@ -92,6 +90,14 @@ function typingStatus(override = false) {
         // Needs a set timer so it doesn't create 1000 timers at a time
         // The timings can be found in each users typing variable and checking by the smallest is the best bet
         selectedChan._typing.forEach(e => {
+            if (m != undefined){
+                let id = m.author.id;
+                if(e.user.id == id && selectedChan._typing.has(id)){
+                    clearTimeout(selectedChan._typing.get(id).timeout);
+                    selectedChan._typing.delete(id);
+                    return typingStatus();
+                }
+            }
             if(lastTime < e.elapsedTime){
                 shortestTime = e.elapsedTime;
                 let elapsedTime = new Date().getTime() - new Date(e.lastTimestamp).getTime();
@@ -101,7 +107,7 @@ function typingStatus(override = false) {
         })
     }
 
-    typingTimer.indicator[2](shortestTime, selectedChan._typing.size);
+    typingTimer.indicator.check(shortestTime, selectedChan._typing.size);
 }
 
 let lastTime = 0;

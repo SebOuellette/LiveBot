@@ -67,6 +67,12 @@ function dmList(){
     let memberList = document.getElementById('memberBar');
     memberList.innerHTML = '';
 
+    // Clear the message list
+    let messages = document.getElementById('message-list');
+    while (messages.firstChild) {
+        messages.removeChild(messages.firstChild);
+    }
+
     // Categories that are going to be used to sort the users
     let categories = [[undefined, `Open DM's`, 'openDM'],
                       [undefined, `Received DM's`, 'receivedDM'],
