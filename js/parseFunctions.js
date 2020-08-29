@@ -33,8 +33,10 @@ function parseLinks(text) {
 function parseStyling(text, embed) {
     let code = false;
     // Check for major codeblock
-    text = text.replace(/(?<!\\)\`\`\`([^\n]+)?\n(.*?)(?:\n)?(?=\`\`\`)\`\`\`/gs, (a, b, c) => {
+    text = text.replace(/(?<!\\)\`\`\`([^\n]+)\n?(.*?)(?:\n)?(?=\`\`\`)\`\`\`/gs, (a, b, c) => {
         code = true;
+        c = c.length ? c : b
+        console.log(b)
         return `<div class="codeBlock${embed ? " codeBlockEmbed" : ""} ${b}">${c}</div>`;
     });
     // Check for inline codeblock
