@@ -7,7 +7,7 @@ let editDOM = (target, textarea, elementText) => {
 
     let newMsgElement = document.createElement('p');
     newMsgElement.classList.add('messageText');
-    newMsgElement.innerText = elementText;
+    newMsgElement.innerHTML = elementText;
     target.appendChild(newMsgElement);
 }
 
@@ -32,7 +32,8 @@ function editMsg(target) {
 
     // Get the text in the message
     let elementText = textElement.innerHTML;
-    let text = selectedChan.messages.cache.get(target.id).cleanContent;
+    let msg = selectedChan.messages.cache.get(target.id);
+    let text = msg.cleanContent;
 
     target.removeChild(textElement);
 
@@ -56,10 +57,11 @@ function editMsg(target) {
                     }
                     return a;
                 });
+
                 newText = parseSend(newText);
 
-                selectedChan.messages.cache.get(target.id).edit(newText); 
-                
+                msg.edit(newText).catch(e => {command('Message failed to send\nError: ' + e.message)});;
+
                 editDOM(target, textarea, elementText);
             }
         });

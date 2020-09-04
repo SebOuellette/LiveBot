@@ -13,8 +13,8 @@ function loadThemes() {
         files.splice(files.indexOf('template.css'), 1);
 
     // Don't bother loading if there is nothing
-    if (!files.length) return;
-
+    if(!files.length) return;
+    
     console.log('Loading themes...');
 
     files.forEach(file => {
@@ -23,7 +23,7 @@ function loadThemes() {
         let script = document.createElement('link');
         script.id = file
         script.rel = 'stylesheet';
-        script.href = dir2 + file;
+        script.href = dir2+file;
 
         loadedThemes.push([script, file]);
 

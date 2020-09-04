@@ -9,10 +9,135 @@
 //   separator - label
 
 let settings = {
-    token: localStorage.getItem('livebot-token'),
+    // LiveBot database
+    get token() { return global.bot ? global.bot.token : ''},
+    get tokens() { return this.settings.tokens},
+    get defaultToken() { return this.settings.defaultToken},
+    get lastGuild() { return this.tokenSettings.lastGuild},
+    get guilds() { return this.tokenSettings.guilds},
+
+    get settings() {
+        let settings = JSON.parse(localStorage.getItem('LiveBot-Settings'));
+        if(settings == null) settings = {};
+        if(settings.defaultToken == null) settings.defaultToken = '';
+        if(typeof settings.tokens != 'array') settings.tokens = [];
+
+        if(this.token != '' && !settings.tokens.includes(this.token) ){
+            settings.tokens.push(this.token);
+        }
+
+        if(settings.tokenSettings == null) settings.tokenSettings = {};
+        Object.keys(settings.tokenSettings).forEach(token => !settings.tokens.includes(token) ? settings.tokens.push(token) : undefined);
+
+        return settings;
+    },
+    get tokenSettings() {
+        let tokenSettings = (this.settings.tokenSettings)[this.token];
+
+        if(tokenSettings == null) tokenSettings = {};
+        if(tokenSettings.guilds == null) tokenSettings.guilds = {};
+        if(tokenSettings.lastGuild == null) tokenSettings.lastGuild = '';
+        if(tokenSettings.teamUser == null) tokenSettings.teamUser = '';
+
+        return tokenSettings;
+    },
+
+    set defaultToken(token) { this.settings = {defaultToken: token}},
+    set lastGuild(guild) { this.tokenSettings = {'lastGuild': guild} },
+    set guilds(guild) { this.tokenSettings = {'guilds': {...this.guilds, ...guild}}},
+
+    set settings(args) {
+        let settings = this.settings;
+        settings = {...settings, ...args};
+        localStorage.setItem('LiveBot-Settings', JSON.stringify(settings));
+    },
+
+    set rawSettings(args) {
+        let settings = {...args};
+        localStorage.setItem('LiveBot-Settings', JSON.stringify(settings));
+    },
+
+    set tokenSettings(args) {
+        let settings = this.settings;
+        let tokenSettings = this.tokenSettings;
+
+        if (settings.tokenSettings == null) settings.tokenSettings = {};
+
+        settings.tokenSettings[this.token] = {...tokenSettings, ...args};
+        this.settings = {...settings};
+    },
+
+    set rawTokenSettings(args) {
+        let settings = this.settings;
+
+        if (settings.tokenSettings == null) settings.tokenSettings = {};
+
+        settings.tokenSettings[this.token] = {...args};
+        this.settings = {...settings};
+    },
+
+    // I hate this function with all my soul
+    delete: function (object, path = ''){
+        let recursive = (settingsO, p = '') => {
+            let settings = {...settingsO};
+            
+            let args;
+            if(p.length)
+                args = p.split('|');
+            else
+                args = [];
+
+            if (path.split('|').length <= p.split('|').length){
+                for(let arg of args){
+                    settings = settings[arg];
+                }
+            }
+            for(let setting in settings){
+                if (JSON.stringify(settings[setting]) == JSON.stringify(object) && path.split('|').length <= p.split('|').length){
+                    let set = {...settings};
+                    delete set[setting];
+                    while(args.length){
+                        settings = {...settingsO};
+                        for(let arg of args){
+                            if(args.indexOf(arg) == args.length-1){
+                                settings[arg] = {...set};
+                                set = {...settings};
+                            }
+                            else
+                                settings = settings[arg];
+                        }
+                        args.pop();
+                    }
+                    settings = {...set};
+                    return settings;
+                }else
+                    if(['object', 'array'].includes(typeof settings)){
+                        let ret = recursive(settingsO, p.length ? p + '|' + setting : setting);
+                        if(ret){
+                            return [ret, settingsO];
+                        }
+                    }else{
+                        continue;
+                    }
+            }
+        }
+        let ret = recursive(this.settings, path);
+        if (ret){
+            this.rawSettings = ret[0];
+            return {finished: true, value: ret[0], old: ret[1]};
+        }
+        else{
+            return {finished: false, value: undefined, old: undefined};
+        }
+    },
+
+    // Runtime settings
     options: {
         settingsOpened: false,
+        splash: true
     },
+
+    // Settings function
     functions: {
         getGroup: (groupName) => {
             let element = Array.from(document.getElementsByClassName('settingLabel')).find(e => e.innerText == groupName).parentElement

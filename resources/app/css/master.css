@@ -35,7 +35,7 @@ body {
     font-family: Whitney-light, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-.titlebar.windows {
+.titlebar {
     font-family: Whitney-light, "Helvetica Neue", Helvetica, Arial, sans-serif;
     height: 20px !important;
 }

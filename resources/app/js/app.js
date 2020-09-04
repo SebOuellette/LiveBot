@@ -13,7 +13,7 @@ let barry = false;
 
 // Disable the security warning from electron
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = true;
-// Display that livebot has started
+// Display that LiveBot has started
 console.log('LiveBot started');
 
 // Animations used in javascript if they can't be used in css
@@ -58,8 +58,8 @@ async function create() {
 
     // Load the bot with the token in storage or throw an error if there isn't any
     setLoadingPerc(0);
-    if(settings.token) {
-        var error = await load(settings.token);
+    if(settings.defaultToken) {
+        var error = await load(settings.defaultToken);
         if (error[0]) {
             buildSplashToken();
         }
@@ -77,7 +77,7 @@ function typing() {
     let channel = channels.next();
     while(!channel.done){
         if(channel.done || !channel.value) return
-        typingTimer.typingTimeout[1](channel.value)
+        typingTimer.typingTimeout.check(channel.value)
         channel = channels.next(); 
     }
 }

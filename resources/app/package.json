@@ -24,6 +24,6 @@
 	"devDependencies": {},
 	"dependencies": {
 		"custom-electron-titlebar": "^3.2.4",
-		"discord.js": "^12.3.0"
+		"discord.js": "^12.3.1"
 	}
 }

@@ -21,61 +21,26 @@ let parseSend = (text) => {
 }
 
 let parseMessage = (text, msg = null, embed = false, ping = false, embededLink) => {
+    let textContent = text;
+
     // Remove html <, > and & in the message
-    let textContent = text.replace(/<|>|&/gm, (s) => s == "<" ? '&lt;' : s == '>' ? '&gt;' : '&amp');
+    textContent = parseHTML(textContent);
+
     // General message parsing
-    // Match links
-    textContent = textContent.replace(/https?:\/\/((?:\w|.)+?)(?=\/|(?= )|[>)}\]:; ]|$)(?:[\w\.!@#$%^&*\-\/]+?)*(?:\?.*?(?=[>)}\]:; ]|$))?/mg, (a, b, c) => {
-        let endl = '';
-        if (!a.endsWith('/'))
-            endl = '/';
-        return `<a href="${a}" rel="noreferrer noopener" title="${a}" target="_blank">${a}${endl}</a>`;
-    });
-
-    // Add html tags for markup
-    textContent = textContent.replace(/(?<!\\)\*\*\*(.*?)(?<!\\)\*\*\*/gm, '<strong><i>$1<i></strong>');
-    textContent = textContent.replace(/(?<!\\)\*\*(.*?)(?<!\\)\*\*/gm, '<strong>$1</strong>');
-    textContent = textContent.replace(/(?<!\\)__(.*?)(?<!\\)__/gm, '<u>$1</u>');
-    textContent = textContent.replace(/(?<!\\)_(.*?)(?<!\\)_/gm, '<i>$1</i>');
-    textContent = textContent.replace(/(?<!\\)\*(.*?)(?<!\\)\*/gm, '<i>$1</i>');
-    textContent = textContent.replace(/(?<!\\)\`\`\`([^\n]+)?\n(.*?)(?:\n)?(?=\`\`\`)\`\`\`/gs, `<div class="codeBlock${embed ? " codeBlockEmbed" : ""} $1">$2</div>`);
-    textContent = textContent.replace(/(?<!\\)`(.*?)`/gm, '<span class="inlineCodeBlock">$1</span>');
-    textContent = textContent.replace(/(?<!\\)\|\|(.*?)\|\|(?<!\\)/gm, '<span class="spoilerBlock" onclick="discoverSpoiler(this)">$1</span>');
-    textContent = textContent.replace(/(?<!\\)\~(.*?)(?<!\\)\~/gm, '<del>$1</del>');
-
-    // Match all emojis
-    if (!textContent.replace(/((\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])| |(&lt;a?:!?.+?:[0-9]{18}?&gt;))/g, "").length) {
-        textContent = `<span class="bigEmoji">${textContent}</span>`;
-    }
-
-    // Render custom emojis
-    let customEmoji = /&lt;(a)?:!?(.+?):([0-9]{18}?)&gt;/gm
-    textContent = textContent.replace(customEmoji, (a, b, c, d) => {
-        if (d !== undefined) {
-            return `<img class="emoji" draggable="false" alt=":${c}:" src="https://cdn.discordapp.com/emojis/${d}.${b=='a'?'gif':'png'}?v=1"></img>`;
-        }
-        return b;
-    });
-
     // Format pings
-    if (msg) {
-
-        // Format pings in embeds
-        if (ping || !embed){
-            let dms = selectedChan.type == 'dm';
-            textContent = formatEmbedPings(msg, textContent, dms);
-            textContent = formatPings(msg, textContent, dms);
-        }
-        // Format links in embeds
-        if(embededLink){
-            textContent = textContent.replace(/(?:\[(?:<(?:[\w\W]+?>([\w\.!@#$%^&*\-\/"=\[\];]+?)<(?:[\w\W\/]+?)>)|([\w\.!@#$%^&*\-\/"=<>\]\[; ]+?))\]\((?:<a href="([\w:\/.<=\-]+?)".+\)|([\w.:\/_"=\-<> ]+?)\)))/gm, (a, b, c, d, e) => {
-                return `<a title="${b ? b : c}" href="${d ? d : e}">${b ? b : c}</a>`
-            });
-        }
-    }
-
+    if (msg)
+        parsePings(msg, textContent, embededLink, ping, embed);
+    // Match links
+    textContent = parseLinks(textContent);
+    // Add html tags for markup
+    textContent = parseStyling(textContent, embed);
+    // Match all emojis
+    textContent = parseUnicodeEmojis(textContent);
+    // Render custom emojis
+    textContent = parseCustomEmojis(textContent);
     // Parse the emojis to SVGs
     textContent = twemoji.parse(textContent);
+
     return textContent;
 };
 
@@ -116,13 +81,13 @@ function formatPings(msg, text, dms) {
         } else {
             name = id;
         }
-
-        name = name.replace(/(\[|\]|\(|\)|\\)/gm, a => '\\' + a)
+        
+        name = name.replace(/(\[|\]|\(|\)|\\)/gm, a => '\\' + a).replace(/\*/gm, '\\\*')
         let pingRegex = new RegExp(`(?:(<|>)?@!?(${name}))`, 'g');
         let channelRegex = new RegExp(`(?:(<|>)?#(${name}))`, 'g');
-        textContent = textContent.replace(pingRegex, (a, b, c) => b == '<' || b == '>' ? a : `<span class="ping" ${id}" ${color ? `style="color: ${color}"` : ''}>@${c}</span>`)
+        textContent = textContent.replace(pingRegex, (a, b, c) => b == '<' || b == '>' ? a : `<span class="ping" ${id}" ${color ? `style="color: ${color}"` : ''}>@${c.replace(/\*/gm, '&#42')}</span>`)
         if(!dms){
-            textContent = textContent.replace(channelRegex, (a, b, c) => b == '<' || b == '>' ? a : `<span class="ping ${id}">#${c}</span>`);
+            textContent = textContent.replace(channelRegex, (a, b, c) => b == '<' || b == '>' ? a : `<span class="ping ${id}">#${c.replace(/\*/gm, '&#42')}</span>`);
         }
 
     });

@@ -12,7 +12,10 @@ function buildTeamMemberCards(funky) {
 
         // Create the icon and username
         let img = document.createElement('img');
-        img.src = m.user.displayAvatarURL();
+        if(m.user.avatar && m.user.avatar.startsWith('a_'))
+            img.src = m.user.displayAvatarURL().replace('.webp', '.gif');
+        else            
+            img.src = m.user.displayAvatarURL();
         img.classList.add('teamMemberIcon');
         userArea.appendChild(img);
 
@@ -60,7 +63,7 @@ function buildTeamMemberCards(funky) {
         });
         defaultButton.addEventListener('click', () => {
             bot.owner = m.user;
-            localStorage.setItem(`${bot.user.id}-teamUser`, `${m.user.id}`);
+            settings.tokenSettings = {teamUser: m.user.id}
 
             funky();
         });
@@ -114,7 +117,6 @@ function buildSplashToken() {
             setLoadingPerc(0);
         } else {
             errorHandler(error[1])
-            setLoadingPerc(-1);
         }
     });
     defaultButton.addEventListener('click', async () => {
@@ -125,7 +127,6 @@ function buildSplashToken() {
             setLoadingPerc(0.05);
         } else {
             errorHandler(error[1])
-            setLoadingPerc(-1);
         }
     });
 }

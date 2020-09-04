@@ -13,7 +13,12 @@ function buildMemberMenu(parent) {
     // The user icon
     let userIcon = document.createElement('img');
     userIcon.classList.add('memberIcon');
-    userIcon.src = member.user.displayAvatarURL();
+
+    if (member.user.avatar && member.user.avatar.startsWith('a_'))
+        userIcon.src = member.user.displayAvatarURL().replace('.webp', '.gif');
+    else
+        userIcon.src = member.user.displayAvatarURL();
+        
     user.appendChild(userIcon);
 
     // Username and nickname
