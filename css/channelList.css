@@ -65,6 +65,12 @@
     transform: rotate(180deg);
 }
 
+.news {
+    height: 18px !important;
+    width: 18px !important;
+    padding: 1px;
+}
+
 .channelContainer {
     display: none;
 }

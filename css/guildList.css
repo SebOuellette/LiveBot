@@ -12,6 +12,7 @@
     user-select: none;
     border-radius: 50%;
     margin-top: 5px;
+    background-color: #36393f;
 }
 
 .guild-icon.selectedGuild {
@@ -62,7 +63,7 @@
 
 .guildIconDiv {
     color: transparent;
-    width: 81px;
+    width: auto;
     cursor: default;
     display: flex;
     transition-duration: 0.3s !important;
@@ -72,23 +73,13 @@
     order: -1;
 }
 
-.guildNameContainer::before {
-    left: -19.8px;
-    margin: 3px 0 0 0px;
-    border: 10px solid transparent;
-    content: ' ';
-    position: absolute;
-    border-right-color: transparent;
-    transition-duration: 0.3s !important;
-}
-
 .guildNameContainer {
     color: transparent;
     height: 26px;
     margin: 12px 0 0 70px;
     padding: 0 5px;
     z-index: 1;
-    visibility: hidden;
+    /* display: none; */
     position: fixed;
     border-radius: 5px;
     background-color: transparent;
@@ -101,7 +92,7 @@
     margin: 3px 0 0 0px;
     border: 6px solid transparent;
     content: ' ';
-    position: absolute;
+    position: fixed;
     border-right-color: transparent;
     transition-duration: 0.1s !important;
 }
