@@ -99,6 +99,12 @@ async function addGuilds() {
             lastGuild = cachedGuilds.find(e => e[0] == g.id)[1];
         }
 
+        // Change location of the guild name indicator thingy
+        img.onmouseover = () => {
+            let top = img.getBoundingClientRect().top;
+            guildNameContainer.style.top = `${top}px`;
+        };
+
         // Changing the width of the name container so it fits the text
         guildNameContainer.style.width = guildName.getBoundingClientRect().width + 10 + 'px';
 

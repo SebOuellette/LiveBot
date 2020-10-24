@@ -73,28 +73,71 @@
     order: -1;
 }
 
-.guildNameContainer {
-    color: transparent;
-    height: 26px;
-    margin: 12px 0 0 70px;
-    padding: 0 5px;
-    z-index: 1;
-    /* display: none; */
-    position: fixed;
-    border-radius: 5px;
-    background-color: transparent;
-    transition-duration: 0.1s !important;
-}
-
+/* DEBUG TESTING */
 .guildNameContainer::before {
     left: -10px;
     top: 4px;
     margin: 3px 0 0 0px;
     border: 6px solid transparent;
     content: ' ';
+    position: absolute;
+    border-right-color: transparent;
+    /* transition-duration: 0.1s !important; */
+}
+
+.guildNameContainer {
+    color: transparent;
+    height: 26px;
+    /* margin-top: 12px; */
+    margin-left: 70px;
+    z-index: 1;
+    visibility: hidden;
     position: fixed;
+    border-radius: 5px;
+    background-color: transparent;
+    /* transition-duration: 0.3s !important; */
+}
+
+.guildName {
+    color: inherit;
+    margin: 3px 4px 0;
+    display: inherit;
+    position: relative;
+}
+
+.guild-icon:hover + .guildNameContainer::before {
+    display: block;
+    border-right-color: black;
+}
+
+.guild-icon:hover + .guildNameContainer{
+    color: white;
+    visibility: visible;
+    background-color: black;
+} 
+
+/* WORKING COPY - DO NOT CHANGE */
+/* .guildNameContainer::before {
+    left: -10px;
+    top: 4px;
+    margin: 3px 0 0 0px;
+    border: 6px solid transparent;
+    content: ' ';
+    position: absolute;
     border-right-color: transparent;
     transition-duration: 0.1s !important;
+}
+
+.guildNameContainer {
+    color: transparent;
+    height: 26px;
+    margin: 12px 0 0 70px;
+    z-index: 1;
+    visibility: hidden;
+    position: fixed;
+    border-radius: 5px;
+    background-color: transparent;
+    transition-duration: 0.3s !important;
 }
 
 .guildName {
@@ -113,4 +156,4 @@
     color: white;
     visibility: visible;
     background-color: black;
-}
+}  */

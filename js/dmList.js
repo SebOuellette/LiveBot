@@ -122,7 +122,7 @@ function dmList(){
     // Sort them by name
     // Note: You can't message bots with a bot account, only users
     bot.users.cache.array() // Map the users
-    .filter(u => u.mutualGuilds && u.mutualGuilds.size && !u.bot)
+    .filter(u => u.mutualGuilds && u.mutualGuilds.size && !u.bot && (u.openDM || u.received))
     .sort((u1, u2) => u1.username.localeCompare(u2.username))
     .forEach(u => {
         // Get the element for the user
@@ -182,7 +182,7 @@ function dmList(){
         else if(!u.openDM && u.received){
             received[0].getElementsByTagName('div')[1].appendChild(div);
         } else {
-            other[0].getElementsByTagName('div')[1].appendChild(div);
+            //other[0].getElementsByTagName('div')[1].appendChild(div);
         }
     });
 }

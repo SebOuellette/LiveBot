@@ -17,7 +17,13 @@ let settings = {
     get guilds() { return this.tokenSettings.guilds},
 
     get settings() {
-        let settings = JSON.parse(localStorage.getItem('LiveBot-Settings'));
+        let settings;
+        try {
+            settings = JSON.parse(localStorage.getItem('LiveBot-Settings'));
+        } catch(e) {
+            // The Livebot-Settings localstorage thing is completely empty, or has invalid JSON
+            customTokenErrors('NO-TOKEN', e);
+        }
         if(settings == null) settings = {};
         if(settings.defaultToken == null) settings.defaultToken = '';
         if(typeof settings.tokens != 'array') settings.tokens = [];

@@ -324,7 +324,7 @@ function setLoadingPerc(num, text = '') {
             break;
         case 1:
             document.getElementById('percentageText').innerText = "All done!";
-            console.log('LiveBot started')
+            console.log('Finished loading')
             hideSplashScreen();
             break;
         default:
