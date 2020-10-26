@@ -3,6 +3,7 @@ const {app, BrowserWindow} = electron;
 const path = require('path');
 const url = require('url');
 const pack = require('./package.json');
+const { shell } = require('electron');
 
 let win;
 
@@ -14,6 +15,10 @@ function createWindow() {
         protocol: 'file:',
         slashes: true
     }));
+    win.webContents.on('new-window', (e, url) => {
+        e.preventDefault();
+        shell.openExternal(url.replace(/\/$/, ''));
+    })
     win.on('closed', () => {
         win = null
     });

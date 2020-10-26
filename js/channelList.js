@@ -138,9 +138,14 @@ function createChannels(g) {
             .sort((a, b) => a.rawPosition - b.rawPosition)
             .first();
 
-        // Select the first available channel
-        let div = document.getElementById(chan.id)
-        div.classList.add('selectedChan')
-        channelSelect(chan, div);
+        // Check if chan exists
+        if (chan === undefined)
+            console.error('No available text channel to open');
+        else {
+            // Select the first available channel
+            let div = document.getElementById(chan.id)
+            div.classList.add('selectedChan')
+            channelSelect(chan, div);
+        }
     }
 }
