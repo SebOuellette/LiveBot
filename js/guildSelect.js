@@ -14,19 +14,6 @@ let guildSelect = (g, img) => {
 
     oldimg = img;
 
-    /* I left it here just in case but it's been replaced with join and leave events
-    // Clear the member loop interval
-    try {
-        clearInterval(memberLoop);
-    } catch(err){}
-
-    // Update the member count every 2000 ms which is every 2 s
-    
-    global.memberLoop = setInterval(() => {
-        document.getElementById('members-count').innerText = g.memberCount;
-    }, 2000);
-    */
-
     // Set the count to begin
     document.getElementById('members-count').innerText = g.memberCount;
 

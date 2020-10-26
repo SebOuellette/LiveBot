@@ -102,7 +102,7 @@ async function addGuilds() {
         // Change location of the guild name indicator thingy
         img.onmouseover = () => {
             let top = img.getBoundingClientRect().top;
-            guildNameContainer.style.top = `${top}px`;
+            guildNameContainer.style.top = `${top + 6}px`;
         };
 
         // Changing the width of the name container so it fits the text

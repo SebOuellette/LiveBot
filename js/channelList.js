@@ -58,6 +58,8 @@ function createChannels(g) {
             }
         });
 
+    let openedDefaultChannel = false;
+    let defaultDiv;
     g.channels.cache.array()
         .map(c => { c.rawPosition = c.type == 'voice' ? c.rawPosition + g.channels.cache.size : c.rawPosition; return c }) // Put voice channels after text channels
         .filter(c => c.type != 'category')
@@ -100,11 +102,13 @@ function createChannels(g) {
 
             if (!blocked) {
                 // Open the channel if it's stored in the database as last opened
-                if (settings.guilds[settings.lastGuild] == c.id)
+                if (settings.guilds[settings.lastGuild] == c.id) {
                     channelSelect(c, div)
+                    openedDefaultChannel = true;
+                }
 
                 if (global.selectedChanDiv && div.id == selectedChanDiv.id) {
-                    div.classList.add('selectedChan')
+                    div.classList.add('selectedChan');
                     selectedChanDiv = div
                 }
                 div.addEventListener("click", event => {
@@ -126,4 +130,17 @@ function createChannels(g) {
                 });
             }
         });
+
+    if (!openedDefaultChannel) {
+        let chan = g.channels.cache
+            .filter(c => c.type.includes('text'))
+            .filter(c=> c.permissionsFor(g.me).has("VIEW_CHANNEL"))
+            .sort((a, b) => a.rawPosition - b.rawPosition)
+            .first();
+
+        // Select the first available channel
+        let div = document.getElementById(chan.id)
+        div.classList.add('selectedChan')
+        channelSelect(chan, div);
+    }
 }
