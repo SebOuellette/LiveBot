@@ -7,7 +7,11 @@ let editDOM = (target, textarea, elementText) => {
 
     let newMsgElement = document.createElement('p');
     newMsgElement.classList.add('messageText');
+<<<<<<< HEAD
     newMsgElement.innerHTML = elementText;
+=======
+    newMsgElement.innerText = elementText;
+>>>>>>> fcad693530e3d470d3c1d7ec175fa4d62181dfc4
     target.appendChild(newMsgElement);
 }
 
@@ -57,11 +61,17 @@ function editMsg(target) {
                     }
                     return a;
                 });
+                newText = parseSend(newText);
 
+<<<<<<< HEAD
                 newText = parseSend(newText);
 
                 msg.edit(newText).catch(e => {command('Message failed to send\nError: ' + e.message)});;
 
+=======
+                selectedChan.messages.cache.get(target.id).edit(newText); 
+                
+>>>>>>> fcad693530e3d470d3c1d7ec175fa4d62181dfc4
                 editDOM(target, textarea, elementText);
             }
         });

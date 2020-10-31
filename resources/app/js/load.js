@@ -240,6 +240,16 @@ let load = async token => {
         updateUsers(false, m, true);
     });
 
+    // Runs when a user joins a server
+    bot.on('guildMemberAdd', m => {
+        updateUsers(false, m);
+    })
+
+    // Runs when a user leaves a server
+    bot.on('guildMemberRemove', m => {
+        updateUsers(false, m, true);
+    })
+
     // Runs when unloaded
     bot.on('error', () => {
         // Remove the server list when connection lost
