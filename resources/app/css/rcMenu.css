@@ -1,6 +1,6 @@
 #rcMenu {
     position: fixed;
-    width: 200px;
+    width: 160px;
     background-color: #18191c;
     border-radius: 5px;
     z-index: 100;
@@ -14,12 +14,19 @@
 
 /* Options */
 .rcOption {
-    padding: 8px 20px;
+    padding: 8px 10px;
     margin: 0 8px;
     color: #b9bbbe;
     border-radius: 3px;
     cursor: pointer;
     font-size: 15px;
+}
+
+.rcBreak {
+    border: none;
+    padding: 2px 0 0 0;
+    background-color: #393c43;
+    margin: 0px 15px 0px 15px;
 }
 
 .rcOption:hover {

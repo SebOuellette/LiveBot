@@ -19,9 +19,29 @@ export type ProxyConfigurationType = {|
   +port: number,
 |};
 
+export type TlsConfigurationType = {|
+  +ca?: string,
+  +cert?: string,
+  +ciphers?: string,
+  +clientCertEngine?: string,
+  +crl?: string,
+  +dhparam?: string,
+  +ecdhCurve?: string,
+  +honorCipherOrder?: boolean,
+  +key?: string,
+  +passphrase?: string,
+  +pfx?: string,
+  +rejectUnauthorized?: boolean,
+  +secureOptions?: number,
+  +secureProtocol?: string,
+  +servername?: string,
+  +sessionIdContext?: string,
+|};
+
 export type ConnectionConfigurationType = {|
   +host: string,
   +port: number,
+  +tls?: TlsConfigurationType,
   +proxy: ProxyConfigurationType,
 |};
 

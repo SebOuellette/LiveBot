@@ -37,6 +37,8 @@ Deserialize a plain object or any value into an `Error` object.
 `Error` objects are passed through.
 Non-error values are wrapped in a `NonError` error.
 Custom properties are preserved.
+Non-enumerable properties are kept non-enumerable (name, message, stack).
+Enumerable properties are kept enumerable (all properties besides the non-enumerable ones).
 Circular references are handled.
 
 @example

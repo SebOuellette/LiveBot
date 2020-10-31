@@ -25,7 +25,7 @@ export default (url: string) => {
   let port = 80;
 
   if (urlTokens.port) {
-    port = parseInt(urlTokens.port, 10);
+    port = Number.parseInt(urlTokens.port, 10);
   }
 
   return {

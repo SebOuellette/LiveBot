@@ -1,0 +1,67 @@
+.memberMenu {
+    position: absolute;
+    background-color: #2f3136;
+    height: 400px;
+    width: 300px;
+    margin-left: -330px;
+    border-radius: 7px;
+    cursor: default;
+    overflow: hidden;
+    text-align: center;
+    z-index: 1;
+}
+.memberMenuUserDiv {
+    width: 100%;
+    background-color: #202225;
+    padding: 20px 0;
+}
+
+.memberIcon {
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.memberTopName {
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    display: block;
+    margin-top: 10px;
+}
+
+.memberTopDisc {
+    color: #b9bbbe;
+}
+
+.memberBottomName {
+    color: #b9bbbe;
+    font-size: 14px;
+    display: block;
+}
+
+.menuPresenceDiv {
+    margin-top: 15px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.memberCustomPresence {
+    color: #b9bbbe;
+    font-size: 15px;
+    display: inline-block;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    max-width: 100%;
+}
+
+.memberCustomEmoji {
+    display: inline-block;
+    transform: translateY(4px);
+    padding: 5px;
+}

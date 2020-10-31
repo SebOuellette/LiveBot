@@ -1,0 +1,6 @@
+/* It's as easy as just finding the class or the ID and changing the properties
+You can also use github or some other site so people don't have to download the theme every time
+Don't forget if you do that to give the user some way to customize it with global css variables*/
+#memberBar {
+    background-color: darkred;
+}

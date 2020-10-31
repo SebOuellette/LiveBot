@@ -7,13 +7,17 @@ const pack = require('./package.json');
 let win;
 
 function createWindow() {
-    win = new BrowserWindow({width: 1300, height: 750, frame: false, backgroundColor: '#FFF', webPreferences: {nodeIntegration: true}});
+    win = new BrowserWindow({width: 1300, height: 750, frame: false, backgroundColor: '#FFF', webPreferences: {nodeIntegration: true}, icon: __dirname + '/resources/icons/logo.png'});
 
     win.loadURL(url.format({
         pathname: path.join(__dirname, 'dontOpenMe.html'),
         protocol: 'file:',
         slashes: true
     }));
+    win.webContents.on('new-window', (e, url) => {
+        e.preventDefault();
+        electron.shell.openExternal(url.replace(/\/$/, ''));
+    })
     win.on('closed', () => {
         win = null
     });

@@ -8,7 +8,176 @@
 //   toggles - default
 //   separator - label
 
+let settings = {
+    // LiveBot database
+    get token() { return global.bot ? global.bot.token : ''},
+    get tokens() { return this.settings.tokens},
+    get defaultToken() { return this.settings.defaultToken},
+    get lastGuild() { return this.tokenSettings.lastGuild},
+    get guilds() { return this.tokenSettings.guilds},
+
+    get settings() {
+        let settings;
+        try {
+            settings = JSON.parse(localStorage.getItem('LiveBot-Settings'));
+        } catch(e) {
+            // The Livebot-Settings localstorage thing is completely empty, or has invalid JSON
+            customTokenErrors('NO-TOKEN', e);
+        }
+        if(settings == null) settings = {};
+        if(settings.defaultToken == null) settings.defaultToken = '';
+        if(typeof settings.tokens != 'array') settings.tokens = [];
+
+        if(this.token != '' && !settings.tokens.includes(this.token) ){
+            settings.tokens.push(this.token);
+        }
+
+        if(settings.tokenSettings == null) settings.tokenSettings = {};
+        Object.keys(settings.tokenSettings).forEach(token => !settings.tokens.includes(token) ? settings.tokens.push(token) : undefined);
+
+        return settings;
+    },
+    get tokenSettings() {
+        let tokenSettings = (this.settings.tokenSettings)[this.token];
+
+        if(tokenSettings == null) tokenSettings = {};
+        if(tokenSettings.guilds == null) tokenSettings.guilds = {};
+        if(tokenSettings.lastGuild == null) tokenSettings.lastGuild = '';
+        if(tokenSettings.teamUser == null) tokenSettings.teamUser = '';
+
+        return tokenSettings;
+    },
+
+    set defaultToken(token) { this.settings = {defaultToken: token}},
+    set lastGuild(guild) { this.tokenSettings = {'lastGuild': guild} },
+    set guilds(guild) { this.tokenSettings = {'guilds': {...this.guilds, ...guild}}},
+
+    set settings(args) {
+        let settings = this.settings;
+        settings = {...settings, ...args};
+        localStorage.setItem('LiveBot-Settings', JSON.stringify(settings));
+    },
+
+    set rawSettings(args) {
+        let settings = {...args};
+        localStorage.setItem('LiveBot-Settings', JSON.stringify(settings));
+    },
+
+    set tokenSettings(args) {
+        let settings = this.settings;
+        let tokenSettings = this.tokenSettings;
+
+        if (settings.tokenSettings == null) settings.tokenSettings = {};
+
+        settings.tokenSettings[this.token] = {...tokenSettings, ...args};
+        this.settings = {...settings};
+    },
+
+    set rawTokenSettings(args) {
+        let settings = this.settings;
+
+        if (settings.tokenSettings == null) settings.tokenSettings = {};
+
+        settings.tokenSettings[this.token] = {...args};
+        this.settings = {...settings};
+    },
+
+    // I hate this function with all my soul
+    delete: function (object, path = ''){
+        let recursive = (settingsO, p = '') => {
+            let settings = {...settingsO};
+            
+            let args;
+            if(p.length)
+                args = p.split('|');
+            else
+                args = [];
+
+            if (path.split('|').length <= p.split('|').length){
+                for(let arg of args){
+                    settings = settings[arg];
+                }
+            }
+            for(let setting in settings){
+                if (JSON.stringify(settings[setting]) == JSON.stringify(object) && path.split('|').length <= p.split('|').length){
+                    let set = {...settings};
+                    delete set[setting];
+                    while(args.length){
+                        settings = {...settingsO};
+                        for(let arg of args){
+                            if(args.indexOf(arg) == args.length-1){
+                                settings[arg] = {...set};
+                                set = {...settings};
+                            }
+                            else
+                                settings = settings[arg];
+                        }
+                        args.pop();
+                    }
+                    settings = {...set};
+                    return settings;
+                }else
+                    if(['object', 'array'].includes(typeof settings)){
+                        let ret = recursive(settingsO, p.length ? p + '|' + setting : setting);
+                        if(ret){
+                            return [ret, settingsO];
+                        }
+                    }else{
+                        continue;
+                    }
+            }
+        }
+        let ret = recursive(this.settings, path);
+        if (ret){
+            this.rawSettings = ret[0];
+            return {finished: true, value: ret[0], old: ret[1]};
+        }
+        else{
+            return {finished: false, value: undefined, old: undefined};
+        }
+    },
+
+    // Runtime settings
+    options: {
+        settingsOpened: false,
+        splash: true
+    },
+
+    // Settings function
+    functions: {
+        getGroup: (groupName) => {
+            let element = Array.from(document.getElementsByClassName('settingLabel')).find(e => e.innerText == groupName).parentElement
+            let groups = ['Presence', 'User', 'Scripts', 'Servers']
+            let group = jsonSettings[0]["groups"][groups.indexOf(groupName)];
+            return [element, group]
+        },
+        openSettings: (groupName) => {
+            if (!settings.options.settingsOpened) {
+                toggleSettings();
+                let [element, group] = settings.functions.getGroup(groupName)
+                setTimeout(() => {openPopup(element, group)}, 600);
+            }
+        },
+        closeSettings: (groupName) => {
+            if (settings.options.settingsOpened) {
+                toggleSettings();
+            }
+        },
+        closePopups: () => {
+            // Remove all popups
+            let items = document.getElementById("optionGroups").parentElement.querySelectorAll(".settingsPopup");
+            items.forEach(item => {
+                if(!item.parentElement) return;
+                item.parentElement.removeChild(item);
+            });
+        }
+    }
+}
+
 let toggleSettings = () => {
+    if(settings.options.settingsOpened){
+        settings.functions.closePopups();
+    }
     let userCard = document.getElementById('userSettings');
     if (userCard.classList.length) {
         userCard.classList.toggle('userSettingsToggleOff');
@@ -20,7 +189,27 @@ let toggleSettings = () => {
         userPullOutIcon.classList.toggle('userSettingsFlipOff');
     }
     userPullOutIcon.classList.toggle('userSettingsFlip');
+    settings.options.settingsOpened = !settings.options.settingsOpened;
 };
+
+// A function to open the popup so it can be used outside of the click event
+// I could have just made it click the element but this is more elegant imo
+function openPopup(category, group){
+    Array.from(document.getElementsByClassName("optionCategory")).forEach(category2 => {
+        if (category != category2) {
+            category2.classList.remove("toggledOn");
+        }
+    });
+
+    category.classList.toggle("toggledOn");
+    if (category.classList.contains("toggledOn")) {
+        createPopup(category.parentElement,  group);
+    } else {
+        let settingsPopout = category.parentElement.querySelector(".settingsPopup")
+        if(settingsPopout)
+            settingsPopout.remove();
+    }
+}
 
 // Building main settings menu
 function buildSettingsMenu(jsonObj) {
@@ -50,22 +239,14 @@ function buildSettingsMenu(jsonObj) {
             span.innerText = group.name;
             category.appendChild(span);
 
-            // Add the on click event listener
-            category.addEventListener("click", event => {
-    
-                Array.from(document.getElementsByClassName("optionCategory")).forEach(category2 => {
-                    if (category != category2) {
-                        category2.classList.remove("toggledOn");
-                    }
-                });
-    
-                category.classList.toggle("toggledOn");
-                if (category.classList.contains("toggledOn")) {
-                    createPopup(category.parentElement,  group);
-                } else {
-                    category.parentElement.querySelector(".settingsPopup").remove();
-                }
-            });
+            // Add the onclick event listener
+            category.onclick = () => {
+                // Open the popup menu
+                if(group.settings)
+                    openPopup(category, group)
+                else // If it's still in developement then don't open the menu but flash red
+                    category.animate(animations.flashTextRed, {duration: 350});
+            };
 
         })
     })
@@ -74,10 +255,7 @@ function buildSettingsMenu(jsonObj) {
 // Building popup menu
 function createPopup(parent, jsonObj) {
     // Remove all other popups before continuing
-    let items = parent.parentElement.querySelectorAll(".settingsPopup");
-    items.forEach(item => {
-        item.parentElement.removeChild(item);
-    });
+    settings.functions.closePopups();
 
     let popupContainer = document.createElement("div");
     popupContainer.classList.add("settingsPopup");
@@ -108,13 +286,12 @@ function createPopup(parent, jsonObj) {
             if (option.type == "dropdown") {
                 params = params.concat([option.options], option.default, group, option);
             } else if (option.type == "shortinput") {
-                params = params.concat(false, option.placeholder, option.class);
+                params = params.concat(false, option.placeholder, option.class, option.id);
             } else if (option.type == "checkbox") {
                 params = params.concat(option);
             } else if (option.type == "separator") {
                 params = params.concat(option.label);
             }
-
             addItem(option.type, ...params);
         });
 
@@ -142,12 +319,17 @@ function createPopup(parent, jsonObj) {
                 if (btn.parentElement.querySelector('.checkbox'))
                     codes = Array.from(btn.parentElement.querySelectorAll('.checkbox.toggled')).map(e => parseInt(e.id, 16));
 
+                let token = '\'\'';
+                if (btn.parentElement.querySelector('.tokenbox'))
+                    token = `'${btn.parentElement.querySelector('.tokenbox').value.replace(/\\*'/g, '\\\'')}'`
+
                 let funcString = group.call
                     .replace("DROPDOWNS", `${allDropdowns}`)
                     .replace("ACTIVITYNAME", activityInput)
                     .replace("STREAMURL", streamURL)
                     .replace("USERNAME", username)
-                    .replace("CODES", `[${codes.join(',')}]`);
+                    .replace("CODES", `[${codes.join(',')}]`)
+                    .replace("TOKEN", token);
 
                 eval(funcString);
             });
@@ -206,6 +388,7 @@ function genSeparator(parent, label) {
 
 // Checkbox stuff
 function genCheckbox(parent, option) {
+    // Create the container
     let container = document.createElement("div");
     container.classList.add('checkBoxContainer');
     parent.appendChild(container);
@@ -222,6 +405,11 @@ function genCheckbox(parent, option) {
         checkbox.classList.add('toggled');
     checkbox.id = option.value;
     container.appendChild(checkbox);
+    
+    // Create the checkmark svg for inside the checkbox
+    let checkmark = document.createElement('img');
+    checkmark.src = 'resources/icons/checkmark.svg';
+    checkbox.appendChild(checkmark);
 
     // Event listener
     container.addEventListener('click', e => {
@@ -229,10 +417,28 @@ function genCheckbox(parent, option) {
     })
 }
 
+// Generate the token box
+// function genTokenBox(parent, placeholder, customClass) {
+//     // This is basically just a shortinput, but modified to have an id, event listener, etc
+
+//     // Create the short input
+//     genShortInput()
+    
+//     document.getElementById("tokenbox")
+//         .addEventListener("keydown", event => {
+//             if (event.keyCode === 13) {
+//                 unloadAllScripts();
+//                 setToken();
+//             }
+//         });
+// }
+
 // Shortinput box stuff
-function genShortInput(parent, special = false, placeholder, customClass, id) {
+function genShortInput(parent, special = false, placeholder, customClass, id = undefined) {
     let input = document.createElement("input");
     input.classList.add(customClass);
+    if (id != undefined && !special)
+        input.id = id;
     input.placeholder = placeholder;
 
     if (special) {
@@ -240,6 +446,15 @@ function genShortInput(parent, special = false, placeholder, customClass, id) {
         parent.insertAdjacentElement('afterend', input);
     } else {
         parent.appendChild(input);
+    }
+
+    // Create the token event listeners
+    if (id == 'tokenbox') {
+        input.type = "password";
+        input.addEventListener("keydown", event => {
+                if (event.keyCode === 13)
+                    showSplashScreen(input.value);
+            });
     }
 }
 
@@ -368,55 +583,4 @@ function genDropDown(parent, options, defaultOpt = 0, group, optionObj) {
 
     // Finally, add everything
     parent.appendChild(dropdown);
-}
-
-
-//     Custom functions down here
-// Set the activity
-function setActivity(dropdowns, activityName, streamurl) {
-    let status = dropdowns[0];
-    let activity = dropdowns[1];
-
-    if (status.includes("Not")) {
-        status = 'dnd';
-    }
-
-    if (activity == "Streaming")
-        bot.user.setPresence({ 
-            activity: { 
-                name: activityName, 
-                type: activity.toUpperCase(), 
-                url: streamurl 
-            }, 
-            status: status.toLowerCase()
-        });
-    else
-        bot.user.setPresence({ 
-            activity: { 
-                name: activityName, 
-                type: activity.toUpperCase()
-            }, 
-            status: status.toLowerCase()
-        });
-}
-
-// Set the new username
-async function setUsername(name) {
-    try {
-        await bot.user.setUsername(name);
-        document.getElementById('userCardName').innerText = bot.user.username;
-        document.getElementsByClassName('newNameInput')[0].classList.remove('errorTextBox')
-    } catch (e) {
-        document.getElementsByClassName('newNameInput')[0].classList.add('errorTextBox')
-        console.error(e)
-    }
-}
-
-// Generate the invite code
-function generateInvite(items) {
-    let sum = items
-        .reduce((a, b) => a + b);
-    let invite = `Copied to Clipboard: https://discordapp.com/oauth2/authorize?client_id=${bot.user.id}&scope=bot&permissions=${sum}`;
-    console.log(invite);
-    clipboard.writeText(invite);
 }
