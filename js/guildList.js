@@ -1,7 +1,22 @@
+// Copyright 2017 Sebastian Ouellette
+
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+
+//     http://www.apache.org/licenses/LICENSE-2.0
+
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 // Guilds that are in the guild list
 let cachedGuilds = [];
 
 async function addGuilds() {
+    console.log('adding guilds');
     // Get the first guild in the list if there is any
     let lastGuild = cachedGuilds.length ? cachedGuilds[0][1] : null;
 
@@ -14,6 +29,7 @@ async function addGuilds() {
         }
         if(!g.available) {errorHandler('SERVER_OFFLINE')}
         let img;
+        //console.log(g.name);
 
 
         // If there is no icon url for the server, create the letter icon
@@ -102,7 +118,7 @@ async function addGuilds() {
         // Change location of the guild name indicator thingy
         img.onmouseover = () => {
             let top = img.getBoundingClientRect().top;
-            guildNameContainer.style.top = `${top + 6}px`;
+            guildNameContainer.style.top = `${top + 3}px`;
         };
 
         // Changing the width of the name container so it fits the text
