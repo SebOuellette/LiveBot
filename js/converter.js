@@ -54,15 +54,11 @@ let shortcuts = [{
 },
 {
     face: "<3",
-    id: "heart"
-},
-{
-    face: "<3",
-    id: "heart"
+    id: "red_heart"
 },
 {
     face: "♡",
-    id: "heart"
+    id: "red_heart"
 },
 {
     face: ":-/",
