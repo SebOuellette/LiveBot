@@ -21,9 +21,8 @@
 		"url": "https://github.com/SebOuellette/LiveBot/issues"
 	},
 	"homepage": "https://github.com/SebOuellette/LiveBot#readme",
-	"devDependencies": {},
 	"dependencies": {
-		"custom-electron-titlebar": "^3.2.4",
-		"discord.js": "^12.3.0"
+		"custom-electron-titlebar": "^3.2.5",
+		"discord.js": "^12.4.1"
 	}
 }
