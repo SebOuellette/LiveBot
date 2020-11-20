@@ -283,3 +283,17 @@ body {
 #inviteBtn:hover {
     background-color: #393939;
 }
+
+.scroller::-webkit-scrollbar {
+    background-color: transparent;
+    width: 6px;
+}
+
+.scroller::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.scroller::-webkit-scrollbar-thumb {
+    background-color: #25272B;
+    border-radius: 3px;
+}
