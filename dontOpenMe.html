@@ -14,10 +14,16 @@ limitations under the License. -->
 
 <!DOCTYPE html>
 <html>
-    <head>
-    <meta charset="utf-8">
+  <head>
+    <meta charset="utf-8" />
     <title>LiveBot</title>
     <!-- Javascript -->
+    <script type="text/javascript">
+      if (!process) {
+        alert("I SAID DON'T OPEN ME CAN'T YOU READ???");
+        window.close();
+      }
+    </script>
     <script src="js/app.js" charset="utf-8"></script>
     <script src="js/load.js" charset="utf-8"></script>
     <script src="js/guildList.js" charset="utf-8"></script>
@@ -46,171 +52,241 @@ limitations under the License. -->
     <script src="js/buildTeamMemberCards.js" charset="utf-8"></script>
     <script src="js/splashScreen.js" charset="utf-8"></script>
     <script src="js/parseFunctions.js" charset="utf-8"></script>
-    
+
     <!-- CSS -->
-    <link rel="stylesheet" href="css/master.css">
-    <link rel="stylesheet" href="css/embeds.css">
-    <link rel="stylesheet" href="css/memberList.css">
-    <link rel="stylesheet" href="css/userSettings.css">
-    <link rel="stylesheet" href="css/textFormat.css">
-    <link rel="stylesheet" href="css/channelList.css">
-    <link rel="stylesheet" href="css/dmList.css">
-    <link rel="stylesheet" href="css/guildList.css">
-    <link rel="stylesheet" href="css/miscs.css">
-    <link rel="stylesheet" href="css/rcMenu.css">
-    <link rel="stylesheet" href="css/memberMenu.css">
-    <link rel="stylesheet" href="css/splashScreen.css">
-    </head>
-    <body onload='create()'>
-        <!-- The right click menu -->
-        <div id='rcMenu'></div>
+    <link rel="stylesheet" href="css/master.css" />
+    <link rel="stylesheet" href="css/embeds.css" />
+    <link rel="stylesheet" href="css/memberList.css" />
+    <link rel="stylesheet" href="css/userSettings.css" />
+    <link rel="stylesheet" href="css/textFormat.css" />
+    <link rel="stylesheet" href="css/channelList.css" />
+    <link rel="stylesheet" href="css/dmList.css" />
+    <link rel="stylesheet" href="css/guildList.css" />
+    <link rel="stylesheet" href="css/miscs.css" />
+    <link rel="stylesheet" href="css/rcMenu.css" />
+    <link rel="stylesheet" href="css/memberMenu.css" />
+    <link rel="stylesheet" href="css/splashScreen.css" />
+  </head>
+  <body onload="create()">
+    <!-- The right click menu -->
+    <div id="rcMenu"></div>
 
-        <!-- Splash screen -->
-        <div id="splashScreen">
-            <div id='splashLoading'>
-                <div class="loadingCircle" id="c1"></div>
-                <div class="loadingCircle" id="c2"></div>
-                <div class="loadingCircle" id="c3"></div>
-                <div class="loadingCircle" id="c4"></div> <!-- boom -->
-                <div class="loadingCircle" id="c5"></div>
+    <!-- Splash screen -->
+    <div id="splashScreen">
+      <div id="splashLoading">
+        <div class="loadingCircle" id="c1"></div>
+        <div class="loadingCircle" id="c2"></div>
+        <div class="loadingCircle" id="c3"></div>
+        <div class="loadingCircle" id="c4"></div>
+        <!-- boom -->
+        <div class="loadingCircle" id="c5"></div>
+      </div>
+
+      <h1>LiveBot</h1>
+
+      <div id="loadingBar">
+        <div id="loadingIncomplete"></div>
+        <div id="loadingComplete"></div>
+      </div>
+      <span id="percentageText">Loading resources</span>
+
+      <div id="selectMember">
+        <!--
+          <div class="splashTokenContainer">
+            <input
+              class="splashScreenToken"
+              type="text"
+              id="tokenbox"
+              placeholder="Input your token"
+            />
+
+            <div class="tokenAddButton">
+              <span>One time login</span>
             </div>
 
-            <h1>LiveBot</h1>
-
-            <div id="loadingBar">
-                <div id="loadingIncomplete"></div>
-                <div id="loadingComplete"></div>
+            <div class="tokenAddButton">
+              <span>Log in and save as default</span>
             </div>
-            <span id="percentageText">Loading resources</span>
+          </div>
+        -->
 
-            <div id="selectMember">
-
-                <!-- <div class="splashTokenContainer">
-                    <input class="splashScreenToken" type="text" id="tokenbox" placeholder="Input your token">
-
-                    <div class="tokenAddButton">
-                        <span>One time login</span>
-                    </div>
-
-                    <div class="tokenAddButton">
-                        <span>Log in and save as default</span>
-                    </div>
-                </div> -->
-
-                <!-- This div is normally empty -->
-                <!-- <div class="teamMember">
-                    <div class="userArea">
-                        <img class="teamMemberIcon" src="https://images-ext-1.discordapp.net/external/yV2zIpxF7b2yA3mdVexpAllXsGTRAWyujO_uaj6ozVY/%3Fsize%3D2048/https/cdn.discordapp.com/avatars/221744875941396480/1d85cba3bbfa355ebccc111a08377f66.png?width=100&height=100">
-                        <div class='teamMemberTag'>
-                            <span class='teamMemberName'>SharkFin</span><span class="teamMemberDisc">#1504</span>
-                        </div>
-                    </div>
-
-                    <div class="teamMemberButton">
-                        <span class="oneline">Sign in once</span>
-                    </div>
-                    <div class="teamMemberButton">
-                        <span>Sign in and set as default</span>
-                    </div>
-                </div>
- -->
-
+        <!-- This div is normally empty -->
+        <!--
+          <div class="teamMember">
+            <div class="userArea">
+              <img
+                class="teamMemberIcon"
+                src="https://images-ext-1.discordapp.net/external/yV2zIpxF7b2yA3mdVexpAllXsGTRAWyujO_uaj6ozVY/%3Fsize%3D2048/https/cdn.discordapp.com/avatars/221744875941396480/1d85cba3bbfa355ebccc111a08377f66.png?width=100&height=100"
+              />
+              <div class="teamMemberTag">
+                <span class="teamMemberName">SharkFin</span
+                ><span class="teamMemberDisc">#1504</span>
+              </div>
             </div>
+
+            <div class="teamMemberButton">
+              <span class="oneline">Sign in once</span>
+            </div>
+            <div class="teamMemberButton">
+              <span>Sign in and set as default</span>
+            </div>
+          </div>
+        -->
+      </div>
+    </div>
+
+    <div id="main">
+      <div id="guild-list">
+        <div class="guildIconDiv" onclick="dmList()">
+          <img
+            id="Home"
+            height="40"
+            width="40"
+            class="guild-icon"
+            src="resources/icons/logo.svg"
+          />
+          <div class="guildNameContainer" style="width: 51px">
+            <p class="guildName">Home</p>
+          </div>
+        </div>
+        <hr class="homeBreak" />
+      </div>
+
+      <div id="serverName">
+        <h5 id="guildName">LiveBot</h5>
+        <img src="resources/images/default.png" id="guildImg" />
+        <p id="members-text" class="members">Members:</p>
+        <p id="members-count" class="members">Infinite</p>
+      </div>
+
+      <div id="channel-list">
+        <div id="channel-elements"></div>
+      </div>
+
+      <!-- Pull up menu for settings -->
+      <div id="userSettings">
+        <div id="userCard">
+          <p id="userCardBot">BOT</p>
+          <img
+            src="resources/images/default.png"
+            alt="UserIcon"
+            id="userCardIcon"
+            height="30px"
+          />
+          <p id="userCardName">User</p>
+          <p id="userCardDiscrim">#1234</p>
+          <img
+            id="userPullOutIcon"
+            src="resources/icons/pullOut.svg"
+            onclick="toggleSettings()"
+          />
         </div>
 
-        <div id='main'>
-            <div id='guild-list'>
-                <div class="guildIconDiv" onclick="dmList()">
-                    <img id="Home" height="40" width="40" class="guild-icon" src="resources/icons/logo.svg">
-                    <div class="guildNameContainer" style="width: 51px;">
-                        <p class="guildName">Home</p>
-                    </div>
+        <!-- All the user options will be loaded here from the JSON -->
+        <div id="optionGroups"></div>
+      </div>
+
+      <div id="msgSpace">
+        <!--This div would normally be empty, this is for embed styling/testing-->
+        <div id="message-list">
+          <!--
+            <div id="messageCont" class="110203547623154">
+              <img
+                id="messageImg"
+                height="40"
+                width="40"
+                src="https://cdn.discordapp.com/avatars/368115108641112064/f9fc69042bb0e1b932a5fadd135f64c8.png?size=2048"
+              />
+              <p id="messageUsername" style="color: rgb(0, 150, 255)">Voila!</p>
+              <p class="messageText">
+                Here is some text that goes with an embed!
+              </p>
+
+              <div class="embed">
+                <img
+                  class="embedLargeIcon"
+                  src="resources/images/default.png"
+                />
+                <div class="embedAuthor">
+                  <img
+                    class="embedAuthorImg"
+                    src="resources/images/default.png"
+                  />
+                  <p class="embedAuthorName">SharkFin</p>
                 </div>
-                <hr class="homeBreak">
-            </div>
+                <p class="embedTitle">Embed Title</p>
+                <p class="embedDescription embedContent">
+                  This is the embed description and it does stuff yep yep
+                  yeperoonies it does it's pretty cool
+                </p>
 
-            <div id='serverName'>
-                <h5 id='guildName'>LiveBot</h5>
-                <img src='resources/images/default.png' id='guildImg'/>
-                <p id='members-text' class='members'>Members: </p>
-                <p id='members-count' class='members'>Infinite</p>
-            </div>
-        
-            <div id='channel-list'>
-                <div id='channel-elements'>
-
+                <div class="field">
+                  <p class="fieldName embedContent">Test Field</p>
+                  <p class="fieldText embedContent">
+                    Here is the embed content
+                  </p>
                 </div>
-            </div>
-
-            <!-- Pull up menu for settings -->
-            <div id="userSettings">
-                <div id=userCard>
-                    <p id='userCardBot'>BOT</p>
-                    <img src="resources/images/default.png" alt="UserIcon" id='userCardIcon' height='30px'>
-                    <p id='userCardName'>User</p>
-                    <p id='userCardDiscrim'>#1234</p>
-                    <img id="userPullOutIcon" src="resources/icons/pullOut.svg" onclick="toggleSettings()">
-                </div>
-                
-                <!-- All the user options will be loaded here from the JSON -->
-                <div id="optionGroups"></div>
-            </div>
-
-            <div id='msgSpace'>
-
-                <!--This div would normally be empty, this is for embed styling/testing-->
-                <div id='message-list'>
-                        <!--
-                        <div id="messageCont" class="110203547623154">
-                            <img id="messageImg" height="40" width="40" src="https://cdn.discordapp.com/avatars/368115108641112064/f9fc69042bb0e1b932a5fadd135f64c8.png?size=2048">
-                            <p id="messageUsername" style="color: rgb(0, 150, 255)">Voila!</p>
-                            <p class="messageText">Here is some text that goes with an embed!</p>
-                        
-                            <div class="embed">
-                                <img class="embedLargeIcon" src="resources/images/default.png">
-                                <div class="embedAuthor">
-                                    <img class="embedAuthorImg" src="resources/images/default.png"/>
-                                    <p class="embedAuthorName">SharkFin</p>
-                                </div>
-                                <p class="embedTitle">Embed Title</p>
-                                <p class="embedDescription embedContent">This is the embed description and it does stuff yep yep yeperoonies it does it's pretty cool</p>
-                                
-                                <div class="field">
-                                    <p class="fieldName embedContent">Test Field</p>
-                                    <p class="fieldText embedContent">Here is the embed content</p>
-                                </div>
-                                <div class="field">
-                                    <p class="fieldName embedContent">Test Field</p>
-                                    <p class="fieldText embedContent">Here is the embed content</p>
-                                </div>
-
-                                <img class="embedImage" src="https://images.soue.tk/zTYunOOF9o.png">
-                                
-                                <div class="footer">
-                                    <p class="footerText">Footer Text</p>
-                                </div>
-                            </div>
-                        </div> 
-                    -->
-
+                <div class="field">
+                  <p class="fieldName embedContent">Test Field</p>
+                  <p class="fieldText embedContent">
+                    Here is the embed content
+                  </p>
                 </div>
 
-                <div id='sendmsg'>
-                    <div id='typingDots'>
-                        <div class='typingDot dot1'></div>
-                        <div class='typingDot dot2'></div>
-                        <div class='typingDot dot3'></div>
-                    </div>
-                    <p id="typingIndicator"></p>
-                    <textarea type="text" name="message" value="" placeholder='Message' id='msgbox' class='messageBoxText'  oninput='typing()' rows='1'></textarea>
-                </div>
-            </div>
+                <img
+                  class="embedImage"
+                  src="https://images.soue.tk/zTYunOOF9o.png"
+                />
 
-            <div id='memberBar'>
-                <!--<input type='text' name='name' value='' placeholder='Username' id='usernameBox' class='optionBox'/>
-                <input type='button' name='invite' value='Generate Invite' id='inviteBtn' class='optionBox' onclick="options('invite','')"/>-->
+                <div class="footer">
+                  <p class="footerText">Footer Text</p>
+                </div>
+              </div>
             </div>
+          -->
         </div>
-        <script src="js/titlebar.js" charset="utf-8"></script>
-    </body>
+
+        <div id="sendmsg">
+          <div id="typingDots">
+            <div class="typingDot dot1"></div>
+            <div class="typingDot dot2"></div>
+            <div class="typingDot dot3"></div>
+          </div>
+          <p id="typingIndicator"></p>
+          <textarea
+            type="text"
+            name="message"
+            value=""
+            placeholder="Message"
+            id="msgbox"
+            class="messageBoxText"
+            oninput="typing()"
+            rows="1"
+          ></textarea>
+        </div>
+      </div>
+
+      <div id="memberBar">
+        <!--
+          <input
+            type="text"
+            name="name"
+            value=""
+            placeholder="Username"
+            id="usernameBox"
+            class="optionBox"
+          />
+          <input
+            type="button"
+            name="invite"
+            value="Generate Invite"
+            id="inviteBtn"
+            class="optionBox"
+            onclick="options('invite','')"
+          />
+        -->
+      </div>
+    </div>
+    <script src="js/titlebar.js" charset="utf-8"></script>
+  </body>
 </html>

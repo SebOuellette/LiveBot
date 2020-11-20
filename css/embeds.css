@@ -13,108 +13,108 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 .embed {
-    margin: 0 0 7px 0;
-    background-color: #2f3136;
-    padding: 6px 15px 15px 15px;
-    border-radius: 5px;
-    border-left: 5px solid;
-    color: white;
-    min-height: 50px;
-    max-width: 512px;
+  margin: 0 0 7px 0;
+  background-color: #2f3136;
+  padding: 6px 15px 15px 15px;
+  border-radius: 5px;
+  border-left: 5px solid;
+  color: white;
+  min-height: 50px;
+  max-width: 512px;
 }
 
 .messageTimestamp + .embed {
-    margin-top: -20px;
+  margin-top: -20px;
 }
 
 .embedLargeIcon {
-    height: 90px;
-    border-radius: 5px;
-    float: right;
+  height: 90px;
+  border-radius: 5px;
+  float: right;
 }
 
 .embedSmallIcon {
-    height: 40px;
-    border-radius: 5px;
-    float: right;
+  height: 40px;
+  border-radius: 5px;
+  float: right;
 }
 
 .embedArticleLargeIcon {
-    height: 212px;
-    padding: 15px 0px 0px;
-    border-radius: 5px;
+  height: 212px;
+  padding: 15px 0px 0px;
+  border-radius: 5px;
 }
 
 /*Author*/
 .embedAuthor {
-    width: 100%;
-    margin: 0 0 5px 0;
+  width: 100%;
+  margin: 0 0 5px 0;
 }
 
 .embedAuthorImg {
-    height: 20px;
-    border-radius: 50%;
-    display: inline-block;
-    margin: 0;
+  height: 20px;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 0;
 }
 
 .embedAuthorName {
-    display: inline-block;
-    margin: 0 0 0 5px;
-    font-size: 14px;
-    transform: translateY(-4px);
-    color: #aaa;
+  display: inline-block;
+  margin: 0 0 0 5px;
+  font-size: 14px;
+  transform: translateY(-4px);
+  color: #aaa;
 }
 
 /*Title section*/
 .embedTitle {
-    margin: 0;
-    font-size: 17px;
-    font-weight: bold;
+  margin: 0;
+  font-size: 17px;
+  font-weight: bold;
 }
 
 .embedDescription {
-    margin: 5px 0 0 0;
+  margin: 5px 0 0 0;
 }
 
 .embedContent {
-    color: #aaa;
-    font-size: 15px;
+  color: #aaa;
+  font-size: 15px;
 }
 
-.embedProvierName{
-    margin: 5px 0 5px 0;
-    font-size: 13px;
+.embedProvierName {
+  margin: 5px 0 5px 0;
+  font-size: 13px;
 }
 
 /*Fields*/
 .field {
-    margin: 10px 20px 0 0;
+  margin: 10px 20px 0 0;
 }
 
 .fieldName {
-    color: #ddd;
-    margin: 0;
+  color: #ddd;
+  margin: 0;
 }
 
 .fieldText {
-    margin: 0 0 0 5px;
+  margin: 0 0 0 5px;
 }
 
 /* Image */
 .embedImage {
-    max-width: 100%;
-    margin-top: 10px;
-    border-radius: 5px;
+  max-width: 100%;
+  margin-top: 10px;
+  border-radius: 5px;
 }
 
 /*Footer*/
 .footer {
-    color: #888;
-    margin: 10px 0 0 0;
+  color: #888;
+  margin: 10px 0 0 0;
 }
 
 .footerText {
-    font-size: 12px;
-    margin: 0;
+  font-size: 12px;
+  margin: 0;
 }

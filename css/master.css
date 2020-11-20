@@ -13,298 +13,296 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 @font-face {
-    font-family: Whitney;
-    src: url("../fonts/whitney-medium.otf");
-    font-weight: 100;
+  font-family: Whitney;
+  src: url("../fonts/whitney-medium.otf");
+  font-weight: 100;
 }
 
 @font-face {
-    font-family: Whitney-light;
-    src: url("../fonts/whitney-light.otf");
-    font-weight: 100;
+  font-family: Whitney-light;
+  src: url("../fonts/whitney-light.otf");
+  font-weight: 100;
 }
 
-div > *{
-    user-select: text;
+div > * {
+  user-select: text;
 }
 
 div {
-    user-select: none;
+  user-select: none;
 }
 
 /* Some text styling */
 p {
-    font-size: 16px;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    white-space: pre-wrap;
+  font-size: 16px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  white-space: pre-wrap;
 }
 
-img{
-    -webkit-user-drag: none;
+img {
+  -webkit-user-drag: none;
 }
 
 body {
-    background-color: #202225;
-    font-family: Whitney-light, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-color: #202225;
+  font-family: Whitney-light, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .titlebar {
-    font-family: Whitney-light, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    height: 20px !important;
+  font-family: Whitney-light, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  height: 20px !important;
 }
 
 .window-icon-bg {
-    height: 20px !important;
-    margin-top: 5px;
+  height: 20px !important;
+  margin-top: 5px;
 }
 
 .container-after-titlebar {
-    left: 8px !important;
-    top: 20px !important;
-    height: calc(100vh - 20px);
+  left: 8px !important;
+  top: 20px !important;
+  height: calc(100vh - 20px);
 }
 
 .button {
-    z-index: 101;
-    margin-top: -10px;
+  z-index: 101;
+  margin-top: -10px;
 }
 
 #max-btn {
-    background-color: grey;
-    height: 18px;
-    width: 30px;
-    margin-left: calc(100vw - 50px);
-    position: absolute;
-    z-index: 101;
-    margin-top: -3px;
+  background-color: grey;
+  height: 18px;
+  width: 30px;
+  margin-left: calc(100vw - 50px);
+  position: absolute;
+  z-index: 101;
+  margin-top: -3px;
 }
 
 .drag {
-    background-color: #202225;
-    height: 30px;
-    width: 100vw;
-    margin-top: -10px;
-    margin-left: -8px;
-    z-index: 100;
-    position: absolute;
+  background-color: #202225;
+  height: 30px;
+  width: 100vw;
+  margin-top: -10px;
+  margin-left: -8px;
+  z-index: 100;
+  position: absolute;
 }
 
 #titleBar-name {
-    position: absolute;
-    color: white;
-    font-size: 12px;
-    z-index: 101;
-    margin-top: 0px;
-    margin-left: 2px;
+  position: absolute;
+  color: white;
+  font-size: 12px;
+  z-index: 101;
+  margin-top: 0px;
+  margin-left: 2px;
 }
 
 #main {
-    position: fixed;
-    height: calc(100vh - 20px);
+  position: fixed;
+  height: calc(100vh - 20px);
 }
 
 /* User card */
 #userCard {
-    height: 45px;
-    border-bottom: 2px solid #202225;
-    margin-bottom: 10px;
+  height: 45px;
+  border-bottom: 2px solid #202225;
+  margin-bottom: 10px;
 }
 
 #userCardIcon {
-    margin-top: 6px;
-    margin-left: 45px;
-    border-radius: 50%;
+  margin-top: 6px;
+  margin-left: 45px;
+  border-radius: 50%;
 }
 
 #userCardName {
-    margin-top: -35px;
-    margin-left: 80px;
-    position: absolute;
+  margin-top: -35px;
+  margin-left: 80px;
+  position: absolute;
 }
 
 #userCardDiscrim {
-    font-weight: 900;
-    margin-top: -18px;
-    font-size: 12px;
-    margin-left: 80px;
-    position: absolute;
-    color: #999;
+  font-weight: 900;
+  margin-top: -18px;
+  font-size: 12px;
+  margin-left: 80px;
+  position: absolute;
+  color: #999;
 }
 
 #userCardBot {
-    position: absolute;
-    font-size: 13px;
-    margin-top: 13px;
-    margin-left: 8px;
-    background-color: #7289da;
-    padding: 2px 3px 2px 2px;
-    border-radius: 4px;
+  position: absolute;
+  font-size: 13px;
+  margin-top: 13px;
+  margin-left: 8px;
+  background-color: #7289da;
+  padding: 2px 3px 2px 2px;
+  border-radius: 4px;
 }
 
 /* Channel stuff I think */
 
 #serverName {
-    height: 40px;
-    width: 260px;
-    background-color: grey;
-    margin: 0px 0 0px 50px;
-    background-color: #2f3136;
-    font-family: Whitney, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    position: absolute;
-    border-bottom: 1px solid #202225;
-    border-radius: 10px 0 0 0;
+  height: 40px;
+  width: 260px;
+  background-color: grey;
+  margin: 0px 0 0px 50px;
+  background-color: #2f3136;
+  font-family: Whitney, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  position: absolute;
+  border-bottom: 1px solid #202225;
+  border-radius: 10px 0 0 0;
 }
 
 #guildName {
-    padding-left: 10px;
-    padding-top: 3px;
-    margin-top: 0;
-    margin-bottom: 10px;
-    color: #bbb;
-    width: calc(100% - 70px);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  padding-left: 10px;
+  padding-top: 3px;
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #bbb;
+  width: calc(100% - 70px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 #guildImg {
-    height: 35px;
-    margin-top: -30px;
-    margin-left: 220px;
-    border-radius: 50%;
-    position: absolute;
+  height: 35px;
+  margin-top: -30px;
+  margin-left: 220px;
+  border-radius: 50%;
+  position: absolute;
 }
 
 #members-text {
-    margin-top: -10px;
-    font-weight: bold;
-    color: #666;
+  margin-top: -10px;
+  font-weight: bold;
+  color: #666;
 }
 
 #members-count {
-    margin-left: 70px;
-    color: #999;
+  margin-left: 70px;
+  color: #999;
 }
 
 .members {
-    font-size: 12px;
-    margin-top: -25px;
-    margin-left: 10px;
+  font-size: 12px;
+  margin-top: -25px;
+  margin-left: 10px;
 }
-
 
 /* Message List */
 #message-list {
-    background-color: #36393E;
-    height: calc(100vh - 89px);
-    border-bottom: 1px solid #484B51;
-    width: calc(100vw - 518px);
-    position: absolute;
-    margin-top: calc(-100vh + 60px);
-    margin-left: 310px;
-    overflow-y: auto;
-    font-family: Whitney-light, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    overflow-x: hidden;
-    position: absolute;
+  background-color: #36393e;
+  height: calc(100vh - 89px);
+  border-bottom: 1px solid #484b51;
+  width: calc(100vw - 518px);
+  position: absolute;
+  margin-top: calc(-100vh + 60px);
+  margin-left: 310px;
+  overflow-y: auto;
+  font-family: Whitney-light, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  overflow-x: hidden;
+  position: absolute;
 }
 
 #message-list::-webkit-scrollbar {
-    background-color: transparent;
-    width: 6px;
+  background-color: transparent;
+  width: 6px;
 }
 
 #message-list::-webkit-scrollbar-track {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 #message-list::-webkit-scrollbar-thumb {
-    background-color: #25272B;
-    border-radius: 3px;
+  background-color: #25272b;
+  border-radius: 3px;
 }
 
 .timeSeparated {
-    border-top: 1px solid #484B51;
+  border-top: 1px solid #484b51;
 }
 
 /* Apology for not being able to view messages */
 .sorryNoLoad {
-    height: 50px;
-    text-align: center;
-    color: #b9bbbe;
-    font-family: Whitney-light, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    /* border-bottom: 1px solid #484B51; */
+  height: 50px;
+  text-align: center;
+  color: #b9bbbe;
+  font-family: Whitney-light, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /* border-bottom: 1px solid #484B51; */
 }
-
 
 /* Send message bar */
 #sendmsg {
-    position: absolute;
-    margin-left: 310px;
-    margin-top: -28px;
-    /* margin-top: -200px; */
-    width: calc(100vw - 518px);
-    height: 40px;
-    padding-top: 20px;
-    padding-bottom: 10px;
-    background-color: #36393E;
+  position: absolute;
+  margin-left: 310px;
+  margin-top: -28px;
+  /* margin-top: -200px; */
+  width: calc(100vw - 518px);
+  height: 40px;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  background-color: #36393e;
 }
 
 #msgbox::-webkit-scrollbar {
-    width: 0;
+  width: 0;
 }
 
 #msgbox {
-    width: calc(100% - 50px);
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: #484B51;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    outline: none;
-    color: white;
-    resize: none;
+  width: calc(100% - 50px);
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #484b51;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  outline: none;
+  color: white;
+  resize: none;
 }
 
 #savebtn {
-    margin-top: 0px;
-    position: absolute;
-    margin-left: calc(100% - 72px);
-    z-index: 100;
-    padding: 10px;
-    color: #777777;
-    background-color: #484B51;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    outline: none;
-    margin-top: -35px;
+  margin-top: 0px;
+  position: absolute;
+  margin-left: calc(100% - 72px);
+  z-index: 100;
+  padding: 10px;
+  color: #777777;
+  background-color: #484b51;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+  margin-top: -35px;
 }
 
 #savebtn:hover {
-    background-color: #404040;
+  background-color: #404040;
 }
 
 .optionBox {
-    width: 150px;
-    padding: 5px;
-    background-color: #484B51;
-    border-radius: 5px;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-    color: white;
-    margin-top: 5px;
-    border: none;
-    outline: none;
+  width: 150px;
+  padding: 5px;
+  background-color: #484b51;
+  border-radius: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  color: white;
+  margin-top: 5px;
+  border: none;
+  outline: none;
 }
 
 #inviteBtn {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 #inviteBtn:hover {
-    background-color: #393939;
+  background-color: #393939;
 }

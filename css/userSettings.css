@@ -13,370 +13,381 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 #userPullOutIcon {
-    float: right;
-    height: 15px;
-    margin: 8px;
-    padding: 5px;
-    border-radius: 5px;
-    user-select: none;
+  float: right;
+  height: 15px;
+  margin: 8px;
+  padding: 5px;
+  border-radius: 5px;
+  user-select: none;
 }
 
 #userPullOutIcon:hover {
-    cursor: pointer;
-    background-color: #fff2;
+  cursor: pointer;
+  background-color: #fff2;
 }
 
 #userPullOutIcon.userSettingsFlip {
-    animation-name: userIconRotateDown;
-    animation-duration: 0.5s;
-    transform: rotate(180deg);
+  animation-name: userIconRotateDown;
+  animation-duration: 0.5s;
+  transform: rotate(180deg);
 }
 
 #userPullOutIcon.userSettingsFlipOff {
-    animation-name: userIconRotateUp;
-    animation-duration: 0.5s;
+  animation-name: userIconRotateUp;
+  animation-duration: 0.5s;
 }
 
 #userSettings.userSettingsToggle {
-    border-radius: 10px 0 0 0;
+  border-radius: 10px 0 0 0;
 }
 
 @keyframes userIconRotateDown {
-    from {transform: rotate(0deg);}
-    to {transform: rotate(-180deg);}
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-180deg);
+  }
 }
 
 @keyframes userIconRotateUp {
-    from {transform: rotate(180deg);}
-    to {transform: rotate(0deg);}
+  from {
+    transform: rotate(180deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
 }
 
 /* Settings menu */
 #userSettings {
-    position: absolute;
-    background-color: #2A2C31;
-    height: 42px;
-    width: 260px;
-    margin-left: 50px;
-    font-family: Whitney-light, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: #eee;
-    z-index: 2;
+  position: absolute;
+  background-color: #2a2c31;
+  height: 42px;
+  width: 260px;
+  margin-left: 50px;
+  font-family: Whitney-light, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #eee;
+  z-index: 2;
 }
 
 #userSettings.userSettingsToggle {
-    margin-top: calc(-100vh + 60px);
-    height: calc(100vh - 60px);
-    animation-name: userSettingsSlideUp;
-    animation-duration: 0.5s;
+  margin-top: calc(-100vh + 60px);
+  height: calc(100vh - 60px);
+  animation-name: userSettingsSlideUp;
+  animation-duration: 0.5s;
 }
 
 #userSettings.userSettingsToggleOff {
-    animation-name: userSettingsSlideDown;
-    animation-duration: 0.5s;
+  animation-name: userSettingsSlideDown;
+  animation-duration: 0.5s;
 }
 
 @keyframes userSettingsSlideUp {
-    from {margin-top: 0;}
-    to {margin-top: calc(-100vh + 60px);}
+  from {
+    margin-top: 0;
+  }
+  to {
+    margin-top: calc(-100vh + 60px);
+  }
 }
 
 @keyframes userSettingsSlideDown {
-    from {
-        margin-top: calc(-100vh + 60px);
-        height: calc(100vh + 60px);
-    }
-    to {
-        margin-top: 0;
-        height: calc(100vh + 60px);
-    }
+  from {
+    margin-top: calc(-100vh + 60px);
+    height: calc(100vh + 60px);
+  }
+  to {
+    margin-top: 0;
+    height: calc(100vh + 60px);
+  }
 }
 
 /* Settings */
 #optionGroups {
-    height: 100%;
-    background-color: #2a2c31;
-    display: block;
-    user-select: none;
+  height: 100%;
+  background-color: #2a2c31;
+  display: block;
+  user-select: none;
 }
 
 .optionCategoryContainer {
-    height: 40px;
+  height: 40px;
 }
 
 .optionCategory {
-    margin: 2px 0 2px 2.5%;
-    padding: 10px 0;
-    font-size: 18px !important;
-    padding-left: 20px;
-    width: calc(95% - 20px);
-    border-radius: 5px;
-    color: #B4B8BC;
-    transition: width 0.2s;
-    height: 20px;
+  margin: 2px 0 2px 2.5%;
+  padding: 10px 0;
+  font-size: 18px !important;
+  padding-left: 20px;
+  width: calc(95% - 20px);
+  border-radius: 5px;
+  color: #b4b8bc;
+  transition: width 0.2s;
+  height: 20px;
 }
 
 .optionCategory.toggledOn {
-    background-color: #393c43 !important;
-    color: #e7e9ec !important;
-    width: calc(95% - 5px);
+  background-color: #393c43 !important;
+  color: #e7e9ec !important;
+  width: calc(95% - 5px);
 }
 
 .optionCategory:hover {
-    background-color: #34373c;
-    cursor: pointer;
-    color: #d0d4d9;
+  background-color: #34373c;
+  cursor: pointer;
+  color: #d0d4d9;
 }
 
 .settingsPopup {
-    position: relative;
-    max-height: calc(65vh - 100px);
-    width: 30vw;
-    padding: 2.5vh 2.5vw;
-    background-color: #202225;
-    z-index: 2;
-    left: 300px;
-    top: -44px;
-    transition: left 1s;
-    display: none;
-    border-radius: 5px;
-    overflow-y: scroll;
-    user-select: text;
-    overflow: none;
-    padding-bottom: 140px
+  position: relative;
+  max-height: calc(65vh - 100px);
+  width: 30vw;
+  padding: 2.5vh 2.5vw;
+  background-color: #202225;
+  z-index: 2;
+  left: 300px;
+  top: -44px;
+  transition: left 1s;
+  display: none;
+  border-radius: 5px;
+  overflow-y: scroll;
+  user-select: text;
+  overflow: none;
+  padding-bottom: 140px;
 }
 
 .settingsPopup::-webkit-scrollbar {
-    background-color: transparent;
-    width: 6px;
+  background-color: transparent;
+  width: 6px;
 }
 
 .settingsPopup::-webkit-scrollbar-track {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 .settingsPopup::-webkit-scrollbar-thumb {
-    background-color: #484b51;
-    border-radius: 3px;
+  background-color: #484b51;
+  border-radius: 3px;
 }
 
-
 .toggledOn + .settingsPopup {
-    left: 265px;
-    display: block;
+  left: 265px;
+  display: block;
 }
 
 .settingsPopup hr {
-    border: none;
-    height: 1px;
-    background-color: #36393e;
+  border: none;
+  height: 1px;
+  background-color: #36393e;
 }
 
 .settingsPopup .option {
-    /* background-color: pink; */
-    width: 100%;
-    min-height: 70px;
-    padding: 15px 0;
+  /* background-color: pink; */
+  width: 100%;
+  min-height: 70px;
+  padding: 15px 0;
 }
 
 .settingsPopup p {
-    color: #8e9297;
-    margin-top: 0;
+  color: #8e9297;
+  margin-top: 0;
 }
 
 .option label {
-    margin-bottom: 16px;
-    font-size: 15px;
-    text-transform: uppercase;
-    display: block;
+  margin-bottom: 16px;
+  font-size: 15px;
+  text-transform: uppercase;
+  display: block;
 }
 
 /* Dropdown Boxes */
 .dropdown {
-    color: #e7e9ec;
-    user-select: none;
-    height: calc(18.623px + 22px);
-    margin: 5px 0;
-    outline: none;
+  color: #e7e9ec;
+  user-select: none;
+  height: calc(18.623px + 22px);
+  margin: 5px 0;
+  outline: none;
 }
 
 .dropdown:focus {
-    outline: none;
+  outline: none;
 }
 
 .dropdownDisplay {
-    padding: 10px;
-    border-radius: 3px;
-    background-color: #313339;
-    cursor: pointer;
-    border: 1px solid #313339;
+  padding: 10px;
+  border-radius: 3px;
+  background-color: #313339;
+  cursor: pointer;
+  border: 1px solid #313339;
 }
 
 .dropdownDisplay:hover {
-    border: 1px solid black;
+  border: 1px solid black;
 }
 
 .dropdownChildren {
-    display: none;
-    position: relative;
-    transition-duration: 0.2s;
-    border-radius: 0 0 3px 3px;
-    background-color: #2f3136;
-    border-style: solid;
-    border-color: black;
-    border-width: 0 1px 1px 1px;
-    z-index: 2;
+  display: none;
+  position: relative;
+  transition-duration: 0.2s;
+  border-radius: 0 0 3px 3px;
+  background-color: #2f3136;
+  border-style: solid;
+  border-color: black;
+  border-width: 0 1px 1px 1px;
+  z-index: 2;
 }
 
 .dropdownChildren option {
-    cursor: pointer;
-    padding: 10px;
-    width: calc(100% - 21px);
-    margin-left: 1px;
+  cursor: pointer;
+  padding: 10px;
+  width: calc(100% - 21px);
+  margin-left: 1px;
 }
 
 .dropdownChildren option:hover {
-    background-color: #2a2c31;
+  background-color: #2a2c31;
 }
 
 .dropdownChildren option.disabled {
-    cursor: not-allowed;
-    background-color: #484b51;
+  cursor: not-allowed;
+  background-color: #484b51;
 }
 
 .dropdownChildren option.disabled:hover {
-    background-color: #484b51;
+  background-color: #484b51;
 }
 
 .selectedOption {
-    background-color: #26272b !important;
+  background-color: #26272b !important;
 }
 
 .dropdownIcon {
-    height: 15px;
-    float: right;
-    margin-top: 3px;
-    transition-duration: 0.3s;
+  height: 15px;
+  float: right;
+  margin-top: 3px;
+  transition-duration: 0.3s;
 }
 
 /* Opened */
 .openDrop .dropdownDisplay {
-    border: 1px solid black;
-    border-radius: 3px 3px 0 0;
+  border: 1px solid black;
+  border-radius: 3px 3px 0 0;
 }
 
 .openDrop .dropdownIcon {
-    transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 
 .openDrop .dropdownChildren {
-    display: block;
+  display: block;
 }
 
 /* Update button */
 .settingsUpdateBtn {
-    display: block;
-    transform: translateX(-50%);
-    margin: 10px 10px 10px 50%;
-    background-color: #313339;
-    border: none;
-    color: #e7e9ec;
-    padding: 10px;
-    font-size: 16px;
-    width: 50%;
-    border-radius: 3px;
-    outline: none;
-    cursor: pointer;
-    user-select: none;
+  display: block;
+  transform: translateX(-50%);
+  margin: 10px 10px 10px 50%;
+  background-color: #313339;
+  border: none;
+  color: #e7e9ec;
+  padding: 10px;
+  font-size: 16px;
+  width: 50%;
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+  user-select: none;
 }
 
 .settingsUpdateBtn:hover {
-    background-color: #2a2c31;
+  background-color: #2a2c31;
 }
 
 .settingsUpdateBtn:active {
-    background-color: #26272b;
+  background-color: #26272b;
 }
 
 /* Text Input */
 .settingsPopup input {
-    display: block;
-    width: calc(100% - 20px);
-    border: none;
-    padding: 10px;
-    font-size: 16px;
-    background-color: #313339;
-    margin-top: 5px;
-    outline: none;
-    border: 1px solid #313339 !important;
-    color: #aeb0b3;
-    border-radius: 3px;
+  display: block;
+  width: calc(100% - 20px);
+  border: none;
+  padding: 10px;
+  font-size: 16px;
+  background-color: #313339;
+  margin-top: 5px;
+  outline: none;
+  border: 1px solid #313339 !important;
+  color: #aeb0b3;
+  border-radius: 3px;
 }
 
 .settingsPopup input:focus {
-    border: 1px solid black !important;
+  border: 1px solid black !important;
 }
 
 .settingsPopup input::placeholder {
-    color: #7a7c80;
+  color: #7a7c80;
 }
 
 input.errorTextBox {
-    border: 1px solid #fc5c65 !important;
+  border: 1px solid #fc5c65 !important;
 }
 
 /* Checkbox */
 .checkBoxContainer {
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    user-select: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  user-select: none;
 }
 
 .checkBoxContainer:hover {
-    background-color: #2a2c31;
+  background-color: #2a2c31;
 }
 
 .checkbox {
-    height: 15px;
-    width: 15px;
-    border: 2px solid #888888;
-    border-radius: 2px;
-    cursor: pointer;
-    position: relative;
-    margin: -18px 0 0 auto;
-    transition-duration: 0.1s;
+  height: 15px;
+  width: 15px;
+  border: 2px solid #888888;
+  border-radius: 2px;
+  cursor: pointer;
+  position: relative;
+  margin: -18px 0 0 auto;
+  transition-duration: 0.1s;
 }
 
 .checkbox.toggled {
-    background-color: #7289da;
-    border-color: #7289da;
-    animation: checkBounce 0.3s;
+  background-color: #7289da;
+  border-color: #7289da;
+  animation: checkBounce 0.3s;
 }
 
 .checkbox img {
-    height: 15px;
-    width: 15px;
-    opacity: 0;
+  height: 15px;
+  width: 15px;
+  opacity: 0;
 }
 
 .checkbox.toggled img {
-    opacity: 1;
+  opacity: 1;
 }
 
 @keyframes checkBounce {
-    0% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-4px);
-    }
-    100% {
-        transform: translateY(0);
-    }
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
 
 /* Separator */
 .settingsSeparator {
-    margin: 20px 0 0 0 !important;
-    color: #b3b2b2 !important;
+  margin: 20px 0 0 0 !important;
+  color: #b3b2b2 !important;
 }

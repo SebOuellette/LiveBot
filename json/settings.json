@@ -1,320 +1,324 @@
 [
-    {
-        "name": "User Options",
-        "groups": [
-            {
-                "name": "Presence",
-                "settings": [
-                    {
-                        "name": "Activity, Status & Message",
-                        "description": "Here you can set the activity status for your bot. By default LiveBot does not have an activity set, but you can change that here. This may take a while to update, especially if it is changed often.",
-                        "call": "setActivity([DROPDOWNS], ACTIVITYNAME, STREAMURL)",
-                        "update": true,
-                        "options": [
-                            {
-                                "type": "dropdown",
-                                "options": ["Online", "Invisible", "Do Not Disturb", "Idle"],
-                                "default": 0,
-                                "exception": {
-                                    "with": 1,
-                                    "options": {
-                                        "Invisible": [1, 2, 3, 4]
-                                    } 
-                                }
-                            },
-                            {
-                                "type": "dropdown",
-                                "options": ["None", "Streaming", "Playing", "Listening", "Watching"],
-                                "default": 0,
-                                "special": [
-                                    {
-                                        "id": 1,
-                                        "needs": [
-                                            {
-                                                "type": "shortinput",
-                                                "placeholder": "URL of the stream",
-                                                "class": "streamURLInput"
-                                            },
-                                            {
-                                                "type": "shortinput",
-                                                "placeholder": "Name of the stream",
-                                                "class": "activityInput"
-                                            }
-                                        ] 
-                                    },
-                                    {
-                                        "id": 2,
-                                        "needs": [
-                                            {
-                                                "type": "shortinput",
-                                                "placeholder": "Name of the game / action",
-                                                "class": "activityInput"
-                                            }  
-                                        ]
-                                    },
-                                    {
-                                        "id": 3,
-                                        "needs": [
-                                            {
-                                                "type": "shortinput",
-                                                "placeholder": "Name of the music / show / whatever sound source",
-                                                "class": "activityInput"
-                                            }  
-                                        ]
-                                    },
-                                    {
-                                        "id": 4,
-                                        "needs": [
-                                            {
-                                                "type": "shortinput",
-                                                "placeholder": "Name of the video / thing",
-                                                "class": "activityInput"
-                                            }  
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                
-                            }
-                        ]
-                    }
+  {
+    "name": "User Options",
+    "groups": [
+      {
+        "name": "Presence",
+        "settings": [
+          {
+            "name": "Activity, Status & Message",
+            "description": "Here you can set the activity status for your bot. By default LiveBot does not have an activity set, but you can change that here. This may take a while to update, especially if it is changed often.",
+            "call": "setActivity([DROPDOWNS], ACTIVITYNAME, STREAMURL)",
+            "update": true,
+            "options": [
+              {
+                "type": "dropdown",
+                "options": ["Online", "Invisible", "Do Not Disturb", "Idle"],
+                "default": 0,
+                "exception": {
+                  "with": 1,
+                  "options": {
+                    "Invisible": [1, 2, 3, 4]
+                  }
+                }
+              },
+              {
+                "type": "dropdown",
+                "options": [
+                  "None",
+                  "Streaming",
+                  "Playing",
+                  "Listening",
+                  "Watching"
+                ],
+                "default": 0,
+                "special": [
+                  {
+                    "id": 1,
+                    "needs": [
+                      {
+                        "type": "shortinput",
+                        "placeholder": "URL of the stream",
+                        "class": "streamURLInput"
+                      },
+                      {
+                        "type": "shortinput",
+                        "placeholder": "Name of the stream",
+                        "class": "activityInput"
+                      }
+                    ]
+                  },
+                  {
+                    "id": 2,
+                    "needs": [
+                      {
+                        "type": "shortinput",
+                        "placeholder": "Name of the game / action",
+                        "class": "activityInput"
+                      }
+                    ]
+                  },
+                  {
+                    "id": 3,
+                    "needs": [
+                      {
+                        "type": "shortinput",
+                        "placeholder": "Name of the music / show / whatever sound source",
+                        "class": "activityInput"
+                      }
+                    ]
+                  },
+                  {
+                    "id": 4,
+                    "needs": [
+                      {
+                        "type": "shortinput",
+                        "placeholder": "Name of the video / thing",
+                        "class": "activityInput"
+                      }
+                    ]
+                  }
                 ]
-            }, 
-            {
-                "name": "User",
-                "settings": [
-                    {
-                        "name": "Display Information",
-                        "description": "These are your personal user settings. Change things like your username, icon (soon™), etc. Personalize yourself!",
-                        "call": "setUsername(USERNAME)",
-                        "update": true,
-                        "options": [
-                            {
-                                "type": "shortinput",
-                                "placeholder": "New username",
-                                "class": "newNameInput"
-                            }
-                        ]
-                    },
-                    {
-                        "name": "Switch Token",
-                        "description": "Here you can log into a different bot account, and choose if you want to set it as your default. To just log in temporarily, paste your token, then press enter. To save as your default, click the 'Save as Default' button below.",
-                        "call": "showSplashScreen(TOKEN, true)",
-                        "update": true,
-                        "updateLabel": "Save as Default",
-                        "options": [
-                            {
-                                "type": "shortinput",
-                                "placeholder": "Input the token here",
-                                "class": "tokenbox",
-                                "id": "tokenbox"
-                            }
-                        ]
-                    },
-                    {
-                        "name": "Generate Invite",
-                        "description": "Here you can generate an invite for your bot. Just select the permissions you would like, then click the 'Copy' button to copy it to your clipboard!",
-                        "call": "generateInvite(CODES)",
-                        "update": true,
-                        "updateLabel": "Copy",
-                        "options": [
-                            {
-                                "type": "separator",
-                                "label": "General Permissions"
-                            },
-                            {   
-                                "label": "Administrator",
-                                "type": "checkbox",
-                                "value": 8,
-                                "default": false
-                            },
-                            {   
-                                "label": "View Audit Log",
-                                "type": "checkbox",
-                                "value": 80,
-                                "default": false
-                            },
-                            {   
-                                "label": "Manage Server",
-                                "type": "checkbox",
-                                "value": 20,
-                                "default": false
-                            },
-                            {   
-                                "label": "Manage Roles",
-                                "type": "checkbox",
-                                "value": 10000000,
-                                "default": false
-                            },
-                            {   
-                                "label": "Manage Channels",
-                                "type": "checkbox",
-                                "value": 10,
-                                "default": false
-                            },
-                            {   
-                                "label": "Kick Members",
-                                "type": "checkbox",
-                                "value": 2,
-                                "default": false
-                            },
-                            {   
-                                "label": "Ban Members",
-                                "type": "checkbox",
-                                "value": 4,
-                                "default": false
-                            },
-                            {   
-                                "label": "Create Instant Invite",
-                                "type": "checkbox",
-                                "value": 1,
-                                "default": true
-                            },
-                            {   
-                                "label": "Change Nickname",
-                                "type": "checkbox",
-                                "value": 4000000,
-                                "default": true
-                            },
-                            {   
-                                "label": "Manage Nicknames",
-                                "type": "checkbox",
-                                "value": 8000000,
-                                "default": false
-                            },
-                            {   
-                                "label": "Manage Emojis",
-                                "type": "checkbox",
-                                "value": 40000000,
-                                "default": false
-                            },
-                            {   
-                                "label": "Manage Webhooks",
-                                "type": "checkbox",
-                                "value": 20000000,
-                                "default": false
-                            },
-                            {   
-                                "label": "View Channels",
-                                "type": "checkbox",
-                                "value": 400,
-                                "default": true
-                            },
-                            {
-                                "type": "separator",
-                                "label": "Text Permissions"
-                            },
-                            {   
-                                "label": "Send Messages",
-                                "type": "checkbox",
-                                "value": 800,
-                                "default": true
-                            },
-                            {   
-                                "label": "Send TTS Messages",
-                                "type": "checkbox",
-                                "value": 1000,
-                                "default": false
-                            },
-                            {   
-                                "label": "Manage Messages",
-                                "type": "checkbox",
-                                "value": 2000,
-                                "default": false
-                            },
-                            {   
-                                "label": "Embed Links",
-                                "type": "checkbox",
-                                "value": 4000,
-                                "default": true
-                            },
-                            {   
-                                "label": "Attach Files",
-                                "type": "checkbox",
-                                "value": 8000,
-                                "default": false
-                            },
-                            {   
-                                "label": "Read Message History",
-                                "type": "checkbox",
-                                "value": 10000,
-                                "default": true
-                            },
-                            {   
-                                "label": "Mention @everyone, @here, and All Roles",
-                                "type": "checkbox",
-                                "value": 20000,
-                                "default": false
-                            },
-                            {   
-                                "label": "Use External Emojis",
-                                "type": "checkbox",
-                                "value": 40000,
-                                "default": true
-                            },
-                            {   
-                                "label": "Add Reactions",
-                                "type": "checkbox",
-                                "value": 40,
-                                "default": true
-                            },
-                            {
-                                "type": "separator",
-                                "label": "Voice Permissions"
-                            },
-                            {   
-                                "label": "Connect",
-                                "type": "checkbox",
-                                "value": 100000,
-                                "default": true
-                            },
-                            {   
-                                "label": "Mute Members",
-                                "type": "checkbox",
-                                "value": 400000,
-                                "default": false
-                            },
-                            {   
-                                "label": "Move Members",
-                                "type": "checkbox",
-                                "value": 1000000,
-                                "default": false
-                            },
-                            {   
-                                "label": "Speak",
-                                "type": "checkbox",
-                                "value": 200000,
-                                "default": true
-                            },
-                            {   
-                                "label": "Deafen Members",
-                                "type": "checkbox",
-                                "value": 800000,
-                                "default": false
-                            },
-                            {   
-                                "label": "Use Voice Activity",
-                                "type": "checkbox",
-                                "value": 2000000,
-                                "default": false
-                            },
-                            {   
-                                "label": "Priority Speaker",
-                                "type": "checkbox",
-                                "value": 100,
-                                "default": false
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "name": "Scripts"
-            },
-            {
-                "name": "Servers"
-            }
+              },
+              {}
+            ]
+          }
         ]
-    }
+      },
+      {
+        "name": "User",
+        "settings": [
+          {
+            "name": "Display Information",
+            "description": "These are your personal user settings. Change things like your username, icon (soon™), etc. Personalize yourself!",
+            "call": "setUsername(USERNAME)",
+            "update": true,
+            "options": [
+              {
+                "type": "shortinput",
+                "placeholder": "New username",
+                "class": "newNameInput"
+              }
+            ]
+          },
+          {
+            "name": "Switch Token",
+            "description": "Here you can log into a different bot account, and choose if you want to set it as your default. To just log in temporarily, paste your token, then press enter. To save as your default, click the 'Save as Default' button below.",
+            "call": "showSplashScreen(TOKEN, true)",
+            "update": true,
+            "updateLabel": "Save as Default",
+            "options": [
+              {
+                "type": "shortinput",
+                "placeholder": "Input the token here",
+                "class": "tokenbox",
+                "id": "tokenbox"
+              }
+            ]
+          },
+          {
+            "name": "Generate Invite",
+            "description": "Here you can generate an invite for your bot. Just select the permissions you would like, then click the 'Copy' button to copy it to your clipboard!",
+            "call": "generateInvite(CODES)",
+            "update": true,
+            "updateLabel": "Copy",
+            "options": [
+              {
+                "type": "separator",
+                "label": "General Permissions"
+              },
+              {
+                "label": "Administrator",
+                "type": "checkbox",
+                "value": 8,
+                "default": false
+              },
+              {
+                "label": "View Audit Log",
+                "type": "checkbox",
+                "value": 80,
+                "default": false
+              },
+              {
+                "label": "Manage Server",
+                "type": "checkbox",
+                "value": 20,
+                "default": false
+              },
+              {
+                "label": "Manage Roles",
+                "type": "checkbox",
+                "value": 10000000,
+                "default": false
+              },
+              {
+                "label": "Manage Channels",
+                "type": "checkbox",
+                "value": 10,
+                "default": false
+              },
+              {
+                "label": "Kick Members",
+                "type": "checkbox",
+                "value": 2,
+                "default": false
+              },
+              {
+                "label": "Ban Members",
+                "type": "checkbox",
+                "value": 4,
+                "default": false
+              },
+              {
+                "label": "Create Instant Invite",
+                "type": "checkbox",
+                "value": 1,
+                "default": true
+              },
+              {
+                "label": "Change Nickname",
+                "type": "checkbox",
+                "value": 4000000,
+                "default": true
+              },
+              {
+                "label": "Manage Nicknames",
+                "type": "checkbox",
+                "value": 8000000,
+                "default": false
+              },
+              {
+                "label": "Manage Emojis",
+                "type": "checkbox",
+                "value": 40000000,
+                "default": false
+              },
+              {
+                "label": "Manage Webhooks",
+                "type": "checkbox",
+                "value": 20000000,
+                "default": false
+              },
+              {
+                "label": "View Channels",
+                "type": "checkbox",
+                "value": 400,
+                "default": true
+              },
+              {
+                "type": "separator",
+                "label": "Text Permissions"
+              },
+              {
+                "label": "Send Messages",
+                "type": "checkbox",
+                "value": 800,
+                "default": true
+              },
+              {
+                "label": "Send TTS Messages",
+                "type": "checkbox",
+                "value": 1000,
+                "default": false
+              },
+              {
+                "label": "Manage Messages",
+                "type": "checkbox",
+                "value": 2000,
+                "default": false
+              },
+              {
+                "label": "Embed Links",
+                "type": "checkbox",
+                "value": 4000,
+                "default": true
+              },
+              {
+                "label": "Attach Files",
+                "type": "checkbox",
+                "value": 8000,
+                "default": false
+              },
+              {
+                "label": "Read Message History",
+                "type": "checkbox",
+                "value": 10000,
+                "default": true
+              },
+              {
+                "label": "Mention @everyone, @here, and All Roles",
+                "type": "checkbox",
+                "value": 20000,
+                "default": false
+              },
+              {
+                "label": "Use External Emojis",
+                "type": "checkbox",
+                "value": 40000,
+                "default": true
+              },
+              {
+                "label": "Add Reactions",
+                "type": "checkbox",
+                "value": 40,
+                "default": true
+              },
+              {
+                "type": "separator",
+                "label": "Voice Permissions"
+              },
+              {
+                "label": "Connect",
+                "type": "checkbox",
+                "value": 100000,
+                "default": true
+              },
+              {
+                "label": "Mute Members",
+                "type": "checkbox",
+                "value": 400000,
+                "default": false
+              },
+              {
+                "label": "Move Members",
+                "type": "checkbox",
+                "value": 1000000,
+                "default": false
+              },
+              {
+                "label": "Speak",
+                "type": "checkbox",
+                "value": 200000,
+                "default": true
+              },
+              {
+                "label": "Deafen Members",
+                "type": "checkbox",
+                "value": 800000,
+                "default": false
+              },
+              {
+                "label": "Use Voice Activity",
+                "type": "checkbox",
+                "value": 2000000,
+                "default": false
+              },
+              {
+                "label": "Priority Speaker",
+                "type": "checkbox",
+                "value": 100,
+                "default": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Scripts"
+      },
+      {
+        "name": "Servers"
+      }
+    ]
+  }
 ]
