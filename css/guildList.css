@@ -13,124 +13,124 @@ See the License for the specific language governing permissions and
 limitations under the License. */
 
 .homeBreak {
-  border: none;
-  margin: 9px 8px 8px 7px;
-  padding: 2px 0 0 0;
-  background-color: #72767d;
+    border: none;
+    margin: 9px 8px 8px 7px;
+    padding: 2px 0 0 0;
+    background-color: #72767d;
 }
 
 .guild-icon {
-  border-radius: 50%;
-  margin-left: 10px;
-  transition-duration: 0.3s;
-  user-select: none;
-  border-radius: 50%;
-  margin-top: 5px;
+    border-radius: 50%;
+    margin-left: 10px;
+    transition-duration: 0.3s;
+    user-select: none;
+    border-radius: 50%;
+    margin-top: 5px;
 }
 
 .guild-icon.selectedGuild {
-  border-radius: 25% !important;
+    border-radius: 25% !important;
 }
 
 .guild-icon:hover {
-  cursor: pointer;
-  border-radius: 25%;
+    cursor: pointer;
+    border-radius: 25%;
 }
 
 #guildAbrev {
-  position: absolute;
-  overflow-x: hidden;
-  color: White;
-  font-family: Whitney-light, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  text-align: center;
-  font-size: 13px;
-  width: 40px;
+    position: absolute;
+    overflow-x: hidden;
+    color: White;
+    font-family: Whitney-light, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-align: center;
+    font-size: 13px;
+    width: 40px;
 }
 
 #guild-list {
-  width: 60px;
-  height: 100%;
-  margin: 0 -10px 10px -10px;
-  padding-top: 2px;
-  background-color: #202225;
-  overflow-y: auto;
-  position: absolute;
-  padding-bottom: 2px;
+    width: 60px;
+    height: 100%;
+    margin: 0 -10px 10px -10px;
+    padding-top: 2px;
+    background-color: #202225;
+    overflow-y: auto;
+    position: absolute;
+    padding-bottom: 2px;
 }
 
 #guild-list::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
 
 #guildIndicator {
-  background-color: white;
-  height: 40px;
-  width: 6px;
-  margin-left: 0px;
-  position: absolute;
-  z-index: 100;
-  border-radius: 3px;
-  display: none;
-  transition-duration: 0.2s;
+    background-color: white;
+    height: 40px;
+    width: 6px;
+    margin-left: 0px;
+    position: absolute;
+    z-index: 100;
+    border-radius: 3px;
+    display: none;
+    transition-duration: 0.2s;
 }
 
 .guildIconDiv {
-  color: transparent;
-  width: auto;
-  cursor: default;
-  display: flex;
-  transition-duration: 0.3s !important;
+    color: transparent;
+    width: auto;
+    cursor: default;
+    display: flex;
+    transition-duration: 0.3s !important;
 }
 
 .guildIconDiv .guild-icon {
-  order: -1;
+    order: -1;
 }
 
 /* DEBUG TESTING */
 .guildNameContainer::before {
-  left: -10px;
-  top: 8px;
-  margin: 3px 0 0 0px;
-  border: 6px solid transparent;
-  content: " ";
-  position: absolute;
-  border-right-color: transparent;
-  /* transition-duration: 0.1s !important; */
+    left: -10px;
+    top: 8px;
+    margin: 3px 0 0 0px;
+    border: 6px solid transparent;
+    content: " ";
+    position: absolute;
+    border-right-color: transparent;
+    /* transition-duration: 0.1s !important; */
 }
 
 .guildNameContainer {
-  color: transparent;
-  height: 35px;
-  /* margin-top: 12px; */
-  margin-left: 70px;
-  z-index: 1;
-  visibility: hidden;
-  position: fixed;
-  border-radius: 5px;
-  background-color: transparent;
-  padding: 0 10px;
-  font-weight: bold;
-  /* transition-duration: 0.3s !important; */
+    color: transparent;
+    height: 35px;
+    /* margin-top: 12px; */
+    margin-left: 70px;
+    z-index: 1;
+    visibility: hidden;
+    position: fixed;
+    border-radius: 5px;
+    background-color: transparent;
+    padding: 0 10px;
+    font-weight: bold;
+    /* transition-duration: 0.3s !important; */
 }
 
 .guildName {
-  color: inherit;
-  margin: 3px 4px 0;
-  display: inherit;
-  position: relative;
-  font-size: 13px;
-  line-height: 27px;
+    color: inherit;
+    margin: 3px 4px 0;
+    display: inherit;
+    position: relative;
+    font-size: 13px;
+    line-height: 27px;
 }
 
 .guild-icon:hover + .guildNameContainer::before {
-  display: block;
-  border-right-color: black;
+    display: block;
+    border-right-color: black;
 }
 
 .guild-icon:hover + .guildNameContainer {
-  color: white;
-  visibility: visible;
-  background-color: black;
+    color: white;
+    visibility: visible;
+    background-color: black;
 }
 
 /* WORKING COPY - DO NOT CHANGE */

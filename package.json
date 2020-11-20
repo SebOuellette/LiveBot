@@ -1,29 +1,29 @@
 {
-  "name": "livebot",
-  "version": "0.0.1",
-  "description": "Discord for bots!",
-  "main": "start.js",
-  "scripts": {
-    "test": "electron ."
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/SebOuellette/LiveBot.git"
-  },
-  "keywords": [
-    "discord",
-    "livebot",
-    "discord-livebot"
-  ],
-  "author": "SebOuellette",
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/SebOuellette/LiveBot/issues"
-  },
-  "homepage": "https://github.com/SebOuellette/LiveBot#readme",
-  "dependencies": {
-    "custom-electron-titlebar": "^3.2.5",
-    "discord.js": "^12.4.1",
-    "electron": "^7.3.3"
-  }
+    "name": "livebot",
+    "version": "0.0.1",
+    "description": "Discord for bots!",
+    "main": "start.js",
+    "scripts": {
+        "test": "electron ."
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/SebOuellette/LiveBot.git"
+    },
+    "keywords": [
+        "discord",
+        "livebot",
+        "discord-livebot"
+    ],
+    "author": "SebOuellette",
+    "license": "Apache-2.0",
+    "bugs": {
+        "url": "https://github.com/SebOuellette/LiveBot/issues"
+    },
+    "homepage": "https://github.com/SebOuellette/LiveBot#readme",
+    "dependencies": {
+        "custom-electron-titlebar": "^3.2.5",
+        "discord.js": "^12.4.1",
+        "electron": "^7.3.3"
+    }
 }
