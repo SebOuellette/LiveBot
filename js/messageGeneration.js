@@ -12,19 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-function findTimeDiff(message, previousMessage, count) {
+function findTimeDiff(m, previousMessage, count) {
     let bunch = false;
     let timebunch = false;
         
-    if(previousMessage && previousMessage.author.id == message.author.id){
+    if(previousMessage && previousMessage.author.id == m.author.id){
         bunch = true;
         
-        if (
-          Math.floor(previousMessage.createdTimestamp / 1000 / 60 / 60 / 24) !=
-          Math.floor(message.createdTimestamp / 1000 / 60 / 60 / 24)
-        ) {
-          bunch = false;
-          timebunch = true;
+        if (Math.floor(previousMessage.createdTimestamp/1000/60/60/24) != Math.floor(m.createdTimestamp/1000/60/60/24)) {
+            bunch = false;
+            timebunch = true;
         }
 
     } else {
@@ -143,7 +140,7 @@ function generateMsgHTML(message, previousMessage, count = -1, fetchSize = undef
         // Render message text
         let text = document.createElement('p');
         text.classList.add('messageText');
-        text.innerHTML = parseMessage(message.cleanContent, message, false);
+        text.innerHTML = parseMessage(message.cleanContent, m, false);
 
         if (message.editedAt)
             text.innerHTML += '<time class="edited"> (edited)</time>';

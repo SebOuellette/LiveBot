@@ -54,7 +54,7 @@ let channelSelect = (channel, name) => {
     selectedChan = channel;
     selectedChanDiv = name;
     name.style.color = '#eee';
-    messageCreate(channel);
+    messageCreate();
 
     // Refresh the typing indicator
     typingStatus(true)
