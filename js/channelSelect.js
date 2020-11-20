@@ -12,12 +12,38 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-let channelSelect = (c, name) => {
+// Create message
+async function messageCreate(channel) {
     let messages = document.getElementById("message-list");
     let fetchSize = 100;
+    generatingMessages = true;
+    // Loop through messages
+    let count = 0;
+    await channel.messages.fetch({limit: fetchSize})
+        .then(msg => {
+            msg.map(mseg => mseg).reverse().forEach(m => {
+                count++;
+                let message = generateMsgHTML(m, msg.map(mesg => mesg).reverse()[count-2], count, fetchSize);
+                document.getElementById('message-list').appendChild(message);
+            });
+        }
+    );
+    // Add the no load apology
+    let shell = document.createElement("div");
+    shell.classList.add("sorryNoLoad");
+    let text = document.createElement("p");
+    text.innerText = "Sorry! No messages beyond this point can be displayed.";
+    shell.appendChild(text);
+    document.getElementById("message-list").prepend(shell);
 
-    if (c.type == 'voice') {
-        selectedVoice = c;
+    messages.scrollTop = messages.scrollHeight;
+    generatingMessages = false;
+}
+
+let channelSelect = (channel, name) => {
+
+    if (channel.type == 'voice') {
+        selectedVoice = channel;
         return;
     }
 
@@ -25,7 +51,7 @@ let channelSelect = (c, name) => {
         return;
     }
 
-    selectedChan = c;
+    selectedChan = channel;
     selectedChanDiv = name;
     name.style.color = '#eee';
     messageCreate();
@@ -34,7 +60,7 @@ let channelSelect = (c, name) => {
     typingStatus(true)
 
     // Set the message bar placeholder
-    document.getElementById('msgbox').placeholder = `Message #${c.name}`
+    document.getElementById('msgbox').placeholder = `Message #${channel.name}`
 
     // Remove the notification class
     name.classList.remove("newMsg");
@@ -60,56 +86,29 @@ let channelSelect = (c, name) => {
         });
     } catch (err) {console.log(err)}
 
-    // Create message
-    async function messageCreate() {
-        generatingMessages = true;
-        // Loop through messages
-        let count = 0;
-        await c.messages.fetch({limit: fetchSize})
-            .then(msg => {
-                msg.map(mseg => mseg).reverse().forEach(m => {
-                    count++;
-                    let message = generateMsgHTML(m, msg.map(mesg => mesg).reverse()[count-2], count, fetchSize);
-                    document.getElementById('message-list').appendChild(message);
-                });
-            }
-        );
-        // Add the no load apology
-        let shell = document.createElement("div");
-        shell.classList.add("sorryNoLoad");
-        let text = document.createElement("p");
-        text.innerText = "Sorry! No messages beyond this point can be displayed.";
-        shell.appendChild(text);
-        document.getElementById("message-list").prepend(shell);
-
-        messages.scrollTop = messages.scrollHeight;
-        generatingMessages = false;
-    }
+    messageCreate(channel);
 }
 
-let dmChannelSelect = async (u, name = 'test') => {
-    if(u.bot || bot.user == u) return;
-    let messages = document.getElementById("message-list");
-    let fetchSize = 100;
+let dmChannelSelect = async (user, name = 'test') => {
+    if (u.bot || bot.user == user) return;
 
-    if (!u.dmChannel) {
-        await u.createDM();
+    if (!user.dmChannel) {
+        await user.createDM();
     }
 
-    let c = u.dmChannel;
+    let channel = user.dmChannel;
 
     if (generatingMessages) {
         return;
     }
-    if(!u.openDM)
-        u.openDM = true;
+    if (!user.openDM) user.openDM = true;
 
     if(selectedChatDiv){
         selectedChatDiv.classList.remove('selectedChan')
         selectedChatDiv = undefined;
     }
 
-    selectedChan = c;
+    selectedChan = channel;
 
     messageCreate();
 
@@ -117,36 +116,14 @@ let dmChannelSelect = async (u, name = 'test') => {
     typingStatus(true)
 
     // Set the message bar placeholder
-    document.getElementById('msgbox').placeholder = `Message #${c.recipient.username}`
+    document.getElementById(
+      "msgbox"
+    ).placeholder = `Message #${channel.recipient.username}`;
 
     // Clear the messages
     while (messages.firstChild) {
         messages.removeChild(messages.firstChild);
     }
 
-    // Create message
-    async function messageCreate() {
-        generatingMessages = true;
-        // Loop through messages
-        let count = 0;
-        await c.messages.fetch({limit: fetchSize})
-            .then(msg => {
-                msg.map(mseg => mseg).reverse().forEach(m => {
-                    count++;
-                    let message = generateMsgHTML(m, msg.map(mesg => mesg).reverse()[count-2], count, fetchSize);
-                    document.getElementById('message-list').appendChild(message);
-                });
-            }
-        );
-        // Add the no load apology
-        let shell = document.createElement("div");
-        shell.classList.add("sorryNoLoad");
-        let text = document.createElement("p");
-        text.innerText = "Sorry! No messages beyond this point can be displayed.";
-        shell.appendChild(text);
-        document.getElementById("message-list").prepend(shell);
-
-        messages.scrollTop = messages.scrollHeight;
-        generatingMessages = false;
-    }
+    messageCreate(channel);
 }
