@@ -1,5 +1,11 @@
+.window-title {
+    color: #72767D;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+}
 .titlebar {
-    font-family: Whitney-light, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     height: 20px !important;
 }
 
