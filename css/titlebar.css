@@ -1,0 +1,24 @@
+.titlebar {
+    font-family: Whitney-light, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    height: 20px !important;
+}
+
+.window-icon-bg {
+    height: 20px !important;
+    margin-top: 5px;
+}
+
+.container-after-titlebar {
+    left: 8px !important;
+    top: 20px !important;
+    height: calc(100vh - 20px);
+}
+
+#titleBar-name {
+    position: absolute;
+    color: white;
+    font-size: 12px;
+    z-index: 101;
+    margin-top: 0px;
+    margin-left: 2px;
+}
