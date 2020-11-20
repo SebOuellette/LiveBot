@@ -19,7 +19,7 @@ limitations under the License. -->
     <title>LiveBot</title>
     <!-- Javascript -->
     <script type="text/javascript">
-      if (!process) {
+      if (typeof process === 'undefined') {
         alert("I SAID DON'T OPEN ME CAN'T YOU READ???");
         window.close();
       }
