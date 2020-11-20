@@ -297,3 +297,19 @@ body {
     background-color: #25272B;
     border-radius: 3px;
 }
+
+
+.hide {
+    display: none;
+}
+
+.divider {
+    margin: 8px 10px;
+    height: 1px;
+    
+    /* Modifier */
+    /* background-color:rgba(255, 255, 255, 0.06); */
+
+    /* Color */
+    background-color: #3B3D42;
+}
