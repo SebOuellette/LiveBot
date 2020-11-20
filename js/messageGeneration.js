@@ -137,5 +137,75 @@ function generateMsgHTML(m, previousMessage, count = -1, fetchSize = undefined) 
     m.embeds.forEach(embed => {
         showEmbed(embed, darkBG, m);
     });
+
+    if (m.reactions.cache.array().length !== 0) {
+      let reactions = document.createElement('div');
+      reactions.classList.add('message-reactions');
+      darkBG.append(reactions);
+
+      m.reactions.cache.each(reaction => {
+          console.log(reaction);
+          let reactionDiv = document.createElement('div');
+          reactionDiv.innerHTML = reaction.emoji.url
+              ? `<img class="emoji" draggable="false" alt="Custom Emoji with the name of ${reaction.emoji.name}" src="${reaction.emoji.url}"/>`
+              : twemoji.parse(reaction.emoji.name);
+          reactionDiv.innerHTML += ' ' + reaction.count;
+
+          reactionDiv.classList.add('message-reaction');
+          if (reaction.me)
+              reactionDiv.classList.add('message-reaction-me');
+          
+          reactions.append(reactionDiv);
+          reactionDiv.addEventListener('click', async () => {
+              if (reactionDiv.classList.contains('message-reaction-me')) {
+                  // Defaults to this.client.user as said in docs
+                  // https://discord.js.org/#/docs/main/stable/class/ReactionUserManager?scrollTo=remove
+                  reaction.users
+                      .remove()
+                      .then((reaction) => afterReactToggle(reaction, reactionDiv, m));
+              } else {
+                  m.react(reaction.emoji.toString())
+                      .then(reaction => afterReactToggle(reaction, reactionDiv, m));
+              }
+          })
+      })
+    }
+
     return div;
+}
+
+async function afterReactToggle(reaction, reactionDiv, message) {
+
+    console.log('clicked react btn 1', reaction);
+
+    newMsg = await selectedChan.messages.cache
+        .get(message.id)
+        .fetch(true);
+    var oldReaction = reaction;
+    reaction = 
+        newMsg.reactions
+            .resolve(reaction.emoji.toString()) ||
+        newMsg.reactions
+            .cache.get(reaction.emoji.id);
+    
+    if (!reaction) {
+        reactionDiv.remove();
+        console.log('Un-reacted: ', oldReaction.emoji);
+        return;
+    }
+
+    console.log('clicked react btn 5', reaction);
+
+    reactionDiv.innerHTML = reaction.emoji.url
+        ? `<img class="emoji" draggable="false" alt="Custom Emoji with the name of ${reaction.emoji.name}" src="${reaction.emoji.url}"/>`
+        : twemoji.parse(reaction.emoji.name);
+    reactionDiv.innerHTML += ' ' + reaction.count;
+    console.log(reaction.count);
+
+    if (reaction.me) {
+        reactionDiv.classList.add('message-reaction-me');
+    } else {
+        reactionDiv.classList.remove('message-reaction-me');
+    }
+
 }

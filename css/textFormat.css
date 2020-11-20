@@ -243,3 +243,36 @@ a:hover {
     color: #72767d;
     user-select: none;
 }
+
+
+
+.message-reactions {
+  padding-bottom: 0.5rem;
+}
+.message-reaction .emoji {
+    width: 1rem;
+    height: 1rem;
+    margin: .125rem 0;
+    margin-right: 0.15rem;
+    min-width: auto;
+    min-height: auto;
+    object-fit: contain;
+    vertical-align: bottom;
+}
+.message-reaction {
+    display: inline;
+    background-color: hsla(0, 0%, 100%, 0.06);
+    cursor: pointer;
+    user-select: none;
+    border-radius: .25rem;
+    color: rgb(114, 118, 125);
+    font-size: 14px;
+    height: 22px;
+    width: 45px;
+    padding: 0.2rem 0.3rem 0.2rem 0.3rem;
+    margin: 0.1rem;
+}
+.message-reaction-me {
+    background-color: rgba(114, 137, 218, 0.3);
+    color: #7289da;
+}
