@@ -19,10 +19,12 @@ function buildMemberMenu(parent) {
     div.classList.add('memberMenu');
     parent.appendChild(div);
 
+
     // The top section of the member menu
     let user = document.createElement('div');
     user.classList.add('memberMenuUserDiv');
     div.appendChild(user);
+
 
     // The user icon
     let userIcon = document.createElement('img');
@@ -82,6 +84,26 @@ function buildMemberMenu(parent) {
         custPres.innerText = custPresence.state;
         presenceDiv.appendChild(custPres);
     }
+
+
+
+    // Body
+    let body = document.createElement('div');
+    div.appendChild(body);
+    body.classList.add("memberMenuBody");
+
+
+    // Footer
+    let footer = document.createElement('div');
+    div.appendChild(footer);
+    footer.classList.add('memberMenuFooter');
+    // Tip on the bottom
+    let tip = document.createElement('div');
+    footer.appendChild(tip);
+    tip.classList.add('protip');
+    tip.textContent = 'Right click the user for more actions';
+
+
 
     // Set the final position of the menu
     let borderOffset = 40;

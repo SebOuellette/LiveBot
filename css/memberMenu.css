@@ -16,13 +16,21 @@ limitations under the License. */
     position: absolute;
     background-color: #2f3136;
     height: 400px;
-    width: 300px;
+    width: 250px;
     margin-left: -330px;
     border-radius: 7px;
     cursor: default;
     overflow: hidden;
     text-align: center;
     z-index: 1;
+    -webkit-box-shadow: 0 2px 10px 0 rgba(10,10,10,.2), 0 0 0 1px rgba(32,34,37,.6);
+    box-shadow: 0 2px 10px 0 rgba(10,10,10,.2), 0 0 0 1px rgba(32,34,37,.6);
+    max-height: 75vh;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
 }
 .memberMenuUserDiv {
     width: 100%;
@@ -78,4 +86,37 @@ limitations under the License. */
     display: inline-block;
     transform: translateY(4px);
     padding: 5px;
+}
+
+.memberMenuFooter {
+    color: hsla(0,0%,100%,.85);
+    padding: 0 16px 16px;
+    position: relative;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+}
+
+.memberMenuBody {
+    position: relative;
+    -webkit-box-flex: 0;
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: 16px 0px 16px 16px;
+    overflow: hidden scroll;
+    box-sizing: border-box;
+}
+
+.memberMenuBody::-webkit-scrollbar {
+    background-color: transparent;
+    width: 6px;
+}
+
+.memberMenuBody::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.memberMenuBody::-webkit-scrollbar-thumb {
+    background-color: #25272B;
+    border-radius: 3px;
 }

@@ -18,6 +18,13 @@ limitations under the License. */
     font-weight: 100;
 }
 
+.protip {
+    color: rgb(185, 187, 190);
+    font-size: 12px;
+    line-height: 16px;
+    text-align: center;
+}
+
 /* Typing Indicator */
 #typingIndicator {
     font-size: 14px;
