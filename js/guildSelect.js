@@ -36,8 +36,7 @@ let guildSelect = (g, img) => {
     // Update guild profile name
     let name = g.name;
     document.getElementById('guildName').classList.remove('DMguildName');
-    
-    document.getElementById('guildName').innerHTML = name;
+    document.getElementById('guildName').innerText = name;
     
     // Update guild profile image
     let icon = g.iconURL();
