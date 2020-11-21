@@ -33,9 +33,9 @@ let guildSelect = (g, img) => {
     document.getElementById('members-count').classList.remove('hide');
     document.getElementById('members-count').innerText = g.memberCount;
 
+    document.getElementById('guildName').classList.remove('DMguildName');
     // Update guild profile name
     let name = g.name;
-    document.getElementById('guildName').classList.remove('DMguildName');
     document.getElementById('guildName').innerText = name;
     
     // Update guild profile image
