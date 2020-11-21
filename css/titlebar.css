@@ -1,6 +1,12 @@
 .titlebar {
     font-family: Whitney-light, "Helvetica Neue", Helvetica, Arial, sans-serif;
     height: 20px !important;
+    color: white !important;
+    background-color: rgb(32, 34, 37) !important;
+}
+
+.window-icon {
+  opacity: 1 !important;
 }
 
 .window-icon-bg {
