@@ -37,8 +37,7 @@ let guildSelect = (g, img) => {
     let name = g.name;
     document.getElementById('guildName').classList.remove('DMguildName');
     
-    /* Fixed XSS vulnerability -LukasDoesDev */
-    document.getElementById('guildName').textContent = name;
+    document.getElementById('guildName').innerHTML = name;
     
     // Update guild profile image
     let icon = g.iconURL();
