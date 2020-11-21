@@ -59,7 +59,16 @@ function updateUserDM(c, u){
     u.received = true;
 }
 
-function dmList(){
+function dmList() {
+
+
+    document.getElementById('guildName').classList.add('DMguildName');
+    document.getElementById('guildName').textContent = 'DIRECT MESSAGES';
+    document.getElementById('members-text').classList.add('hide');
+    document.getElementById('members-count').classList.add('hide');
+    document.getElementById('guildImg').classList.add('hide');
+
+
     // If a guild is selected then hide the guild indicator
     if(selectedGuild){
         document.getElementById('guildIndicator').style.display = 'none';

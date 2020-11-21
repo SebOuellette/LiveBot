@@ -29,17 +29,24 @@ let guildSelect = (g, img) => {
     oldimg = img;
 
     // Set the count to begin
+    document.getElementById('members-text').classList.remove('hide');
+    document.getElementById('members-count').classList.remove('hide');
     document.getElementById('members-count').innerText = g.memberCount;
 
     // Update guild profile name
     let name = g.name;
-    document.getElementById('guildName').innerHTML = name;
+    document.getElementById('guildName').classList.remove('DMguildName');
+    
+    /* Fixed XSS vulnerability -LukasDoesDev */
+    document.getElementById('guildName').textContent = name;
     
     // Update guild profile image
     let icon = g.iconURL();
     if (!icon) {
+        document.getElementById('guildImg').classList.add('hide');
         icon = 'resources/images/default.png';
     }
+    document.getElementById('guildImg').classList.remove('hide');
     document.getElementById('guildImg').src = icon;
 
     // Clear the message list

@@ -174,3 +174,12 @@ limitations under the License. */
     visibility: visible;
     background-color: black;
 }  */
+
+
+.DMguildName {
+  font-size: 1.4rem;
+  text-align: center;
+  padding-left: 0px !important;
+  margin: auto;
+  padding-top: 7px !important;
+}
