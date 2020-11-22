@@ -18,13 +18,14 @@ let guildSelect = (g, img) => {
     selectedGuild = g;
 
     //document.getElementById('guildIndicator').style.display = 'block';
-    if (oldimg)
-        oldimg.classList.remove('selectedGuild');
+    if (oldimg) oldimg.classList.remove('selectedGuild');
     img.classList.add('selectedGuild');
 
     // this should be done another way
-    document.getElementById('guildIndicator').style.marginTop = `${img.offsetTop - 69}px`;
-    document.getElementById('guildIndicator').style.display = "block";
+    document.getElementById('guildIndicator').style.marginTop = `${
+        img.offsetTop - 69
+    }px`;
+    document.getElementById('guildIndicator').style.display = 'block';
 
     oldimg = img;
 
@@ -34,7 +35,7 @@ let guildSelect = (g, img) => {
     // Update guild profile name
     let name = g.name;
     document.getElementById('guildName').innerText = name;
-    
+
     // Update guild profile image
     let icon = g.iconURL();
     if (!icon) {
@@ -47,10 +48,10 @@ let guildSelect = (g, img) => {
     while (messages.firstChild) {
         messages.removeChild(messages.firstChild);
     }
-    
+
     // Create the member list
     addMemberList(g);
 
     // Create the channels
     createChannels(g);
-}
+};
