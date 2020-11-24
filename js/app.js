@@ -100,7 +100,7 @@ function options(type, content) {
         case 'username':
             bot.user.setUsername(content);
             document.getElementById('userCardName').innerText = content;
-        break;
+            break;
 
         case 'invite':
             selectedChan
