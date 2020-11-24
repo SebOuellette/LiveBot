@@ -99,8 +99,8 @@ function options(type, content) {
     switch (type) {
         case 'username':
             bot.user.setUsername(content);
-            document.getElementById('userCardName').innerHTML = content;
-            break;
+            document.getElementById('userCardName').innerText = content;
+        break;
 
         case 'invite':
             selectedChan
