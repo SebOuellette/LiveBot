@@ -13,11 +13,11 @@
 // limitations under the License.
 
 module.exports.info = {
-    author: "Your discord username and tag (ex: daniel_crime#1551)",
-    title: "Name of your script",
-    description: "Description of your script",
-    version: "1.0.0"
-}
+    author: 'Your discord username and tag (ex: daniel_crime#1551)',
+    title: 'Name of your script',
+    description: 'Description of your script',
+    version: '1.0.0',
+};
 
 module.exports.start = () => {
     /*

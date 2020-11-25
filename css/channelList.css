@@ -21,7 +21,7 @@ limitations under the License. */
     padding-left: 10px;
     padding-top: 10px;
     padding-bottom: -10px;
-    background-color: #2F3136;
+    background-color: #2f3136;
     color: #606266;
     overflow-y: auto;
     overflow-x: hidden;
@@ -38,7 +38,7 @@ limitations under the License. */
 }
 
 #channel-list::-webkit-scrollbar-thumb {
-    background-color: #25272B;
+    background-color: #25272b;
     border-radius: 3px;
 }
 
@@ -54,16 +54,16 @@ limitations under the License. */
     height: 20px;
     font-size: 12px;
     font-weight: bold;
-    
+
     transform: translateY(5px) !important;
 }
 
-.categoryNameContainer{
+.categoryNameContainer {
     cursor: pointer;
 }
 
 .categoryNameContainer:hover .categoryText {
-    color: #B4B8BC;
+    color: #b4b8bc;
 }
 
 .categorySVG {
@@ -132,7 +132,7 @@ h5 {
 
 .channel:hover {
     background-color: #34373c;
-    color: #B4B8BC;
+    color: #b4b8bc;
 }
 
 /* Channel ... formatting */

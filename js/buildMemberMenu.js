@@ -30,15 +30,16 @@ function buildMemberMenu(parent) {
 
     if (member.user.avatar && member.user.avatar.startsWith('a_'))
         userIcon.src = member.user.displayAvatarURL().replace('.webp', '.gif');
-    else
-        userIcon.src = member.user.displayAvatarURL();
-        
+    else userIcon.src = member.user.displayAvatarURL();
+
     user.appendChild(userIcon);
 
     // Username and nickname
     let topName = document.createElement('span');
     topName.classList.add('memberTopName');
-    topName.innerText = member.nickname ? member.nickname : member.user.username;
+    topName.innerText = member.nickname
+        ? member.nickname
+        : member.user.username;
     user.appendChild(topName);
 
     if (member.nickname != null) {
@@ -52,7 +53,7 @@ function buildMemberMenu(parent) {
         let topDisc = document.createElement('span');
         topDisc.classList.add('memberTopDisc');
         topDisc.innerText = `#${member.user.discriminator}`;
-        topName.appendChild(topDisc)
+        topName.appendChild(topDisc);
     }
 
     // Custom presence div
@@ -61,7 +62,9 @@ function buildMemberMenu(parent) {
     user.appendChild(presenceDiv);
 
     // Custom presence
-    let custPresence = member.user.presence.activities.filter(a => a.type == "CUSTOM_STATUS")[0];
+    let custPresence = member.user.presence.activities.filter(
+        (a) => a.type == 'CUSTOM_STATUS'
+    )[0];
     if (custPresence) {
         if (custPresence.emoji) {
             // Status emoji
@@ -88,6 +91,6 @@ function buildMemberMenu(parent) {
     let y = window.pageYOffset + parent.getBoundingClientRect().top - 20;
     if (y + div.clientHeight > window.innerHeight)
         y = window.innerHeight - div.clientHeight - borderOffset;
-    
+
     div.style.top = `${y}px`;
 }

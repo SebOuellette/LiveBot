@@ -13,7 +13,7 @@
 // limitations under the License.
 
 function buildTeamMemberCards(funky) {
-    bot.team.forEach(m => {
+    bot.team.forEach((m) => {
         // Create the container
         let container = document.createElement('div');
         container.classList.add('teamMember');
@@ -26,10 +26,9 @@ function buildTeamMemberCards(funky) {
 
         // Create the icon and username
         let img = document.createElement('img');
-        if(m.user.avatar && m.user.avatar.startsWith('a_'))
+        if (m.user.avatar && m.user.avatar.startsWith('a_'))
             img.src = m.user.displayAvatarURL().replace('.webp', '.gif');
-        else            
-            img.src = m.user.displayAvatarURL();
+        else img.src = m.user.displayAvatarURL();
         img.classList.add('teamMemberIcon');
         userArea.appendChild(img);
 
@@ -48,7 +47,6 @@ function buildTeamMemberCards(funky) {
         descrim.classList.add('teamMemberDisc');
         descrim.innerText = `#${m.user.discriminator}`;
         tag.appendChild(descrim);
-
 
         // Buttons
         let once = document.createElement('div');
@@ -69,7 +67,6 @@ function buildTeamMemberCards(funky) {
         defaultSpan.innerText = 'Sign in and set as default';
         defaultButton.appendChild(defaultSpan);
 
-
         // Event listeners
         once.addEventListener('click', () => {
             bot.owner = m.user;
@@ -77,13 +74,12 @@ function buildTeamMemberCards(funky) {
         });
         defaultButton.addEventListener('click', () => {
             bot.owner = m.user;
-            settings.tokenSettings = {teamUser: m.user.id}
+            settings.tokenSettings = { teamUser: m.user.id };
 
             funky();
         });
     });
 }
-
 
 function buildSplashToken() {
     let container = document.createElement('div');
@@ -94,8 +90,8 @@ function buildSplashToken() {
     let input = document.createElement('input');
     input.classList.add('splashScreenToken');
     input.classList.add('tokenbox'); // Added cause of the animation
-    input.type = "password";
-    input.placeholder = "Input your token";
+    input.type = 'password';
+    input.placeholder = 'Input your token';
     container.appendChild(input);
 
     // One time button
@@ -104,7 +100,7 @@ function buildSplashToken() {
     container.appendChild(oneTimeButton);
 
     let oneTimeSpan = document.createElement('span');
-    oneTimeSpan.innerText = "One time login";
+    oneTimeSpan.innerText = 'One time login';
     oneTimeButton.appendChild(oneTimeSpan);
 
     // Default button
@@ -113,7 +109,8 @@ function buildSplashToken() {
     container.appendChild(defaultButton);
 
     let defaultSpan = document.createElement('span');
-    defaultSpan.innerText = "Log in and save as default";10
+    defaultSpan.innerText = 'Log in and save as default';
+    10;
     defaultButton.appendChild(defaultSpan);
 
     // Event listeners
@@ -121,16 +118,14 @@ function buildSplashToken() {
         let token = input.value;
         let error = [false, 'none'];
 
-        if (global.bot === undefined)
-            error = await load(token);
-        else
-            error = await setToken(token);
+        if (global.bot === undefined) error = await load(token);
+        else error = await setToken(token);
 
         if (!error[0]) {
             document.getElementById('selectMember').removeChild(container);
             setLoadingPerc(0);
         } else {
-            errorHandler(error[1])
+            errorHandler(error[1]);
         }
     });
     defaultButton.addEventListener('click', async () => {
@@ -140,7 +135,7 @@ function buildSplashToken() {
             document.getElementById('selectMember').removeChild(container);
             setLoadingPerc(0.05);
         } else {
-            errorHandler(error[1])
+            errorHandler(error[1]);
         }
     });
 }

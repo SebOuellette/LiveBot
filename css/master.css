@@ -24,7 +24,7 @@ limitations under the License. */
     font-weight: 100;
 }
 
-div > *{
+div > * {
     user-select: text;
 }
 
@@ -40,7 +40,7 @@ p {
     white-space: pre-wrap;
 }
 
-img{
+img {
     -webkit-user-drag: none;
 }
 
@@ -193,12 +193,11 @@ body {
     margin-left: 10px;
 }
 
-
 /* Message List */
 #message-list {
-    background-color: #36393E;
+    background-color: #36393e;
     height: calc(100vh - 89px);
-    border-bottom: 1px solid #484B51;
+    border-bottom: 1px solid #484b51;
     width: calc(100vw - 518px);
     position: absolute;
     margin-top: calc(-100vh + 60px);
@@ -219,12 +218,12 @@ body {
 }
 
 #message-list::-webkit-scrollbar-thumb {
-    background-color: #25272B;
+    background-color: #25272b;
     border-radius: 3px;
 }
 
 .timeSeparated {
-    border-top: 1px solid #484B51;
+    border-top: 1px solid #484b51;
 }
 
 /* Apology for not being able to view messages */
@@ -236,7 +235,6 @@ body {
     /* border-bottom: 1px solid #484B51; */
 }
 
-
 /* Send message bar */
 #sendmsg {
     position: absolute;
@@ -247,7 +245,7 @@ body {
     height: 40px;
     padding-top: 20px;
     padding-bottom: 10px;
-    background-color: #36393E;
+    background-color: #36393e;
 }
 
 #msgbox::-webkit-scrollbar {
@@ -259,7 +257,7 @@ body {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    background-color: #484B51;
+    background-color: #484b51;
     border: none;
     padding: 10px;
     border-radius: 5px;
@@ -275,7 +273,7 @@ body {
     z-index: 100;
     padding: 10px;
     color: #777777;
-    background-color: #484B51;
+    background-color: #484b51;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -290,7 +288,7 @@ body {
 .optionBox {
     width: 150px;
     padding: 5px;
-    background-color: #484B51;
+    background-color: #484b51;
     border-radius: 5px;
     margin-left: auto;
     margin-right: auto;

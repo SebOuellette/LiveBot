@@ -70,7 +70,8 @@ limitations under the License. */
 }
 
 @keyframes typing {
-    0%, 20% {
+    0%,
+    20% {
         background-color: #686a6e;
         transform: scale(0.5);
     }
@@ -78,7 +79,8 @@ limitations under the License. */
         transform: scale(1);
         background-color: white;
     }
-    80%, 100% {
+    80%,
+    100% {
         background-color: #686a6e;
         transform: scale(0.5);
     }

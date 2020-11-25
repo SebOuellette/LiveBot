@@ -75,7 +75,8 @@ limitations under the License. */
     animation-delay: 0.4s;
 }
 
-#c4 { /* boom */
+#c4 {
+    /* boom */
     animation-delay: 0.6s;
 }
 
@@ -106,9 +107,9 @@ limitations under the License. */
         background-color: #2f3136;
     }
     60% {
-        height: 13,9px;
-        width: 13,9px;
-        margin: 5,1px 5,1px 5,1px 15,1px;
+        height: 13, 9px;
+        width: 13, 9px;
+        margin: 5, 1px 5, 1px 5, 1px 15, 1px;
         transform: translateY(52px);
         background-color: #aaa;
     }
@@ -151,8 +152,8 @@ limitations under the License. */
 }
 
 /* Loading text */
-#percentageText{
-    color:white;
+#percentageText {
+    color: white;
     user-select: none;
 }
 

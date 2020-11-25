@@ -17,43 +17,45 @@ function setActivity(dropdowns, activityName, streamurl) {
     let status = dropdowns[0];
     let activity = dropdowns[1];
 
-    if (status.includes("Not")) {
+    if (status.includes('Not')) {
         status = 'dnd';
     }
 
-    if (activity == "Streaming")
-        bot.user.setPresence({ 
-            activity: { 
-                name: activityName, 
-                type: activity.toUpperCase(), 
-                url: streamurl 
-            }, 
-            status: status.toLowerCase()
+    if (activity == 'Streaming')
+        bot.user.setPresence({
+            activity: {
+                name: activityName,
+                type: activity.toUpperCase(),
+                url: streamurl,
+            },
+            status: status.toLowerCase(),
         });
     else
-        bot.user.setPresence({ 
-            activity: { 
-                name: activityName, 
-                type: activity.toUpperCase()
-            }, 
-            status: status.toLowerCase()
+        bot.user.setPresence({
+            activity: {
+                name: activityName,
+                type: activity.toUpperCase(),
+            },
+            status: status.toLowerCase(),
         });
 }
 
 // Set the new username
 async function setUsername(name) {
     try {
-        if(!name.replace(/ |#/, '').length){
+        if (!name.replace(/ |#/, '').length) {
             errorHandler('EMPTY-NAME');
-            throw('EMPTY-NAME')
+            throw 'EMPTY-NAME';
         }
-        await bot.user.setUsername(name).catch(err => {
-            errorHandler(err)
-            throw (err)
+        await bot.user.setUsername(name).catch((err) => {
+            errorHandler(err);
+            throw err;
         });
         document.getElementById('userCardName').innerText = bot.user.username;
     } catch (err) {
-        document.getElementsByClassName('newNameInput')[0].animate(animations.flashRed, {duration: 500});
+        document
+            .getElementsByClassName('newNameInput')[0]
+            .animate(animations.flashRed, { duration: 500 });
     }
 }
 
@@ -61,8 +63,7 @@ async function setUsername(name) {
 function generateInvite(items) {
     let sum;
     if (items.length) {
-        sum = items
-            .reduce((a, b) => a + b);
+        sum = items.reduce((a, b) => a + b);
     } else {
         sum = 0;
     }
