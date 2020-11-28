@@ -93,17 +93,18 @@ function createChannels(g) {
 
             // check if user can access the channel
             let blocked = false;
-            if (
-                !c.permissionsFor(g.me).has('VIEW_CHANNEL') ||
-                (bot.hideUnallowed &&
-                    !c
-                        .permissionsFor(g.members.cache.get(bot.owner.id))
-                        .has('VIEW_CHANNEL'))
-            ) {
-                blocked = true;
-                div.classList.add('blocked');
+            if (!g.me.hasPermission("ADMINISTRATOR")) { // If the user has admin perms we don't need to check the permissions
+                if (
+                    !c.permissionsFor(g.me).has('VIEW_CHANNEL') ||
+                    (bot.hideUnallowed &&
+                        !c
+                            .permissionsFor(g.members.cache.get(bot.owner.id))
+                            .has('VIEW_CHANNEL'))
+                ) {
+                    blocked = true;
+                    div.classList.add('blocked');
+                }
             }
-
             // Create the svg icon
             let svg = document.createElement('img');
             // svg.type = "image/svg+xml";
