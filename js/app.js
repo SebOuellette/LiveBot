@@ -48,6 +48,11 @@ let animations = {
 
 // Create the app and attach event listeners
 async function create() {
+    document.getElementById("clearCache").onclick = e => {
+        localStorage.clear();
+        document.getElementById("clearCache").parentElement.innerHTML = "<p class='greenText'>Cache cleared! Now you can restart LiveBot</p>";
+    };
+
     document.getElementById('msgbox').addEventListener('keydown', (event) => {
         if (event.keyCode === 13 && !event.shiftKey) {
             event.preventDefault();

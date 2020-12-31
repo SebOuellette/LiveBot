@@ -296,3 +296,90 @@ limitations under the License. */
     background-color: #222325;
     border-radius: 3px;
 }
+
+/* Stuck on loading screen */
+#stuckLoadingCont {
+    min-height: 20px;
+    width: 150px;
+    background-color: rgba(0,0,0,0);
+    position: relative;
+    float: right;
+    right: 10px;
+    top: 10px;
+    transition-duration: 0.1s;
+    color: #aaa;
+}
+
+#stuckLoadingCont:hover {
+    color: white;
+}
+
+#faqMenu {
+    display: none;
+    background-color: #28292c;
+    height: 500px;
+    width: 390px;
+    padding: 0 10px;
+    position: absolute;
+    right: 10px;
+    z-index: 1000;
+    border-radius: 3px;
+    overflow-y: scroll;
+    border: 1px solid #403e41;
+}
+
+#faqMenu img {
+    width: 100%;
+}
+
+#faqMenu::-webkit-scrollbar {
+    background-color: transparent;
+    width: 6px;
+}
+
+#faqMenu::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+#faqMenu::-webkit-scrollbar-thumb {
+    background-color: #1d1f22;
+    border-radius: 3px;
+}
+
+p {
+    color: #aaa;
+}
+
+#stuckLoadingCont:hover #faqMenu {
+    display: block;
+}
+
+#stuckLoadingCont h2 {
+    margin: 0;
+    font-size: 15px;
+    padding-bottom: 10px;
+    transform: scaleX(1.1);
+}
+
+#clearCache {
+    cursor: pointer;
+    background-color: #40444b;
+    border: none;
+    color: white;
+    padding: 10px;
+    outline: none;
+    border-radius: 4px;
+    user-select: none;
+}
+
+#clearCache:hover {
+    background-color: #484c53;
+}
+
+#clearCache:active {
+    background-color: #2f3236;
+}
+
+.greenText {
+    color: #00ff96;
+}
