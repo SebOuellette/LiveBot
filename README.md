@@ -6,7 +6,7 @@ An app that allows you to be inside a bot!
 At the moment, LiveBot is still in beta. Installation instructions can be found below.
 
 ## Discord
-If you would like to get the latest information on the project, talk with the developers, post suggestions, get help, etc... join the official LiveBot [Discord server!](https://discord.gg/TMUc8Bs)
+If you would like to get the latest information on the project, talk with the developers, post suggestions, get help, etc... join the official LiveBot [Discord server!](https://discord.com/invite/NG4rgqSgzx)
 
 ## What is this?
 <img src='https://i.imgur.com/SUsqAhl.png' height='300px' style='border-radius: 10px;'/>
