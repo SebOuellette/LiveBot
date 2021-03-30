@@ -122,6 +122,10 @@ function copyMessageID(id) {
     clipboard.writeText(id);
 }
 
+function replyToMessage(id) {
+  window.replyTo = id
+}
+
 // -------- USER MENU --------
 
 function dmUser(user) {
