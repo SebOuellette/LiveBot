@@ -43,6 +43,7 @@ let sendmsg = (text = '') => {
             let cmd = text.split(' ')[0].substring(1);
             let args = text.split(' ').splice(1);
             let msg = args.join(' ');
+           
 
             switch (cmd) {
                 case 'help':
@@ -149,7 +150,7 @@ let sendmsg = (text = '') => {
                                             20000
                                         );
                                         let delet = async function (
-                                            id = undefined
+                                            _id = undefined
                                         ) {
                                             await selectedChan
                                                 .bulkDelete(1)
@@ -166,7 +167,7 @@ let sendmsg = (text = '') => {
                                                 );
                                         };
                                         if (args[1] == 'true') {
-                                            for (let i in '.'.repeat(
+                                            for (let _ in '.'.repeat(
                                                 messages
                                             )) {
                                                 delet();

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-function findTimeDiff(m, previousMessage, count) {
+function findTimeDiff(m, previousMessage, _count) {
     let bunch = false;
     let timebunch = false;
 
@@ -88,10 +88,10 @@ function generateMsgHTML(
                 .replace('.webp', '.gif')
                 .replace(/(size=)\d+?($| )/, '$128');
             img.src = userGif;
-            darkBG.onmouseenter = (e) => {
+            darkBG.onmouseenter = () => {
                 img.src = userGif;
             };
-            darkBG.onmouseleave = (e) => {
+            darkBG.onmouseleave = () => {
                 img.src = userImg;
             };
         }
@@ -103,9 +103,7 @@ function generateMsgHTML(
 
         // Create user's name
         let name = document.createElement('p');
-        name.innerText =
-            (m.member ? m.member.nickname : m.author.username) ||
-            m.author.username;
+        name.textContent = m.member.displayName;
         name.classList.add('messageUsername');
 
         // Find the colour of their name
@@ -147,9 +145,11 @@ function generateMsgHTML(
         // Render message text
         let text = document.createElement('p');
         text.classList.add('messageText');
+	// FIXME: XSS vuln
         text.innerHTML = parseMessage(m.cleanContent, m, false);
 
         if (m.editedAt)
+	    // FIXME: see above
             text.innerHTML += '<time class="edited"> (edited)</time>';
 
         darkBG.appendChild(text);
