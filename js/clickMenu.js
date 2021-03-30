@@ -227,7 +227,7 @@ function buildMsgMenu(target) {
     );
     menu.appendChild(copyIDOption);
 
-    menu.appendChild(newOption("Reply to Message", replyToMessage, false, false, target.id))
+    menu.appendChild(newOption("Reply to Message", replyToMessage, false, false, target))
 
     return true;
 }

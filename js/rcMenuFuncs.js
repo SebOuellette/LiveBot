@@ -122,8 +122,9 @@ function copyMessageID(id) {
     clipboard.writeText(id);
 }
 
-function replyToMessage(id) {
-  window.replyTo = id
+function replyToMessage(msg) {
+  window.replyTo = msg.id;
+  updateMsgBoxPlaceholder(msg.channel, msg.author.tag)
 }
 
 // -------- USER MENU --------

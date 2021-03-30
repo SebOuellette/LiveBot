@@ -11,6 +11,9 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+function updateMsgBoxPlaceholder (c, replyingTo) {
+  document.getElementById('msgbox').placeholder = `Message #${c.name}... (Replying to ${replyingTo})`
+}
 
 let channelSelect = (c, name) => {
     let messages = document.getElementById('message-list');
@@ -34,7 +37,7 @@ let channelSelect = (c, name) => {
     typingStatus(true);
 
     // Set the message bar placeholder
-    document.getElementById('msgbox').placeholder = `Message #${c.name}`;
+    document.getElementById('msgbox').placeholder = `Message #${c.name}...`;
 
     // Remove the notification class
     name.classList.remove('newMsg');
