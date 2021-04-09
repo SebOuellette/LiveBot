@@ -25,7 +25,7 @@ let oldimg;
 let generatingMessages = false;
 let barry = false;
 
-// Disable the security warning from electron
+// Disable the security warning from electron that comes from using an uncompiled version
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = true;
 // Display that LiveBot has started
 console.log('LiveBot started');

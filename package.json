@@ -22,8 +22,9 @@
     },
     "homepage": "https://github.com/SebOuellette/LiveBot#readme",
     "dependencies": {
+        "better-sqlite3": "^7.1.2",
         "custom-electron-titlebar": "^3.2.5",
         "discord.js": "^12.4.1",
-        "electron": "^7.3.3"
+        "electron": "^9.4.4"
     }
 }
