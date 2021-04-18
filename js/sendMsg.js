@@ -43,7 +43,7 @@ let sendmsg = (text = '') => {
             let cmd = text.split(' ')[0].substring(1);
             let args = text.split(' ').splice(1);
             let msg = args.join(' ');
-           
+
 
             switch (cmd) {
                 case 'help':
@@ -66,8 +66,8 @@ let sendmsg = (text = '') => {
                 case 'ping':
                     command(
                         '🏓 | Pong! The heartbeat is ' +
-                            Math.round(bot.ws.ping) +
-                            'ms.'
+                        Math.round(bot.ws.ping) +
+                        'ms.'
                     );
                     break;
                 case 'server':
@@ -80,8 +80,8 @@ let sendmsg = (text = '') => {
                     let dif = { u: userSize - botSize, b: botSize - userSize };
                     let serverinfo = [
                         'Here is some info about ' +
-                            selectedChan.guild.name +
-                            '. \n',
+                        selectedChan.guild.name +
+                        '. \n',
                         'Members - ' + selectedChan.guild.memberCount,
                         '   Bots - ' + botSize,
                         '   Users - ' + userSize,
@@ -90,8 +90,8 @@ let sendmsg = (text = '') => {
                         'Roles - ' + selectedChan.guild.roles.cache.size,
                         'Server ID - ' + selectedChan.guild.id,
                         'Owner - ' +
-                            selectedChan.guild.owner.user.tag +
-                            ` (${selectedChan.guild.owner.user.id})`,
+                        selectedChan.guild.owner.user.tag +
+                        ` (${selectedChan.guild.owner.user.id})`,
                     ].join('\n');
                     command(serverinfo);
                     break;
@@ -139,13 +139,12 @@ let sendmsg = (text = '') => {
                                     if (
                                         err &&
                                         err.message ==
-                                            'You can only bulk delete messages that are under 14 days old.'
+                                        'You can only bulk delete messages that are under 14 days old.'
                                     ) {
                                         command(
-                                            `Bypass ${
-                                                args[1] == 'true'
-                                                    ? "is on! You turned it on yourself so the responsibility lies on you\nWe're in no way responsible for you turning this on, we gave a warning beforehand."
-                                                    : "is off! Do you want to take the responsibility in your hands by turning it on?\nWe're in no way responsible if you turn the bypass on, if anything happens then you're on your own"
+                                            `Bypass ${args[1] == 'true'
+                                                ? "is on! You turned it on yourself so the responsibility lies on you\nWe're in no way responsible for you turning this on, we gave a warning beforehand."
+                                                : "is off! Do you want to take the responsibility in your hands by turning it on?\nWe're in no way responsible if you turn the bypass on, if anything happens then you're on your own"
                                             }`,
                                             20000
                                         );
@@ -176,10 +175,9 @@ let sendmsg = (text = '') => {
                                     } else if (err) command(err.message, 500);
                                     else
                                         command(
-                                            `Deleted ${messages} ${
-                                                messages == 1
-                                                    ? 'message'
-                                                    : 'messages'
+                                            `Deleted ${messages} ${messages == 1
+                                                ? 'message'
+                                                : 'messages'
                                             }`,
                                             5000
                                         );
@@ -231,7 +229,12 @@ let sendmsg = (text = '') => {
                 default:
                     // Make a new message with the sent text
                     text = parseSend(text);
-                    selectedChan.send(text).catch(errorHandler);
+                    console.log(typeof window.replyTo == "string", typeof window.replyTo)
+                    if (typeof window.replyTo == "string") {
+                        console.log(window.replyTo)
+                        selectedChan.messages.cache.get(window.replyTo).inlineReply(text).catch(errorHandler);
+                        delete window.replyTo;
+                    } else selectedChan.send(text).catch(errorHandler);
                     break;
             }
             document.getElementById('msgbox').value = '';
@@ -239,7 +242,11 @@ let sendmsg = (text = '') => {
         } else {
             // Make a new message with the sent text
             text = parseSend(text);
-            selectedChan.send(text).catch(errorHandler);
+            if (typeof window.replyTo == "string") {
+                console.log(window.replyTo)
+                selectedChan.messages.cache.get(window.replyTo).inlineReply(text).catch(errorHandler);
+                delete window.replyTo;
+            } else selectedChan.send(text).catch(errorHandler);
             setTimeout(() => {
                 document.getElementById('msgbox').value = '';
                 selectedChan.stopTyping(true);

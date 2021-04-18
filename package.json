@@ -23,7 +23,7 @@
     "homepage": "https://github.com/SebOuellette/LiveBot#readme",
     "dependencies": {
         "custom-electron-titlebar": "^3.2.5",
-        "discord.js": "^12.4.1",
+        "discord.js": "^12.5.3",
         "electron": "^7.3.3"
     }
 }

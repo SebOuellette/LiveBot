@@ -30,14 +30,6 @@ let parseSend = (text) => {
     if (shortcut) return shortcut;
     return a;
   });
-  // TODO(nearlySplat|SebOuellette): this is a hacky workaround, we should probably install discord.js master.
-  // That has a lot of breaking changes though, so this project needs quite a few refactors before we do that
-  text = APIMessage.transformOptions(text);
-  text.message_reference = {
-    message_id: window.replyTo,
-    channel_id: selectedChan.id,
-    guild_id: selectedChan.guild.id,
-  };
 
   return text;
 };

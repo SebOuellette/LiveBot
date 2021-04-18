@@ -57,6 +57,7 @@ function generateMsgHTML(
 
     // Create the messages
     let div;
+
     if (!bunch) {
         // Create message div
         div = document.createElement('div');
@@ -66,12 +67,6 @@ function generateMsgHTML(
         if (timebunch) {
             div.classList.add('timeSeparated');
         }
-
-        // Inline message container
-        // messageContainer = document.createElement("div");
-        // messageContainer.classList.add(m.author.id);
-        // messageContainer.classList.add('inlineMsgCont');
-        // div.appendChild(messageContainer);
 
         // Create the dark background
         darkBG.classList.add('firstmsg');
@@ -140,16 +135,29 @@ function generateMsgHTML(
         div.appendChild(darkBG);
     }
 
+    // Inline message container
+    if (m.reference) {
+        let messageContainer = document.createElement("div");
+        messageContainer.classList.add('inlineMsgCont');
+        messageContainer.classList.add('messageText');
+        messageContainer.style.left = '20px'
+        selectedChan.messages.fetch(m.reference.messageID).then(m => {
+            messageContainer.innerText = parseMessage(m.cleanContent, m, false)
+        })
+        darkBG.appendChild(messageContainer);
+    }
+
     // Prepend message text
     if (m.cleanContent.length) {
         // Render message text
         let text = document.createElement('p');
         text.classList.add('messageText');
-	// FIXME: XSS vuln
+
+        // FIXME: XSS vuln
         text.innerHTML = parseMessage(m.cleanContent, m, false);
 
         if (m.editedAt)
-	    // FIXME: see above
+            // FIXME: see above
             text.innerHTML += '<time class="edited"> (edited)</time>';
 
         darkBG.appendChild(text);
