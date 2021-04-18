@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const APIMessage = require("discord.js");
+const { APIMessage } = require("discord.js");
 
 let parseSend = (text) => {
   // The regex used for the emojis
