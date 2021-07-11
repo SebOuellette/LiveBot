@@ -4,7 +4,8 @@
     "description": "Discord for bots!",
     "main": "start.js",
     "scripts": {
-        "test": "electron ."
+        "test": "electron .",
+        "start": "electron ."
     },
     "repository": {
         "type": "git",
@@ -25,6 +26,7 @@
         "better-sqlite3": "^7.1.2",
         "custom-electron-titlebar": "^3.2.5",
         "discord.js": "^12.4.1",
-        "electron": "^9.4.4"
+        "electron": "^13.1.6",
+        "electron-store": "^8.0.0"
     }
 }
