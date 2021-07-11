@@ -26,16 +26,17 @@ function createWindow() {
         height: 750,
         frame: false,
         backgroundColor: '#FFF',
-        webPreferences: { nodeIntegration: true },
+        webPreferences: { nodeIntegration: true, contextIsolation: false },
         icon: __dirname + '/resources/icons/logo.png',
     });
 
     win.loadURL(
-        url.format({
+        /*url.format({
             pathname: path.join(__dirname, 'dontOpenMe.html'),
             protocol: 'file:',
             slashes: true,
-        })
+        })*/
+        url.pathToFileURL(path.join(__dirname, 'dontOpenMe.html')).toString()
     );
 
     win.webContents.on('new-window', (e, url) => {
