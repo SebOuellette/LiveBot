@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2018",
+    "outDir": "dist",
+    "lib": ["es2018"],
+    "sourceMap": true,
+    "rootDir": ".",
+    "strict": true,
+    "esModuleInterop": true,
+    "declaration": true
+  },
+  "include": ["lib/index.d.ts", "test/index.test-d.ts"]
+}

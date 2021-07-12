@@ -1,6 +1,3 @@
-# Obviously
-node_modules
-
 # File types to emit
 *.log
 *.bat
