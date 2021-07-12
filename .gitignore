@@ -7,7 +7,6 @@ node_modules
 *.db
 *.exe
 # Some other files that don't need to be uploaded to github
-package-lock.json
 logins.json
 scripts/*
 themes/*

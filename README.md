@@ -1,4 +1,4 @@
-<center><img src='resources/icons/logoLarge.svg' height='100px' style='border-radius: 10px;'/></center>
+<center><img src='resources/app/resources/icons/logoLarge.svg' height='100px' style='border-radius: 10px;'/></center>
 
 ## LiveBot can no longer be used for user accounts. It can now only be used for bots. This is due to the recent update to discord.js v12.2.0
 An app that allows you to be inside a bot!
