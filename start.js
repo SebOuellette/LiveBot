@@ -26,23 +26,27 @@ function createWindow() {
         height: 750,
         frame: false,
         backgroundColor: '#FFF',
-        webPreferences: { nodeIntegration: true, contextIsolation: false },
+        webPreferences: { 
+            nodeIntegration: true, // Use node in the render js files
+            contextIsolation: false, // Makes node in the render js files work in newer electron versions
+            enableRemoteModule: true // Allow the remote module to be used in the render js files
+        },
         icon: __dirname + '/resources/icons/logo.png',
     });
 
     win.loadURL(
-        /*url.format({
-            pathname: path.join(__dirname, 'dontOpenMe.html'),
-            protocol: 'file:',
-            slashes: true,
-        })*/
         url.pathToFileURL(path.join(__dirname, 'dontOpenMe.html')).toString()
     );
 
-    win.webContents.on('new-window', (e, url) => {
+    // win.webContents.on('new-window', (e, url) => {
+    //     e.preventDefault();
+    //     electron.shell.openExternal(url.replace(/\/$/, ''));
+    // });
+    win.webContents.setWindowOpenHandler(({ url }) => {
         e.preventDefault();
         electron.shell.openExternal(url.replace(/\/$/, ''));
-    });
+        return { action: 'allow' }
+      })
 
     win.on('closed', () => {
         win = null;

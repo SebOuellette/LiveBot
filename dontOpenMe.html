@@ -53,7 +53,9 @@ limitations under the License. -->
         <script src="js/parseFunctions.js" charset="utf-8"></script>
 
         <!-- CSS -->
+        <link rel="stylesheet" href="css/fonts.css">
         <link rel="stylesheet" href="css/master.css" />
+        <link rel="stylesheet" href="css/titlebar.css">
         <link rel="stylesheet" href="css/embeds.css" />
         <link rel="stylesheet" href="css/memberList.css" />
         <link rel="stylesheet" href="css/userSettings.css" />
@@ -67,6 +69,20 @@ limitations under the License. -->
         <link rel="stylesheet" href="css/splashScreen.css" />
     </head>
     <body onload="create()">
+        <!-- Titlebar -->
+        <div id="titlebar">
+            <span>LiveBot</span>
+            <div class="titleButton" id="exit">
+                <img src="resources/icons/closeWindow.svg" alt="close" width="10px">
+            </div>
+            <div class="titleButton" id="screenSnap">
+                <img src="resources/icons/snapWindowSize.svg" alt="snap" width="10px">
+            </div>
+            <div class="titleButton" id="minimize">
+                <img src="resources/icons/minimizeWindow.svg" alt="min" width="10px">
+            </div>
+        </div>
+
         <!-- The right click menu -->
         <div id="rcMenu"></div>
 

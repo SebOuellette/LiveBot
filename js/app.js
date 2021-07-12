@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-global.Discord = require('discord.js');
-const { remote, clipboard } = require('electron');
+const Discord = require('discord.js');
+const { clipboard } = require('electron');
 const fs = require('fs');
 let jsonSettings = require('./json/settings.json');
 
@@ -30,26 +30,10 @@ process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = true;
 // Display that LiveBot has started
 console.log('LiveBot started');
 
-// Animations used in javascript if they can't be used in css
-let animations = {
-    flashRed: [
-        { borderColor: '#313339' },
-        { borderColor: '#A00' },
-        { borderColor: '#F00' },
-        { borderColor: '#A00' },
-        { borderColor: '#313339' },
-    ],
-    flashTextRed: [
-        { color: '#B4B8BC' },
-        { color: '#F00' },
-        { color: '#B4B8BC' },
-    ],
-};
-
 // Create the app and attach event listeners
 async function create() {
     document.getElementById("clearCache").onclick = e => {
-        localStorage.clear();
+        clearSettingsFile();
         document.getElementById("clearCache").parentElement.innerHTML = "<p class='greenText'>Cache cleared! Now you can restart LiveBot</p>";
     };
 

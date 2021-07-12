@@ -12,11 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const customTitlebar = require('custom-electron-titlebar');
+const { remote } = require('electron');
 
-// Create the custom titlebar
-new customTitlebar.Titlebar({
-    backgroundColor: customTitlebar.Color.fromHex('#202225'),
-    menu: null,
-    titleHorizontalAlignment: 'left',
+document.getElementById("minimize").addEventListener("click", function (e) {
+    var window = remote.getCurrentWindow();
+    window.minimize(); 
+});
+
+document.getElementById("screenSnap").addEventListener("click", function (e) {
+    var window = remote.getCurrentWindow();
+    if (!window.isMaximized()) {
+        window.maximize();          
+    } else {
+        window.unmaximize();
+    }
+});
+
+document.getElementById("exit").addEventListener("click", function (e) {
+    var window = remote.getCurrentWindow();
+    window.close();
 });

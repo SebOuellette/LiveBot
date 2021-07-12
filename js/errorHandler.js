@@ -12,6 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// Animations used in javascript if they can't be used in css
+let animations = {
+    flashRed: [
+        { borderColor: '#313339' },
+        { borderColor: '#A00' },
+        { borderColor: '#F00' },
+        { borderColor: '#A00' },
+        { borderColor: '#313339' },
+    ],
+    flashTextRed: [
+        { color: '#B4B8BC' },
+        { color: '#F00' },
+        { color: '#B4B8BC' },
+    ],
+};
+
 // Custom error messages
 function errorHandler(err) {
     let code = err.code ? err.code : err;

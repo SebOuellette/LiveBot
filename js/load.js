@@ -32,6 +32,7 @@ let load = async (token) => {
         return error;
     }
 
+    //hideSplashScreen(); // TESTING - DO NOT COMMIT
     await bot
         .login(token)
         .catch((err) => {

@@ -1,5 +1,7 @@
 // Copyright 2017 Sebastian Ouellette
 
+//const { fs } = require("fs");
+
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -22,6 +24,11 @@
 //   toggles - default
 //   separator - label
 
+// Clear the logins.json file
+function clearSettingsFile() {
+    fs.writeFileSync("json/logins.json", "");
+}
+
 let settings = {
     // LiveBot database
     get token() {
@@ -43,9 +50,9 @@ let settings = {
     get settings() {
         let settings;
         try {
-            settings = JSON.parse(localStorage.getItem('LiveBot-Settings'));
+            settings = JSON.parse(fs.readFileSync("json/logins.json"));
         } catch (e) {
-            // The Livebot-Settings localstorage thing is completely empty, or has invalid JSON
+            // The Livebot-Settings json is completely empty, or is invalid
             customTokenErrors('NO-TOKEN', e);
         }
         if (settings == null) settings = {};
@@ -89,12 +96,12 @@ let settings = {
     set settings(args) {
         let settings = this.settings;
         settings = { ...settings, ...args };
-        localStorage.setItem('LiveBot-Settings', JSON.stringify(settings));
+        fs.writeFileSync("json/logins.json", JSON.stringify(settings));
     },
 
     set rawSettings(args) {
         let settings = { ...args };
-        localStorage.setItem('LiveBot-Settings', JSON.stringify(settings));
+        fs.writeFileSync("json/logins.json", JSON.stringify(settings));
     },
 
     set tokenSettings(args) {
