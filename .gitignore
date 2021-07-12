@@ -4,8 +4,8 @@
 *.db
 *.exe
 # Some other files that don't need to be uploaded to github
-logins.json
-scripts/*
-themes/*
-!themes/template.css
-!scripts/template.js
+resources/app/json/logins.json
+resources/app/scripts/*
+resources/app/themes/*
+!resources/app/themes/template.css
+!resources/app/scripts/template.js
