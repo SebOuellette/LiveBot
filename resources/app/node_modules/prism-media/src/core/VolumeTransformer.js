@@ -66,16 +66,15 @@ class VolumeTransformer extends Transform {
     chunk = this._chunk = Buffer.concat([this._chunk, chunk]);
     if (chunk.length < _bytes) return done();
 
-    const transformed = Buffer.allocUnsafe(chunk.length);
     const complete = Math.floor(chunk.length / _bytes) * _bytes;
 
     for (let i = 0; i < complete; i += _bytes) {
       const int = Math.min(_extremum - 1, Math.max(-_extremum, Math.floor(this.volume * this._readInt(chunk, i))));
-      this._writeInt(transformed, int, i);
+      this._writeInt(chunk, int, i);
     }
 
     this._chunk = chunk.slice(complete);
-    this.push(transformed);
+    this.push(chunk.slice(0, complete));
     return done();
   }
 

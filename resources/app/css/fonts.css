@@ -1,0 +1,27 @@
+@font-face {
+    font-family: UniSans-regular;
+    src: url("../resources/fonts/UniSans-Regular.otf");
+}
+
+@font-face {
+    font-family: UniSans-bold;
+    src: url("../resources/fonts/UniSans-SemiBold.otf");
+    
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url("../resources/fonts/whitney-medium.otf");
+    font-weight: 100;
+}
+
+@font-face {
+    font-family: Whitney-light;
+    src: url("../resources/fonts/whitney-light.otf");
+    font-weight: 100;
+}
+
+@font-face {
+    font-family: UniSans;
+    src: url(../resources/fonts/UniSans-Heavy.ttf);
+}

@@ -1,4 +1,4 @@
-<center><img src='resources/app/resources/icons/logoLarge.svg' height='100px' style='border-radius: 10px;'/></center>
+<center><img src='resources/icons/logoLarge.svg' height='100px' style='border-radius: 10px;'/></center>
 
 ## LiveBot can no longer be used for user accounts. It can now only be used for bots. This is due to the recent update to discord.js v12.2.0
 An app that allows you to be inside a bot!
@@ -6,7 +6,7 @@ An app that allows you to be inside a bot!
 At the moment, LiveBot is still in beta. Installation instructions can be found below.
 
 ## Discord
-If you would like to get the latest information on the project, talk with the developers, post suggestions, get help, etc... join the official LiveBot [Discord server!](https://discord.com/invite/NG4rgqSgzx)
+If you would like to get the latest information on the project, talk with the developers, post suggestions, get help, etc... join the official LiveBot [Discord server!](https://discord.gg/NG4rgqSgzx)
 
 ## What is this?
 <img src='https://i.imgur.com/SUsqAhl.png' height='300px' style='border-radius: 10px;'/>

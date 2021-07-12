@@ -1,0 +1,15 @@
+# Obviously
+node_modules
+
+# File types to emit
+*.log
+*.bat
+*.db
+*.exe
+# Some other files that don't need to be uploaded to github
+package-lock.json
+logins.json
+scripts/*
+themes/*
+!themes/template.css
+!scripts/template.js

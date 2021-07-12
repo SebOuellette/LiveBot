@@ -71,7 +71,7 @@ limitations under the License. */
 .editTextarea {
     width: calc(100% - 50px);
     display: block;
-    background-color: #484B51;
+    background-color: #484b51;
     border: none;
     padding: 10px;
     border-radius: 5px;

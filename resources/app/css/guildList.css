@@ -92,7 +92,7 @@ limitations under the License. */
     top: 8px;
     margin: 3px 0 0 0px;
     border: 6px solid transparent;
-    content: ' ';
+    content: " ";
     position: absolute;
     border-right-color: transparent;
     /* transition-duration: 0.1s !important; */
@@ -127,11 +127,11 @@ limitations under the License. */
     border-right-color: black;
 }
 
-.guild-icon:hover + .guildNameContainer{
+.guild-icon:hover + .guildNameContainer {
     color: white;
     visibility: visible;
     background-color: black;
-} 
+}
 
 /* WORKING COPY - DO NOT CHANGE */
 /* .guildNameContainer::before {

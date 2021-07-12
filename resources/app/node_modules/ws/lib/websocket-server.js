@@ -1,8 +1,13 @@
+/* eslint no-unused-vars: ["error", { "varsIgnorePattern": "^net|tls|https$" }] */
+
 'use strict';
 
 const EventEmitter = require('events');
+const http = require('http');
+const https = require('https');
+const net = require('net');
+const tls = require('tls');
 const { createHash } = require('crypto');
-const { createServer, STATUS_CODES } = require('http');
 
 const PerMessageDeflate = require('./permessage-deflate');
 const WebSocket = require('./websocket');
@@ -10,6 +15,10 @@ const { format, parse } = require('./extension');
 const { GUID, kWebSocket } = require('./constants');
 
 const keyRegex = /^[+/0-9A-Za-z]{22}==$/;
+
+const RUNNING = 0;
+const CLOSING = 1;
+const CLOSED = 2;
 
 /**
  * Class representing a WebSocket server.
@@ -21,21 +30,23 @@ class WebSocketServer extends EventEmitter {
    * Create a `WebSocketServer` instance.
    *
    * @param {Object} options Configuration options
-   * @param {Number} options.backlog The maximum length of the queue of pending
-   *     connections
-   * @param {Boolean} options.clientTracking Specifies whether or not to track
-   *     clients
-   * @param {Function} options.handleProtocols A hook to handle protocols
-   * @param {String} options.host The hostname where to bind the server
-   * @param {Number} options.maxPayload The maximum allowed message size
-   * @param {Boolean} options.noServer Enable no server mode
-   * @param {String} options.path Accept only connections matching this path
-   * @param {(Boolean|Object)} options.perMessageDeflate Enable/disable
+   * @param {Number} [options.backlog=511] The maximum length of the queue of
+   *     pending connections
+   * @param {Boolean} [options.clientTracking=true] Specifies whether or not to
+   *     track clients
+   * @param {Function} [options.handleProtocols] A hook to handle protocols
+   * @param {String} [options.host] The hostname where to bind the server
+   * @param {Number} [options.maxPayload=104857600] The maximum allowed message
+   *     size
+   * @param {Boolean} [options.noServer=false] Enable no server mode
+   * @param {String} [options.path] Accept only connections matching this path
+   * @param {(Boolean|Object)} [options.perMessageDeflate=false] Enable/disable
    *     permessage-deflate
-   * @param {Number} options.port The port where to bind the server
-   * @param {http.Server} options.server A pre-created HTTP/S server to use
-   * @param {Function} options.verifyClient A hook to reject connections
-   * @param {Function} callback A listener for the `listening` event
+   * @param {Number} [options.port] The port where to bind the server
+   * @param {(http.Server|https.Server)} [options.server] A pre-created HTTP/S
+   *     server to use
+   * @param {Function} [options.verifyClient] A hook to reject connections
+   * @param {Function} [callback] A listener for the `listening` event
    */
   constructor(options, callback) {
     super();
@@ -55,15 +66,20 @@ class WebSocketServer extends EventEmitter {
       ...options
     };
 
-    if (options.port == null && !options.server && !options.noServer) {
+    if (
+      (options.port == null && !options.server && !options.noServer) ||
+      (options.port != null && (options.server || options.noServer)) ||
+      (options.server && options.noServer)
+    ) {
       throw new TypeError(
-        'One of the "port", "server", or "noServer" options must be specified'
+        'One and only one of the "port", "server", or "noServer" options ' +
+          'must be specified'
       );
     }
 
     if (options.port != null) {
-      this._server = createServer((req, res) => {
-        const body = STATUS_CODES[426];
+      this._server = http.createServer((req, res) => {
+        const body = http.STATUS_CODES[426];
 
         res.writeHead(426, {
           'Content-Length': body.length,
@@ -82,13 +98,13 @@ class WebSocketServer extends EventEmitter {
     }
 
     if (this._server) {
+      const emitConnection = this.emit.bind(this, 'connection');
+
       this._removeListeners = addListeners(this._server, {
         listening: this.emit.bind(this, 'listening'),
         error: this.emit.bind(this, 'error'),
         upgrade: (req, socket, head) => {
-          this.handleUpgrade(req, socket, head, (ws) => {
-            this.emit('connection', ws, req);
-          });
+          this.handleUpgrade(req, socket, head, emitConnection);
         }
       });
     }
@@ -96,6 +112,7 @@ class WebSocketServer extends EventEmitter {
     if (options.perMessageDeflate === true) options.perMessageDeflate = {};
     if (options.clientTracking) this.clients = new Set();
     this.options = options;
+    this._state = RUNNING;
   }
 
   /**
@@ -119,11 +136,19 @@ class WebSocketServer extends EventEmitter {
   /**
    * Close the server.
    *
-   * @param {Function} cb Callback
+   * @param {Function} [cb] Callback
    * @public
    */
   close(cb) {
     if (cb) this.once('close', cb);
+
+    if (this._state === CLOSED) {
+      process.nextTick(emitClose, this);
+      return;
+    }
+
+    if (this._state === CLOSING) return;
+    this._state = CLOSING;
 
     //
     // Terminate all associated clients.
@@ -142,7 +167,7 @@ class WebSocketServer extends EventEmitter {
       // Close the http server if it was internally created.
       //
       if (this.options.port != null) {
-        server.close(() => this.emit('close'));
+        server.close(emitClose.bind(undefined, this));
         return;
       }
     }
@@ -172,7 +197,8 @@ class WebSocketServer extends EventEmitter {
    * Handle a HTTP Upgrade request.
    *
    * @param {http.IncomingMessage} req The request object
-   * @param {net.Socket} socket The network socket between the server and client
+   * @param {(net.Socket|tls.Socket)} socket The network socket between the
+   *     server and client
    * @param {Buffer} head The first packet of the upgraded stream
    * @param {Function} cb Callback
    * @public
@@ -224,7 +250,7 @@ class WebSocketServer extends EventEmitter {
       const info = {
         origin:
           req.headers[`${version === 8 ? 'sec-websocket-origin' : 'origin'}`],
-        secure: !!(req.connection.authorized || req.connection.encrypted),
+        secure: !!(req.socket.authorized || req.socket.encrypted),
         req
       };
 
@@ -251,7 +277,8 @@ class WebSocketServer extends EventEmitter {
    * @param {String} key The value of the `Sec-WebSocket-Key` header
    * @param {Object} extensions The accepted extensions
    * @param {http.IncomingMessage} req The request object
-   * @param {net.Socket} socket The network socket between the server and client
+   * @param {(net.Socket|tls.Socket)} socket The network socket between the
+   *     server and client
    * @param {Buffer} head The first packet of the upgraded stream
    * @param {Function} cb Callback
    * @throws {Error} If called more than once with the same socket
@@ -270,6 +297,8 @@ class WebSocketServer extends EventEmitter {
       );
     }
 
+    if (this._state > RUNNING) return abortHandshake(socket, 503);
+
     const digest = createHash('sha1')
       .update(key + GUID)
       .digest('base64');
@@ -285,7 +314,7 @@ class WebSocketServer extends EventEmitter {
     let protocol = req.headers['sec-websocket-protocol'];
 
     if (protocol) {
-      protocol = protocol.trim().split(/ *, */);
+      protocol = protocol.split(',').map(trim);
 
       //
       // Optionally call external protocol selection handler.
@@ -298,7 +327,7 @@ class WebSocketServer extends EventEmitter {
 
       if (protocol) {
         headers.push(`Sec-WebSocket-Protocol: ${protocol}`);
-        ws.protocol = protocol;
+        ws._protocol = protocol;
       }
     }
 
@@ -326,7 +355,7 @@ class WebSocketServer extends EventEmitter {
       ws.on('close', () => this.clients.delete(ws));
     }
 
-    cb(ws);
+    cb(ws, req);
   }
 }
 
@@ -338,7 +367,8 @@ module.exports = WebSocketServer;
  *
  * @param {EventEmitter} server The event emitter
  * @param {Object.<String, Function>} map The listeners to add
- * @return {Function} A function that will remove the added listeners when called
+ * @return {Function} A function that will remove the added listeners when
+ *     called
  * @private
  */
 function addListeners(server, map) {
@@ -358,6 +388,7 @@ function addListeners(server, map) {
  * @private
  */
 function emitClose(server) {
+  server._state = CLOSED;
   server.emit('close');
 }
 
@@ -373,7 +404,7 @@ function socketOnError() {
 /**
  * Close the connection when preconditions are not fulfilled.
  *
- * @param {net.Socket} socket The socket of the upgrade request
+ * @param {(net.Socket|tls.Socket)} socket The socket of the upgrade request
  * @param {Number} code The HTTP response status code
  * @param {String} [message] The HTTP response body
  * @param {Object} [headers] Additional HTTP response headers
@@ -381,7 +412,7 @@ function socketOnError() {
  */
 function abortHandshake(socket, code, message, headers) {
   if (socket.writable) {
-    message = message || STATUS_CODES[code];
+    message = message || http.STATUS_CODES[code];
     headers = {
       Connection: 'close',
       'Content-Type': 'text/html',
@@ -390,7 +421,7 @@ function abortHandshake(socket, code, message, headers) {
     };
 
     socket.write(
-      `HTTP/1.1 ${code} ${STATUS_CODES[code]}\r\n` +
+      `HTTP/1.1 ${code} ${http.STATUS_CODES[code]}\r\n` +
         Object.keys(headers)
           .map((h) => `${h}: ${headers[h]}`)
           .join('\r\n') +
@@ -401,4 +432,16 @@ function abortHandshake(socket, code, message, headers) {
 
   socket.removeListener('error', socketOnError);
   socket.destroy();
+}
+
+/**
+ * Remove whitespace characters from both ends of a string.
+ *
+ * @param {String} str The string
+ * @return {String} A new string representing `str` stripped of whitespace
+ *     characters from both its beginning and end
+ * @private
+ */
+function trim(str) {
+  return str.trim();
 }

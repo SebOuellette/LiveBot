@@ -13,18 +13,29 @@
                         "options": [
                             {
                                 "type": "dropdown",
-                                "options": ["Online", "Invisible", "Do Not Disturb", "Idle"],
+                                "options": [
+                                    "Online",
+                                    "Invisible",
+                                    "Do Not Disturb",
+                                    "Idle"
+                                ],
                                 "default": 0,
                                 "exception": {
                                     "with": 1,
                                     "options": {
                                         "Invisible": [1, 2, 3, 4]
-                                    } 
+                                    }
                                 }
                             },
                             {
                                 "type": "dropdown",
-                                "options": ["None", "Streaming", "Playing", "Listening", "Watching"],
+                                "options": [
+                                    "None",
+                                    "Streaming",
+                                    "Playing",
+                                    "Listening",
+                                    "Watching"
+                                ],
                                 "default": 0,
                                 "special": [
                                     {
@@ -40,7 +51,7 @@
                                                 "placeholder": "Name of the stream",
                                                 "class": "activityInput"
                                             }
-                                        ] 
+                                        ]
                                     },
                                     {
                                         "id": 2,
@@ -49,7 +60,7 @@
                                                 "type": "shortinput",
                                                 "placeholder": "Name of the game / action",
                                                 "class": "activityInput"
-                                            }  
+                                            }
                                         ]
                                     },
                                     {
@@ -59,7 +70,7 @@
                                                 "type": "shortinput",
                                                 "placeholder": "Name of the music / show / whatever sound source",
                                                 "class": "activityInput"
-                                            }  
+                                            }
                                         ]
                                     },
                                     {
@@ -69,18 +80,16 @@
                                                 "type": "shortinput",
                                                 "placeholder": "Name of the video / thing",
                                                 "class": "activityInput"
-                                            }  
+                                            }
                                         ]
                                     }
                                 ]
                             },
-                            {
-                                
-                            }
+                            {}
                         ]
                     }
                 ]
-            }, 
+            },
             {
                 "name": "User",
                 "settings": [
@@ -123,79 +132,79 @@
                                 "type": "separator",
                                 "label": "General Permissions"
                             },
-                            {   
+                            {
                                 "label": "Administrator",
                                 "type": "checkbox",
                                 "value": 8,
                                 "default": false
                             },
-                            {   
+                            {
                                 "label": "View Audit Log",
                                 "type": "checkbox",
                                 "value": 80,
                                 "default": false
                             },
-                            {   
+                            {
                                 "label": "Manage Server",
                                 "type": "checkbox",
                                 "value": 20,
                                 "default": false
                             },
-                            {   
+                            {
                                 "label": "Manage Roles",
                                 "type": "checkbox",
                                 "value": 10000000,
                                 "default": false
                             },
-                            {   
+                            {
                                 "label": "Manage Channels",
                                 "type": "checkbox",
                                 "value": 10,
                                 "default": false
                             },
-                            {   
+                            {
                                 "label": "Kick Members",
                                 "type": "checkbox",
                                 "value": 2,
                                 "default": false
                             },
-                            {   
+                            {
                                 "label": "Ban Members",
                                 "type": "checkbox",
                                 "value": 4,
                                 "default": false
                             },
-                            {   
+                            {
                                 "label": "Create Instant Invite",
                                 "type": "checkbox",
                                 "value": 1,
                                 "default": true
                             },
-                            {   
+                            {
                                 "label": "Change Nickname",
                                 "type": "checkbox",
                                 "value": 4000000,
                                 "default": true
                             },
-                            {   
+                            {
                                 "label": "Manage Nicknames",
                                 "type": "checkbox",
                                 "value": 8000000,
                                 "default": false
                             },
-                            {   
+                            {
                                 "label": "Manage Emojis",
                                 "type": "checkbox",
                                 "value": 40000000,
                                 "default": false
                             },
-                            {   
+                            {
                                 "label": "Manage Webhooks",
                                 "type": "checkbox",
                                 "value": 20000000,
                                 "default": false
                             },
-                            {   
+                            {
                                 "label": "View Channels",
                                 "type": "checkbox",
                                 "value": 400,
@@ -205,55 +214,55 @@
                                 "type": "separator",
                                 "label": "Text Permissions"
                             },
-                            {   
+                            {
                                 "label": "Send Messages",
                                 "type": "checkbox",
                                 "value": 800,
                                 "default": true
                             },
-                            {   
+                            {
                                 "label": "Send TTS Messages",
                                 "type": "checkbox",
                                 "value": 1000,
                                 "default": false
                             },
-                            {   
+                            {
                                 "label": "Manage Messages",
                                 "type": "checkbox",
                                 "value": 2000,
                                 "default": false
                             },
-                            {   
+                            {
                                 "label": "Embed Links",
                                 "type": "checkbox",
                                 "value": 4000,
                                 "default": true
                             },
-                            {   
+                            {
                                 "label": "Attach Files",
                                 "type": "checkbox",
                                 "value": 8000,
                                 "default": false
                             },
-                            {   
+                            {
                                 "label": "Read Message History",
                                 "type": "checkbox",
                                 "value": 10000,
                                 "default": true
                             },
-                            {   
+                            {
                                 "label": "Mention @everyone, @here, and All Roles",
                                 "type": "checkbox",
                                 "value": 20000,
                                 "default": false
                             },
-                            {   
+                            {
                                 "label": "Use External Emojis",
                                 "type": "checkbox",
                                 "value": 40000,
                                 "default": true
                             },
-                            {   
+                            {
                                 "label": "Add Reactions",
                                 "type": "checkbox",
                                 "value": 40,
@@ -263,43 +272,43 @@
                                 "type": "separator",
                                 "label": "Voice Permissions"
                             },
-                            {   
+                            {
                                 "label": "Connect",
                                 "type": "checkbox",
                                 "value": 100000,
                                 "default": true
                             },
-                            {   
+                            {
                                 "label": "Mute Members",
                                 "type": "checkbox",
                                 "value": 400000,
                                 "default": false
                             },
-                            {   
+                            {
                                 "label": "Move Members",
                                 "type": "checkbox",
                                 "value": 1000000,
                                 "default": false
                             },
-                            {   
+                            {
                                 "label": "Speak",
                                 "type": "checkbox",
                                 "value": 200000,
                                 "default": true
                             },
-                            {   
+                            {
                                 "label": "Deafen Members",
                                 "type": "checkbox",
                                 "value": 800000,
                                 "default": false
                             },
-                            {   
+                            {
                                 "label": "Use Voice Activity",
                                 "type": "checkbox",
                                 "value": 2000000,
                                 "default": false
                             },
-                            {   
+                            {
                                 "label": "Priority Speaker",
                                 "type": "checkbox",
                                 "value": 100,
