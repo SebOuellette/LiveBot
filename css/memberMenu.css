@@ -37,6 +37,10 @@ limitations under the License. */
     margin-left: auto;
     margin-right: auto;
     display: block;
+    -webkit-mask-image: url("../resources/icons/PFPMask.svg");
+    mask-image: url("../resources/icons/PFPMask.svg");
+    -webkit-mask-size: contain;
+    mask-size: contain;
 }
 
 .memberTopName {
