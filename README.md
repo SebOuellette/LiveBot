@@ -9,7 +9,7 @@ At the moment, LiveBot is still in alpha. Installation instructions can be found
 If you would like to get the latest information on the project, talk with the developers, post suggestions, get help, etc., join the official LiveBot [Discord server!](https://discord.gg/NG4rgqSgzx)
 
 ## What is this?
-<img src='https://images.soue.ca/lErMQfR67V.png' height='300px' style='border-radius: 10px;'/>
+<img src='https://i.imgur.com/m0HvVmn.png' height='300px' style='border-radius: 10px;'/>
 <br>
 LiveBot is a program built with electron and discord.js, that will allow you to have discord controlling a bot. You are able to view messages in channels, send messages, interact with people, and see what is going on in the servers your bot is in. LiveBot can only be used on bot accounts, if you find a way to use it on user accounts we're in no way liable for anything that might happen.
 </br>
@@ -27,7 +27,7 @@ If you would like to just download and open an exe file, find the releases on th
 ### Token switcher (User menu)
 This box is how you log into a profile after already logging in. To log into a token by default, put it into this box then press the save button. Otherwise if you are just logging into a token just for a look, input the token into the box then press `enter`.<br>
 The token changer used to be at the top of the main screen, but has moved to the user options menu.
-<img src='https://images.soue.ca/Sz1pSXiZB9.png' style='border-radius: 10px;'>
+<img src='https://i.imgur.com/1rnEpQD.png' style='border-radius: 10px;'>
 </br>
 
 ### Barry!
@@ -36,10 +36,10 @@ Barry is the LiveBot version of discord's Clyde. Except Barry has some fun comma
 
 ### Profile card.
 The profile card is able to tell you the username, the avatar image, the discriminator, and something discord does not have. The profile card will tell you if the account you are signed into is a bot or a user. This can be handy if you are not quite sure. As you can no longer login with a user account it's just legacy code and for the looks. This card also has the pull up menu on the right side, so you can get to all the settings. <br>
-<img src='https://images.soue.ca/z5o6vzT0E0.png' style='border-radius: 10px;'>
+<img src='https://i.imgur.com/79NacEx.png' style='border-radius: 10px;'>
 
 
 ### Generate Invite
 LiveBot gives you the ability to generate an invite quickly from within the app. You won't have to go to the discord developers page! It can be found in the user settings page in the pull up menu. Just toggle all the permissions you'd like to give the invite (by default, everything recommended to use LiveBot's features is enabled). 
 <br>
-<img src='https://images.soue.ca/q6Vi4ulfiy.png' style='border-radius: 10px;'>
+<img src='https://i.imgur.com/ggkyQtn.png' style='border-radius: 10px;'>
