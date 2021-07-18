@@ -14,7 +14,7 @@ limitations under the License. */
 
 .embed {
     margin: 0 0 7px 0;
-    background-color: #2f3136;
+    background-color: var(--muchdarker);
     padding: 6px 15px 15px 15px;
     border-radius: 5px;
     border-left: 5px solid;

@@ -1,9 +1,10 @@
 #titlebar {
     height: 20px !important;
     width: 100vw;
-    background-color: #202225;
+    background-color: var(--darkest);
     margin: -8px 0 0 -8px;
     -webkit-user-select: none;
+    user-select: none;
     -webkit-app-region: drag;
 }
 
@@ -30,7 +31,7 @@
 }
 
 .titleButton:hover {
-    background-color: #282b2e;
+    background-color: var(--muchdarker);
 }
 
 #exit:hover {

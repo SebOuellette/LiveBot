@@ -39,7 +39,7 @@ async function addGuilds() {
             if (g.iconURL() === null) {
                 img = document.createElement('div');
 
-                img.style.backgroundColor = '#2F3136';
+                img.style.backgroundColor = 'var(--muchdarker)';
                 img.style.marginBottom = '4px';
 
                 let abrev = document.createElement('p');

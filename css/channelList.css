@@ -21,8 +21,8 @@ limitations under the License. */
     padding-left: 10px;
     padding-top: 10px;
     padding-bottom: -10px;
-    background-color: #2f3136;
-    color: #606266;
+    background-color: var(--muchdarker);
+    color: var(--text-dark);
     overflow-y: auto;
     overflow-x: hidden;
     font-weight: 100;
@@ -38,7 +38,7 @@ limitations under the License. */
 }
 
 #channel-list::-webkit-scrollbar-thumb {
-    background-color: #25272b;
+    background-color: var(--darkest);
     border-radius: 3px;
 }
 
@@ -100,7 +100,6 @@ limitations under the License. */
 
 .voice {
     user-select: none;
-    margin-left: -5px;
 }
 
 h5 {
@@ -131,7 +130,7 @@ h5 {
 }
 
 .channel:hover {
-    background-color: #34373c;
+    background-color: var(--darker);
     color: #b4b8bc;
 }
 
@@ -145,7 +144,7 @@ h5 {
 }
 
 .selectedChan {
-    background-color: #393c43 !important;
+    background-color: var(--mid) !important;
     color: white !important;
 }
 
@@ -166,7 +165,7 @@ h5 {
 .blocked:hover {
     color: #fc5c65;
     /* background-color: #4d4040; */
-    background-color: #3c3434;
+    background-color: var(--darker);
 }
 
 .blocked:hover h5 {

@@ -46,7 +46,7 @@ let channelSelect = (c, name) => {
 
     // Set colour of the channel
     try {
-        selectedChanDiv.style.color = '#606266';
+        selectedChanDiv.style.color = 'var(--text-dark)';
         name.addEventListener('mouseover', () => {
             if (name.style.color != 'rgb(238, 238, 238)') {
                 name.style.color = '#B4B8BC';
@@ -55,7 +55,7 @@ let channelSelect = (c, name) => {
 
         name.addEventListener('mouseleave', () => {
             if (name.style.color != 'rgb(238, 238, 238)') {
-                name.style.color = '#606266';
+                name.style.color = 'var(--text-dark)';
             }
         });
     } catch (err) {

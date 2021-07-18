@@ -72,7 +72,7 @@ a:hover {
 
 .messageCont {
     width: 100%;
-    /* border-top: 1px solid #484B51; */
+    /* border-top: 1px solid var(--light); */
     padding: 5px 0;
     min-height: 57px;
     overflow-y: hidden;
@@ -90,7 +90,7 @@ a:hover {
 }
 
 .messageCont::-webkit-scrollbar-thumb {
-    background-color: #25272b;
+    background-color: var(--darkest);
     border-radius: 3px;
 }
 
@@ -123,7 +123,7 @@ a:hover {
 }
 
 .messageBlock:hover {
-    background-color: #32353b;
+    background-color: var(--dark);
     z-index: 0;
 }
 
@@ -142,7 +142,7 @@ a:hover {
 }
 
 .messageTimestamp {
-    color: #72767d;
+    color: var(--mid);
     font-size: 12px;
     display: inline-block;
     margin: 3px 0;
@@ -169,8 +169,8 @@ a:hover {
 /* Code Block */
 .codeBlock {
     width: 100%;
-    background-color: #2f3136;
-    border: 1px solid #202225;
+    background-color: var(--muchdarker);
+    border: 1px solid var(--darkest);
     border-radius: 3px;
     padding: 5px;
     font-family: monospace !important;
@@ -180,12 +180,12 @@ a:hover {
 
 .codeBlockEmbed {
     margin-top: 10px;
-    background-color: #202225;
+    background-color: var(--darkest);
 }
 
 /* Inline Code Block */
 .inlineCodeBlock {
-    background-color: #2f3136;
+    background-color: var(--muchdarker);
     padding: 2px;
     font-family: monospace;
     font-size: 14px;
@@ -193,7 +193,7 @@ a:hover {
 
 /* Spoiler Tag */
 .spoilerBlock {
-    background-color: #202225;
+    background-color: var(--darkest);
     color: transparent;
     cursor: pointer;
     border-radius: 3px;
@@ -220,12 +220,12 @@ a:hover {
 .ping {
     background-color: #3d414f;
     padding: 0 2px 2px 2px;
-    color: #7289da;
+    color: var(--lighter);
     border-radius: 3px;
 }
 
 .ping:hover {
-    background-color: #7289da;
+    background-color: var(--lighter);
     cursor: pointer;
     color: #dcddde;
 }
@@ -240,6 +240,6 @@ a:hover {
 
 .edited {
     font-size: 10px;
-    color: #72767d;
+    color: var(--darker);
     user-select: none;
 }

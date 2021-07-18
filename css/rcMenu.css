@@ -15,7 +15,7 @@ limitations under the License. */
 #rcMenu {
     position: fixed;
     width: 160px;
-    background-color: #18191c;
+    background-color: var(--black);
     border-radius: 5px;
     z-index: 100;
     display: none;
@@ -39,13 +39,13 @@ limitations under the License. */
 .rcBreak {
     border: none;
     padding: 2px 0 0 0;
-    background-color: #393c43;
+    background-color: var(--mid);
     margin: 0px 15px 0px 15px;
 }
 
 .rcOption:hover {
     color: white !important;
-    background-color: #5c6fb1;
+    background-color: var(--light);
 }
 
 .rcOption.red {
@@ -71,7 +71,7 @@ limitations under the License. */
 .editTextarea {
     width: calc(100% - 50px);
     display: block;
-    background-color: #484b51;
+    background-color: var(--light);
     border: none;
     padding: 10px;
     border-radius: 5px;

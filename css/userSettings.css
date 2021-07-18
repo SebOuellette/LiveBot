@@ -62,7 +62,7 @@ limitations under the License. */
 /* Settings menu */
 #userSettings {
     position: absolute;
-    background-color: #2a2c31;
+    background-color: var(--muchdarker);
     height: 42px;
     width: 260px;
     margin-left: 50px;
@@ -106,7 +106,7 @@ limitations under the License. */
 /* Settings */
 #optionGroups {
     height: 100%;
-    background-color: #2a2c31;
+    background-color: var(--muchdarker);
     display: block;
     user-select: none;
 }
@@ -128,13 +128,14 @@ limitations under the License. */
 }
 
 .optionCategory.toggledOn {
-    background-color: #393c43 !important;
+    background-color: var(--mid) !important;
     color: #e7e9ec !important;
-    width: calc(95% - 5px);
+    width: calc(95% - 14px);
+    border-radius: 5px 0 0 5px;
 }
 
 .optionCategory:hover {
-    background-color: #34373c;
+    background-color: var(--darker);
     cursor: pointer;
     color: #d0d4d9;
 }
@@ -144,7 +145,7 @@ limitations under the License. */
     max-height: calc(65vh - 100px);
     width: 30vw;
     padding: 2.5vh 2.5vw;
-    background-color: #202225;
+    background-color: var(--darkest);
     z-index: 2;
     left: 300px;
     top: -44px;
@@ -167,7 +168,7 @@ limitations under the License. */
 }
 
 .settingsPopup::-webkit-scrollbar-thumb {
-    background-color: #484b51;
+    background-color: var(--light);
     border-radius: 3px;
 }
 
@@ -179,7 +180,7 @@ limitations under the License. */
 .settingsPopup hr {
     border: none;
     height: 1px;
-    background-color: #36393e;
+    background-color: var(--darker);
 }
 
 .settingsPopup .option {
@@ -217,9 +218,9 @@ limitations under the License. */
 .dropdownDisplay {
     padding: 10px;
     border-radius: 3px;
-    background-color: #313339;
+    background-color: var(--darker);
     cursor: pointer;
-    border: 1px solid #313339;
+    border: 1px solid var(--darker);
 }
 
 .dropdownDisplay:hover {
@@ -231,7 +232,7 @@ limitations under the License. */
     position: relative;
     transition-duration: 0.2s;
     border-radius: 0 0 3px 3px;
-    background-color: #2f3136;
+    background-color: var(--darker);
     border-style: solid;
     border-color: black;
     border-width: 0 1px 1px 1px;
@@ -246,20 +247,20 @@ limitations under the License. */
 }
 
 .dropdownChildren option:hover {
-    background-color: #2a2c31;
+    background-color: var(--muchdarker);
 }
 
 .dropdownChildren option.disabled {
     cursor: not-allowed;
-    background-color: #484b51;
+    background-color: var(--light);
 }
 
 .dropdownChildren option.disabled:hover {
-    background-color: #484b51;
+    background-color: var(--light);
 }
 
 .selectedOption {
-    background-color: #26272b !important;
+    background-color: var(--muchdarker) !important;
 }
 
 .dropdownIcon {
@@ -288,7 +289,7 @@ limitations under the License. */
     display: block;
     transform: translateX(-50%);
     margin: 10px 10px 10px 50%;
-    background-color: #313339;
+    background-color: var(--darker);
     border: none;
     color: #e7e9ec;
     padding: 10px;
@@ -301,11 +302,11 @@ limitations under the License. */
 }
 
 .settingsUpdateBtn:hover {
-    background-color: #2a2c31;
+    background-color: var(--muchdarker);
 }
 
 .settingsUpdateBtn:active {
-    background-color: #26272b;
+    background-color: var(--muchdarker);
 }
 
 /* Text Input */
@@ -315,10 +316,10 @@ limitations under the License. */
     border: none;
     padding: 10px;
     font-size: 16px;
-    background-color: #313339;
+    background-color: var(--darker);
     margin-top: 5px;
     outline: none;
-    border: 1px solid #313339 !important;
+    border: 1px solid var(--darker) !important;
     color: #aeb0b3;
     border-radius: 3px;
 }
@@ -328,7 +329,7 @@ limitations under the License. */
 }
 
 .settingsPopup input::placeholder {
-    color: #7a7c80;
+    color: var(--text-light);
 }
 
 input.errorTextBox {
@@ -344,7 +345,7 @@ input.errorTextBox {
 }
 
 .checkBoxContainer:hover {
-    background-color: #2a2c31;
+    background-color: var(--muchdarker);
 }
 
 .checkbox {
@@ -359,8 +360,8 @@ input.errorTextBox {
 }
 
 .checkbox.toggled {
-    background-color: #7289da;
-    border-color: #7289da;
+    background-color: var(--lighter);
+    border-color: var(--lighter);
     animation: checkBounce 0.3s;
 }
 

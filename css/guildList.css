@@ -16,7 +16,7 @@ limitations under the License. */
     border: none;
     margin: 9px 8px 8px 7px;
     padding: 2px 0 0 0;
-    background-color: #72767d;
+    background-color: var(--darker);
 }
 
 .guild-icon {
@@ -52,7 +52,7 @@ limitations under the License. */
     height: 100%;
     margin: 0 -10px 10px -10px;
     padding-top: 2px;
-    background-color: #202225;
+    background-color: var(--darkest);
     overflow-y: auto;
     position: absolute;
     padding-bottom: 2px;
@@ -63,7 +63,7 @@ limitations under the License. */
 }
 
 #guildIndicator {
-    background-color: white;
+    background-color: #fff;
     height: 40px;
     width: 6px;
     margin-left: 0px;
@@ -72,6 +72,7 @@ limitations under the License. */
     border-radius: 3px;
     display: none;
     transition-duration: 0.2s;
+    transform: translateY(-66px);
 }
 
 .guildIconDiv {

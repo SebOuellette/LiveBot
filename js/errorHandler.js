@@ -15,11 +15,11 @@
 // Animations used in javascript if they can't be used in css
 let animations = {
     flashRed: [
-        { borderColor: '#313339' },
+        { borderColor: 'var(--darker)' },
         { borderColor: '#A00' },
         { borderColor: '#F00' },
         { borderColor: '#A00' },
-        { borderColor: '#313339' },
+        { borderColor: 'var(--darker)' },
     ],
     flashTextRed: [
         { color: '#B4B8BC' },

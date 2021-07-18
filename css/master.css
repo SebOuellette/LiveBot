@@ -12,6 +12,23 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */
 
+:root {
+    --black: #1b0302;
+    --splash-bg: #2c0604;
+    --darkest: #420806;
+    --muchdarker: #610c07;
+    --darker: #82110b;
+    --dark: #a4150d;
+    --mid: #e71e14;
+    --light: #ee3930;
+    --lighter: #f05952;
+    --muchlighter: #f37871;
+    --lightest: #f49892;
+
+    --text-dark: #998384;
+    --text-themedark: var(--muchdarker);
+    --text-light: #ffb1ac;
+}
 
 div > * {
     user-select: text;
@@ -34,7 +51,7 @@ img {
 }
 
 body {
-    background-color: #202225;
+    background-color: var(--darkest);
     font-family: Whitney-light, "Helvetica Neue", Helvetica, Arial, sans-serif;
     text-rendering: optimizeLegibility;
 }
@@ -60,7 +77,7 @@ body {
 }
 
 .drag {
-    background-color: #202225;
+    background-color: var(--darkest);
     height: 30px;
     width: 100vw;
     margin-top: -10px;
@@ -77,8 +94,14 @@ body {
 /* User card */
 #userCard {
     height: 45px;
-    border-bottom: 2px solid #202225;
+    border-bottom: 2px solid var(--darkest);
     margin-bottom: 10px;
+    background-color: var(--darkest);
+}
+
+.userSettingsToggle > #userCard {
+    background-color: var(--muchdarker);
+    border-radius: 10px 0 0 0;
 }
 
 #userCardIcon {
@@ -107,7 +130,7 @@ body {
     font-size: 13px;
     margin-top: 13px;
     margin-left: 8px;
-    background-color: #7289da;
+    background-color: var(--lighter);
     padding: 2px 3px 2px 2px;
     border-radius: 4px;
 }
@@ -119,10 +142,10 @@ body {
     width: 260px;
     background-color: grey;
     margin: 0px 0 0px 50px;
-    background-color: #2f3136;
+    background-color: var(--muchdarker);
     font-family: Whitney, "Helvetica Neue", Helvetica, Arial, sans-serif;
     position: absolute;
-    border-bottom: 1px solid #202225;
+    border-bottom: 1px solid var(--darkest);
     border-radius: 10px 0 0 0;
 }
 
@@ -149,7 +172,7 @@ body {
 #members-text {
     margin-top: -10px;
     font-weight: bold;
-    color: #666;
+    color: #aaa;
 }
 
 #members-count {
@@ -170,9 +193,8 @@ body {
 
 /* Message List */
 #message-list {
-    background-color: #36393e;
+    background-color: var(--darker);
     height: calc(100vh - 89px);
-    border-bottom: 1px solid #484b51;
     width: calc(100vw - 518px);
     position: absolute;
     margin-top: calc(-100vh + 60px);
@@ -193,38 +215,42 @@ body {
 }
 
 #message-list::-webkit-scrollbar-thumb {
-    background-color: #25272b;
+    background-color: var(--darkest);
     border-radius: 3px;
 }
 
 .timeSeparated {
-    border-top: 1px solid #484b51;
+    border-top: 1px solid var(--light);
 }
 
 /* Apology for not being able to view messages */
 .sorryNoLoad {
     height: 50px;
     text-align: center;
-    color: #b9bbbe;
+    color: var(--text-light);
     font-family: Whitney-light, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    /* border-bottom: 1px solid #484B51; */
+    /* border-bottom: 1px solid var(--light); */
 }
 
 /* Send message bar */
 #sendmsg {
     position: absolute;
     margin-left: 310px;
-    margin-top: -28px;
+    margin-top: -29px;
     /* margin-top: -200px; */
     width: calc(100vw - 518px);
     height: 40px;
     padding-top: 20px;
     padding-bottom: 10px;
-    background-color: #36393e;
+    background-color: var(--darker);
 }
 
 #msgbox::-webkit-scrollbar {
     width: 0;
+}
+
+#msgbox::placeholder {
+    color: var(--text-light);
 }
 
 #msgbox {
@@ -232,7 +258,7 @@ body {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    background-color: #484b51;
+    background-color: var(--light);
     border: none;
     padding: 10px;
     border-radius: 5px;
@@ -248,7 +274,7 @@ body {
     z-index: 100;
     padding: 10px;
     color: #777777;
-    background-color: #484b51;
+    background-color: var(--light);
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -263,7 +289,7 @@ body {
 .optionBox {
     width: 150px;
     padding: 5px;
-    background-color: #484b51;
+    background-color: var(--light);
     border-radius: 5px;
     margin-left: auto;
     margin-right: auto;

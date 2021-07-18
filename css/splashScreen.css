@@ -15,7 +15,7 @@ limitations under the License. */
 #splashScreen {
     width: 100vw;
     height: 100vh;
-    background-color: #202225;
+    background-color: var(--splash-bg);
     position: fixed;
     z-index: 1000;
     display: block;
@@ -49,7 +49,7 @@ limitations under the License. */
     width: 12px;
     margin: 6px 6px 6px 16px;
     border-radius: 50%;
-    background-color: #36393f;
+    background-color: var(--darkest);
     transform: translateY(100px);
     display: inline-block;
     animation-name: loading;
@@ -85,7 +85,7 @@ limitations under the License. */
         width: 12px;
         margin: 6px 6px 6px 16px;
         transform: translateY(100px);
-        background-color: #2f3136;
+        background-color: var(--muchdarker);
     }
     20% {
         height: 24px;
@@ -99,7 +99,7 @@ limitations under the License. */
         width: 12px;
         margin: 6px 6px 6px 16px;
         transform: translateY(100px);
-        background-color: #2f3136;
+        background-color: var(--muchdarker);
     }
     60% {
         height: 13, 9px;
@@ -113,7 +113,7 @@ limitations under the License. */
         width: 12px;
         margin: 6px 6px 6px 16px;
         transform: translateY(100px);
-        background-color: #2f3136;
+        background-color: var(--muchdarker);
     }
 }
 
@@ -131,7 +131,7 @@ limitations under the License. */
 #loadingIncomplete {
     width: 100%;
     height: 10px;
-    background-color: #403e41;
+    background-color: var(--muchdarker);
     position: relative;
     border-radius: 5px;
 }
@@ -140,7 +140,7 @@ limitations under the License. */
     height: 100%;
     width: 0;
     top: -15px;
-    background-color: #2f3136;
+    background-color: var(--darker);
     position: relative;
     transition-duration: 500ms;
     border-radius: 5px;
@@ -150,6 +150,10 @@ limitations under the License. */
 #percentageText {
     color: white;
     user-select: none;
+}
+
+hr {
+    border-color: var(--darker);
 }
 
 /* Team members */
@@ -169,14 +173,14 @@ limitations under the License. */
 }
 
 #selectMember::-webkit-scrollbar-thumb {
-    background-color: #36393f;
+    background-color: var(--darkest);
     border-radius: 3px;
 }
 
 .teamMember {
     width: 250px;
     height: 280px;
-    background-color: #36393f;
+    background-color: var(--darkest);
     display: inline-block;
     margin: 0 10px 20px 10px;
     border-radius: 5px;
@@ -185,7 +189,7 @@ limitations under the License. */
 
 .userArea {
     height: 200px;
-    background-color: #18191c;
+    background-color: var(--black);
 }
 
 .teamMemberIcon {
@@ -222,7 +226,7 @@ limitations under the License. */
     height: 50px;
     width: calc(45% - 10px);
     margin: 0 4px;
-    background-color: #28292c;
+    background-color: var(--muchdarker);
     text-align: center;
     margin-top: 10px;
     border-radius: 5px;
@@ -233,7 +237,7 @@ limitations under the License. */
 }
 
 .teamMemberButton:hover {
-    background-color: #222325;
+    background-color: var(--darker);
     border-radius: 3px;
 }
 
@@ -258,7 +262,7 @@ limitations under the License. */
 }
 
 .splashScreenToken {
-    background-color: #40444b;
+    background-color: var(--muchdarker);
     padding: 10px;
     outline: none;
     border-radius: 3px;
@@ -267,7 +271,11 @@ limitations under the License. */
     width: 100%;
     margin-left: -10px;
     font-size: 17px;
-    border: 2px solid #40444b;
+    border: 2px solid var(--muchdarker);
+}
+
+.splashScreenToken::placeholder {
+    color: var(--text-light);
 }
 
 .tokenAddButton {
@@ -275,7 +283,7 @@ limitations under the License. */
     height: 25px;
     width: 40%;
     margin: 0 20px;
-    background-color: #28292c;
+    background-color: var(--muchdarker);
     text-align: center;
     margin-top: 10px;
     border-radius: 5px;
@@ -288,7 +296,7 @@ limitations under the License. */
 }
 
 .tokenAddButton:hover {
-    background-color: #222325;
+    background-color: var(--darker);
     border-radius: 3px;
 }
 
@@ -311,7 +319,7 @@ limitations under the License. */
 
 #faqMenu {
     display: none;
-    background-color: #28292c;
+    background-color: var(--darkest);
     height: 500px;
     width: 390px;
     padding: 0 10px;
@@ -320,7 +328,7 @@ limitations under the License. */
     z-index: 1000;
     border-radius: 3px;
     overflow-y: scroll;
-    border: 1px solid #403e41;
+    border: 1px solid var(--black);
 }
 
 #faqMenu img {
@@ -337,7 +345,7 @@ limitations under the License. */
 }
 
 #faqMenu::-webkit-scrollbar-thumb {
-    background-color: #1d1f22;
+    background-color: var(--darkest);
     border-radius: 3px;
 }
 
@@ -358,7 +366,7 @@ p {
 
 #clearCache {
     cursor: pointer;
-    background-color: #40444b;
+    background-color: var(--darker);
     border: none;
     color: white;
     padding: 10px;
@@ -368,11 +376,11 @@ p {
 }
 
 #clearCache:hover {
-    background-color: #484c53;
+    background-color: var(--dark);
 }
 
 #clearCache:active {
-    background-color: #2f3236;
+    background-color: var(--muchdarker);
 }
 
 .greenText {
