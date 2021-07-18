@@ -163,6 +163,11 @@ body {
     margin-left: 10px;
 }
 
+.directMsg {
+    transform: translate(10px, 7px);
+    font-weight: bold;
+}
+
 /* Message List */
 #message-list {
     background-color: #36393e;

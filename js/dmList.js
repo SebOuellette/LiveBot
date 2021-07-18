@@ -58,10 +58,21 @@ function updateUserDM(c, u) {
 }
 
 function dmList() {
+    console.log("Switching to dms")
     // If a guild is selected then hide the guild indicator
     if (selectedGuild) {
         document.getElementById('guildIndicator').style.display = 'none';
         selectedGuild = undefined;
+
+        // Clear guild card
+        let children = document.getElementById("serverName").children;
+        children[0].innerText = "Direct Messages"; // Server name element
+        if (!Array.from(children[0].classList).includes("directMsg")) {
+            children[0].classList.add("directMsg"); // Toggle on the directMsg class for css
+        }
+        children[1].src = "resources/icons/logo.svg" // Server icon element
+        children[2].style.display = "none"; // Member text element
+        children[3].innerText = ""; // Member count element
     }
     // Delete the selected chan variables
     selectedChan = undefined;

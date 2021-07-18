@@ -1,5 +1,6 @@
-# Obviously
+# Folders
 node_modules
+resources/app
 
 # File types to emit
 *.log
