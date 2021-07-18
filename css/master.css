@@ -133,6 +133,7 @@ body {
     background-color: var(--lighter);
     padding: 2px 3px 2px 2px;
     border-radius: 4px;
+    color: white;
 }
 
 /* Channel stuff I think */
