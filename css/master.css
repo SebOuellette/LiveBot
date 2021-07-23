@@ -210,55 +210,7 @@ body {
     /* border-bottom: 1px solid #484B51; */
 }
 
-/* Send message bar */
-#sendmsg {
-    position: absolute;
-    margin-left: 310px;
-    margin-top: -28px;
-    /* margin-top: -200px; */
-    width: calc(100vw - 518px);
-    height: 40px;
-    padding-top: 20px;
-    padding-bottom: 10px;
-    background-color: #36393e;
-}
-
-#msgbox::-webkit-scrollbar {
-    width: 0;
-}
-
-#msgbox {
-    width: calc(100% - 50px);
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: #484b51;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    outline: none;
-    color: white;
-    resize: none;
-}
-
-#savebtn {
-    margin-top: 0px;
-    position: absolute;
-    margin-left: calc(100% - 72px);
-    z-index: 100;
-    padding: 10px;
-    color: #777777;
-    background-color: #484b51;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    outline: none;
-    margin-top: -35px;
-}
-
-#savebtn:hover {
-    background-color: #404040;
-}
+/* Settings stuff */
 
 .optionBox {
     width: 150px;

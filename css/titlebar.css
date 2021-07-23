@@ -4,6 +4,7 @@
     background-color: #202225;
     margin: -8px 0 0 -8px;
     -webkit-user-select: none;
+    user-select: none;
     -webkit-app-region: drag;
 }
 

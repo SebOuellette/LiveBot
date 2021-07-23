@@ -94,18 +94,6 @@ a:hover {
     border-radius: 3px;
 }
 
-.messageBoxText {
-    font-family: Whitney-light, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    padding: 2px 0 1px 0;
-    margin: 0;
-    color: #dcddde;
-    width: calc(100% - 40px);
-    word-spacing: 2px;
-    position: relative;
-}
-
 .messageTimestamp + .messageText {
     margin-top: -26px;
 }

@@ -1,0 +1,78 @@
+/* Send message bar */
+#sendmsg {
+    position: absolute;
+    margin-left: 310px;
+    margin-top: -28px;
+    /* margin-top: -200px; */
+    width: calc(100vw - 518px);
+    height: 40px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    background-color: #36393e;
+}
+
+#messageBar {
+    white-space: nowrap;
+    overflow: hidden;
+    width: calc(100% - 40px);
+    background-color: #484b51;
+    height: 100%;
+    margin: 0 0 0 15px;
+    border-radius: 5px;
+    padding: 0 10px 0 0;
+    display: flex;
+}
+
+#msgbox::-webkit-scrollbar {
+    width: 0;
+}
+
+#msgbox {
+    display: block;
+    background-color: transparent;
+    border: none;
+    margin: 0;
+    outline: none;
+    color: white;
+    resize: none;
+    display: inline-block;
+    padding: 10px;
+    width:100%;
+}
+
+.messageBoxText {
+    font-family: Whitney-light, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 2px 0 1px 0;
+    margin: 0;
+    color: #dcddde;
+    /* width: calc(100% - 40px); */
+    word-spacing: 2px;
+    position: relative;
+}
+
+
+/* Additional message bar icons */
+#msgMisc {
+    display: block;
+    height: 100%;
+    float: right;
+    margin-top:4px;
+    display: grid;
+    grid-auto-flow: column;
+    grid-column-gap: 4px;
+}
+
+#msgMisc img {
+    height: 25px;
+    float: left;
+    cursor: pointer;
+    padding: 3px;
+    transition-duration: 70ms;
+}
+
+#msgMisc img:hover {
+    background-color: #36393e;
+    border-radius: 3px;
+}

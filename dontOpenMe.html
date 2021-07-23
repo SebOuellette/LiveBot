@@ -67,6 +67,7 @@ limitations under the License. -->
         <link rel="stylesheet" href="css/rcMenu.css" />
         <link rel="stylesheet" href="css/memberMenu.css" />
         <link rel="stylesheet" href="css/splashScreen.css" />
+        <link rel="stylesheet" href="css/messageBar.css" />
     </head>
     <body onload="create()">
         <!-- Titlebar -->
@@ -305,16 +306,22 @@ limitations under the License. -->
                         <div class="typingDot dot3"></div>
                     </div>
                     <p id="typingIndicator"></p>
-                    <textarea
-                        type="text"
-                        name="message"
-                        value=""
-                        placeholder="Message"
-                        id="msgbox"
-                        class="messageBoxText"
-                        oninput="typing()"
-                        rows="1"
-                    ></textarea>
+                    <div id="messageBar">
+                        <textarea
+                            type="text"
+                            name="message"
+                            value=""
+                            placeholder="Message"
+                            id="msgbox"
+                            class="messageBoxText"
+                            oninput="typing()"
+                            rows="1"
+                        ></textarea>
+                        <div id="msgMisc">
+                            <!-- <img src="resources/icons/textChannel.svg" alt="testIcon1">
+                            <img src="resources/icons/newsChannel.svg" alt="testIcon2"> -->
+                        </div>
+                    </div>
                 </div>
             </div>
 
