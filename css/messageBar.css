@@ -2,13 +2,21 @@
 #sendmsg {
     position: absolute;
     margin-left: 310px;
-    margin-top: -28px;
-    /* margin-top: -200px; */
+    margin-top: -10px;
     width: calc(100vw - 518px);
     height: 40px;
-    padding-top: 20px;
     padding-bottom: 10px;
+    z-index: 2;
+}
+
+#sendmsg::before {
+    content: "";
+    width: 100%;
     background-color: #36393e;
+    height: 40px;
+    position: absolute;
+    top: 20px;
+    z-index: -1;
 }
 
 #messageBar {
@@ -69,10 +77,10 @@
     float: left;
     cursor: pointer;
     padding: 3px;
-    transition-duration: 70ms;
+    opacity: 0.6;
+    border-radius: 3px;
 }
 
 #msgMisc img:hover {
-    background-color: #36393e;
-    border-radius: 3px;
+    opacity: 1;
 }

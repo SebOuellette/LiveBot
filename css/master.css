@@ -171,8 +171,8 @@ body {
 /* Message List */
 #message-list {
     background-color: #36393e;
-    height: calc(100vh - 89px);
-    border-bottom: 1px solid #484b51;
+    height: calc(100vh - 70px);
+    border-bottom: 1px solid #36393e;
     width: calc(100vw - 518px);
     position: absolute;
     margin-top: calc(-100vh + 60px);
@@ -181,6 +181,7 @@ body {
     font-family: Whitney-light, "Helvetica Neue", Helvetica, Arial, sans-serif;
     overflow-x: hidden;
     position: absolute;
+    padding-bottom: 60px;
 }
 
 #message-list::-webkit-scrollbar {
