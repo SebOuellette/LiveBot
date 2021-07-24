@@ -13,3 +13,7 @@
 // limitations under the License.
 
 "use strict";
+
+function buildEmbedMenu() {
+    
+}

@@ -14,7 +14,9 @@
 
 "use strict";
 
-const { User } = require('discord.js');
+
+// This file handles all menus that appear out of nowhere when an element is clicked
+
 
 function addDocListener() {
     document.addEventListener('keydown', (e) => {
@@ -35,30 +37,42 @@ function addDocListener() {
         let y = e.clientY;
 
         let rcMenu = document.getElementById('rcMenu');
-        if (e.which == 1) {
+        if (e.button == 0) {
             // Left click
             // Close the right click menus
             rcMenu.classList.remove('open');
 
             // Find if a distant child of certain parent
             let domElements = ['mLOuterDiv', 'memberMenu'];
+            // If the element clicked is not in domElements, recurse to the parent
+            // The purpose of this is to check that anywhere inside of an element, even one of the children, is clicked
             while (
                 !domElements.some((r) => target.classList.contains(r)) &&
                 target != document.body
             ) {
                 target = target.parentElement;
             }
+
+            // If the element clicked is not the member menu, delete the member menu
             if (!target.classList.contains(domElements[1])) {
                 let element = document.getElementsByClassName('memberMenu')[0];
                 if (element) element.parentElement.removeChild(element);
             }
             if (target == document.body) return;
 
-            // Build the member menu
+            // If the element clicked is a member on the member list, build the member menu
             if (target.classList.contains(domElements[0])) {
                 buildMemberMenu(target);
             }
-        } else if (e.which == 3) {
+
+            // This is not in the domElements, because it has no child elements to check for
+            if (target.id == "embedBuilderIcon") {
+                buildEmbedMenu();
+            }
+
+            // If the element clicked is not the embed builder menu, delete the embed builder menu
+            
+        } else if (e.button == 2) {
             // Right click
             // Clear the menu (It's only needed here because you only open it when you right click)
             rcMenu.innerHTML = '';
@@ -66,8 +80,9 @@ function addDocListener() {
             if (
                 e.target.classList.contains('rcOption') ||
                 e.target.parentElement.classList.contains('rcOption')
-            )
+            ) {
                 return rcMenu.classList.remove('open');
+            }
             // Get the message block containing the message
             let domElements = [
                 'messageBlock',
@@ -113,7 +128,7 @@ function addDocListener() {
 
             rcMenu.style.left = `${x}px`;
             rcMenu.style.top = `${y}px`;
-        } else if (e.which == 2) {
+        } else if (e.button == 1) {
         } // Check if it's middle click since you don't need to remove it if it is
         else rcMenu.classList.remove('open');
     });
