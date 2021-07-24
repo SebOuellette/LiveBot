@@ -22,6 +22,10 @@ limitations under the License. -->
             if (typeof process === 'undefined') {
                 alert("This isn't going to work. Please follow the instructions on LiveBot's github page in the readme.md file. This app is based on NodeJS and it's modules and is not made to work in a browser.")
             }
+                
+            // "Fixes" a deprecation in the electron source code
+            // https://developer.chrome.com/blog/enabling-shared-array-buffer/
+            if (!crossOriginIsolated) SharedArrayBuffer = ArrayBuffer;
         </script>
         <script src="js/app.js" charset="utf-8"></script>
         <script src="js/load.js" charset="utf-8"></script>
@@ -51,6 +55,7 @@ limitations under the License. -->
         <script src="js/buildTeamMemberCards.js" charset="utf-8"></script>
         <script src="js/splashScreen.js" charset="utf-8"></script>
         <script src="js/parseFunctions.js" charset="utf-8"></script>
+        <script src="js/embedMenu.js" charset="utf-8"></script>
 
         <!-- CSS -->
         <link rel="stylesheet" href="css/fonts.css">
@@ -300,12 +305,7 @@ limitations under the License. -->
                 </div>
 
                 <div id="sendmsg">
-                    <div id="typingDots">
-                        <div class="typingDot dot1"></div>
-                        <div class="typingDot dot2"></div>
-                        <div class="typingDot dot3"></div>
-                    </div>
-                    <p id="typingIndicator"></p>
+                    <!-- Message bar and icons -->
                     <div id="messageBar">
                         <textarea
                             type="text"
@@ -322,6 +322,14 @@ limitations under the License. -->
                             <!--<img src="resources/icons/newsChannel.svg" alt="testIcon2"> -->
                         </div>
                     </div>
+
+                    <!-- Typing indecator -->
+                    <div id="typingDots">
+                        <div class="typingDot dot1"></div>
+                        <div class="typingDot dot2"></div>
+                        <div class="typingDot dot3"></div>
+                    </div>
+                    <p id="typingIndicator"></p>
                 </div>
             </div>
 

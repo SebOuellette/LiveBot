@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+"use strict";
+
 // This is the worst file of them all... why is this not json???
 
 // This is for converting the :emojis: to actual unicode emojis

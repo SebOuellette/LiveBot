@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+"use strict";
+
 // -------- MESSAGE MENU --------
 
 // Used for removing the edit message DOM and replacing it with the original

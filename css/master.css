@@ -171,7 +171,7 @@ body {
 /* Message List */
 #message-list {
     background-color: #36393e;
-    height: calc(100vh - 70px);
+    height: calc(100vh - 80px);
     border-bottom: 1px solid #36393e;
     width: calc(100vw - 518px);
     position: absolute;

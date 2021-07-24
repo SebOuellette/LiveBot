@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// This part isn't needed, I don't know why it's here...
-// const { remote } = require("electron");
+"use strict";
+
 
 // Load a new token
 let load = async (token) => {
@@ -89,11 +89,11 @@ let load = async (token) => {
             }
 
             // Create the guild indicator
-            guildIndicator = document.createElement('div');
+            let guildIndicator = document.createElement('div');
             guildIndicator.id = 'guildIndicator';
 
             // Create a guild container
-            guildContainer = document.createElement('div');
+            let guildContainer = document.createElement('div');
             guildContainer.id = 'guildContainer';
 
             // Apply the guild indicator in the container

@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+"use strict";
+
 const Discord = require('discord.js');
 const { clipboard } = require('electron');
 const fs = require('fs');
@@ -19,6 +21,7 @@ let jsonSettings = require('./json/settings.json');
 
 let selectedGuild;
 let selectedChan;
+let selectedChanDiv;
 let selectedVoice;
 let selectedChatDiv;
 let oldimg;

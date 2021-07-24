@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+"use strict";
+
 function buildMemberMenu(parent) {
     let member = selectedGuild.members.cache.get(parent.firstChild.id);
 

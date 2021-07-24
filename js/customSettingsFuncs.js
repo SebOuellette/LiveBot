@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+"use strict";
+
 // Set the activity
 function setActivity(dropdowns, activityName, streamurl) {
     let status = dropdowns[0];

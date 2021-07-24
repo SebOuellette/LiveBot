@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+"use strict";
+
 function createChannels(g) {
     // Clear the channels list
     let channelList = document.getElementById('channel-elements');

@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+"use strict";
+
 let channelSelect = (c, name) => {
     let messages = document.getElementById('message-list');
     let fetchSize = 100;

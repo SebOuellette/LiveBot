@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+"use strict";
+
 // Selecting new guild
 let guildSelect = (g, img) => {
     // Update the selected guild

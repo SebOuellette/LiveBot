@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+"use strict";
+
 const electron = require('electron');
 const { app, BrowserWindow } = electron;
 const path = require('path');
@@ -43,10 +45,16 @@ function createWindow() {
     //     electron.shell.openExternal(url.replace(/\/$/, ''));
     // });
     win.webContents.setWindowOpenHandler(({ url }) => {
-        e.preventDefault();
         electron.shell.openExternal(url.replace(/\/$/, ''));
         return { action: 'allow' }
-      })
+    });
+
+    // win.webContents.on('did-create-window', child => {
+    //     // For example...
+    //     child.webContents('will-navigate', e => {
+    //         e.preventDefault()
+    //     })
+    // })
 
     win.on('closed', () => {
         win = null;
@@ -65,4 +73,28 @@ app.on('activate', () => {
     if (win === null) {
         createWindow();
     }
+});
+
+app.on('web-contents-created', (e, contents) => {
+    contents.on('new-window', newEvent => {
+        console.log("Blocked by 'new-window'")
+        newEvent.preventDefault();
+    });
+      
+    contents.on('will-navigate', newEvent => {
+        console.log("Blocked by 'will-navigate'")
+        newEvent.preventDefault()
+    });
+      
+    contents.setWindowOpenHandler(({ url }) => {
+        if (url.startsWith("https://doyensec.com/")) {
+            setImmediate(() => {
+                shell.openExternal(url);
+            });
+            return { action: 'allow' }
+        } else {
+            console.log("Blocked by 'setWindowOpenHandler'")
+            return { action: 'deny' }
+        }
+    })
 });
