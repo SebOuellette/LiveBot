@@ -30,6 +30,8 @@ let barry = false;
 
 // Disable the security warning from electron that comes from using an uncompiled version
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = true;
+// Allows LiveBot to work as an executable
+process.chdir(__dirname);
 // Display that LiveBot has started
 console.log('LiveBot started');
 
