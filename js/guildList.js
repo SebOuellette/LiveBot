@@ -57,10 +57,10 @@ async function addGuilds() {
 
                 // Check if the icon is animated and add the animation on hover or remove it
                 if (g.icon.startsWith('a_')) {
-                    ico.onmouseenter = () => {
+                    img.onmouseenter = () => {
                         img.src = ico.replace('.webp', 'gif');
                     };
-                    ico.onmouseleave = () => {
+                    img.onmouseleave = () => {
                         img.src = ico;
                     };
                 }

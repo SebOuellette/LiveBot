@@ -43,7 +43,7 @@ async function create() {
     };
 
     document.getElementById('msgbox').addEventListener('keydown', (event) => {
-        if (event.keyCode === 13 && !event.shiftKey) {
+        if (event.key === 13 && !event.shiftKey) {
             event.preventDefault();
             sendmsg();
         }

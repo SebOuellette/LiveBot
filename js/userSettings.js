@@ -512,7 +512,7 @@ function genCheckbox(parent, option) {
 
 //     document.getElementById("tokenbox")
 //         .addEventListener("keydown", event => {
-//             if (event.keyCode === 13) {
+//             if (event.key === 13) {
 //                 unloadAllScripts();
 //                 setToken();
 //             }
@@ -543,7 +543,7 @@ function genShortInput(
     if (id == 'tokenbox') {
         input.type = 'password';
         input.addEventListener('keydown', (event) => {
-            if (event.keyCode === 13) showSplashScreen(input.value);
+            if (event.key === 13) showSplashScreen(input.value);
         });
     }
 }

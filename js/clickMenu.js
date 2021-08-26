@@ -21,7 +21,7 @@
 function addDocListener() {
     document.addEventListener('keydown', (e) => {
         // When ESC is pressed
-        if (e.keyCode == 27) {
+        if (e.key == 27) {
             // Safe check so there is only one DOM to edit messages
             checkEditDoms();
         }
