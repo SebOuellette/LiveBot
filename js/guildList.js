@@ -52,13 +52,12 @@ async function addGuilds() {
                 // The guild has an icon, create the image
                 img = document.createElement('img');
 
-                let ico;
-                ico = `https://cdn.discordapp.com/icons/${g.id}/${g.icon}.webp?size=64`;
+                let ico = `https://cdn.discordapp.com/icons/${g.id}/${g.icon}.webp?size=64`;
 
                 // Check if the icon is animated and add the animation on hover or remove it
                 if (g.icon.startsWith('a_')) {
                     img.onmouseenter = () => {
-                        img.src = ico.replace('.webp', 'gif');
+                        img.src = ico.replace('.webp', '.gif');
                     };
                     img.onmouseleave = () => {
                         img.src = ico;

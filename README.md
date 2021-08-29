@@ -17,12 +17,14 @@ LiveBot is a program built with electron and discord.js, that will allow you to 
 LiveBot had been built so that the style and flow is similar to discord, and while it is not exact, it is pretty close. it is also built from scratch, using no frameworks, just straight html, css, and javascript. Due to this, and having a very small developer team, additions may take a while to be added. The point is to built from scratch, we know very well that it's not the fastest way to make something like this. However, LiveBot is slowly being filled with cool exclusive features like the pull-up user settings menu, the soon to come embed builder, native support for scripts, and more!
 
 ## How to install
-### Manual (Necessary for Mac and Linux - Works on Windows too)
-**Before following any installation steps**, make sure you [install Node.js](https://nodejs.org/en/).
-You can install LiveBot in many ways such as Git, but the easiest way is to just download as a compressed (zip) file, which you can do by pressing the green button above that has `Code` written on it. Once you have downloaded and extracted the zip file, go into the directory with a command prompt or shell window. In the shell window, enter the command `npm install` to install the needed dependencies. Make sure that the terminal window is running as Administrator (or root, for Linux people). <!-- is this necessary? --> Once this process is finished — it may take some time — type `npm start`. 
+### Easy / Stable version
+To download a binary/executable file, simply click on the latest release on the right side of the page, and download whichever zip or tar.gz file suits your needs. For example, if you use Windows, you will download the zip file that says "win32", if you use Linux, you will download the file that says "linux", and if you use MacOS you will download the file that says "darwin". Once you download and uncompress the file, just execute the binary file as you would any other application. 
 
-### Easy (Windows only)
-If you would like to just download and open a `.exe` file, find the releases on the right side of this page, and download the latest release. You will need to download the source code and the `.exe` file, then place the file in the source code folder. 
+
+### Manual / Possibly unstable
+#### **Before following any installation steps**, make sure you [install Node.js](https://nodejs.org/en/).
+LiveBot can be installed using either CLI commands, or by downloading the zip. Directions for both can be found by clicking the green "Code" button found above. To run the source code, be sure to download the necessary dependancies through `npm install`, then run `npm start`.
+
 
 ## Some features:
 ### Token switcher (User menu)
