@@ -63,7 +63,7 @@ function editMsg(target) {
     target.appendChild(textarea);
 
     textarea.addEventListener('keydown', (e) => {
-        if (e.key === 13 && !e.shiftKey) {
+        if (e.key == "Enter" && !e.shiftKey) {
             if (textarea.value == text) return editDOM(target, textarea, text);
             let newText = textarea.value;
             newText = newText.replace(

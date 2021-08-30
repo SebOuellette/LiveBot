@@ -49,7 +49,7 @@ let typingTimer = {
             this.timers[id] = { timeout, interval };
         },
         decrease: function (id, channel) {
-            channel.stopTyping();
+            channel.stopTyping(true);
             this.timers[id]['timeout']--;
             if (this.timers[id]['timeout'] < 0) {
                 clearInterval(this.timers[id]['interval']);

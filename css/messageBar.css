@@ -21,13 +21,14 @@ limitations under the License. */
     height: 40px;
     padding-bottom: 10px;
     z-index: 2;
+    
 }
 
 #sendmsg::before {
     content: "";
     width: 100%;
     background-color: #36393e;
-    height: 40px;
+    height: 4000px;
     position: absolute;
     top: 20px;
     z-index: -1;
@@ -43,6 +44,8 @@ limitations under the License. */
     border-radius: 5px;
     padding: 0 10px 0 0;
     display: flex;
+    
+    /* display: table; */
 }
 
 #msgbox::-webkit-scrollbar {
@@ -72,6 +75,7 @@ limitations under the License. */
     /* width: calc(100% - 40px); */
     word-spacing: 2px;
     position: relative;
+    /* display: table-row; */
 }
 
 
@@ -84,6 +88,7 @@ limitations under the License. */
     display: grid;
     grid-auto-flow: column;
     grid-column-gap: 4px;
+    
 }
 
 #msgMisc img {

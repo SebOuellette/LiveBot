@@ -43,16 +43,32 @@ async function create() {
     };
 
     document.getElementById('msgbox').addEventListener('keydown', (event) => {
-        if (event.key === 13 && !event.shiftKey) {
+        if (event.key == "Enter" && !event.shiftKey) {
             event.preventDefault();
-            sendmsg();
+
+            // If the message was able to be sent, reset the message box size
+            if (!sendmsg()) {
+                // Reset the textbox height
+                let msgBox = document.getElementById("sendmsg");
+                msgBox.style.height = '38px'; // Reset the height first
+                msgBox.style.transform = '';
+            }
         }
     });
 
     document.getElementById('msgbox').addEventListener('input', (event) => {
-        let rows = document.getElementById('msgbox').value.split('\n').length;
-        if (rows == 0) rows++;
+        let textElem = document.getElementById('msgbox');
+        let rows = textElem.value.split('\n').length;
+        rows = (rows == 0) ? 1 : rows;
         // document.getElementById("msgbox").rows = rows;
+        
+        let msgBox = document.getElementById("sendmsg");
+
+        if (textElem.scrollHeight < 38*5) {
+            msgBox.style.height = '0px' // Reset the height first
+            msgBox.style.height = `${textElem.scrollHeight}px`;
+            msgBox.style.transform = `translateY(-${textElem.scrollHeight-38}px)`
+        }
     });
 
     // Call the settings menu builder
