@@ -7,9 +7,9 @@ assignees: ''
 
 ---
 
-#### What branch are you using?
-<!-- Master or executable -->
-- Branch:
+#### What branch/release are you using?
+<!-- Name of branch, or version of release -->
+- Branch/Release:
 
 #### Errors
 <!-- Screenshot or copy any errors that you can find which relate to the problem -->
