@@ -1,32 +1,58 @@
 <center><img src='resources/icons/logoLarge.svg' height='100px' style='border-radius: 10px;'/></center>
 
-> LiveBot is specifically designed for bots; it cannot be used for user accounts.
+---
+
+**NOTICE**
+
+LiveBot is specifically designed for bots; it cannot be used for user accounts. The LiveBot developers take no resposibility for the actions executed through LiveBot.
+
+---
 
 An app that allows you to be inside a bot!
 
 At the moment, LiveBot is still in alpha. Installation instructions can be found below.
 
-## Discord
+## Support Server
 If you would like to get the latest information on the project, talk with the developers, post suggestions, get help, etc., join the official LiveBot [Discord server!](https://discord.gg/NG4rgqSgzx)
 
-## What is this?
+## Preview
 <img src='https://i.imgur.com/m0HvVmn.png' alt='LiveBot image preview' height='300px' style='border-radius: 10px;'/>
 
-LiveBot is a program built with electron and discord.js, that will allow you to have discord controlling a bot. You are able to view messages in channels, send messages, interact with people, and see what is going on in the servers your bot is in. LiveBot can only be used on bot accounts, if you find a way to use it on user accounts we're in no way liable for anything that might happen.
+LiveBot is a program built with Electron and Discord.js that will allow you to control your bot from a client resembling the official one for users. You are able to view messages in channels, send messages, interact with people and see what is going on in the servers your bot is in.
 
-LiveBot had been built so that the style and flow is similar to discord, and while it is not exact, it is pretty close. it is also built from scratch, using no frameworks, just straight html, css, and javascript. Due to this, and having a very small developer team, additions may take a while to be added. The point is to built from scratch, we know very well that it's not the fastest way to make something like this. However, LiveBot is slowly being filled with cool exclusive features like the pull-up user settings menu, the soon to come embed builder, native support for scripts, and more!
+LiveBot has been built so that the style and flow is similar to discord, and while it is not exact, it is pretty close. It is also built from scratch using no frameworks, just straight HTML, CSS, and JavaScript. Due to this, and having a very small development team, additional features may take a while to be added. The point is to built from scratch, we know very well that it's not the fastest way to make something like this. However, LiveBot is slowly being filled with cool exclusive features like the pull-up user settings menu, the soon to come embed builder, native support for scripts, and more!
 
-## How to install
-### Easy / Stable version
-To download a binary/executable file, simply click on the latest release on the right side of the page, and download whichever zip or tar.gz file suits your needs. For example, if you use Windows, you will download the zip file that says "win32", if you use Linux, you will download the file that says "linux", and if you use MacOS you will download the file that says "darwin". Once you download and uncompress the file, just execute the binary file as you would any other application. 
+## Installation
+### Release (recommended)
 
-
-### Manual / Possibly unstable
-#### **Before following any installation steps**, make sure you [install Node.js](https://nodejs.org/en/).
-LiveBot can be installed using either CLI commands, or by downloading the zip. Directions for both can be found by clicking the green "Code" button found above. To run the source code, be sure to download the necessary dependancies through `npm install`, then run `npm start`.
+To download a binary executable file, simply click on the latest [Release](../../releases) on the right side of the page, and download whichever zip or tar.gz file suits your needs. For example, if you use Windows, you should download the zip file that says "win32", if you use Linux, you will download the file that says "linux", and if you use macOS you will download the file that says "darwin". Once you download and decompress the file, just execute it as you would any other application. 
 
 
-## Some features:
+### From Source (unstable)
+
+LiveBot requires the [Node.js] JavaScript runtime to run.
+
+You can download the source with [Git] (and get updates easily) or you can download as a zipped (compressed) file from GitHub. If you wish to download as a zip file, GitHub provides a big green "Code" button which you can press to download the file.
+
+If you want to download with Git, a bash command to do so is found below:
+
+```sh
+# with SSH (requires public key to be set)
+git clone "git@github.com:SebOuellette/LiveBot.git"
+
+# with HTTP
+git clone "https://github.com/SebOuellette/LiveBot.git"
+```
+
+After cloning with Git or decompressing the zip file, you must open the directory the source is located in and install the dependencies with npm (or your preferred package manager) with the following command:
+
+```sh
+npm install
+```
+
+When your package manager is finished installing, you may start the program with `npm start`.
+
+## Features
 ### Token switcher (User menu)
 This box is how you log into a profile after already logging in. To log into a token by default, put it into this box then press the save button. Otherwise if you are just logging into a token just for a look, input the token into the box then press `enter`.
 
@@ -48,3 +74,6 @@ The profile card is able to tell you the username, the avatar image, the discrim
 LiveBot gives you the ability to generate an invite quickly from within the app, instead of having to go to your bot's application page in the Discord Developer portal. It can be found in the user settings page in the pull up menu. Just toggle all the permissions you'd like to give the invite (by default, everything recommended to use LiveBot's features is enabled). 
 
 <img src='https://i.imgur.com/ggkyQtn.png' alt='Invite generator preview' style='border-radius: 10px;'>
+
+[node.js]: https://nodejs.org
+[git]: https://git-scm.com
