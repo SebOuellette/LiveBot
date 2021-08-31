@@ -20,7 +20,7 @@ If you would like to get the latest information on the project, talk with the de
 
 LiveBot is a program built with Electron and Discord.js that will allow you to control your bot from a client resembling the official one for users. You are able to view messages in channels, send messages, interact with people and see what is going on in the servers your bot is in.
 
-It had been built so that the style and flow is similar to discord, and while it is not exact, it is pretty close. It is also built from scratch using no frameworks, just straight HTML, CSS, and JavaScript. Due to this, and having a very small development team, additional features may take a while to be added. The point is to built from scratch, we know very well that it's not the fastest way to make something like this. However, LiveBot is slowly being filled with cool exclusive features like the pull-up user settings menu, the soon to come embed builder, native support for scripts, and more!
+LiveBot has been built so that the style and flow is similar to discord, and while it is not exact, it is pretty close. It is also built from scratch using no frameworks, just straight HTML, CSS, and JavaScript. Due to this, and having a very small development team, additional features may take a while to be added. The point is to built from scratch, we know very well that it's not the fastest way to make something like this. However, LiveBot is slowly being filled with cool exclusive features like the pull-up user settings menu, the soon to come embed builder, native support for scripts, and more!
 
 ## Installation
 ### Release (recommended)
