@@ -98,7 +98,7 @@ let settings = {
     set settings(args) {
         let settings = this.settings;
         settings = { ...settings, ...args };
-        fs.writeFileSync("json/logins.json", JSON.stringify(settings));
+        fs.writeFileSync("json/logins.json", JSON.stringify(settings), {mode: parseInt('0666', 8)});
     },
 
     set rawSettings(args) {

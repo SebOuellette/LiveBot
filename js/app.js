@@ -30,6 +30,8 @@ let barry = false;
 
 // Disable the security warning from electron that comes from using an uncompiled version
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = true;
+// Set the permissions umask to 0, allowing writing to files using the exact specified permissions
+process.umask(0);
 // Allows LiveBot to work as an executable
 process.chdir(__dirname);
 // Display that LiveBot has started
