@@ -107,7 +107,7 @@ let sendmsg = (text = '') => {
                                 5000
                             );
                         else if (num < 1) {
-                            command('The number must be higer than 0', 5000);
+                            command('The number must be higher than 0', 5000);
                         } else {
                             (async () => {
                                 let delet = async function (
