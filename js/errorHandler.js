@@ -43,15 +43,15 @@ function errorHandler(err) {
 function discordApiErrors(code, err) {
     switch (err.message) {
         case 'Cannot send messages to this user':
-            console.error(
-                `This user either has direct messages disabled in the server or you've been blocked by the user`
+            console.log(
+                "%cThis user either has direct messages disabled in the server or you've been blocked by the user", "color: red;"
             );
             command(
                 "I'm sorry but this user has you blocked or their direct messages are disabled!\n\nIf you wish to contact them through direct messages you'll have to ask them first."
             );
             break;
         default:
-            console.error(`Error code: ${err.code}\n${err.message}`);
+            console.log(`%c Error code: ${err.code}\n${err.message}`, "color: red;");
             break;
     }
 }
@@ -69,56 +69,56 @@ function customTokenErrors(code, err) {
     switch (code) {
         case 'TOKEN_INVALID':
             setLoadingPerc(-1, 'The token provided is invalid');
-            console.error('Invalid Token');
+            console.log('%cInvalid Token', 'color: red;');
             break;
         case 'NO-TOKEN':
             setLoadingPerc(-1, 'No tokens found in the cache');
-            console.error('There is no token stored');
+            console.log('%cThere is no token stored', 'color: red;');
             break;
         case 'SAME-TOKEN':
             setLoadingPerc(-1, 'The token is the same as the current one');
-            console.error("The token is the same so it won't be switched");
+            console.log("%cThe token is the same so it won't be switched", 'color: red;');
             break;
         case 'EMPTY-TOKEN':
             setLoadingPerc(-1, 'The token provided is empty');
-            console.error('The token is empty');
+            console.log('%cThe token is empty', 'color: red;');
             break;
         case 'TOKEN-SHORT':
             setLoadingPerc(-1, 'The token is too short');
-            console.error(
-                "The token is too short, make sure you're not using the client secret\nIf you're sure it's not then contact the devs with the part of your token that is shorter\n\nRandomly generated example of a token:\n" +
-                    genFakeToken()
+            console.log(
+                "%cThe token is too short, make sure you're not using the client secret\nIf you're sure it's not then contact the devs with the part of your token that is shorter\n\nRandomly generated example of a token:\n" +
+                    genFakeToken(), "color: red;"
             );
             break;
         case 'TOKEN-LONG':
             setLoadingPerc(-1, 'The token is too long');
-            console.error(
-                "The token is too long\nIf you're sure it's not then contact the devs with the part of your token that is longer\n\nRandomly generated example of a token:\n" +
-                    genFakeToken()
+            console.log(
+                "%cThe token is too long\nIf you're sure it's not then contact the devs with the part of your token that is longer\n\nRandomly generated example of a token:\n" +
+                    genFakeToken(), "color: red;"
             );
             break;
         case 'TOKEN-WHITESPACE':
             setLoadingPerc(-1, 'There are spaces or newlines in the token');
-            console.error(
-                'The token cannot contain a space or a newline, make sure to paste the token correctly'
+            console.log(
+                '%cThe token cannot contain a space or a newline, make sure to paste the token correctly', 'color: red;'
             );
             break;
         case 'INVALID-TOKEN-CHARACTERS':
             setLoadingPerc(-1, 'There are invalid characters in the token');
-            console.error(
-                'The token contains invalid characters, please make sure the token is correct'
+            console.log(
+                '%cThe token contains invalid characters, please make sure the token is correct', 'color: red;'
             );
             break;
         case 'INVALID-TOKEN-FORMAT':
             setLoadingPerc(-1, 'The format of the token is invalid');
-            console.error(
-                'The token format is invalid\n\nRandomly generated example of a token:\n' +
-                    genFakeToken()
+            console.log(
+                '%cThe token format is invalid\n\nRandomly generated example of a token:\n' +
+                    genFakeToken(), 'color: red;'
             );
             break;
         default:
             setLoadingPerc(-1);
-            console.error(`Error code: ${err.code}\n${err}`);
+            console.log(`%cError code: ${err.code}\n${err}`, 'color: red;');
             break;
     }
 
@@ -133,16 +133,16 @@ function customErrors(code, err) {
                 -1,
                 "Sharding is required for your bot but it's not supported yet"
             );
-            console.error(
-                "Sharding is required for your bot but it's not supported yet"
+            console.log(
+                "%cSharding is required for your bot but it's not supported yet", "color: red;"
             );
             tokenError();
             break;
         case 'EMPTY-NAME':
-            console.error('Username is empty or contains invalid characters');
+            console.log('%cUsername is empty or contains invalid characters', 'color: red;');
             break;
         case 'SERVER_OFFLINE':
-            console.error('Guild seems to be offline');
+            console.log('%cGuild seems to be offline', 'color: red;');
             break;
         default:
             console.error(`Error code: ${err.code}\n${err}`);
