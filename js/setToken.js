@@ -100,19 +100,19 @@ async function validateToken(token = '') {
         return [true, 'INVALID-TOKEN-CHARACTERS'];
 
     let tA = token.split('.');
-    if (tA.length < 3 || tA.length > 3) return [true, 'INVALID-TOKEN-FORMAT'];
-    tA[0] = tA[0].length;
-    tA[1] = tA[1].length;
-    tA[2] = tA[2].length;
-    if (
-        tA[0] < 24 ||
-        tA[0] > 24 ||
-        tA[1] < 6 ||
-        tA[1] > 6 ||
-        tA[2] < 27 ||
-        tA[2] > 27
-    )
-        return [true, 'INVALID-TOKEN-FORMAT'];
+    if (tA.length != 3) return [true, 'INVALID-TOKEN-FORMAT'];
+    // tA[0] = tA[0].length;
+    // tA[1] = tA[1].length;
+    // tA[2] = tA[2].length;
+    // if (
+    //     tA[0] < 24 ||
+    //     tA[0] > 24 ||
+    //     tA[1] < 6 ||
+    //     tA[1] > 6 ||
+    //     tA[2] < 27 ||
+    //     tA[2] > 27
+    // )
+    //     return [true, 'INVALID-TOKEN-FORMAT'];
 
     return [false, 'none'];
 }
