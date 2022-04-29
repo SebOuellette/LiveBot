@@ -87,14 +87,9 @@ app.on('web-contents-created', (e, contents) => {
     });
       
     contents.setWindowOpenHandler(({ url }) => {
-        if (url.startsWith("https://doyensec.com/")) {
-            setImmediate(() => {
-                shell.openExternal(url);
-            });
-            return { action: 'allow' }
-        } else {
-            console.log("Blocked by 'setWindowOpenHandler'")
-            return { action: 'deny' }
-        }
+        setImmediate(() => {
+            shell.openExternal(url);
+        });
+        return { action: 'allow' }
     })
 });
