@@ -90,9 +90,9 @@ async function saveToken(token) {
 async function validateToken(token = '') {
     if (token.length == 0) return [true, 'EMPTY-TOKEN'];
 
-    if (token.replace('.', '').length < 58) return [true, 'TOKEN-SHORT'];
-
-    if (token.replace('.', '').length > 58) return [true, 'TOKEN-LONG'];
+    if (token.replace('.', '').length < 56) return [true, 'TOKEN-SHORT'];
+//                                      58
+    if (token.replace('.', '').length > 60) return [true, 'TOKEN-LONG'];
 
     let invalidChars = [' ', '\t', '\r', '\n'];
     if (token.split('').filter((c) => invalidChars.includes(c)).length > 0)
