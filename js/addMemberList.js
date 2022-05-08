@@ -50,7 +50,7 @@ function addMemberList(guild) {
             container.appendChild(name);
 
             // Add each user
-            if (memberCount < 30) {
+            if (memberCount < 30) { // rendering too many members here causes performance issues.
                 r.members
                     .filter(
                         (m) =>
