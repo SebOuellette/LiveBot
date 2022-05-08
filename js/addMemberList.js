@@ -46,49 +46,51 @@ function addMemberList(guild) {
             // Add the role name
             let name = document.createElement('span');
             name.classList.add('roleTitle');
-            name.innerText = r.name;
+            name.innerText = `${r.name} - ${memberCount}`;
             container.appendChild(name);
 
             // Add each user
-            r.members
-                .filter(
-                    (m) =>
-                        m.roles.hoist &&
-                        m.roles.hoist.id == r.id &&
-                        m.presence.status != 'offline'
-                )
-                .sort((m1, m2) => m1.id - m2.id)
-                .forEach((m) => {
-                    // Create the outer div
-                    let outerDiv = document.createElement('div');
-                    outerDiv.classList.add('mLOuterDiv');
-                    container.appendChild(outerDiv);
+            if (memberCount < 30) {
+                r.members
+                    .filter(
+                        (m) =>
+                            m.roles.hoist &&
+                            m.roles.hoist.id == r.id &&
+                            m.presence.status != 'offline'
+                    )
+                    .sort((m1, m2) => m1.id - m2.id)
+                    .forEach((m) => {
+                        // Create the outer div
+                        let outerDiv = document.createElement('div');
+                        outerDiv.classList.add('mLOuterDiv');
+                        container.appendChild(outerDiv);
 
-                    // Make the div for the user
-                    let userDiv = document.createElement('div');
-                    userDiv.id = m.id;
-                    userDiv.classList.add('mLUserDiv');
-                    outerDiv.appendChild(userDiv);
+                        // Make the div for the user
+                        let userDiv = document.createElement('div');
+                        userDiv.id = m.id;
+                        userDiv.classList.add('mLUserDiv');
+                        outerDiv.appendChild(userDiv);
 
-                    // Add the user icon
-                    let icon = document.createElement('img');
-                    icon.src = m.user
-                        .displayAvatarURL()
-                        .replace(/(size=)(\d+)/gi, '$164');
-                    icon.classList.add('mLIcon');
-                    userDiv.appendChild(icon);
+                        // Add the user icon
+                        let icon = document.createElement('img');
+                        icon.src = m.user
+                            .displayAvatarURL()
+                            .replace(/(size=)(\d+)/gi, '$164');
+                        icon.classList.add('mLIcon');
+                        userDiv.appendChild(icon);
 
-                    // Make the username text
-                    let username = document.createElement('p');
-                    username.classList.add('mLUsername');
-                    let name = m.nickname || m.user.username;
-                    // if (name.length > 15) {
-                    //     name = `${name.substring(0, 15)}...`
-                    // }
-                    username.innerText = name;
-                    username.style.color = m.displayHexColor || '#8E9297';
-                    userDiv.appendChild(username);
-                });
+                        // Make the username text
+                        let username = document.createElement('p');
+                        username.classList.add('mLUsername');
+                        let name = m.nickname || m.user.username;
+                        // if (name.length > 15) {
+                        //     name = `${name.substring(0, 15)}...`
+                        // }
+                        username.innerText = name;
+                        username.style.color = m.displayHexColor || '#8E9297';
+                        userDiv.appendChild(username);
+                    });
+            }
         }
     });
 
