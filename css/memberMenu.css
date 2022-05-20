@@ -30,6 +30,12 @@ limitations under the License. */
     padding: 20px 0;
 }
 
+.memberMenuRolesDiv {
+    width: 100%;
+    background-color: #2f3136;
+    padding: 20px 0;
+}
+
 .memberIcon {
     height: 80px;
     width: 80px;
@@ -76,6 +82,28 @@ limitations under the License. */
     word-wrap: break-word;
     white-space: pre-wrap;
     max-width: 100%;
+}
+
+.menuRolesDiv {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.memberRoles {
+    color: #b9bbbe;
+    font-size: 15px;
+    display: inline-block;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    max-width: 100%;
+}
+
+.memberRoles span {
+    background-color: #202225;
+    margin: 4px;
+    padding: 1px;
 }
 
 .memberCustomEmoji {
