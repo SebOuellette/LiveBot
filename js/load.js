@@ -46,6 +46,13 @@ let load = async (token) => {
     }
 
     bot.on('ready', async () => {
+
+        // Reset the timer on the presence thing (heartbeat)
+        let presenceInterval = setInterval(()=>{
+            bot.user.setPresence(bot.user.presence);
+        }, 180000); // runs every 3 minutes
+
+
         // Update the loading bar
         async function continueLoad() {
             // Load and start all the scripts
