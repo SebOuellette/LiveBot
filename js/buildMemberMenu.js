@@ -26,6 +26,11 @@ function buildMemberMenu(parent) {
     user.classList.add('memberMenuUserDiv');
     div.appendChild(user);
 
+    // The top section of the member menu
+    let roles = document.createElement('div');
+    roles.classList.add('memberMenuRolesDiv');
+    div.appendChild(roles);
+
     // The user icon
     let userIcon = document.createElement('img');
     userIcon.classList.add('memberIcon');
@@ -87,6 +92,24 @@ function buildMemberMenu(parent) {
         custPres.innerText = custPresence.state;
         presenceDiv.appendChild(custPres);
     }
+
+    // roles :D
+    let rolesDiv = document.createElement('div');
+    rolesDiv.classList.add('menuRolesDiv');
+    roles.appendChild(rolesDiv);
+
+    let rolestext = document.createElement('div');
+    rolestext.classList.add('memberRoles');
+
+    member._roles.forEach((roleid) => {
+        console.log(roleid);
+        let rolename = selectedGuild.roles.cache.get(roleid);
+        let spans = document.createElement('span');
+        spans.innerText = rolename.name;
+        rolestext.appendChild(spans);
+    })
+
+    rolesDiv.appendChild(rolestext);
 
     // Set the final position of the menu
     let borderOffset = 40;
