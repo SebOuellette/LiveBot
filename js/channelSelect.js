@@ -49,7 +49,6 @@ let channelSelect = (c, name) => {
     // Creates the loading dots
     var container = document.createElement('div'); // Centred container
     var loadingDots = document.createElement('div') // Loading dots
-    loadingDots.innerHTML = 'Loading...';
     loadingDots.classList.add('dot-bricks')
     container.style.position = "absolute";
     container.style.top = "50%";
