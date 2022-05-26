@@ -46,6 +46,19 @@ let channelSelect = (c, name) => {
         messages.removeChild(messages.firstChild);
     }
 
+    // Creates the loading dots
+    var container = document.createElement('div'); // Centred container
+    var loadingDots = document.createElement('div') // Loading dots
+    loadingDots.innerHTML = 'Loading...';
+    loadingDots.classList.add('dot-bricks')
+    container.style.position = "absolute";
+    container.style.top = "50%";
+    container.style.left = "50%";
+    container.style.transform = "translate(-50%, -50%)";
+    container.id = "loading-container";
+    container.appendChild(loadingDots);
+    messages.appendChild(container);
+
     // Set colour of the channel
     try {
         selectedChanDiv.style.color = '#606266';
@@ -96,6 +109,9 @@ let channelSelect = (c, name) => {
 
         messages.scrollTop = messages.scrollHeight;
         generatingMessages = false;
+        
+        // Remove the loading dots
+        messages.removeChild(document.getElementById('loading-container')); 
     }
 };
 
