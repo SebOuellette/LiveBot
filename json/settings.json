@@ -34,7 +34,8 @@
                                     "Streaming",
                                     "Playing",
                                     "Listening",
-                                    "Watching"
+                                    "Watching",
+                                    "Competing"
                                 ],
                                 "default": 0,
                                 "special": [
@@ -79,6 +80,16 @@
                                             {
                                                 "type": "shortinput",
                                                 "placeholder": "Name of the video / thing",
+                                                "class": "activityInput"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "id": 5,
+                                        "needs": [
+                                            {
+                                                "type": "shortinput",
+                                                "placeholder": "Name of the competition / game / activity",
                                                 "class": "activityInput"
                                             }
                                         ]
