@@ -1,6 +1,6 @@
 {
     "name": "livebot",
-    "version": "1.0.0",
+    "version": "v1.1.5-alpha",
     "description": "Discord for bots!",
     "main": "start.js",
     "scripts": {
@@ -24,9 +24,9 @@
     "homepage": "https://github.com/SebOuellette/LiveBot#readme",
     "dependencies": {
         "discord.js": "^12.4.1",
-        "electron": "^13.1.6"
+        "electron": "^18.3.5"
     },
     "devDependencies": {
-        "electron-packager": "^15.2.0"
+        "electron-packager": "^13.1.1"
     }
 }
