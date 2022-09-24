@@ -111,17 +111,10 @@ function generateMsgHTML(
         name.classList.add('messageUsername');
 
         // Find the colour of their name
-        if (m.member && m.member.roles._roles.size > 1) {
-            let color;
-
-            // Use the heighest role for their color (Since the hoist role is just the one that displays, not the one that determines the color)
-            // Display the role as white if it's black
-            color = m.member.displayHexColor;
-
-            name.style.color = color;
-        } else {
-            name.style.color = '#fff';
-        }
+        // Use the highest role for their color
+        name.style.color =
+            m.member && (m.member.roles.color && m.member.roles.color.hexColor) ||
+            '#fff';
 
         darkBG.appendChild(name);
 
