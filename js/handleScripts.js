@@ -17,14 +17,14 @@
 let loadAllScripts = () => {
     let files = fs.readdirSync('./scripts');
 
-    // Remove the template file out of the equasion if there is one
+    // Remove the template file out of the equation if there is one
     if (files.includes('template.js'))
         files.splice(files.indexOf('template.js'), 1);
 
     // If there are no scripts don't even bother
     if (!files.length) return;
 
-    // Preoad all the scripts
+    // Preload all the scripts
     console.log('Loading scripts...');
     files.forEach((file) => {
         if (file.endsWith('.js') && file != 'template.js') {

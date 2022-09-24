@@ -39,7 +39,7 @@ function errorHandler(err) {
     } else customErrors(code, err);
 }
 
-// Discord api errors that aren't cought with discord.js
+// Discord api errors that aren't caught with discord.js
 function discordApiErrors(code, err) {
     switch (err.message) {
         case 'Cannot send messages to this user':
@@ -64,7 +64,7 @@ function tokenError() {
     });
 }
 
-// Errors that are cought by discord.js and converted to custom errors
+// Errors that are caught by discord.js and converted to custom errors
 function customTokenErrors(code, err) {
     switch (code) {
         case 'TOKEN_INVALID':
@@ -125,7 +125,7 @@ function customTokenErrors(code, err) {
     tokenError();
 }
 
-// Errors that are cought by discord.js and converted to custom errors
+// Errors that are caught by discord.js and converted to custom errors
 function customErrors(code, err) {
     switch (code) {
         case 'SHARDING_REQUIRED':

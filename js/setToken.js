@@ -54,7 +54,7 @@ async function setToken(token) {
         let memberList = document.getElementById('memberBar');
         memberList.innerHTML = '';
 
-        // Stop the current bot, unload scritps, and then load into the new token
+        // Stop the current bot, unload scripts, and then load into the new token
         if (global.bot !== undefined) {
             bot.destroy();
         }
