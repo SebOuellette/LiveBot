@@ -257,10 +257,10 @@ function openPopup(category, group) {
     if (category.classList.contains('toggledOn')) {
         createPopup(category.parentElement, group);
     } else {
-        let settingsPopout = category.parentElement.querySelector(
+        let settingsPopup = category.parentElement.querySelector(
             '.settingsPopup'
         );
-        if (settingsPopout) settingsPopout.remove();
+        if (settingsPopup) settingsPopup.remove();
     }
 }
 
@@ -296,7 +296,7 @@ function buildSettingsMenu(jsonObj) {
             category.onclick = () => {
                 // Open the popup menu
                 if (group.settings) openPopup(category, group);
-                // If it's still in developement then don't open the menu but flash red
+                // If it's still in development then don't open the menu but flash red
                 else
                     category.animate(animations.flashTextRed, {
                         duration: 350,

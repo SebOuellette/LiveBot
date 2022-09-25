@@ -39,7 +39,7 @@ let parseMessage = (
     msg = null,
     embed = false,
     ping = false,
-    embededLink
+    embeddedLink
 ) => {
     let textContent = text;
 
@@ -48,7 +48,7 @@ let parseMessage = (
 
     // General message parsing
     // Format pings
-    if (msg) parsePings(msg, textContent, embededLink, ping, embed);
+    if (msg) parsePings(msg, textContent, embeddedLink, ping, embed);
     // Match links
     textContent = parseLinks(textContent);
     // Add html tags for markup

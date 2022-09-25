@@ -44,11 +44,11 @@ function buildTeamMemberCards(funky) {
         username.innerText = m.user.username;
         tag.appendChild(username);
 
-        // Descriminator
-        let descrim = document.createElement('span');
-        descrim.classList.add('teamMemberDisc');
-        descrim.innerText = `#${m.user.discriminator}`;
-        tag.appendChild(descrim);
+        // Discriminator
+        let discrim = document.createElement('span');
+        discrim.classList.add('teamMemberDisc');
+        discrim.innerText = `#${m.user.discriminator}`;
+        tag.appendChild(discrim);
 
         // Buttons
         let once = document.createElement('div');

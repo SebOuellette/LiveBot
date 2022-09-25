@@ -105,7 +105,7 @@ function typing() {
     }
 }
 
-// Why has this code been in livbot this long????
+// Why has this code been in livebot this long????
 // Options on the right pane
 function options(type, content) {
     switch (type) {

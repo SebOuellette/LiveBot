@@ -21,7 +21,7 @@ function parseHTML(text) {
     return text;
 }
 
-function parsePings(msg, text, embededLink, ping, embed) {
+function parsePings(msg, text, embeddedLink, ping, embed) {
     // Format pings in embeds
     if (ping || !embed) {
         let dms = selectedChan.type == 'dm';
@@ -29,7 +29,7 @@ function parsePings(msg, text, embededLink, ping, embed) {
         text = formatPings(msg, text, dms);
     }
     // Format links in embeds
-    if (embededLink) {
+    if (embeddedLink) {
         text = text.replace(
             /(?:\[(?:<(?:[\w\W]+?>([\w\.!@#$%^&*\-\/"=\[\];]+?)<(?:[\w\W\/]+?)>)|([\w\.!@#$%^&*\-\/"=<>\]\[; ]+?))\]\((?:<a href="([\w:\/.<=\-]+?)".+\)|([\w.:\/_"=\-<> ]+?)\)))/gm,
             (a, b, c, d, e) => {
