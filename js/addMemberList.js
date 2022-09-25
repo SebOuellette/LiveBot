@@ -87,7 +87,7 @@ function addMemberList(guild) {
                         //     name = `${name.substring(0, 15)}...`
                         // }
                         username.innerText = name;
-                        username.style.color = m.displayHexColor || '#8E9297';
+                        username.style.color = m.roles.color && m.roles.color.hexColor || '#8E9297';
                         userDiv.appendChild(username);
                     });
             }
@@ -139,8 +139,7 @@ function addMemberList(guild) {
                 let username = document.createElement('p');
                 username.classList.add('mLUsername');
                 username.innerText = m.nickname || m.user.username;
-                username.style.color =
-                    m.displayColor == 0 ? '#8E9297' : m.displayHexColor;
+                username.style.color = m.roles.color && m.roles.color.hexColor || '#8E9297';
                 userDiv.appendChild(username);
             });
     }
@@ -193,8 +192,7 @@ function addMemberList(guild) {
                 let username = document.createElement('p');
                 username.classList.add('mLUsername');
                 username.innerText = m.displayName || m.user.username;
-                username.style.color =
-                    m.displayColor == 0 ? '#8E9297' : m.displayHexColor;
+                username.style.color = m.roles.color && m.roles.color.hexColor || '#8E9297';
                 userDiv.appendChild(username);
             });
     }
@@ -255,8 +253,7 @@ function addMemberList(guild) {
                         let username = document.createElement('p');
                         username.classList.add('mLUsername');
                         username.innerText = m.displayName || m.user.username;
-                        username.style.color =
-                            m.displayColor == 0 ? '#8E9297' : m.displayHexColor;
+                        username.style.color = m.roles.color && m.roles.color.hexColor || '#8E9297';
                         userDiv.appendChild(username);
                     });
             }
