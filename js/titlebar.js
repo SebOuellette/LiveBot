@@ -14,23 +14,16 @@
 
 "use strict";
 
-const { remote } = require('electron');
+const { ipcRenderer } = require('electron');
 
 document.getElementById("minimize").addEventListener("click", function (e) {
-    var window = remote.getCurrentWindow();
-    window.minimize(); 
+    ipcRenderer.send("titlebar", "minimize");
 });
 
 document.getElementById("screenSnap").addEventListener("click", function (e) {
-    var window = remote.getCurrentWindow();
-    if (!window.isMaximized()) {
-        window.maximize();          
-    } else {
-        window.unmaximize();
-    }
+    ipcRenderer.send("titlebar", "screenSnap");
 });
 
 document.getElementById("exit").addEventListener("click", function (e) {
-    var window = remote.getCurrentWindow();
-    window.close();
+    ipcRenderer.send("titlebar", "exit");
 });
