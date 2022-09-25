@@ -203,7 +203,7 @@ function addMemberList(guild) {
     if (true) {
         guild.members.fetch().then((members) => {
             members = members.array();
-            // Display the other unshown users users
+            // Display the other unshown users
             let offlineCount = members.filter(
                 (m) =>
                     m.presence.status == 'offline' &&

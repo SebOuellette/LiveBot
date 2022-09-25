@@ -111,7 +111,7 @@ function addDocListener() {
             )
                 open = await buildUserMenu(target, rcMenu);
 
-            // Check if it should be opened and if it shoudn't close it just in case
+            // Check if it should be opened and if it shouldn't close it just in case
             if (!open) return rcMenu.classList.remove('open');
 
             // Open the menu if it's ready

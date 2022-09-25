@@ -161,7 +161,7 @@ let showRichEmbed = (embed, msg, element, type) => {
     if (embed.provider) {
         let provider = document.createElement('p');
         provider.classList.add('embedContent');
-        provider.classList.add('embedProvierName');
+        provider.classList.add('embedProviderName');
         provider.innerHTML = parseMessage(embed.provider.name, msg, true);
         embedCont.appendChild(provider);
     }
@@ -245,7 +245,7 @@ let showArticleEmbed = (embed, msg, element) => {
     if (embed.provider) {
         let provider = document.createElement('p');
         provider.classList.add('embedContent');
-        provider.classList.add('embedProvierName');
+        provider.classList.add('embedProviderName');
         provider.innerHTML = parseMessage(embed.provider.name, msg, true);
         embedCont.appendChild(provider);
     }

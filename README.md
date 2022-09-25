@@ -4,7 +4,7 @@
 
 **NOTICE**
 
-LiveBot is specifically designed for bots; it cannot be used for user accounts. The LiveBot developers take no resposibility for the actions executed through LiveBot.
+LiveBot is specifically designed for bots; it cannot be used for user accounts. The LiveBot developers take no responsibility for the actions executed through LiveBot.
 
 ---
 

@@ -23,7 +23,7 @@ function loadThemes() {
     // Get all the files in the themes folder
     let files = fs.readdirSync(dir);
 
-    // Remove the template file out of the equasion if there is one
+    // Remove the template file out of the equation if there is one
     if (files.includes('template.css'))
         files.splice(files.indexOf('template.css'), 1);
 
