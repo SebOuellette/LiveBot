@@ -15,7 +15,7 @@
 "use strict";
 
 const electron = require('electron');
-const { app, BrowserWindow } = electron;
+const { app, BrowserWindow, ipcMain } = electron;
 const path = require('path');
 const url = require('url');
 const pack = require('./package.json');
@@ -31,10 +31,30 @@ function createWindow() {
         webPreferences: { 
             nodeIntegration: true, // Use node in the render js files
             contextIsolation: false, // Makes node in the render js files work in newer electron versions
-            enableRemoteModule: true // Allow the remote module to be used in the render js files
         },
         icon: __dirname + '/resources/icons/logo.png',
     });
+
+    // `remote` alternative
+    ipcMain.on('titlebar', (event, message) => {
+        switch (message) {
+            case 'minimize':
+                win.minimize();
+                break;
+            case 'screenSnap':
+                if (!win.isMaximized()) {
+                    win.maximize();
+                } else {
+                    win.unmaximize();
+                }
+                break;
+            case 'exit':
+                win.close();
+                break;
+            default:
+                break;
+        }
+    })
 
     win.loadURL(
         url.pathToFileURL(path.join(__dirname, 'dontOpenMe.html')).toString()
