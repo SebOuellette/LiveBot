@@ -103,7 +103,7 @@ function parseStyling(text, embed) {
 function parseUnicodeEmojis(text) {
     if (
         !text.replace(
-            /((\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])| |(&lt;a?:!?.+?:[0-9]{18}?&gt;))/g,
+            /((\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])| |(&lt;a?:!?.+?:\d{17,19}?&gt;))/g,
             ''
         ).length
     ) {
@@ -113,12 +113,12 @@ function parseUnicodeEmojis(text) {
 }
 
 function parseCustomEmojis(text) {
-    text = text.replace(/&lt;(a)?:!?(.+?):([0-9]{18}?)&gt;/gm, (a, b, c, d) => {
-        if (d !== undefined)
-            return `<img class="emoji" draggable="false" alt=":${c}:" src="https://cdn.discordapp.com/emojis/${d}.${
-                b == 'a' ? 'gif' : 'png'
+    text = text.replace(/&lt;(a)?:!?(.+?):(\d{17,19}?)&gt;/gm, (original, animated, name, id) => {
+        if (id !== undefined)
+            return `<img class="emoji" draggable="false" alt=":${name}:" src="https://cdn.discordapp.com/emojis/${id}.${
+                animated == 'a' ? 'gif' : 'png'
             }?v=1"></img>`;
-        return b;
+        return animated;
     });
     return text;
 }
