@@ -44,7 +44,7 @@ let command = (text, del = NaN) => {
 
     console.log(text);
     if (text.split('\n').length > 1) {
-        for (i = 0; i < text.split('\n').length; i++) {
+        for (let i = 0; i < text.split('\n').length; i++) {
             text2.innerHTML += parseMessage(text.split('\n')[i]);
             text2.classList.add('messageText');
 

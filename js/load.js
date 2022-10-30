@@ -242,7 +242,7 @@ let load = async (token) => {
             }
 
             if (barry) {
-                bunch = false;
+                //bunch = false;
                 barry = false;
             }
 
