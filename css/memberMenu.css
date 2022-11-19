@@ -103,7 +103,8 @@ limitations under the License. */
 .memberRoles span {
     background-color: #202225;
     margin: 4px;
-    padding: 1px;
+    padding: 4px 7px;
+    border-radius: 5px;
 }
 
 .memberCustomEmoji {
