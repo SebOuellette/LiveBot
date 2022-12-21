@@ -31,6 +31,15 @@ let parseSend = (text) => {
         return a;
     });
 
+    let customEmojiRegex = /^:([\d\w]+):|[^<]:([\d\w]+):/gm;
+    text = text.replaceAll('::',': :').replaceAll(customEmojiRegex, (name) => {
+        console.log(name);
+        if (name[1] === ':')
+            return name[0]+bot.emojis.cache.find(emoji => emoji.name == name.slice(2,-1)).toString();
+        else
+            return bot.emojis.cache.find(emoji => emoji.name == name.slice(1,-1)).toString();
+    });
+
     return text;
 };
 
