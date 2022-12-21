@@ -105,6 +105,7 @@ limitations under the License. */
     margin: 4px;
     padding: 4px 7px;
     border-radius: 5px;
+    display: inline-block;
 }
 
 .memberCustomEmoji {
