@@ -12,13 +12,27 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-"use strict";
-
+'use strict';
 
 // Load a new token
 let load = async (token) => {
     // Login to the bot profile
-    global.bot = new Discord.Client({});
+    global.bot = new Discord.Client({
+        partials: [
+            Discord.Partials.Channel, // get DM messages
+        ],
+        intents: [
+            Discord.GatewayIntentBits.Guilds,
+            Discord.GatewayIntentBits.GuildMessages,
+            Discord.GatewayIntentBits.GuildMembers,
+            Discord.GatewayIntentBits.GuildVoiceStates,
+            Discord.GatewayIntentBits.MessageContent,
+            Discord.GatewayIntentBits.GuildMessageTyping,
+            Discord.GatewayIntentBits.GuildPresences,
+            Discord.GatewayIntentBits.DirectMessageTyping,
+            Discord.GatewayIntentBits.DirectMessages,
+        ],
+    });
 
     // Oh no, it appears as though I left this variable visible unintentionally.
     // If it's changed, you will be able to view all the servers and channels that the owner of the bot is not in.
@@ -46,12 +60,10 @@ let load = async (token) => {
     }
 
     bot.on('ready', async () => {
-
         // Reset the timer on the presence thing (heartbeat)
-        let presenceInterval = setInterval(()=>{
+        let presenceInterval = setInterval(() => {
             bot.user.setPresence(bot.user.presence);
         }, 180000); // runs every 3 minutes
-
 
         // Update the loading bar
         async function continueLoad() {
@@ -82,18 +94,10 @@ let load = async (token) => {
             ).innerHTML = `#${bot.user.discriminator}`;
             document.getElementById(
                 'userCardIcon'
-            ).src = `${bot.user
-                .displayAvatarURL()
-                .replace(/(size=)\d+?($| )/, '$164')}`;
+            ).src = `${bot.user.displayAvatarURL({ size: 64 })}`;
 
-            // Technically not needed anymore, but we'll keep it in case
-            if (bot.user.bot) {
-                document.getElementById('userCardBot').innerHTML = `BOT`;
-                document.getElementById('userCardBot').style.marginLeft = `8px`;
-            } else {
-                document.getElementById('userCardBot').innerHTML = `USER`;
-                document.getElementById('userCardBot').style.marginLeft = `5px`;
-            }
+            document.getElementById('userCardBot').innerHTML = `BOT`;
+            document.getElementById('userCardBot').style.marginLeft = `8px`;
 
             // Create the guild indicator
             let guildIndicator = document.createElement('div');
@@ -114,20 +118,20 @@ let load = async (token) => {
         }
 
         setLoadingPerc(0.4);
-        let owner = (await bot.fetchApplication()).owner;
+
+        const botOwner = (await bot.application.fetch()).owner;
 
         // Check if the owner of the bot is a team
-        if (owner.ownerID) {
-            bot.team = owner.members.map((x) => x);
+        if (botOwner instanceof Discord.Team) {
             let id = settings.tokenSettings.teamUser;
             if (id) {
-                bot.owner = bot.team.filter((x) => x.user.id == id)[0].user;
+                bot.owner = botOwner.members.find((x) => x.user.id == id).user;
                 continueLoad();
             } else {
                 buildTeamMemberCards(continueLoad);
             }
         } else {
-            bot.owner = owner;
+            bot.owner = botOwner;
             continueLoad();
         }
     });
@@ -149,8 +153,47 @@ let load = async (token) => {
     });
 
     // A user has started typing
-    bot.on('typingStart', (c) => {
-        if (c != selectedChan) return;
+    bot.on('typingStart', (typing) => {
+        // reverts https://github.com/discordjs/discord.js/pull/6114/files
+        // Caching a typing status
+        if (!typing.channel._typing)
+            typing.channel._typing = new Discord.Collection();
+        if (!typing.user._typing)
+            typing.user._typing = new Discord.Collection();
+
+        if (typing.channel._typing.has(typing.user.id)) {
+            const userTyping = typing.channel._typing.get(typing.user.id);
+
+            userTyping.lastTimestamp = userTyping.startedTimestamp;
+            userTyping.elapsedTime = Date.now() - userTyping.startedTimestamp;
+
+            clearTimeout(userTyping.timeout);
+            userTyping.timeout = setTimeout(() => {
+                typing.channel._typing.delete(typing.user.id);
+                typing.user._typing.delete(typing.channel.id);
+            }, 10000);
+
+            typing.user._typing.set(typing.channel.id, userTyping);
+        } else {
+            const since = new Date();
+            const lastTimestamp = new Date();
+
+            const userTyping = {
+                channel: typing.channel,
+                user: typing.user,
+                since,
+                lastTimestamp,
+                elapsedTime: Date.now() - since,
+                timeout: setTimeout(() => {
+                    typing.channel._typing.delete(typing.user.id);
+                }, 10000),
+            };
+
+            typing.channel._typing.set(typing.user.id, userTyping);
+            typing.user._typing.set(typing.channel.id, userTyping);
+        }
+
+        if (typing.channel.id != selectedChan?.id) return;
         typingStatus();
     });
 
@@ -160,10 +203,12 @@ let load = async (token) => {
         if (m.channel != selectedChan) return;
         // Get the dom element from the message
         let message = document.getElementById(m.id);
-        let firstMessage = message.classList.contains('firstmsg');
+        if (message) {
+            let firstMessage = message.classList.contains('firstmsg');
 
-        // Remove the message element
-        removeMessage(message, firstMessage);
+            // Remove the message element
+            removeMessage(message, firstMessage);
+        }
     });
 
     // Multiple messages have been deleted
@@ -193,17 +238,20 @@ let load = async (token) => {
     });
 
     // New message recieved
-    bot.on('message', (m) => {
+    bot.on('messageCreate', (m) => {
         typingStatus(false, m);
-        if (m.channel.type == 'dm') m.author.received = true;
-        if (selectedChan && selectedChan.type == 'dm') {
+
+        if (m.channel.type == Discord.ChannelType.DM) {
+            m.author.received = true;
+
             // If the message was sent to the selected channel
-            if (selectedChan && m.channel.id == selectedChan.id) {
+            if (m.channel.id == selectedChan?.id) {
                 // document.getElementById('message-list').removeChild(document.getElementById('message-list').firstChild);
                 let previousMessage;
                 fetchLast(previousMessage);
+
+                return;
             }
-            return;
         }
         // If there is a channel selected in the current guild
         else if (selectedGuild && m.guild.id == selectedGuild.id) {
@@ -257,11 +305,8 @@ let load = async (token) => {
             // console.log("Message list scrolled: " + document.getElementById('message-list').scrollHeight);
             // console.log("Total Height: " + (document.getElementById('message-list').scrollHeight - Math.floor(document.getElementById('message-list').scrollTop)));
             if (scroll == true) {
-                document.getElementById(
-                    'message-list'
-                ).scrollTop = document.getElementById(
-                    'message-list'
-                ).scrollHeight;
+                document.getElementById('message-list').scrollTop =
+                    document.getElementById('message-list').scrollHeight;
                 scroll = false;
             }
         }

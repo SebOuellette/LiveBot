@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-"use strict";
+'use strict';
 
 function buildMemberMenu(parent) {
     let member = selectedGuild.members.cache.get(parent.firstChild.id);
@@ -34,22 +34,17 @@ function buildMemberMenu(parent) {
     // The user icon
     let userIcon = document.createElement('img');
     userIcon.classList.add('memberIcon');
-
-    if (member.user.avatar && member.user.avatar.startsWith('a_'))
-        userIcon.src = member.user.displayAvatarURL().replace('.webp', '.gif');
-    else userIcon.src = member.user.displayAvatarURL();
+    userIcon.src = member.displayAvatarURL({ size: 512 });
 
     user.appendChild(userIcon);
 
     // Username and nickname
     let topName = document.createElement('span');
     topName.classList.add('memberTopName');
-    topName.innerText = member.nickname
-        ? member.nickname
-        : member.user.username;
+    topName.innerText = member.nickname || member.user.username;
     user.appendChild(topName);
 
-    if (member.nickname != null) {
+    if (member.nickname) {
         // Create the full tag below
         let bottomName = document.createElement('span');
         bottomName.classList.add('memberBottomName');
@@ -69,9 +64,9 @@ function buildMemberMenu(parent) {
     user.appendChild(presenceDiv);
 
     // Custom presence
-    let custPresence = member.user.presence.activities.filter(
-        (a) => a.type == 'CUSTOM_STATUS'
-    )[0];
+    let custPresence = member.presence?.activities.find(
+        (a) => a.type == Discord.ActivityType.Custom
+    );
     if (custPresence) {
         if (custPresence.emoji) {
             // Status emoji
@@ -101,13 +96,11 @@ function buildMemberMenu(parent) {
     let rolestext = document.createElement('div');
     rolestext.classList.add('memberRoles');
 
-    member._roles.forEach((roleid) => {
-        console.log(roleid);
-        let rolename = selectedGuild.roles.cache.get(roleid);
-        let spans = document.createElement('span');
-        spans.innerText = rolename.name;
+    member.roles.cache.each((role) => {
+        const spans = document.createElement('span');
+        spans.innerText = role.name;
         rolestext.appendChild(spans);
-    })
+    });
 
     rolesDiv.appendChild(rolestext);
 

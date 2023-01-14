@@ -12,13 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-"use strict";
+'use strict';
 
 function mutualGuilds(u, g, remove) {
     if (u.bot) return;
     if (!u.mutualGuilds) {
         u.mutualGuilds = new Discord.Collection();
-        bot.guilds.cache.forEach((g) => {
+        bot.guilds.cache.each((g) => {
             if (!g.available) return;
             let inGuild = g.members.cache.get(u.id);
             if (inGuild && !u.mutualGuilds.get(u.id)) {
@@ -38,7 +38,7 @@ function mutualGuilds(u, g, remove) {
 
 function updateUsers(bunch, m = undefined, remove = false) {
     if (bunch || !m) {
-        bot.users.cache.forEach((u) => {
+        bot.users.cache.each((u) => {
             u.openDM != true && u.openDM != false
                 ? (u.openDM = false)
                 : undefined;
@@ -54,27 +54,26 @@ function updateUsers(bunch, m = undefined, remove = false) {
 }
 
 function updateUserDM(c, u) {
-    if (c.type != 'dm' || u.bot) return;
-    if (selectedChan == c) return (u.received = false);
-    u.received = true;
+    if (c.type != Discord.ChannelType.DM || u.bot) return;
+    return (u.received = selectedChan != c);
 }
 
 function dmList() {
-    console.log("Switching to dms")
+    console.log('Switching to dms');
     // If a guild is selected then hide the guild indicator
     if (selectedGuild) {
         document.getElementById('guildIndicator').style.display = 'none';
         selectedGuild = undefined;
 
         // Clear guild card
-        let children = document.getElementById("serverName").children;
-        children[0].innerText = "Direct Messages"; // Server name element
-        if (!Array.from(children[0].classList).includes("directMsg")) {
-            children[0].classList.add("directMsg"); // Toggle on the directMsg class for css
+        let children = document.getElementById('serverName').children;
+        children[0].innerText = 'Direct Messages'; // Server name element
+        if (!Array.from(children[0].classList).includes('directMsg')) {
+            children[0].classList.add('directMsg'); // Toggle on the directMsg class for css
         }
-        children[1].src = "resources/icons/logo.svg" // Server icon element
-        children[2].style.display = "none"; // Member text element
-        children[3].innerText = ""; // Member count element
+        children[1].src = 'resources/icons/logo.svg'; // Server icon element
+        children[2].style.display = 'none'; // Member text element
+        children[3].innerText = ''; // Member count element
     }
     // Delete the selected chan variables
     selectedChan = undefined;
@@ -149,16 +148,11 @@ function dmList() {
     // Sort them by name
     // Note: You can't message bots with a bot account, only users
     bot.users.cache
-        .array() // Map the users
         .filter(
-            (u) =>
-                u.mutualGuilds &&
-                u.mutualGuilds.size &&
-                !u.bot &&
-                (u.openDM || u.received)
+            (u) => u.mutualGuilds?.size && !u.bot && (u.openDM || u.received)
         )
         .sort((u1, u2) => u1.username.localeCompare(u2.username))
-        .forEach((u) => {
+        .each((u) => {
             // Get the element for the user
             let [open, received, other] = categories;
 
@@ -169,14 +163,13 @@ function dmList() {
 
             // Create the image for the user if they have one, otherwise use discords default and animate it on hover
             let img = document.createElement('img');
-            let userImg = u
-                .displayAvatarURL()
-                .replace(/(size=)\d+?($| )/, '$80');
-            if (u.avatar && u.avatar.startsWith('a_')) {
-                let userGif = u
-                    .displayAvatarURL()
-                    .replace('.webp', '.gif')
-                    .replace(/(size=)\d+?($| )/, '$80');
+            let userImg = u.displayAvatarURL({
+                size: 64,
+                forceStatic: true,
+                extension: 'webp',
+            });
+            if (u.avatar?.startsWith('a_')) {
+                let userGif = u.displayAvatarURL({ size: 64 });
                 img.src = userGif;
                 div.onmouseenter = (e) => {
                     img.src = userGif;

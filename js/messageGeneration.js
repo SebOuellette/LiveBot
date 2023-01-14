@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-"use strict";
+'use strict';
 
 function findTimeDiff(m, previousMessage, count) {
     let bunch = false;
@@ -64,7 +64,7 @@ function generateMsgHTML(
         div = document.createElement('div');
         div.classList.add('messageCont');
         div.classList.add(m.author.id);
-        if (m.channel.type == 'dm') div.classList.add('dms');
+        if (m.channel.type == Discord.ChannelType.DM) div.classList.add('dms');
         if (timebunch) {
             div.classList.add('timeSeparated');
         }
@@ -81,14 +81,9 @@ function generateMsgHTML(
 
         // Create user image
         let img = document.createElement('img');
-        let userImg = m.author
-            .displayAvatarURL()
-            .replace(/(size=)\d+?($| )/, '$128');
+        let userImg = (m.member || m.author).displayAvatarURL({ size: 64 });
         if (m.author.avatar && m.author.avatar.startsWith('a_')) {
-            let userGif = m.author
-                .displayAvatarURL()
-                .replace('.webp', '.gif')
-                .replace(/(size=)\d+?($| )/, '$128');
+            let userGif = m.author.displayAvatarURL({ size: 128 });
             img.src = userGif;
             darkBG.onmouseenter = (e) => {
                 img.src = userGif;
@@ -105,16 +100,12 @@ function generateMsgHTML(
 
         // Create user's name
         let name = document.createElement('p');
-        name.innerText =
-            (m.member ? m.member.nickname : m.author.username) ||
-            m.author.username;
+        name.innerText = m.member?.nickname || m.author.username;
         name.classList.add('messageUsername');
 
         // Find the colour of their name
         // Use the highest role for their color
-        name.style.color =
-            m.member && (m.member.roles.color && m.member.roles.color.hexColor) ||
-            '#fff';
+        name.style.color = m.member?.roles.color?.hexColor || '#fff';
 
         darkBG.appendChild(name);
 

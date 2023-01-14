@@ -12,18 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-"use strict";
+'use strict';
 
 const { ipcRenderer } = require('electron');
 
-document.getElementById("minimize").addEventListener("click", function (e) {
-    ipcRenderer.send("titlebar", "minimize");
+document.getElementById('minimize').addEventListener('click', function (e) {
+    ipcRenderer.send('titlebar', 'minimize');
 });
 
-document.getElementById("screenSnap").addEventListener("click", function (e) {
-    ipcRenderer.send("titlebar", "screenSnap");
+document.getElementById('screenSnap').addEventListener('click', function (e) {
+    ipcRenderer.send('titlebar', 'screenSnap');
 });
 
-document.getElementById("exit").addEventListener("click", function (e) {
-    ipcRenderer.send("titlebar", "exit");
+document.getElementById('exit').addEventListener('click', function (e) {
+    ipcRenderer.send('titlebar', 'exit');
 });

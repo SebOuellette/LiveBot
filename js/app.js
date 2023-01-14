@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-"use strict";
+'use strict';
 
 const Discord = require('discord.js');
 const { clipboard } = require('electron');
@@ -39,19 +39,20 @@ console.log('LiveBot started');
 
 // Create the app and attach event listeners
 async function create() {
-    document.getElementById("clearCache").onclick = e => {
+    document.getElementById('clearCache').onclick = (e) => {
         clearSettingsFile();
-        document.getElementById("clearCache").parentElement.innerHTML = "<p class='greenText'>Cache cleared! Now you can restart LiveBot</p>";
+        document.getElementById('clearCache').parentElement.innerHTML =
+            "<p class='greenText'>Cache cleared! Now you can restart LiveBot</p>";
     };
 
     document.getElementById('msgbox').addEventListener('keydown', (event) => {
-        if (event.key == "Enter" && !event.shiftKey) {
+        if (event.key == 'Enter' && !event.shiftKey) {
             event.preventDefault();
 
             // If the message was able to be sent, reset the message box size
             if (!sendmsg()) {
                 // Reset the textbox height
-                let msgBox = document.getElementById("sendmsg");
+                let msgBox = document.getElementById('sendmsg');
                 msgBox.style.height = '38px'; // Reset the height first
                 msgBox.style.transform = '';
             }
@@ -61,15 +62,17 @@ async function create() {
     document.getElementById('msgbox').addEventListener('input', (event) => {
         let textElem = document.getElementById('msgbox');
         let rows = textElem.value.split('\n').length;
-        rows = (rows == 0) ? 1 : rows;
+        rows = rows == 0 ? 1 : rows;
         // document.getElementById("msgbox").rows = rows;
-        
-        let msgBox = document.getElementById("sendmsg");
 
-        if (textElem.scrollHeight < 38*5) {
-            msgBox.style.height = '0px' // Reset the height first
+        let msgBox = document.getElementById('sendmsg');
+
+        if (textElem.scrollHeight < 38 * 5) {
+            msgBox.style.height = '0px'; // Reset the height first
             msgBox.style.height = `${textElem.scrollHeight}px`;
-            msgBox.style.transform = `translateY(-${textElem.scrollHeight-38}px)`
+            msgBox.style.transform = `translateY(-${
+                textElem.scrollHeight - 38
+            }px)`;
         }
     });
 
@@ -95,14 +98,7 @@ async function create() {
 // Alert that you are typing
 function typing() {
     if (!selectedChan || !document.getElementById('msgbox').value) return;
-    selectedChan.startTyping(1);
-    let channels = bot.user._typing.keys();
-    let channel = channels.next();
-    while (!channel.done) {
-        if (channel.done || !channel.value) return;
-        typingTimer.typingTimeout.check(channel.value);
-        channel = channels.next();
-    }
+    if (!bot.user._typing?.has(selectedChan.id)) selectedChan.sendTyping();
 }
 
 // Why has this code been in livebot this long????

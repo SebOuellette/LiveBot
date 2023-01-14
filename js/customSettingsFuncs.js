@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-"use strict";
+'use strict';
 
 // Set the activity
 function setActivity(dropdowns, activityName, streamurl) {
@@ -25,19 +25,23 @@ function setActivity(dropdowns, activityName, streamurl) {
 
     if (activity == 'Streaming')
         bot.user.setPresence({
-            activity: {
-                name: activityName,
-                type: activity.toUpperCase(),
-                url: streamurl,
-            },
+            activities: [
+                {
+                    name: activityName,
+                    type: activity.toUpperCase(),
+                    url: streamurl,
+                },
+            ],
             status: status.toLowerCase(),
         });
     else
         bot.user.setPresence({
-            activity: {
-                name: activityName,
-                type: activity.toUpperCase(),
-            },
+            activities: [
+                {
+                    name: activityName,
+                    type: activity.toUpperCase(),
+                },
+            ],
             status: status.toLowerCase(),
         });
 }

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-"use strict";
+'use strict';
 
 let helpMsg = [
     'Here is a list of available commands. \n',
@@ -98,7 +98,6 @@ let sendmsg = (text = '') => {
                     break;
                 case 'purge':
                     document.getElementById('msgbox').value = '';
-                    selectedChan.stopTyping(true);
                     if (msg.length) {
                         let num = parseInt(args[0]);
                         if (Number.isNaN(num))
@@ -236,14 +235,12 @@ let sendmsg = (text = '') => {
                     break;
             }
             document.getElementById('msgbox').value = '';
-            selectedChan.stopTyping(true);
         } else {
             // Make a new message with the sent text
             text = parseSend(text);
             selectedChan.send(text).catch(errorHandler);
             setTimeout(() => {
                 document.getElementById('msgbox').value = '';
-                selectedChan.stopTyping(true);
             }, 1);
         }
     }

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-"use strict";
+'use strict';
 
 function parseHTML(text) {
     text = text.replace(/<|>|&/gm, (s) =>
@@ -24,7 +24,7 @@ function parseHTML(text) {
 function parsePings(msg, text, embeddedLink, ping, embed) {
     // Format pings in embeds
     if (ping || !embed) {
-        let dms = selectedChan.type == 'dm';
+        let dms = selectedChan.type == Discord.ChannelType.DM;
         text = formatEmbedPings(msg, text, dms);
         text = formatPings(msg, text, dms);
     }
@@ -113,12 +113,15 @@ function parseUnicodeEmojis(text) {
 }
 
 function parseCustomEmojis(text) {
-    text = text.replace(/&lt;(a)?:!?(.+?):(\d{17,19}?)&gt;/gm, (original, animated, name, id) => {
-        if (id !== undefined)
-            return `<img class="emoji" draggable="false" alt=":${name}:" src="https://cdn.discordapp.com/emojis/${id}.${
-                animated == 'a' ? 'gif' : 'png'
-            }?v=1"></img>`;
-        return animated;
-    });
+    text = text.replace(
+        /&lt;(a)?:!?(.+?):(\d{17,19}?)&gt;/gm,
+        (original, animated, name, id) => {
+            if (id !== undefined)
+                return `<img class="emoji" draggable="false" alt=":${name}:" src="https://cdn.discordapp.com/emojis/${id}.${
+                    animated == 'a' ? 'gif' : 'png'
+                }?v=1"></img>`;
+            return animated;
+        }
+    );
     return text;
 }

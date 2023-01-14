@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-"use strict";
+'use strict';
 
 // Selecting new guild
 let guildSelect = (g, img) => {
@@ -24,14 +24,16 @@ let guildSelect = (g, img) => {
     img.classList.add('selectedGuild');
 
     // this should be done another way
-    document.getElementById('guildIndicator').style.marginTop = `${img.offsetTop - 64}px`;
+    document.getElementById('guildIndicator').style.marginTop = `${
+        img.offsetTop - 64
+    }px`;
     document.getElementById('guildIndicator').style.display = 'block';
 
     oldimg = img;
 
     // Make the text display 'block' (default) incase switching from DMs
-    document.getElementById("members-text").style.display = "block";
-    document.getElementById("guildName").classList.remove("directMsg");
+    document.getElementById('members-text').style.display = 'block';
+    document.getElementById('guildName').classList.remove('directMsg');
     // Set the count to begin
     document.getElementById('members-count').innerText = g.memberCount;
 

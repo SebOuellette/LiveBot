@@ -12,11 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-"use strict";
-
+'use strict';
 
 // This file handles all menus that appear out of nowhere when an element is clicked
-
 
 function addDocListener() {
     document.addEventListener('keydown', (e) => {
@@ -66,12 +64,11 @@ function addDocListener() {
             }
 
             // This is not in the domElements, because it has no child elements to check for
-            if (target.id == "embedBuilderIcon") {
+            if (target.id == 'embedBuilderIcon') {
                 buildEmbedMenu();
             }
 
             // If the element clicked is not the embed builder menu, delete the embed builder menu
-            
         } else if (e.button == 2) {
             // Right click
             // Clear the menu (It's only needed here because you only open it when you right click)
@@ -173,21 +170,23 @@ function buildMsgMenu(target) {
 
     // Check permissions
     let editGreyed = message.author.id == bot.user.id ? false : true;
-    let pinGreyed = selectedChan.members
-        ? selectedChan.members.get(bot.user.id).hasPermission('MANAGE_MESSAGES')
-            ? false
-            : true
+    let pinGreyed = message.guild
+        ? Boolean(
+              message.member
+                  .permissionsIn(message.channel)
+                  .has(Discord.PermissionFlagsBits.ManageMessages)
+          )
         : false;
     let deleteGreyed =
         message.author.id == bot.user.id
             ? false
-            : selectedChan.members
-            ? selectedChan.members
-                  .get(bot.user.id)
-                  .hasPermission('MANAGE_MESSAGES')
-                ? false
-                : true
-            : true;
+            : message.guild
+            ? Boolean(
+                  message.member
+                      .permissionsIn(message.channel)
+                      .has(Discord.PermissionFlagsBits.ManageMessages)
+              )
+            : false;
 
     // Edit option
     let editOption = newOption(

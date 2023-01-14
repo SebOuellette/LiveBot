@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-"use strict";
+'use strict';
 
 let command = (text, del = NaN) => {
     let div = document.createElement('div');
@@ -56,9 +56,8 @@ let command = (text, del = NaN) => {
         text2.classList.add('messageText');
     }
     inlineContainer.appendChild(text2);
-    document.getElementById('message-list').scrollTop = document.getElementById(
-        'message-list'
-    ).scrollHeight;
+    document.getElementById('message-list').scrollTop =
+        document.getElementById('message-list').scrollHeight;
     document.getElementById('msgbox').value = '';
     barry = true;
     if (del && del > 1)
