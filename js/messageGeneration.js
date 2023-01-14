@@ -143,7 +143,7 @@ function generateMsgHTML(
 
     // Append embeds
     m.embeds.forEach((embed) => {
-        showEmbed(embed, darkBG, m);
+        showEmbed(embed.data, darkBG, m);
     });
     return div;
 }

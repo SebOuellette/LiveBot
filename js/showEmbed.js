@@ -192,28 +192,30 @@ let showRichEmbed = (embed, msg, element, type) => {
     }
 
     // Fields
-    embed.fields.forEach((field) => {
-        let fieldCont = document.createElement('div');
-        fieldCont.classList.add('field');
-        embedCont.appendChild(fieldCont);
+    if (embed.fields?.length) {
+        embed.fields.forEach((field) => {
+            let fieldCont = document.createElement('div');
+            fieldCont.classList.add('field');
+            embedCont.appendChild(fieldCont);
 
-        let fieldTitle = document.createElement('p');
-        fieldTitle.classList.add('fieldName');
-        fieldTitle.classList.add('embedContent');
-        fieldTitle.innerHTML = parseMessage(field.name, msg, true);
-        fieldCont.appendChild(fieldTitle);
+            let fieldTitle = document.createElement('p');
+            fieldTitle.classList.add('fieldName');
+            fieldTitle.classList.add('embedContent');
+            fieldTitle.innerHTML = parseMessage(field.name, msg, true);
+            fieldCont.appendChild(fieldTitle);
 
-        let fieldValue = document.createElement('p');
-        let text = parseMessage(field.value, msg, true, true, true);
-        fieldValue.classList.add('fieldText');
-        fieldValue.classList.add('embedContent');
-        fieldValue.innerHTML = text;
-        fieldCont.appendChild(fieldValue);
+            let fieldValue = document.createElement('p');
+            let text = parseMessage(field.value, msg, true, true, true);
+            fieldValue.classList.add('fieldText');
+            fieldValue.classList.add('embedContent');
+            fieldValue.innerHTML = text;
+            fieldCont.appendChild(fieldValue);
 
-        if (field.inline) {
-            fieldCont.style.display = 'inline-block';
-        }
-    });
+            if (field.inline) {
+                fieldCont.style.display = 'inline-block';
+            }
+        });
+    }
 
     // Image
     if (embed.image) {
@@ -290,7 +292,7 @@ let showImageEmbed = (embed, msg, element) => {
         (newWidth / embed.thumbnail.width) * embed.thumbnail.height
     );
 
-    img.src = `${embed.thumbnail.proxyURL}?width=${newWidth}&height=${newHeight}`;
+    img.src = `${embed.thumbnail.proxy_url}?width=${newWidth}&height=${newHeight}`;
     img.classList.add('previewImage');
 
     element.appendChild(img);
@@ -304,7 +306,7 @@ let showVideoEmbed = (embed, msg, element) => {
     video.style.height = newHeight + 'px';
     video.style.width = 'auto';
 
-    let url = embed.video.proxyURL ? embed.video.url : embed.video.url;
+    let url = embed.video.url;
     video.src = url;
     video.classList.add('previewImage');
 
