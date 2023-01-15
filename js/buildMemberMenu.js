@@ -41,7 +41,7 @@ function buildMemberMenu(parent) {
     // Username and nickname
     let topName = document.createElement('span');
     topName.classList.add('memberTopName');
-    topName.innerText = member.nickname || member.user.username;
+    topName.innerText = member.displayName;
     user.appendChild(topName);
 
     if (member.nickname) {

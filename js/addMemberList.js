@@ -81,7 +81,7 @@ function addMemberList(guild) {
                         // Make the username text
                         let username = document.createElement('p');
                         username.classList.add('mLUsername');
-                        let name = m.nickname || m.user.username;
+                        let name = m.displayName;
                         // if (name.length > 15) {
                         //     name = `${name.substring(0, 15)}...`
                         // }
@@ -195,7 +195,7 @@ function addMemberList(guild) {
                 // Make the username text
                 let username = document.createElement('p');
                 username.classList.add('mLUsername');
-                username.innerText = m.nickname || m.user.username;
+                username.innerText = m.displayName;
                 username.style.color = m.roles.color?.hexColor || '#8E9297';
                 userDiv.appendChild(username);
             });

@@ -84,7 +84,7 @@ function typingStatus(override = false, m = undefined) {
     }
 
     for (let user in users) {
-        let name = dms ? users[user].username : users[user].nickname;
+        let name = dms ? users[user].username : users[user].displayName;
         if (user != length - 1) text += name + ', ';
         else text += name;
     }

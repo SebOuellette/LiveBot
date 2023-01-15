@@ -105,7 +105,7 @@ function formatPings(msg, text, dms) {
             let user = dms
                 ? bot.users.cache.get(id)
                 : msg.guild.members.cache.get(id);
-            name = user ? user.nickname || (user.user || user).username : id;
+            name = user?.displayName || user?.username || id;
         } else if (type == 'role' && !dms) {
             let role = msg.guild.roles.cache.get(id);
             name = role ? role.name : id;
@@ -164,7 +164,7 @@ function formatEmbedPings(msg, text, dms) {
         let user = dms
             ? bot.users.cache.get(id.replace(/!/, ''))
             : msg.guild.members.cache.get(id.replace(/!/, ''));
-        name = user ? user.nickname || (user.user || user).username : id;
+        name = user?.displayName || user?.username || id;
 
         if (name == id && !dms) {
             let role = msg.guild.roles.cache.get(id);
