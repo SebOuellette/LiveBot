@@ -91,6 +91,10 @@ body {
     margin-top: -35px;
     margin-left: 80px;
     position: absolute;
+    width: 140px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 #userCardDiscrim {
