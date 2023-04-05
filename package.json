@@ -23,8 +23,8 @@
     },
     "homepage": "https://github.com/SebOuellette/LiveBot#readme",
     "dependencies": {
-        "discord.js": "^14.7.1",
-        "electron": "^22.0.2"
+        "discord.js": "^14.9.0",
+        "electron": "^24.0.0"
     },
     "devDependencies": {
         "electron-packager": "^13.1.1"

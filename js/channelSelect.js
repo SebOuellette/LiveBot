@@ -89,7 +89,7 @@ let channelSelect = (c, name) => {
                     count++;
                     let message = generateMsgHTML(
                         m,
-                        messages.toJSON()[count - 2],
+                        messages.toJSON().reverse()[count - 2],
                         count,
                         fetchSize
                     );

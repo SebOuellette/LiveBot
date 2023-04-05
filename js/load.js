@@ -275,7 +275,7 @@ let load = async (token) => {
         // Get last message in channel
         async function fetchLast(previousMessage) {
             await m.channel.messages.fetch({ limit: 2 }).then((msg) => {
-                previousMessage = msg.map((mseg) => mseg)[1];
+                previousMessage = msg.toJSON()[1];
             });
 
             let scroll = false;

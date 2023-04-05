@@ -23,7 +23,7 @@ function addMemberList(guild) {
     let cachedMembers = [];
 
     // Loop through roles
-    // console.log(guild.roles.cache.map(r => r));
+    // console.log(guild.roles.cache.toJSON();
     let roles = guild.roles.cache
         .filter((r) => r.hoist) // Check if it is a displayed role
         .sort((role1, role2) => role2.rawPosition - role1.rawPosition); // Sort by highest to lowest rank
