@@ -87,7 +87,7 @@ function createChannels(g) {
             // At this point, the channel is either text or voice
             let div = document.createElement('div');
             div.classList.add('channel');
-            // div.classList.add(c.type);
+            // div.classList.add(Discord.ChannelType[c.type]);
             div.id = c.id;
 
             // check if user can access the channel
@@ -114,7 +114,7 @@ function createChannels(g) {
                 blocked ? 'Blocked' : ''
             }.svg`;
             svg.classList.add('channelSVG');
-            svg.classList.add(c.type);
+            svg.classList.add(Discord.ChannelType[c.type]);
             div.appendChild(svg);
 
             // Add the text
