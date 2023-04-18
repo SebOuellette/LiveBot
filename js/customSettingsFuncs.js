@@ -23,15 +23,9 @@ function setActivity(dropdowns, activityName, streamurl) {
         status = 'dnd';
     }
 
-    if (activity == 'Streaming')
+    if (activity == 'None')
         bot.user.setPresence({
-            activities: [
-                {
-                    name: activityName,
-                    type: activity.toUpperCase(),
-                    url: streamurl,
-                },
-            ],
+            activities: [],
             status: status.toLowerCase(),
         });
     else
@@ -39,7 +33,8 @@ function setActivity(dropdowns, activityName, streamurl) {
             activities: [
                 {
                     name: activityName,
-                    type: activity.toUpperCase(),
+                    type: Discord.ActivityType[activity],
+                    url: streamurl || undefined,
                 },
             ],
             status: status.toLowerCase(),
