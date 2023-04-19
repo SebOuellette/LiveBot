@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-"use strict";
+'use strict';
 
 // -------- MESSAGE MENU --------
 
@@ -63,7 +63,7 @@ function editMsg(target) {
     target.appendChild(textarea);
 
     textarea.addEventListener('keydown', (e) => {
-        if (e.key == "Enter" && !e.shiftKey) {
+        if (e.key == 'Enter' && !e.shiftKey) {
             if (textarea.value == text) return editDOM(target, textarea, text);
             let newText = textarea.value;
             newText = newText.replace(
@@ -115,9 +115,7 @@ function deleteMsg(id) {
 }
 
 function copyMessageLink(id, msg) {
-    clipboard.writeText(
-        `https://discordapp.com/channels/${msg.guild.id}/${msg.channel.id}/${id}`
-    );
+    clipboard.writeText(msg.url);
 }
 
 function copyMessageID(id) {
@@ -140,12 +138,6 @@ function copyUserID(id) {
 }
 
 function copyAvatarLink(member) {
-    member = member.user ? member.user : member;
-    clipboard.writeText(
-        member.avatar
-            ? member.avatar.startsWith('a_')
-                ? member.displayAvatarURL().replace('.webp', '.gif')
-                : member.displayAvatarURL()
-            : member.displayAvatarURL()
-    );
+    member = member.user || member;
+    clipboard.writeText(member.displayAvatarURL());
 }

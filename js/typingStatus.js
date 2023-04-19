@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-"use strict";
+'use strict';
 
 let typingTimer = {
     indicator: {
@@ -49,7 +49,6 @@ let typingTimer = {
             this.timers[id] = { timeout, interval };
         },
         decrease: function (id, channel) {
-            channel.stopTyping(true);
             this.timers[id]['timeout']--;
             if (this.timers[id]['timeout'] < 0) {
                 clearInterval(this.timers[id]['interval']);
@@ -61,10 +60,10 @@ let typingTimer = {
 
 function typingStatus(override = false, m = undefined) {
     if (!selectedChan) return;
-    let dms = selectedChan.type == 'dm';
+    let dms = selectedChan.type == Discord.ChannelType.DM;
     let indicator = document.getElementById('typingIndicator');
     let users = [];
-    selectedChan._typing.forEach((e) =>
+    selectedChan._typing?.each((e) =>
         users.push(
             dms
                 ? bot.users.cache.get(e.user.id)
@@ -107,7 +106,7 @@ function typingStatus(override = false, m = undefined) {
     }
 
     let shortestTime = 1000;
-    if (selectedChan._typing.size) {
+    if (selectedChan._typing?.size) {
         // Needs a set timer so it doesn't create 1000 timers at a time
         // The timings can be found in each users typing variable and checking by the smallest is the best bet
         selectedChan._typing.forEach((e) => {
@@ -116,6 +115,7 @@ function typingStatus(override = false, m = undefined) {
                 if (e.user.id == id && selectedChan._typing.has(id)) {
                     clearTimeout(selectedChan._typing.get(id).timeout);
                     selectedChan._typing.delete(id);
+                    m.author._typing.delete(selectedChan.id);
                     return typingStatus();
                 }
             }
@@ -129,7 +129,7 @@ function typingStatus(override = false, m = undefined) {
         });
     }
 
-    typingTimer.indicator.check(shortestTime, selectedChan._typing.size);
+    typingTimer.indicator.check(shortestTime, selectedChan._typing?.size || 0);
 }
 
 let lastTime = 0;

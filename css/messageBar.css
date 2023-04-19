@@ -21,7 +21,6 @@ limitations under the License. */
     height: 40px;
     padding-bottom: 10px;
     z-index: 2;
-    
 }
 
 #sendmsg::before {
@@ -44,7 +43,7 @@ limitations under the License. */
     border-radius: 5px;
     padding: 0 10px 0 0;
     display: flex;
-    
+
     /* display: table; */
 }
 
@@ -62,7 +61,7 @@ limitations under the License. */
     resize: none;
     display: inline-block;
     padding: 10px;
-    width:100%;
+    width: 100%;
 }
 
 .messageBoxText {
@@ -78,17 +77,15 @@ limitations under the License. */
     /* display: table-row; */
 }
 
-
 /* Additional message bar icons */
 #msgMisc {
     display: block;
     height: 100%;
     float: right;
-    margin-top:4px;
+    margin-top: 4px;
     display: grid;
     grid-auto-flow: column;
     grid-column-gap: 4px;
-    
 }
 
 #msgMisc img {
@@ -103,7 +100,6 @@ limitations under the License. */
 #msgMisc img:hover {
     opacity: 1;
 }
-
 
 /* Typing Indicator */
 #typingIndicator {

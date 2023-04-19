@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-"use strict";
+'use strict';
 
 // Set the activity
 function setActivity(dropdowns, activityName, streamurl) {
@@ -23,21 +23,20 @@ function setActivity(dropdowns, activityName, streamurl) {
         status = 'dnd';
     }
 
-    if (activity == 'Streaming')
+    if (activity == 'None')
         bot.user.setPresence({
-            activity: {
-                name: activityName,
-                type: activity.toUpperCase(),
-                url: streamurl,
-            },
+            activities: [],
             status: status.toLowerCase(),
         });
     else
         bot.user.setPresence({
-            activity: {
-                name: activityName,
-                type: activity.toUpperCase(),
-            },
+            activities: [
+                {
+                    name: activityName,
+                    type: Discord.ActivityType[activity],
+                    url: streamurl || undefined,
+                },
+            ],
             status: status.toLowerCase(),
         });
 }

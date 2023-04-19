@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-"use strict";
+'use strict';
 
 function buildTeamMemberCards(funky) {
-    bot.team.forEach((m) => {
+    bot.application.owner.members.each((m) => {
         // Create the container
         let container = document.createElement('div');
         container.classList.add('teamMember');
@@ -28,9 +28,7 @@ function buildTeamMemberCards(funky) {
 
         // Create the icon and username
         let img = document.createElement('img');
-        if (m.user.avatar && m.user.avatar.startsWith('a_'))
-            img.src = m.user.displayAvatarURL().replace('.webp', '.gif');
-        else img.src = m.user.displayAvatarURL();
+        img.src = m.user.displayAvatarURL();
         img.classList.add('teamMemberIcon');
         userArea.appendChild(img);
 

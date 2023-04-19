@@ -296,7 +296,7 @@ limitations under the License. */
 #stuckLoadingCont {
     min-height: 20px;
     width: 150px;
-    background-color: rgba(0,0,0,0);
+    background-color: rgba(0, 0, 0, 0);
     position: relative;
     float: right;
     right: 10px;

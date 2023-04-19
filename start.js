@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-"use strict";
+'use strict';
 
 const electron = require('electron');
 const { app, BrowserWindow, ipcMain } = electron;
@@ -28,7 +28,7 @@ function createWindow() {
         height: 750,
         frame: false,
         backgroundColor: '#FFF',
-        webPreferences: { 
+        webPreferences: {
             nodeIntegration: true, // Use node in the render js files
             contextIsolation: false, // Makes node in the render js files work in newer electron versions
         },
@@ -54,7 +54,7 @@ function createWindow() {
             default:
                 break;
         }
-    })
+    });
 
     win.loadURL(
         url.pathToFileURL(path.join(__dirname, 'dontOpenMe.html')).toString()
@@ -66,7 +66,7 @@ function createWindow() {
     // });
     win.webContents.setWindowOpenHandler(({ url }) => {
         electron.shell.openExternal(url.replace(/\/$/, ''));
-        return { action: 'allow' }
+        return { action: 'allow' };
     });
 
     // win.webContents.on('did-create-window', child => {
@@ -96,20 +96,20 @@ app.on('activate', () => {
 });
 
 app.on('web-contents-created', (e, contents) => {
-    contents.on('new-window', newEvent => {
-        console.log("Blocked by 'new-window'")
+    contents.on('new-window', (newEvent) => {
+        console.log("Blocked by 'new-window'");
         newEvent.preventDefault();
     });
-      
-    contents.on('will-navigate', newEvent => {
-        console.log("Blocked by 'will-navigate'")
-        newEvent.preventDefault()
+
+    contents.on('will-navigate', (newEvent) => {
+        console.log("Blocked by 'will-navigate'");
+        newEvent.preventDefault();
     });
-      
+
     contents.setWindowOpenHandler(({ url }) => {
         setImmediate(() => {
             shell.openExternal(url);
         });
-        return { action: 'allow' }
-    })
+        return { action: 'allow' };
+    });
 });

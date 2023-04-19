@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-"use strict";
+'use strict';
 
 // Guilds that are in the guild list
 let cachedGuilds = [];
@@ -182,7 +182,7 @@ function removeGuild(g) {
     // If the channel is deleted then remove it from the variable
     if (
         selectedChan &&
-        selectedChan.type != 'dm' &&
+        selectedChan.type != Discord.ChannelType.DM &&
         (selectedChan.guild.deleted || !selectedChan.guild.available)
     ) {
         selectedChan = undefined;

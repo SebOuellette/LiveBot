@@ -12,10 +12,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-"use strict";
+'use strict';
 
 async function setToken(token) {
-    let client = new Discord.Client();
+    let client = new Discord.Client({
+        partials: [
+            Discord.Partials.Channel, // get DM messages
+        ],
+        intents: [
+            Discord.GatewayIntentBits.Guilds,
+            Discord.GatewayIntentBits.GuildMessages,
+            Discord.GatewayIntentBits.GuildMembers,
+            Discord.GatewayIntentBits.GuildVoiceStates,
+            Discord.GatewayIntentBits.MessageContent,
+            Discord.GatewayIntentBits.GuildMessageTyping,
+            Discord.GatewayIntentBits.GuildPresences,
+            Discord.GatewayIntentBits.DirectMessageTyping,
+            Discord.GatewayIntentBits.DirectMessages,
+        ],
+    });
+
     let error = [false, 'none'];
     if (global.bot && bot.token == token) {
         return [true, 'SAME-TOKEN'];

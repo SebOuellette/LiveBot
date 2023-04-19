@@ -14,7 +14,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-"use strict";
+'use strict';
 
 ///   Methods available in json:
 //   dropdown - special, options, default
@@ -28,7 +28,7 @@
 
 // Clear the logins.json file
 function clearSettingsFile() {
-    fs.writeFileSync("json/logins.json", "");
+    fs.writeFileSync('json/logins.json', '');
 }
 
 let settings = {
@@ -52,7 +52,7 @@ let settings = {
     get settings() {
         let settings;
         try {
-            settings = JSON.parse(fs.readFileSync("json/logins.json"));
+            settings = JSON.parse(fs.readFileSync('json/logins.json'));
         } catch (e) {
             // The Livebot-Settings json is completely empty, or is invalid
             customTokenErrors('NO-TOKEN', e);
@@ -98,12 +98,14 @@ let settings = {
     set settings(args) {
         let settings = this.settings;
         settings = { ...settings, ...args };
-        fs.writeFileSync("json/logins.json", JSON.stringify(settings), {mode: parseInt('0666', 8)});
+        fs.writeFileSync('json/logins.json', JSON.stringify(settings), {
+            mode: parseInt('0666', 8),
+        });
     },
 
     set rawSettings(args) {
         let settings = { ...args };
-        fs.writeFileSync("json/logins.json", JSON.stringify(settings));
+        fs.writeFileSync('json/logins.json', JSON.stringify(settings));
     },
 
     set tokenSettings(args) {
@@ -257,9 +259,8 @@ function openPopup(category, group) {
     if (category.classList.contains('toggledOn')) {
         createPopup(category.parentElement, group);
     } else {
-        let settingsPopup = category.parentElement.querySelector(
-            '.settingsPopup'
-        );
+        let settingsPopup =
+            category.parentElement.querySelector('.settingsPopup');
         if (settingsPopup) settingsPopup.remove();
     }
 }
@@ -543,7 +544,7 @@ function genShortInput(
     if (id == 'tokenbox') {
         input.type = 'password';
         input.addEventListener('keydown', (event) => {
-            if (event.key === "Enter") showSplashScreen(input.value);
+            if (event.key === 'Enter') showSplashScreen(input.value);
         });
     }
 }
@@ -551,7 +552,8 @@ function genShortInput(
 // Dropdown stuff
 function dropSelect(option) {
     let text = option.innerText;
-    option.parentElement.parentElement.firstElementChild.firstElementChild.innerText = text;
+    option.parentElement.parentElement.firstElementChild.firstElementChild.innerText =
+        text;
 
     Array.from(option.parentElement.children).forEach((opt) => {
         opt.classList.remove('selectedOption');
@@ -642,10 +644,10 @@ function genDropDown(parent, options, defaultOpt = 0, group, optionObj) {
                     }
                 }
 
-                let childCount = target.querySelector('.dropdownChildren')
-                    .childElementCount;
-                let child = target.querySelector('.dropdownChildren')
-                    .firstElementChild;
+                let childCount =
+                    target.querySelector('.dropdownChildren').childElementCount;
+                let child =
+                    target.querySelector('.dropdownChildren').firstElementChild;
 
                 if (optionObj.exception.options[option.innerText]) {
                     for (let i = 0; i < childCount; i++) {

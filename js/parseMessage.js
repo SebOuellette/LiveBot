@@ -12,11 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-"use strict";
+'use strict';
 
 let parseSend = (text) => {
     // The regex used for the emojis
-    let emojiRegex = />:\(|>:-\(|>=\(|>=-\(|:"\)|:-"\)|="\)|=-"\)|<\/3|:-\\|:-\/|=-\\|=-\/|:'\(|:'-\(|:,\(|:,-\(|='\(|='-\(|=,\(|=,-\(|:\(|:-\(|=\(|=-\(|<3|♡|]:\(|\]:-\(|]=\(|]=-\(|o:\)|O:\)|o:-\)|O:-\)|0:\)|0:-\)|o=\)|O=\)|o=-\)|O=-\)|0=\)|0=-\)|:'D|:'-D|:,D|:,-D|='D|='-D|=,D|=,-D|:\*|:-\*|=\*|=-\*|x-\)|X-\)|:\||:-\||=\||=-\||:o|:-o|:O|:-O|=o|=-o|=O|=-O|:@|:-@|=@|=-@|:D|:-D|=D|=-D|:'\)|:'-\)|:,\)|:,-\)|='\)|='-\)|=,\)|=,-\)|:\)|:-\)|=\)|=-\)|]:\)|]:-\)|]=\)|]=-\)|:,'\(|:,'-\(|;\(|;-\(|=,'\(|=,'-\(|:P|:-P|=P|=-P|8-\)|B-\)|,:\(|,:-\(|,=\(|,=-\(|,:\)|,:-\)|,=\)|,=-\)|:s|:-S|:z|:-Z|:\$|:-\$|=s|=-S|=z|=-Z|=\$|=-\$|;\)|;-\)/gm;
+    let emojiRegex =
+        />:\(|>:-\(|>=\(|>=-\(|:"\)|:-"\)|="\)|=-"\)|<\/3|:-\\|:-\/|=-\\|=-\/|:'\(|:'-\(|:,\(|:,-\(|='\(|='-\(|=,\(|=,-\(|:\(|:-\(|=\(|=-\(|<3|♡|]:\(|\]:-\(|]=\(|]=-\(|o:\)|O:\)|o:-\)|O:-\)|0:\)|0:-\)|o=\)|O=\)|o=-\)|O=-\)|0=\)|0=-\)|:'D|:'-D|:,D|:,-D|='D|='-D|=,D|=,-D|:\*|:-\*|=\*|=-\*|x-\)|X-\)|:\||:-\||=\||=-\||:o|:-o|:O|:-O|=o|=-o|=O|=-O|:@|:-@|=@|=-@|:D|:-D|=D|=-D|:'\)|:'-\)|:,\)|:,-\)|='\)|='-\)|=,\)|=,-\)|:\)|:-\)|=\)|=-\)|]:\)|]:-\)|]=\)|]=-\)|:,'\(|:,'-\(|;\(|;-\(|=,'\(|=,'-\(|:P|:-P|=P|=-P|8-\)|B-\)|,:\(|,:-\(|,=\(|,=-\(|,:\)|,:-\)|,=\)|,=-\)|:s|:-S|:z|:-Z|:\$|:-\$|=s|=-S|=z|=-Z|=\$|=-\$|;\)|;-\)/gm;
 
     // Replace all the shortcuts with actual emojis
     text = text.replace(emojiRegex, (a) => {
@@ -32,12 +33,19 @@ let parseSend = (text) => {
     });
 
     let customEmojiRegex = /^:([\d\w]+):|[^<]:([\d\w]+):/gm;
-    text = text.replaceAll('::',': :').replaceAll(customEmojiRegex, (name) => {
+    text = text.replaceAll('::', ': :').replaceAll(customEmojiRegex, (name) => {
         console.log(name);
         if (name[1] === ':')
-            return name[0]+bot.emojis.cache.find(emoji => emoji.name == name.slice(2,-1)).toString();
+            return (
+                name[0] +
+                bot.emojis.cache
+                    .find((emoji) => emoji.name == name.slice(2, -1))
+                    .toString()
+            );
         else
-            return bot.emojis.cache.find(emoji => emoji.name == name.slice(1,-1)).toString();
+            return bot.emojis.cache
+                .find((emoji) => emoji.name == name.slice(1, -1))
+                .toString();
     });
 
     return text;
@@ -82,14 +90,9 @@ function formatPings(msg, text, dms) {
     let keys = [];
 
     // Get all the mentions from users, roles and channels
-    if (msg.mentions.users)
-        msg.mentions.users.keyArray().forEach((id) => keys.push([id, 'user']));
-    if (msg.mentions.roles)
-        msg.mentions.roles.keyArray().forEach((id) => keys.push([id, 'role']));
-    if (msg.mentions.channels)
-        msg.mentions.channels
-            .keyArray()
-            .forEach((id) => keys.push([id, 'channel']));
+    msg.mentions.users.each((user) => keys.push([user.id, 'user']));
+    msg.mentions.roles.each((role) => keys.push([role.id, 'role']));
+    msg.mentions.channels.each((channel) => keys.push([channel.id, 'channel']));
 
     // Replace the ping with a span container
     keys.forEach((ping) => {
@@ -102,11 +105,7 @@ function formatPings(msg, text, dms) {
             let user = dms
                 ? bot.users.cache.get(id)
                 : msg.guild.members.cache.get(id);
-            name = user
-                ? user.displayName
-                    ? user.displayName
-                    : user.username
-                : id;
+            name = user?.displayName || user?.username || id;
         } else if (type == 'role' && !dms) {
             let role = msg.guild.roles.cache.get(id);
             name = role ? role.name : id;
@@ -165,11 +164,7 @@ function formatEmbedPings(msg, text, dms) {
         let user = dms
             ? bot.users.cache.get(id.replace(/!/, ''))
             : msg.guild.members.cache.get(id.replace(/!/, ''));
-        name = user
-            ? user.displayName
-                ? user.displayName
-                : user.username
-            : id;
+        name = user?.displayName || user?.username || id;
 
         if (name == id && !dms) {
             let role = msg.guild.roles.cache.get(id);

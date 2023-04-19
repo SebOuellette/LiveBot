@@ -79,7 +79,7 @@ limitations under the License. */
     transform: rotate(180deg);
 }
 
-.news {
+.GuildNews {
     height: 18px !important;
     width: 18px !important;
     padding: 1px;
@@ -98,7 +98,7 @@ limitations under the License. */
     margin: 2px 0 0 -5px;
 }
 
-.voice {
+.GuildVoice {
     user-select: none;
     margin-left: -5px;
 }

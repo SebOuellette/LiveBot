@@ -12,13 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-"use strict";
+'use strict';
 
 let channelSelect = (c, name) => {
     let messages = document.getElementById('message-list');
     let fetchSize = 100;
 
-    if (c.type == 'voice') {
+    if (!Discord.Constants.TextBasedChannelTypes.includes(c.type)) {
         selectedVoice = c;
         return;
     }
@@ -48,13 +48,13 @@ let channelSelect = (c, name) => {
 
     // Creates the loading dots
     var container = document.createElement('div'); // Centred container
-    var loadingDots = document.createElement('div') // Loading dots
-    loadingDots.classList.add('dot-bricks')
-    container.style.position = "absolute";
-    container.style.top = "50%";
-    container.style.left = "50%";
-    container.style.transform = "translate(-50%, -50%)";
-    container.id = "loading-container";
+    var loadingDots = document.createElement('div'); // Loading dots
+    loadingDots.classList.add('dot-bricks');
+    container.style.position = 'absolute';
+    container.style.top = '50%';
+    container.style.left = '50%';
+    container.style.transform = 'translate(-50%, -50%)';
+    container.id = 'loading-container';
     container.appendChild(loadingDots);
     messages.appendChild(container);
 
@@ -81,14 +81,15 @@ let channelSelect = (c, name) => {
         generatingMessages = true;
         // Loop through messages
         let count = 0;
-        await c.messages.fetch({ limit: fetchSize }).then((msg) => {
-            msg.map((mseg) => mseg)
+        await c.messages.fetch({ limit: fetchSize }).then((messages) => {
+            messages
+                .toJSON()
                 .reverse()
                 .forEach((m) => {
                     count++;
                     let message = generateMsgHTML(
                         m,
-                        msg.map((mesg) => mesg).reverse()[count - 2],
+                        messages.toJSON().reverse()[count - 2],
                         count,
                         fetchSize
                     );
@@ -108,9 +109,9 @@ let channelSelect = (c, name) => {
 
         messages.scrollTop = messages.scrollHeight;
         generatingMessages = false;
-        
+
         // Remove the loading dots
-        messages.removeChild(document.getElementById('loading-container')); 
+        messages.removeChild(document.getElementById('loading-container'));
     }
 };
 
@@ -157,14 +158,15 @@ let dmChannelSelect = async (u, name = 'test') => {
         generatingMessages = true;
         // Loop through messages
         let count = 0;
-        await c.messages.fetch({ limit: fetchSize }).then((msg) => {
-            msg.map((mseg) => mseg)
+        await c.messages.fetch({ limit: fetchSize }).then((messages) => {
+            messages
+                .toJSON()
                 .reverse()
                 .forEach((m) => {
                     count++;
                     let message = generateMsgHTML(
                         m,
-                        msg.map((mesg) => mesg).reverse()[count - 2],
+                        messages.toJSON().reverse()[count - 2],
                         count,
                         fetchSize
                     );

@@ -12,31 +12,38 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-"use strict";
+'use strict';
 
 function addMemberList(guild) {
-    let listDiv = document.getElementById('memberBar');
+    const listDiv = document.getElementById('memberBar');
 
     // Clear members list
     listDiv.innerHTML = '';
 
+    let cachedMembers = [];
+
     // Loop through roles
-    // console.log(guild.roles.cache.map(r => r));
+    // console.log(guild.roles.cache.toJSON();
     let roles = guild.roles.cache
-        .map((r) => r) // Convert to array
-        .filter((r) => r.hoist) // Check if it is a displayed role
-        .sort((r1, r2) => r2.position - r1.position); // Sort by highest to lowest rank
+        .filter((r) => r.hoist || r.position === 0) // Check if it is a displayed role or @everyone
+        .sort((role1, role2) => role2.rawPosition - role1.rawPosition); // Sort by highest to lowest rank
 
-    roles.forEach((r) => {
+	
+    roles.each((r) => {
         // Loop through
-        let memberCount = r.members.filter(
-            (m) =>
-                m.roles.hoist &&
-                m.roles.hoist.id == r.id &&
-                m.presence.status != 'offline'
-        ).size;
+        let members = r.members
+            .filter(
+                (m) =>
+                    m.roles.hoist?.id == r.id &&
+                    m.presence &&
+                    m.presence.status != 'offline' &&
+                    !cachedMembers.includes(m.user.id)
+	    )
+            .toJSON();
 
-        if (memberCount) {
+	console.log(members);
+
+        if (members.length) {
             // Role container
             let container = document.createElement('div');
             container.id = r.id;
@@ -46,20 +53,21 @@ function addMemberList(guild) {
             // Add the role name
             let name = document.createElement('span');
             name.classList.add('roleTitle');
-            name.innerText = `${r.name} - ${memberCount}`;
+            name.innerText = `${r.name} - ${members.length}`;
             container.appendChild(name);
 
+
+		// Display only the first 100 members of each role
+		members = members.slice(0,100);
+
             // Add each user
-            if (memberCount < 30) { // rendering too many members here causes performance issues.
-                r.members
-                    .filter(
-                        (m) =>
-                            m.roles.hoist &&
-                            m.roles.hoist.id == r.id &&
-                            m.presence.status != 'offline'
-                    )
+           		
+            // rendering too many members here causes performance issues.
+            members
                     .sort((m1, m2) => m1.id - m2.id)
                     .forEach((m) => {
+                        cachedMembers.push(m.id);
+
                         // Create the outer div
                         let outerDiv = document.createElement('div');
                         outerDiv.classList.add('mLOuterDiv');
@@ -73,32 +81,39 @@ function addMemberList(guild) {
 
                         // Add the user icon
                         let icon = document.createElement('img');
-                        icon.src = m.user
-                            .displayAvatarURL()
-                            .replace(/(size=)(\d+)/gi, '$164');
+                        icon.src = m.displayAvatarURL({ size: 64 });
                         icon.classList.add('mLIcon');
                         userDiv.appendChild(icon);
 
                         // Make the username text
                         let username = document.createElement('p');
                         username.classList.add('mLUsername');
-                        let name = m.nickname || m.user.username;
+                        let name = m.displayName;
                         // if (name.length > 15) {
                         //     name = `${name.substring(0, 15)}...`
                         // }
                         username.innerText = name;
-                        username.style.color = m.roles.color && m.roles.color.hexColor || '#8E9297';
+                        username.style.color =
+                            m.roles.color?.hexColor || '#8E9297';
                         userDiv.appendChild(username);
                     });
-            }
+            
         }
     });
 
-    let onlineCount = guild.members.cache.filter(
-        (m) => m.presence.status != 'offline' && m.roles.hoist == null
-    ).size;
-    if (onlineCount) {
-        // Create offline label text
+    let onlineMembers = guild.members.cache
+        .filter(
+            (m) =>
+                !m.roles.hoist &&
+                m.presence &&
+                m.presence.status != 'offline' &&
+                !cachedMembers.includes(m.user.id)
+        )
+        .toJSON();
+    
+	// Display only the first 100 members
+	onlineMembers = onlineMembers.slice(0,100);
+        // Create online label text
         let container = document.createElement('div');
         container.id = 'onlineUserList';
         container.classList.add('roleContainer');
@@ -110,12 +125,11 @@ function addMemberList(guild) {
         container.appendChild(name);
 
         // Show online users
-        guild.members.cache
-            .filter(
-                (m) => m.presence.status != 'offline' && m.roles.hoist == null
-            )
+        onlineMembers
             .sort((m1, m2) => m1.id - m2.id)
             .forEach((m) => {
+                cachedMembers.push(m.id);
+
                 // Create the outer div
                 let outerDiv = document.createElement('div');
                 outerDiv.classList.add('mLOuterDiv');
@@ -129,9 +143,7 @@ function addMemberList(guild) {
 
                 // Add the user icon
                 let icon = document.createElement('img');
-                icon.src = m.user
-                    .displayAvatarURL()
-                    .replace(/(size=)(\d+)/gi, '$164');
+                icon.src = m.displayAvatarURL({ size: 64 });
                 icon.classList.add('mLIcon');
                 userDiv.appendChild(icon);
 
@@ -139,18 +151,21 @@ function addMemberList(guild) {
                 let username = document.createElement('p');
                 username.classList.add('mLUsername');
                 username.innerText = m.nickname || m.user.username;
-                username.style.color = m.roles.color && m.roles.color.hexColor || '#8E9297';
+                username.style.color = m.roles.color?.hexColor || '#8E9297';
                 userDiv.appendChild(username);
             });
-    }
-
-    let offline = [];
+    
 
     // Display the offline users
-    let offlineCount = guild.members.cache.filter(
-        (m) => m.presence.status == 'offline'
-    ).size;
-    if (offlineCount) {
+    const offlineMembers = guild.members.cache
+        .filter(
+            (m) =>
+                !m.presence ||
+                (m.presence.status === 'offline' &&
+                    !cachedMembers.includes(m.user.id))
+        )
+        .toJSON();
+    if (offlineMembers.length) {
         // Create offline label text
         let container = document.createElement('div');
         container.id = 'offlineUserList';
@@ -163,11 +178,11 @@ function addMemberList(guild) {
         container.appendChild(name);
 
         // Show offline users
-        guild.members.cache
-            .filter((m) => m.presence.status == 'offline')
+        offlineMembers
             .sort((m1, m2) => m1.id - m2.id)
             .forEach((m) => {
-                offline.push(m.user.id);
+                cachedMembers.push(m.id);
+
                 let outerDiv = document.createElement('div');
                 outerDiv.classList.add('mLOuterDiv');
                 outerDiv.classList.add('mLOuterDivOffline');
@@ -182,17 +197,15 @@ function addMemberList(guild) {
 
                 // Add the user icon
                 let icon = document.createElement('img');
-                icon.src = m.user
-                    .displayAvatarURL()
-                    .replace(/(size=)\d+?($| )/, '$164');
+                icon.src = m.displayAvatarURL({ size: 64 });
                 icon.classList.add('mLIcon');
                 userDiv.appendChild(icon);
 
                 // Make the username text
                 let username = document.createElement('p');
                 username.classList.add('mLUsername');
-                username.innerText = m.displayName || m.user.username;
-                username.style.color = m.roles.color && m.roles.color.hexColor || '#8E9297';
+                username.innerText = m.displayName;
+                username.style.color = m.roles.color?.hexColor || '#8E9297';
                 userDiv.appendChild(username);
             });
     }
@@ -200,14 +213,15 @@ function addMemberList(guild) {
     // Display the unsorted, online users
     if (true) {
         guild.members.fetch().then((members) => {
-            members = members.array();
             // Display the other unshown users
-            let offlineCount = members.filter(
-                (m) =>
-                    m.presence.status == 'offline' &&
-                    !offline.includes(m.user.id)
-            ).length;
-            if (offlineCount) {
+            const offMembers = members
+                .filter(
+                    (m) =>
+                        (!m.presence || m.presence.status === 'offline') &&
+                        !cachedMembers.includes(m.user.id)
+                )
+                .toJSON();
+            if (offMembers.length) {
                 // Create offline label text
                 let container = document.createElement('div');
                 container.id = 'offlineUserList';
@@ -221,11 +235,6 @@ function addMemberList(guild) {
 
                 // Show offline users
                 members
-                    .filter(
-                        (m) =>
-                            m.presence.status == 'offline' &&
-                            !offline.includes(m.user.id)
-                    )
                     .sort((m1, m2) => m1.id - m2.id)
                     .forEach((m) => {
                         // Create outer div
@@ -243,17 +252,16 @@ function addMemberList(guild) {
 
                         // Add the user icon
                         let icon = document.createElement('img');
-                        icon.src = m.user
-                            .displayAvatarURL()
-                            .replace(/(size=)\d+?($| )/, '$164');
+                        icon.src = m.displayAvatarURL({ size: 64 });
                         icon.classList.add('mLIcon');
                         userDiv.appendChild(icon);
 
                         // Make the username text
                         let username = document.createElement('p');
                         username.classList.add('mLUsername');
-                        username.innerText = m.displayName || m.user.username;
-                        username.style.color = m.roles.color && m.roles.color.hexColor || '#8E9297';
+                        username.innerText = m.nickname || m.user.username;
+                        username.style.color =
+                            m.roles.color?.hexColor || '#8E9297';
                         userDiv.appendChild(username);
                     });
             }
