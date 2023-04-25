@@ -41,7 +41,7 @@ let load = async (token) => {
     bot.hideUnallowed = true; // Should be true by default
 
     let error = [false, 'none'];
-    error = await validateToken(token);
+    error = validateToken(token);
     if (error[0]) {
         return error;
     }

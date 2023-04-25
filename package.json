@@ -1,6 +1,6 @@
 {
     "name": "livebot",
-    "version": "v1.2.0-alpha",
+    "version": "v1.3.1-alpha",
     "description": "Discord for bots!",
     "main": "start.js",
     "scripts": {

@@ -103,7 +103,7 @@ async function saveToken(token) {
     }
 }
 
-async function validateToken(token = '') {
+function validateToken(token = '') {
     if (token.length == 0) return [true, 'EMPTY-TOKEN'];
 
     if (token.replace('.', '').length < 50) return [true, 'TOKEN-SHORT'];
