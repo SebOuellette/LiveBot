@@ -14,252 +14,108 @@
 
 'use strict';
 
-function addMemberList(guild) {
+async function addMemberList(guild) {
     const listDiv = document.getElementById('memberBar');
 
     // Clear members list
     listDiv.innerHTML = '';
 
-    let cachedMembers = [];
+    if (!selectedChan) return;
 
-    // Loop through roles
-    // console.log(guild.roles.cache.toJSON();
-    let roles = guild.roles.cache
-        .filter((r) => r.hoist || r.position === 0) // Check if it is a displayed role or @everyone
-        .sort((role1, role2) => role2.rawPosition - role1.rawPosition); // Sort by highest to lowest rank
+    let members = guild.members.cache;
+    let roles = new Discord.Collection();
 
-    roles.each((r) => {
-        // Loop through
-        let members = r.members
-            .filter(
-                (m) =>
-                    m.roles.hoist?.id == r.id &&
-                    m.presence &&
-                    m.presence.status != 'offline' &&
-                    !cachedMembers.includes(m.user.id)
+    if (members.size !== guild.memberCount)
+        members = await guild.members.fetch();
+
+    guild.roles.cache
+        .sort((role1, role2) => role2.rawPosition - role1.rawPosition)
+        .forEach((role) =>
+            roles.set(role.id, { id: role.id, name: role.name })
+        );
+
+    // add Online and Offline roles to display members without hoist role
+    roles.set('online', { id: 'online', name: 'Online' });
+    roles.set('offline', { id: 'offline', name: 'Offline' });
+
+    members
+        .sort((member1, member2) => {
+            if (member1.displayName < member2.displayName) return -1;
+            if (member1.displayName > member2.displayName) return 1;
+
+            return 0;
+        })
+        .forEach((member) => {
+            if (
+                !member
+                    .permissionsIn(selectedChan)
+                    .has(Discord.PermissionFlagsBits.ViewChannel)
             )
-            .toJSON();
+                return;
 
-        console.log(members);
+            let role;
 
-        if (members.length) {
-            // Role container
-            let container = document.createElement('div');
-            container.id = r.id;
-            container.classList.add('roleContainer');
-            listDiv.appendChild(container);
+            if (!member.presence || member.presence.status == 'offline') {
+                if (members.size < 1000) role = roles.get('offline');
+                else return;
+            } else if (member.roles.hoist)
+                role = roles.get(member.roles.hoist.id);
+            else if (member.presence.status != 'offline')
+                role = roles.get('online');
 
-            // Add the role name
-            let name = document.createElement('span');
-            name.classList.add('roleTitle');
-            name.innerText = `${r.name} - ${members.length}`;
-            container.appendChild(name);
+            if (!role.container) {
+                role.container = document.createElement('div');
+                role.container.id = role.id;
+                role.container.classList.add('roleContainer');
 
-            // Display only the first 100 members of each role
-            members = members.slice(0, 100);
-
-            // Add each user
-
-            // rendering too many members here causes performance issues.
-            members
-                .sort((m1, m2) => m1.id - m2.id)
-                .forEach((m) => {
-                    cachedMembers.push(m.id);
-
-                    // Create the outer div
-                    let outerDiv = document.createElement('div');
-                    outerDiv.classList.add('mLOuterDiv');
-                    container.appendChild(outerDiv);
-
-                    // Make the div for the user
-                    let userDiv = document.createElement('div');
-                    userDiv.id = m.id;
-                    userDiv.classList.add('mLUserDiv');
-                    outerDiv.appendChild(userDiv);
-
-                    // Add the user icon
-                    let icon = document.createElement('img');
-                    icon.src = m.displayAvatarURL({ size: 64 });
-                    icon.classList.add('mLIcon');
-                    userDiv.appendChild(icon);
-
-                    // Make the username text
-                    let username = document.createElement('p');
-                    username.classList.add('mLUsername');
-                    let name = m.displayName;
-                    // if (name.length > 15) {
-                    //     name = `${name.substring(0, 15)}...`
-                    // }
-                    username.innerText = name;
-                    username.style.color = m.roles.color?.hexColor || '#8E9297';
-                    userDiv.appendChild(username);
-                });
-        }
-    });
-
-    let onlineMembers = guild.members.cache
-        .filter(
-            (m) =>
-                !m.roles.hoist &&
-                m.presence &&
-                m.presence.status != 'offline' &&
-                !cachedMembers.includes(m.user.id)
-        )
-        .toJSON();
-
-    // Display only the first 100 members
-    onlineMembers = onlineMembers.slice(0, 100);
-    // Create online label text
-    let container = document.createElement('div');
-    container.id = 'onlineUserList';
-    container.classList.add('roleContainer');
-    listDiv.appendChild(container);
-
-    let name = document.createElement('span');
-    name.classList.add('roleTitle');
-    name.innerText = 'online';
-    container.appendChild(name);
-
-    // Show online users
-    onlineMembers
-        .sort((m1, m2) => m1.id - m2.id)
-        .forEach((m) => {
-            cachedMembers.push(m.id);
+                role.container.name = document.createElement('span');
+                role.container.name.classList.add('roleTitle');
+                role.container.appendChild(role.container.name);
+            }
 
             // Create the outer div
             let outerDiv = document.createElement('div');
             outerDiv.classList.add('mLOuterDiv');
-            container.appendChild(outerDiv);
+            role.container.appendChild(outerDiv);
 
             // Make the div for the user
             let userDiv = document.createElement('div');
-            userDiv.id = m.id;
+            userDiv.id = member.id;
             userDiv.classList.add('mLUserDiv');
             outerDiv.appendChild(userDiv);
 
             // Add the user icon
             let icon = document.createElement('img');
-            icon.src = m.displayAvatarURL({ size: 64 });
             icon.classList.add('mLIcon');
+            icon.src = member.displayAvatarURL({ size: 64, forceStatic: true });
+            userDiv.onmouseenter = (e) => {
+                icon.src = member.displayAvatarURL({ size: 64 });
+            };
+            userDiv.onmouseleave = (e) => {
+                icon.src = member.displayAvatarURL({
+                    size: 64,
+                    forceStatic: true,
+                });
+            };
             userDiv.appendChild(icon);
 
             // Make the username text
             let username = document.createElement('p');
             username.classList.add('mLUsername');
-            username.innerText = m.nickname || m.user.username;
-            username.style.color = m.roles.color?.hexColor || '#8E9297';
+            let name = member.displayName;
+            username.innerText = name;
+            username.style.color = member.roles.color?.hexColor || '#8E9297';
             userDiv.appendChild(username);
         });
 
-    // Display the offline users
-    const offlineMembers = guild.members.cache
-        .filter(
-            (m) =>
-                !m.presence ||
-                (m.presence.status === 'offline' &&
-                    !cachedMembers.includes(m.user.id))
-        )
-        .toJSON();
-    if (offlineMembers.length) {
-        // Create offline label text
-        let container = document.createElement('div');
-        container.id = 'offlineUserList';
-        container.classList.add('roleContainer');
-        listDiv.appendChild(container);
+    roles
+        .filter((role) => role.container)
+        .forEach((role) => {
+            // Add the role name with member count
+            role.container.name.innerText = `${role.name} — ${
+                role.container.childElementCount - 1
+            }`;
 
-        let name = document.createElement('span');
-        name.classList.add('roleTitle');
-        name.innerText = 'offline';
-        container.appendChild(name);
-
-        // Show offline users
-        offlineMembers
-            .sort((m1, m2) => m1.id - m2.id)
-            .forEach((m) => {
-                cachedMembers.push(m.id);
-
-                let outerDiv = document.createElement('div');
-                outerDiv.classList.add('mLOuterDiv');
-                outerDiv.classList.add('mLOuterDivOffline');
-                container.appendChild(outerDiv);
-
-                // Make the div for the user
-                let userDiv = document.createElement('div');
-                userDiv.id = m.id;
-                userDiv.classList.add('mLUserDivOffline');
-                userDiv.classList.add('mLUserDiv');
-                outerDiv.appendChild(userDiv);
-
-                // Add the user icon
-                let icon = document.createElement('img');
-                icon.src = m.displayAvatarURL({ size: 64 });
-                icon.classList.add('mLIcon');
-                userDiv.appendChild(icon);
-
-                // Make the username text
-                let username = document.createElement('p');
-                username.classList.add('mLUsername');
-                username.innerText = m.displayName;
-                username.style.color = m.roles.color?.hexColor || '#8E9297';
-                userDiv.appendChild(username);
-            });
-    }
-
-    // Display the unsorted, online users
-    if (true) {
-        guild.members.fetch().then((members) => {
-            // Display the other unshown users
-            const offMembers = members
-                .filter(
-                    (m) =>
-                        (!m.presence || m.presence.status === 'offline') &&
-                        !cachedMembers.includes(m.user.id)
-                )
-                .toJSON();
-            if (offMembers.length) {
-                // Create offline label text
-                let container = document.createElement('div');
-                container.id = 'offlineUserList';
-                container.classList.add('roleContainer');
-                listDiv.appendChild(container);
-
-                let name = document.createElement('span');
-                name.classList.add('roleTitle');
-                name.innerText = 'uncached users';
-                container.appendChild(name);
-
-                // Show offline users
-                members
-                    .sort((m1, m2) => m1.id - m2.id)
-                    .forEach((m) => {
-                        // Create outer div
-                        let outerDiv = document.createElement('div');
-                        outerDiv.classList.add('mLOuterDiv');
-                        outerDiv.classList.add('mLOuterDivOffline');
-                        container.appendChild(outerDiv);
-
-                        // Make the div for the user
-                        let userDiv = document.createElement('div');
-                        userDiv.id = m.id;
-                        userDiv.classList.add('mLUserDivOffline');
-                        userDiv.classList.add('mLUserDiv');
-                        outerDiv.appendChild(userDiv);
-
-                        // Add the user icon
-                        let icon = document.createElement('img');
-                        icon.src = m.displayAvatarURL({ size: 64 });
-                        icon.classList.add('mLIcon');
-                        userDiv.appendChild(icon);
-
-                        // Make the username text
-                        let username = document.createElement('p');
-                        username.classList.add('mLUsername');
-                        username.innerText = m.nickname || m.user.username;
-                        username.style.color =
-                            m.roles.color?.hexColor || '#8E9297';
-                        userDiv.appendChild(username);
-                    });
-            }
+            listDiv.appendChild(role.container);
         });
-    }
 }
