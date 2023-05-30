@@ -76,6 +76,9 @@ let channelSelect = (c, name) => {
         console.log(err);
     }
 
+    // Create the member list
+    addMemberList(c.guild);
+
     // Create message
     async function messageCreate() {
         generatingMessages = true;

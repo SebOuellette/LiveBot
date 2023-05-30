@@ -54,9 +54,6 @@ let guildSelect = (g, img) => {
         messages.removeChild(messages.firstChild);
     }
 
-    // Create the member list
-    addMemberList(g);
-
     // Create the channels
     createChannels(g);
 };
