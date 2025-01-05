@@ -141,6 +141,25 @@ function generateMsgHTML(
         darkBG.appendChild(text);
     }
 
+    // Prepend attachments
+    if(m.attachments) {
+        m.attachments.forEach((i) => {
+            let attachText;
+            if(i.contentType.includes("image")) {
+                attachText = document.createElement('p');
+                showEmbed({ type: "image", thumbnail: { proxy_url: i.url, width: i.width, height: i.height } }, attachText, m);
+            }
+            if(i.contentType.includes("video")) {
+                attachText = document.createElement('p');
+                showEmbed({ type: "video", video: { url: i.url, width: i.width, height: i.height } }, attachText, m);
+            }
+            if(attachText) {
+                attachText.classList.add('messageText');
+                darkBG.appendChild(attachText)
+            }
+        });
+    }
+
     // Append embeds
     m.embeds.forEach((embed) => {
         showEmbed(embed.data, darkBG, m);
