@@ -25,17 +25,17 @@ LiveBot has been built so that the style and flow is similar to discord, and whi
 ## Installation
 ### Release (recommended)
 
-To download a binary executable file, simply click on the latest [Release](../../releases) on the right side of the page, and download whichever zip or tar.gz file suits your needs. For example, if you use Windows, you should download the zip file that says "win32", if you use Linux, you will download the file that says "linux", and if you use macOS you will download the file that says "darwin". Once you download and decompress the file, just execute it as you would any other application. 
+To download a binary executable file, simply click on the latest [Release](../../releases) on the right side of the page, and download whichever zip or tar.gz file suits your needs. For example, if you use Windows, you should download the zip file that says "win32", if you use Linux, you will download the file that says "linux", and if you use macOS you will download the file that says "darwin". Once you download and decompress the file, just execute it as you would any other application.
 
 
-### From Source (unstable)
+### From Source
 
 LiveBot requires the [Node.js] JavaScript runtime to run.
 
 You can download the source with [Git] (and get updates easily) or you can download as a zipped (compressed) file from GitHub. If you wish to download as a zip file, GitHub provides a big green "Code" button which you can press to download the file.
 
+#### Step 1
 If you want to download with Git, a bash command to do so is found below:
-
 ```sh
 # with SSH (requires public key to be set)
 git clone "git@github.com:SebOuellette/LiveBot.git"
@@ -44,13 +44,23 @@ git clone "git@github.com:SebOuellette/LiveBot.git"
 git clone "https://github.com/SebOuellette/LiveBot.git"
 ```
 
+#### Step 2
 After cloning with Git or decompressing the zip file, you must open the directory the source is located in and install the dependencies with npm (or your preferred package manager) with the following command:
-
 ```sh
 npm install
 ```
 
-When your package manager is finished installing, you may start the program with `npm start`.
+#### Step 3
+As of 2025, LiveBot requires an patch for internal libraries. This patch is included in the repository, and can be applied using the following command:
+```sh
+tar -xvf patch.tar
+```
+
+#### Step 4
+When your package manager is finished installing, you may start the program with:
+```sh
+npm start
+```
 
 ## Features
 ### Token switcher (User menu)
@@ -71,7 +81,7 @@ The profile card is able to tell you the username, the avatar image, the discrim
 
 ### Generate Invite
 
-LiveBot gives you the ability to generate an invite quickly from within the app, instead of having to go to your bot's application page in the Discord Developer portal. It can be found in the user settings page in the pull up menu. Just toggle all the permissions you'd like to give the invite (by default, everything recommended to use LiveBot's features is enabled). 
+LiveBot gives you the ability to generate an invite quickly from within the app, instead of having to go to your bot's application page in the Discord Developer portal. It can be found in the user settings page in the pull up menu. Just toggle all the permissions you'd like to give the invite (by default, everything recommended to use LiveBot's features is enabled).
 
 <img src='https://i.imgur.com/ggkyQtn.png' alt='Invite generator preview' style='border-radius: 10px;'>
 
