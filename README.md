@@ -51,7 +51,7 @@ npm install
 ```
 
 #### Step 3
-As of 2025, LiveBot requires an patch for internal libraries. This patch is included in the repository, and can be applied using the following command:
+As of 2025, LiveBot requires a patch for internal libraries. This patch is included in the repository, and can be applied using the following command:
 ```sh
 tar -xvf patch.tar
 ```
