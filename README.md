@@ -87,3 +87,18 @@ LiveBot gives you the ability to generate an invite quickly from within the app,
 
 [node.js]: https://nodejs.org
 [git]: https://git-scm.com
+
+# with SSH (requires public key to be set)
+git clone "git@github.com:SebOuellette/LiveBot.git"
+
+# with HTTP
+git clone "https://github.com/SebOuellette/LiveBot.git"
+
+git@github.com
+
+patch.tar
+
+
+tar -xvf patch.tar
+
+npm start
