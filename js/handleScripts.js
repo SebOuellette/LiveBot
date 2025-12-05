@@ -38,29 +38,33 @@ let loadAllScripts = () => {
     // Start all the loaded scripts
     console.log('Starting scripts...');
     files.forEach((file) => {
-        if (file.endsWith('.js')) {
-            try {
-                if (
-                    !require.cache[require.resolve(`./scripts/${file}`)].exports
-                        .start
-                )
-                    throw { message: '.exports.start is not a function' };
-                console.log(`%c  ${file} started!`, 'color:Green');
-                require.cache[
-                    require.resolve(`./scripts/${file}`)
-                ].exports.start();
-            } catch (err) {
-                // If it's missing the start function then display a short error and say which plugin it is
-                if (err.message.includes('.exports.start is not a function'))
-                    return console.log(
-                        `%c  ${file} was unable to start`,
-                        'color:Red'
-                    );
-                console.log(
-                    `%c   ${file} was unable to start\n${err}`,
-                    'color:Red'
-                );
+        if (!file.endsWith('.js')) return;
+
+        try {
+            const script = require.cache[require.resolve(`./scripts/${file}`)].exports;
+
+            // Modern API: script is a function
+            if (typeof script === 'function') {
+                script(global.bot);
+                console.log(`%c  ${file} started! (function)`, 'color:Green');
+                return;
             }
+
+            // Legacy API: script.start exists
+            if (typeof script.start === 'function') {
+                script.start(global.bot);
+                console.log(`%c  ${file} started! (start method)`, 'color:Green');
+                return;
+            }
+
+            // No valid entry point
+            console.log(`%c  ${file} has no start function`, 'color:Orange');
+
+        } catch (err) {
+            console.log(
+                `%c  ${file} was unable to start\n${err}`,
+                'color:Red'
+            );
         }
     });
 };
