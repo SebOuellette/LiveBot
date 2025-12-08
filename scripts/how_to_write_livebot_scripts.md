@@ -268,4 +268,3 @@ LiveBot scripting is powerful — you can build:
 This guide will continue to evolve as the community contributes new patterns and best practices.
 
 If you have improvements, feel free to submit a PR!
-```
