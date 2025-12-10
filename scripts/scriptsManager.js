@@ -36,7 +36,14 @@ const fs = require("fs");
 const path = require("path");
 const { shell } = require("electron");
 
-module.exports = (bot) => {
+module.exports.info = {
+    author: 'developer51709',
+    title: 'Official Scripts Manager',
+    description: 'LiveBot\'s official scripts manager tool',
+    version: '1.0.0',
+};
+
+module.exports.start = () => {
     console.log("[ScriptsManager] Loaded");
 
     const scriptsDir = path.join(__dirname);
@@ -62,7 +69,8 @@ module.exports = (bot) => {
 
     const reloadAllScripts = () => {
         const files = fs.readdirSync(scriptsDir)
-            .filter(f => f.endsWith(".js") && f !== "scriptsManager.js");
+            .filter(f => f.endsWith(".js") && f !== "scriptsManager.js"); 
+	    // I want to show this as an example script
         files.forEach(file => reloadScript(file));
     };
 
@@ -564,11 +572,38 @@ module.exports = (bot) => {
             return;
         }
 
-        const template = `module.exports = (bot) => {
-    console.log("[${file}] Loaded");
-    // Your code here
+        const template = `module.exports.info = {
+    author: 'Your discord username and tag (ex: SharkFin#1504)',
+    title: 'Name of your script',
+    description: 'Description of your script',
+    version: '1.0.0',
 };
-`;
+
+// 'module.exports = () =>' will behave the same as 'module.exports.start = () =>'
+
+module.exports.start = () => {
+    /*
+    Global Variables Available:
+    bot             - the Discord.client() that is signed in
+    selectedChan    - the current channel you're in (Object, not the DOM)
+    selectedGuild   - the current guild you're in
+    selectedVoice   - the last selected voice channel
+                        This isn't really supported, but it's here for future use. If you need better accessibility with this variable,
+                        ask for it in the discord (which you can find on the readme) and we'll see what we can do
+    */
+
+    // Your code goes here
+
+    myFunction();
+};
+
+module.exports.stop = () => {
+    // This code will call when the script should be unloaded
+};
+
+function myFunction() {
+    // You can make normal functions and call them from start()
+}`;
 
         try {
             fs.writeFileSync(full, template, "utf8");
@@ -587,8 +622,8 @@ module.exports = (bot) => {
     // DELETE SCRIPT
     // ============================================================
     const promptDeleteScript = (file) => {
-        if (file === "scriptsManager.js") {
-            alert("scriptsManager.js is a core system script and cannot be deleted.");
+        if (file === "scriptsManager.js" || file === "embedBuilder.js" || file === "template.js") {
+            alert(`${file} is a core system script and cannot be deleted.`);
             return;
         }
 
@@ -631,12 +666,17 @@ module.exports = (bot) => {
         if (!list) return;
 
         const files = fs.readdirSync(scriptsDir)
-            .filter(f => f.endsWith(".js") && f !== "scriptsManager.js");
+            .filter(f => f.endsWith(".js")); // && f !== "scriptsManager.js");
 
         list.innerHTML = "";
 
         files.forEach(file => {
             const info = scriptStatus[file] || { status: "unknown", error: null };
+
+	    const resolveName = `./${file}`;
+	    require(resolveName);
+	    const script = require.cache[require.resolve(resolveName)]?.exports?.info;
+	    delete require.cache[require.resolve(resolveName)];
 
             const row = document.createElement("div");
             row.style = `
@@ -648,11 +688,16 @@ module.exports = (bot) => {
 
             row.innerHTML = `
                 <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <strong>${file}</strong>
+                    <strong>${script?.title ? script?.title : file} <span style="opacity:0.7">by ${script?.author}</span></strong>
                     <span style="font-size:12px; opacity:0.7;">${info.status}</span>
                 </div>
 
                 ${info.error ? `<div style="color:#ff6b6b; font-size:12px; margin-top:6px;">${info.error}</div>` : ""}
+
+		${script?.author ? `<div style="display:flex; justify-content:space-between; align-items:center;">
+		    <p>${script?.description}</p>
+		    <p>v${script?.version}</p>
+		</div>` : ""}
 
                 <div style="display:flex; gap:10px; margin-top:10px;">
                     <button class="reloadScript" data-file="${file}" style="

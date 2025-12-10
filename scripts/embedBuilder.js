@@ -28,7 +28,15 @@
  *  or UI improvements without needing to modify unrelated parts of the app.
  */
 
-module.exports = (bot) => {
+module.exports.info = {
+    author: 'developer51709',
+    title: 'Official Embed Builder',
+    description: 'LiveBot\'s official embed builder plugin',
+    version: '1.0.0',
+    system: true // Indicates this should not be deleted
+};
+
+module.exports.start = () => {
     console.log("[ChannelMenu] Script started");
 
     // ============================================================

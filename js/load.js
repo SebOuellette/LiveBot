@@ -47,19 +47,10 @@ let load = async (token) => {
     }
 
     //hideSplashScreen(); // TESTING - DO NOT COMMIT
-    await bot
-        .login(token)
-        .catch((err) => {
-            error = [true, err];
-        })
-        .then(() => {
-            setLoadingPerc(0.15);
-        });
-    if (error[0]) {
-        return error;
-    }
-
+    
     bot.on('ready', async () => {
+	console.log("ready");
+
         // Reset the timer on the presence thing (heartbeat)
         let presenceInterval = setInterval(() => {
             bot.user.setPresence(bot.user.presence);
@@ -345,6 +336,20 @@ let load = async (token) => {
         // Unload all the themes
         unloadThemes();
     });
+
+    // Now that all the event listners have been setup, login to the bot. 
+    await bot.login(token).catch((err) => {
+        error = [true, err];
+    })
+    .then(() => {
+        setLoadingPerc(0.15);
+    });
+
+    if (error[0]) {
+        return error;
+    }
+
+
     return error;
 };
 

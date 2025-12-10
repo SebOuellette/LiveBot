@@ -34,7 +34,7 @@ let animations = {
 function errorHandler(err) {
     let code = err.code ? err.code : err;
     if (err.name == 'DiscordAPIError') discordApiErrors(code, err);
-    else if (code.includes('TOKEN')) {
+    else if (code.toString().includes('TOKEN')) {
         customTokenErrors(code, err);
     } else customErrors(code, err);
 }
@@ -117,7 +117,7 @@ function customTokenErrors(code, err) {
             );
             break;
         default:
-            setLoadingPerc(-1);
+            setLoadingPerc(-1, `${err.toString()}`);
             console.error(`Error code: ${err.code}\n${err}`);
             break;
     }
@@ -139,12 +139,36 @@ function customErrors(code, err) {
             tokenError();
             break;
         case 'EMPTY-NAME':
-            console.error('Username is empty or contains invalid characters');
+            setLoadingPerc(
+	    	-1,
+		"Bot's username is empty or contains invalid characters. Please change it."
+	    );
+	    console.error('Username is empty or contains invalid characters');
             break;
         case 'SERVER_OFFLINE':
+	    setLoadingPerc(
+	    	-1,
+		"Guild(s) offline. Please wait for Discord to recover."
+	    );
             console.error('Guild seems to be offline');
             break;
+	case 'NO_SERVERS':
+	    setLoadingPerc(
+	    	-1,
+		"The bot and owner MUST both be in at least 1 server together. Found 0 matching servers."
+	    );
+	    console.error("The bot and owner MUST both be in at least 1 server together. Found 0 matching servers.");
+	    console.log("Automatically running FAQ 5:");
+	    console.log(bot.guilds.cache.size + " server(s)"); 
+	    bot.guilds.cache.forEach(g => {
+	    	console.log(g.name+": "+g.members.cache.map(x => x.user.id).includes(bot.owner.id)+" - Members: "+g.members.cache.size)
+	    });
+
         default:
+	    setLoadingPerc(
+	    	-1,
+	    	`${err.toString()}` // As a fallback, just show the user the raw error. 
+	    );
             console.error(`Error code: ${err.code}\n${err}`);
             break;
     }
