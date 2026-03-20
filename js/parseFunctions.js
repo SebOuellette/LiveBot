@@ -16,7 +16,7 @@
 
 function parseHTML(text) {
     text = text.replace(/<|>|&/gm, (s) =>
-        s == '<' ? '&lt;' : s == '>' ? '&gt;' : '&amp'
+        s == '<' ? '&lt;' : s == '>' ? '&gt;' : '&amp;'
     );
     return text;
 }
