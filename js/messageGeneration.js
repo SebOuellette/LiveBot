@@ -164,5 +164,11 @@ function generateMsgHTML(
     m.embeds.forEach((embed) => {
         showEmbed(embed.data, darkBG, m);
     });
+
+    // Render components (buttons, selects, and Components V2 types)
+    if (m.components && m.components.length > 0) {
+        renderComponents(m.components, darkBG, m);
+    }
+
     return div;
 }

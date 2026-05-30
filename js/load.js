@@ -49,7 +49,7 @@ let load = async (token) => {
     //hideSplashScreen(); // TESTING - DO NOT COMMIT
     
     bot.on('ready', async () => {
-	console.log("ready");
+        console.log("ready");
 
         // Reset the timer on the presence thing (heartbeat)
         let presenceInterval = setInterval(() => {
@@ -124,6 +124,13 @@ let load = async (token) => {
         } else {
             bot.owner = botOwner;
             continueLoad();
+        }
+    });
+
+    // Voice state changed — update voice panel member list and speaking indicators
+    bot.on('voiceStateUpdate', (oldState, newState) => {
+        if (typeof updateVoicePanel === 'function') {
+            updateVoicePanel(oldState, newState);
         }
     });
 

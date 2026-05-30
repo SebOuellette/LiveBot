@@ -1,0 +1,304 @@
+/* Discord UI Buttons & Components V2 styles */
+
+/* ── Action Row ──────────────────────────────────────────────────────────── */
+.componentActionRow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 4px 0 2px 0;
+    align-items: center;
+}
+
+/* ── Buttons ─────────────────────────────────────────────────────────────── */
+.componentButton {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 16px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-family: Whitney-light, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.2;
+    transition: filter 0.1s ease, opacity 0.1s ease;
+    white-space: nowrap;
+    min-height: 32px;
+    user-select: none;
+}
+
+.componentButton:not(.btnDisabled):hover {
+    filter: brightness(0.85);
+}
+
+.componentButton:not(.btnDisabled):active {
+    filter: brightness(0.75);
+    transform: scale(0.98);
+}
+
+.btnPrimary {
+    background-color: #5865f2;
+    color: #fff;
+}
+
+.btnSecondary {
+    background-color: #4f545c;
+    color: #fff;
+}
+
+.btnSuccess {
+    background-color: #3ba55d;
+    color: #fff;
+}
+
+.btnDanger {
+    background-color: #ed4245;
+    color: #fff;
+}
+
+.btnLink {
+    background-color: #4f545c;
+    color: #fff;
+}
+
+.btnPremium {
+    background: linear-gradient(90deg, #f9a231, #ff73fa);
+    color: #fff;
+}
+
+.btnDisabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btnEmoji {
+    display: inline-flex;
+    align-items: center;
+    font-size: 16px;
+    line-height: 1;
+}
+
+.btnEmojiImg {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+}
+
+.btnLinkIcon {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+/* ── Select Menus ────────────────────────────────────────────────────────── */
+.componentSelect {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #1e1f22;
+    border: 1px solid #3d4147;
+    border-radius: 4px;
+    padding: 6px 12px;
+    min-width: 200px;
+    max-width: 400px;
+    cursor: default;
+    color: #b5bac1;
+    font-size: 14px;
+    min-height: 38px;
+}
+
+.selectDisabled {
+    opacity: 0.5;
+}
+
+.selectPlaceholder {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #87898c;
+}
+
+.selectArrow {
+    font-size: 10px;
+    color: #b5bac1;
+    margin-left: 8px;
+}
+
+/* ── Section (v2) ────────────────────────────────────────────────────────── */
+.componentSection {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin: 4px 0;
+    max-width: 512px;
+}
+
+.sectionTextArea {
+    flex: 1;
+    min-width: 0;
+}
+
+.sectionAccessory {
+    flex-shrink: 0;
+    max-width: 80px;
+}
+
+/* ── Text Display (v2) ───────────────────────────────────────────────────── */
+.componentTextDisplay {
+    color: #dbdee1;
+    font-size: 15px;
+    margin: 2px 0;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+/* ── Thumbnail (v2) ──────────────────────────────────────────────────────── */
+.componentThumbnail {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.thumbnailImage {
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+/* ── Media Gallery (v2) ──────────────────────────────────────────────────── */
+.componentMediaGallery {
+    display: grid;
+    gap: 4px;
+    margin: 6px 0;
+    max-width: 512px;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.componentMediaGallery.galleryCount1 {
+    grid-template-columns: 1fr;
+}
+
+.componentMediaGallery.galleryCount2 {
+    grid-template-columns: 1fr 1fr;
+}
+
+.componentMediaGallery.galleryCount3 {
+    grid-template-columns: 1fr 1fr;
+}
+
+.componentMediaGallery.galleryCount3 .galleryItem:first-child {
+    grid-column: span 2;
+}
+
+.componentMediaGallery.galleryCount4 {
+    grid-template-columns: 1fr 1fr;
+}
+
+.galleryItem {
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+    background-color: #1e1f22;
+}
+
+.galleryMedia {
+    display: block;
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.galleryMedia:hover {
+    filter: brightness(0.9);
+}
+
+.mediaCaption {
+    font-size: 12px;
+    color: #87898c;
+    margin: 2px 4px 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ── File (v2) ───────────────────────────────────────────────────────────── */
+.componentFile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #2b2d31;
+    border: 1px solid #3d4147;
+    border-radius: 4px;
+    padding: 10px 14px;
+    max-width: 400px;
+    margin: 4px 0;
+}
+
+.fileIcon {
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.fileInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.fileLink {
+    color: #00a8fc;
+    text-decoration: none;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.fileLink:hover {
+    text-decoration: underline;
+}
+
+/* ── Separator (v2) ──────────────────────────────────────────────────────── */
+.componentSeparator {
+    margin: 8px 0;
+    height: 1px;
+}
+
+.componentSeparator.separatorLarge {
+    margin: 16px 0;
+}
+
+.componentSeparator.separatorWithLine {
+    background-color: #3d4147;
+}
+
+/* ── Container (v2) ──────────────────────────────────────────────────────── */
+.componentContainer {
+    background-color: #2b2d31;
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin: 6px 0;
+    max-width: 512px;
+    border-left: 4px solid transparent;
+}
+
+.componentContainerAccent {
+    border-left: 4px solid;
+}
+
+/* ── Spoiler blur ────────────────────────────────────────────────────────── */
+.mediaSpoiler {
+    filter: blur(20px);
+    border-radius: 4px;
+}
+
+.mediaSpoiler:hover {
+    filter: none;
+}

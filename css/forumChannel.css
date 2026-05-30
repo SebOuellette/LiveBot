@@ -1,0 +1,190 @@
+/* ── Forum Panel (fills #message-list) ────────────────────────────────────── */
+
+.forumPanelHeader {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 20px 12px;
+    background-color: #2f3136;
+    border-bottom: 1px solid #202225;
+    flex-shrink: 0;
+}
+
+.forumHeaderIcon {
+    width: 20px;
+    height: 20px;
+    opacity: 0.7;
+    margin-top: 3px;
+    flex-shrink: 0;
+}
+
+.forumHeaderText { display: flex; flex-direction: column; gap: 2px; }
+
+.forumChannelTitle {
+    font-size: 17px;
+    font-weight: bold;
+    color: #dcddde;
+    margin: 0;
+}
+
+.forumChannelTopic {
+    font-size: 13px;
+    color: #8e9297;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 500px;
+}
+
+/* Posts scrollable area */
+#forumPostsArea {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#forumPostsArea::-webkit-scrollbar { width: 6px; background: transparent; }
+#forumPostsArea::-webkit-scrollbar-thumb { background: #25272b; border-radius: 3px; }
+
+.forumLoading, .forumEmpty {
+    color: #72767d;
+    text-align: center;
+    margin-top: 40px;
+    font-size: 15px;
+}
+
+/* Post card */
+.forumPostCard {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background-color: #2f3136;
+    border-radius: 8px;
+    padding: 13px 16px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: background-color 0.1s ease, border-color 0.1s ease;
+}
+
+.forumPostCard:hover {
+    background-color: #34373c;
+    border-color: #4f545c;
+}
+
+.forumPostCard.forumPostArchived { opacity: 0.6; }
+
+.forumPostAvatarWrap { flex-shrink: 0; }
+
+.forumPostAvatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.forumPostContent {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.forumPostTitleRow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.forumPostTitle {
+    font-size: 15px;
+    font-weight: bold;
+    color: #dcddde;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.forumBadge {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+.forumArchivedBadge { background-color: #4f545c; color: #b9bbbe; }
+.forumLockedBadge { background-color: #faa61a22; color: #faa61a; }
+
+.forumTagsRow { display: flex; gap: 5px; flex-wrap: wrap; }
+
+.forumTag {
+    font-size: 12px;
+    padding: 2px 9px;
+    border-radius: 12px;
+    background-color: #3c3f45;
+    color: #b9bbbe;
+    white-space: nowrap;
+}
+
+.forumPostMeta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #72767d;
+    flex-wrap: wrap;
+}
+.forumMetaAuthor { color: #8e9297; }
+.forumMetaDot { color: #4f545c; }
+.forumMetaReplies { color: #8e9297; }
+
+/* ── Back bar (sticky header inside #message-list when thread is open) ───── */
+
+#forumBackBar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 16px;
+    background-color: #2f3136;
+    border-bottom: 1px solid #202225;
+    /* Full width of the message-list container */
+    margin: 0 -0px; /* no extra margin — message-list handles padding */
+}
+
+.forumBackBtn {
+    background-color: #4f545c;
+    color: #dcddde;
+    border: none;
+    border-radius: 5px;
+    padding: 4px 12px;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: Whitney-light, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    white-space: nowrap;
+    transition: background-color 0.1s;
+}
+.forumBackBtn:hover { background-color: #5d6269; color: #fff; }
+
+.forumThreadTitle {
+    font-size: 14px;
+    font-weight: bold;
+    color: #dcddde;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+}
+
+/* When showing a thread, remove padding-bottom so back bar sits flush */
+#message-list:has(#forumBackBar) {
+    padding-bottom: 60px; /* keep normal - send bar still shows */
+}
